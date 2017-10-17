@@ -220,7 +220,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         //实装末端servant
         sItem = new ServantItem();
         sItem.setId(999);
-        sItem.setName("百度月系吧刊组");
+        sItem.setName("百度月系吧刊组");//6星天花板
         sItem.setClass_type("Creator");
         sItem.setStar(6);
         itemAdapter = new ItemAdapter(this);

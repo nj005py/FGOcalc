@@ -68,13 +68,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="677370ba-15c2-4780-9b4c-1c10b60d19de" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
+    <list default="true" id="677370ba-15c2-4780-9b4c-1c10b60d19de" name="Default" comment="更新注释">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ServantListActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ServantListActy.java" />
     </list>
     <ignored path="FGOcalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -144,8 +140,8 @@
       <file leaf-file-name="ServantListActy.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ServantListActy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="449" column="11" selection-start-line="449" selection-start-column="11" selection-end-line="449" selection-end-column="11" />
+            <state relative-caret-position="621">
+              <caret line="475" column="47" selection-start-line="475" selection-start-column="47" selection-end-line="475" selection-end-column="47" />
               <folding>
                 <element signature="class#5500:5930" expanded="false" />
                 <element signature="method#initStatusBar#0;class#ServantListActy#0" expanded="false" />
@@ -164,10 +160,10 @@
                 <element signature="e#17476#17844#0" expanded="true" />
                 <element signature="e#17843#17844#0" expanded="true" />
                 <element signature="method#setDrawerLeftEdgeSize#0;class#ServantListActy#0" expanded="false" />
-                <element signature="e#21339#21345#0" expanded="true" />
+                <element signature="e#21355#21361#0" expanded="true" />
                 <element signature="method#checkDatabase#0;class#ServantListActy#0" expanded="false" />
-                <element signature="e#28915#29615#0" expanded="true" />
-                <element signature="e#29614#29615#0" expanded="true" />
+                <element signature="e#28931#29631#0" expanded="true" />
+                <element signature="e#29630#29631#0" expanded="true" />
                 <element signature="method#isNetworkAvailable#0;class#ServantListActy#0" expanded="false" />
                 <element signature="method#checkUpdate#0;class#ServantListActy#0" expanded="false" />
               </folding>
@@ -2883,6 +2879,60 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fgocalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fgocalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -3450,11 +3500,19 @@
       <option name="presentableId" value="Default" />
       <updated>1486346990148</updated>
     </task>
+    <task id="LOCAL-00001" summary="先试试">
+      <created>1508253379466</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1508253379466</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29017857" sideWeight="0.48987207" order="12" side_tool="false" content_ui="tabs" />
@@ -3469,7 +3527,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2909699" sideWeight="0.5101279" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13486141" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13486141" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -3498,6 +3556,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="先试试" />
+    <option name="LAST_COMMIT_MESSAGE" value="先试试" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3954,8 +4016,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ServantListActy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="449" column="11" selection-start-line="449" selection-start-column="11" selection-end-line="449" selection-end-column="11" />
+        <state relative-caret-position="621">
+          <caret line="475" column="47" selection-start-line="475" selection-start-column="47" selection-end-line="475" selection-end-column="47" />
           <folding>
             <element signature="class#5500:5930" expanded="false" />
             <element signature="method#initStatusBar#0;class#ServantListActy#0" expanded="false" />
@@ -3974,10 +4036,10 @@
             <element signature="e#17476#17844#0" expanded="true" />
             <element signature="e#17843#17844#0" expanded="true" />
             <element signature="method#setDrawerLeftEdgeSize#0;class#ServantListActy#0" expanded="false" />
-            <element signature="e#21339#21345#0" expanded="true" />
+            <element signature="e#21355#21361#0" expanded="true" />
             <element signature="method#checkDatabase#0;class#ServantListActy#0" expanded="false" />
-            <element signature="e#28915#29615#0" expanded="true" />
-            <element signature="e#29614#29615#0" expanded="true" />
+            <element signature="e#28931#29631#0" expanded="true" />
+            <element signature="e#29630#29631#0" expanded="true" />
             <element signature="method#isNetworkAvailable#0;class#ServantListActy#0" expanded="false" />
             <element signature="method#checkUpdate#0;class#ServantListActy#0" expanded="false" />
           </folding>

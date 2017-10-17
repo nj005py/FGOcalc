@@ -467,6 +467,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     private void setMethod(int method) {
         //method 0：获取全部，1：搜索，2：筛选
 //        database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+        //获取数据库
         database = dbManager.getDatabase();
         Cursor cur;
         switch (method) {

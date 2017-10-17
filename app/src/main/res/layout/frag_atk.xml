@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fa_ll_calc">
+
+        <!--输入-->
+        <LinearLayout
+            android:id="@+id/fa_ll_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="5.0"
+                    android:text="ATK"/>
+
+                <EditText
+                    android:id="@+id/fa_et_atk"
+                    android:layout_weight="1.0"
+                    style="@style/et_common"
+                    android:inputType="number"
+                    android:hint="ATK"/>
+
+            </LinearLayout>
+
+            <!--card-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/fa_sp_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+                <Spinner
+                    android:id="@+id/fa_sp_card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+                <Spinner
+                    android:id="@+id/fa_sp_card3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+            </LinearLayout>
+
+            <!--critical-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <CheckBox
+                    android:id="@+id/fa_cb_cr1"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:text="暴击"/>
+
+                <CheckBox
+                    android:id="@+id/fa_cb_cr2"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="暴击"/>
+
+                <CheckBox
+                    android:id="@+id/fa_cb_cr3"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="暴击"/>
+
+            </LinearLayout>
+
+            <!--阶职相性-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.0"
+                    android:gravity="center"
+                    android:text="职阶相性"
+                    android:textColor="@color/colorBlack"/>
+
+                <RadioGroup
+                    android:id="@+id/fa_rg_weak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_normal"
+                        style="@style/rb_atk"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.0"
+                        android:text="白值"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_weak"
+                        style="@style/rb_atk"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.0"
+                        android:layout_marginLeft="5dp"
+                        android:text="克制"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_weakened"
+                        style="@style/rb_atk"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1.0"
+                        android:layout_marginLeft="5dp"
+                        android:text="被克"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <!--阵营相性-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.0"
+                    android:gravity="center"
+                    android:text="阵营相性"
+                    android:textColor="@color/colorBlack"/>
+
+                <RadioGroup
+                    android:id="@+id/fa_rg_team"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_tnormal"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="无克制"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_tweak"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="克制"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_tweakened"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="被克"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <!--乱数补正-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.0"
+                    android:gravity="center"
+                    android:text="乱数补正"
+                    android:textColor="@color/colorBlack"/>
+
+                <RadioGroup
+                    android:id="@+id/fa_rg_random"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_random_min"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="最小"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_random_max"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="最大"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_random_average"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="平均"/>
+
+                    <RadioButton
+                        android:id="@+id/fa_rb_random"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="随机"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <!--buff设置开关-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="Buff设置"
+                    android:textColor="@color/colorBlack"/>
+
+                <ToggleButton
+                    android:id="@+id/fa_tb_buff"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/se_toggle_btn"
+                    android:checked="false"
+                    android:gravity="end"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+            </RelativeLayout>
+
+            <!--buff设置-->
+            <LinearLayout
+                android:id="@+id/fa_ll_buff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!--加攻、降防、暴击-->
+                <LinearLayout
+                    style="@style/ll_match_width_horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <!--加攻-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/atk_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_atkup"
+                            style="@style/et_trump"
+                            android:hint="攻击力提升" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--降防-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/defence_down"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_defdown"
+                            style="@style/et_trump"
+                            android:hint="防御力下降" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--暴击-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/critical_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_criticalup"
+                            style="@style/et_trump"
+                            android:hint="暴击威力提升" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--3色魔放-->
+                <LinearLayout
+                    style="@style/ll_match_width_horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <!--红魔放-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/buster_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_busterup"
+                            style="@style/et_trump"
+                            android:hint="红魔放" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--蓝魔放-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/arts_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_artsup"
+                            style="@style/et_trump"
+                            android:hint="蓝魔放" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--绿魔放-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/quick_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_quickup"
+                            style="@style/et_trump"
+                            android:hint="绿魔放" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--特攻-->
+                <LinearLayout
+                    style="@style/ll_match_width_horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <!--特攻-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="2.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/special_up"/>
+
+                        <EditText
+                            android:id="@+id/fa_et_spup"
+                            style="@style/et_trump"
+                            android:hint="特攻" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fa_tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="9dp"
+                android:text="结果"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--计算-->
+    <LinearLayout
+        android:id="@+id/fa_ll_calc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/colorWhite">
+
+        <Button
+            android:id="@+id/fa_btn_calc"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_radius_blue"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="计算"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/fa_btn_clean"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_radius_blue"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="清理结果"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+
+    <!--人物-->
+    <RelativeLayout
+        android:id="@+id/fa_rl_character"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/fa_iv_character"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/lily"/>
+
+        <View
+            android:id="@+id/fa_v_character"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/fa_iv_character"
+            android:background="@drawable/sh_radius_deepblue_alpha"/>
+
+        <TextView
+            android:id="@+id/fa_tv_character"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/fa_iv_character"
+            android:padding="10dp"
+            android:gravity="start"
+            android:text="ATK是必填项！Buff可以不填！\n能帮上点忙吗？"
+            android:textColor="@color/colorWhite"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="pagedview_img_id" type="id"/>
+    <item name="pagedview_dragImg_id" type="id"/>
+    <item name="itemadapter_smooth_id" type="id"/>
+    <item name="itemadapter_position_id" type="id"/>
+    <item name="item_longPress_id" type="id"/>
+    <item name="item_delete_id" type="id"/>
+    <!-- MemberTimeItemView中动态图片引所值 -->
+    <item name="item_gridView_index" type="id"/>
+
+</resources>

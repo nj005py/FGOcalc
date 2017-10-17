@@ -1,0 +1,80 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+    defaultConfig {
+        applicationId "com.phantancy.fgocalc"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 8
+        versionName "v1.4"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "3g"
+    }
+
+    productFlavors {
+    }
+    lintOptions {
+        disable 'LongLogTag'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('fgocalc.jks')
+            storePassword 'ph123456'
+            keyAlias 'fgocalc'
+            keyPassword 'ph123456'
+        }
+        debug{
+            storeFile file('fgocalc.jks')
+            storePassword 'ph123456'
+            keyAlias 'fgocalc'
+            keyPassword 'ph123456'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile files('libs/ZHConverter.jar')
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'tyrantgit:explosionfield:1.0.1'
+    compile project(':viewexplosion')
+    compile files('libs/AMap_Location_V3.6.0_20170918.jar')
+    compile files('libs/AMap_Search_V5.3.1_20170817.jar')
+    compile files('libs/Android_Map3D_SDK_V5.4.0_20170928.jar')
+}

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <ScrollView
+        android:id="@+id/fn_sv_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fn_ll_calc">
+
+        <!--输入-->
+        <LinearLayout
+            android:id="@+id/fn_ll_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/fn_sp_card1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+                <Spinner
+                    android:id="@+id/fn_sp_card2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+                <Spinner
+                    android:id="@+id/fn_sp_card3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"/>
+
+            </LinearLayout>
+
+            <!--OverKill-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <CheckBox
+                    android:id="@+id/fn_cb_ok1"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:text="OverKill"/>
+
+                <CheckBox
+                    android:id="@+id/fn_cb_ok2"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="OverKill"/>
+
+                <CheckBox
+                    android:id="@+id/fn_cb_ok3"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="OverKill"/>
+
+            </LinearLayout>
+
+            <!--critical-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <CheckBox
+                    android:id="@+id/fn_cb_cr1"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:text="暴击"/>
+
+                <CheckBox
+                    android:id="@+id/fn_cb_cr2"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="暴击"/>
+
+                <CheckBox
+                    android:id="@+id/fn_cb_cr3"
+                    style="@style/cb_np"
+                    android:layout_weight="1.0"
+                    android:layout_marginLeft="5dp"
+                    android:text="暴击"/>
+
+            </LinearLayout>
+
+            <!--敌补正-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.0"
+                    android:gravity="center"
+                    android:text="敌补正"
+                    android:textColor="@color/colorBlack"/>
+
+                <RadioGroup
+                    android:id="@+id/fn_rg_ran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/fn_rb_low"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="最小"
+                        android:checked="true"/>
+
+                    <RadioButton
+                        android:id="@+id/fn_rb_high"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="最大"/>
+
+                    <RadioButton
+                        android:id="@+id/fn_rb_middle"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="平均"/>
+
+                    <RadioButton
+                        android:id="@+id/fn_rb_ran"
+                        style="@style/rb_atk"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1.0"
+                        android:text="随机"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <!--buff设置开关-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:text="Buff设置"
+                    android:textColor="@color/colorBlack"/>
+
+                <ToggleButton
+                    android:id="@+id/fn_tb_buff"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:background="@android:color/transparent"
+                    android:button="@drawable/se_toggle_btn"
+                    android:checked="false"
+                    android:gravity="end"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn="" />
+
+            </RelativeLayout>
+
+            <!--buff设置-->
+            <LinearLayout
+                android:id="@+id/fn_ll_buff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!--蓝魔放，绿魔放，np获取量-->
+                <LinearLayout
+                    style="@style/ll_match_width_horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <!--蓝魔放-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/arts_up"/>
+
+                        <EditText
+                            android:id="@+id/fn_et_artsup"
+                            style="@style/et_trump"
+                            android:hint="蓝魔放" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--绿魔放-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/quick_up"/>
+
+                        <EditText
+                            android:id="@+id/fn_et_quickup"
+                            style="@style/et_trump"
+                            android:hint="绿魔放" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                    <!--np-->
+                    <LinearLayout
+                        style="@style/ll_match_width_horizontal"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            style="@style/iv_trump"
+                            android:src="@mipmap/np_up"/>
+
+                        <EditText
+                            android:id="@+id/fn_et_np_up"
+                            style="@style/et_trump"
+                            android:hint="np获取量增加" />
+
+                        <TextView
+                            style="@style/tv_percent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/fn_tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="结果"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--计算-->
+    <LinearLayout
+        android:id="@+id/fn_ll_calc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/colorWhite">
+
+        <Button
+            android:id="@+id/fn_btn_calc"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_radius_blue"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="计算"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/fn_btn_clean"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_radius_blue"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="清理结果"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+
+    <!--人物-->
+    <RelativeLayout
+        android:id="@+id/fn_rl_character"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/fn_iv_character"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/longniang"/>
+
+        <View
+            android:id="@+id/fn_v_character"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/fn_iv_character"
+            android:background="@drawable/sh_radius_deepblue_alpha"/>
+
+        <TextView
+            android:id="@+id/fn_tv_character"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/fn_iv_character"
+            android:padding="10dp"
+            android:gravity="start"
+            android:text="看不懂选项不要紧！把牌序选好，点计算！\n演唱会就要开始了！"
+            android:textColor="@color/colorWhite"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

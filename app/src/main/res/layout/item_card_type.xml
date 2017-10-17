@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/ict_iv_card"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@mipmap/arts"/>
+
+    <TextView
+        android:id="@+id/ict_tv_card"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:text="arts"/>
+
+</LinearLayout>

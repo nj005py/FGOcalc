@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\app\libs\Android_Map3D_SDK_V5.4.0_20170928.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4e6ca382790aa5ca89094e600da12f1a12932870">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\Android_Map3D_SDK_V5.4.0_20170928_136a2169dd67d510a31061d1bf506126b10e2de9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\app\libs\AMap_Location_V3.6.0_20170918.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bde647cc7a74d48f415bdeac8a2d06edc315ff38">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\AMap_Location_V3.6.0_20170918_645d2cefcdccb9209b8564c78da5abe5d995a02f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\app\libs\AMap_Search_V5.3.1_20170817.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b4e1d1d93f686f1a6efe4e49d798b27801d4d301">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\AMap_Search_V5.3.1_20170817_6ec54f9e697843ce44f4e2d79a1c709a2117c81e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\app\libs\ZHConverter.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="416606cdd3d7693e798287ce9adccba3f2552772">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\ZHConverter_cb7c874383076ff6d78b04a3c21d3f7d86b19df0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\viewexplosion\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="71984ffacde72cd632eded04c8976d8f7a267719">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_2f70156382df9e4766de0d772383b10b12e9a7db.jar" />
+    </item>
+
+</items>

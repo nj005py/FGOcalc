@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/fi_iv_portrait"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="3.0"
+            android:src="@mipmap/image1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <!--昵称-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fi_tv_name_star"
+                style="@style/tv_common"
+                android:text="dddd\nNo.1 ddd"/>
+
+            <View
+                style="@style/line_x"/>
+
+            <TextView
+                android:id="@+id/fi_tv_nickname"
+                style="@style/tv_common"
+                android:text="女主,盾娘,学妹,C奶,盾子"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+
+    <!--hit-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fi_tv_arts_hit"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="A卡Hit\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_buster_hit"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="B卡Hit\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_quick_hit"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="Q卡Hit\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_ex_hit"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="EX卡Hit\n1"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <!--na-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fi_tv_arts_na"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="A卡NP获取率\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_buster_na"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="B卡NP获取率\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_quick_na"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="Q卡NP获取率\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_ex_na"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="EX卡NP获取率\n1"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <!--na nd buff-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fi_tv_trump_na"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="宝具NP获取率\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_nd"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="受伤NP获取率\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_arts_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="蓝卡性能提升\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_buster_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="红卡性能提升\n1"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <!--buff-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fi_tv_quick_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="绿卡性能提升\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_atk_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="攻击提升\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_special_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="特攻提升\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <TextView
+            android:id="@+id/fi_tv_critical_buff"
+            style="@style/tv_common"
+            android:layout_weight="1.0"
+            android:text="暴击威力提升\n1"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+    <!--buff-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/fi_tv_solid"
+            style="@style/tv_common"
+            android:layout_weight="3.0"
+            android:text="固定伤害\n1"/>
+
+        <View
+            style="@style/line_y"/>
+
+        <GridView
+            android:id="@+id/fi_gv_cards"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:numColumns="5" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_x"/>
+
+</LinearLayout>

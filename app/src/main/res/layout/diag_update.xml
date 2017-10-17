@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sh_radius_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sh_r_top_lightblue"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="发现了新版本！！"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="建议升级最新版fgocalc，获得数据库更新以及计算器优化！"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/du_tv_cancel"
+                android:layout_weight="1.0"
+                android:background="@drawable/se_blue_deepblue"
+                android:text="取消"
+                android:textColor="@color/colorWhite"/>
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/du_tv_download"
+                android:layout_weight="1.0"
+                android:background="@drawable/se_gray"
+                android:text="下载" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

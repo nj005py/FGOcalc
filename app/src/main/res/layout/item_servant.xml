@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.phantancy.fgocalc.itemview.ServantItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp"
+    android:background="@drawable/se_white">
+
+    <TextView
+        android:id="@+id/is_tv_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.0"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:text="No\n999"
+        android:textSize="14dp"
+        android:textColor="@color/colorBlack"/>
+
+    <ImageView
+        android:id="@+id/is_iv_portrait"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@mipmap/image999"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/is_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="百度月系吧刊组"
+            android:textSize="14dp"
+            android:textColor="@color/colorBlack"/>
+
+        <TextView
+            android:id="@+id/is_tv_star"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="5星"
+            android:textSize="14dp"
+            android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/line_y"/>
+
+    <TextView
+        android:id="@+id/is_tv_classtype"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:text="Creator"
+        android:textSize="14dp"
+        android:textColor="@color/colorBlack"/>
+
+</com.phantancy.fgocalc.itemview.ServantItemView>

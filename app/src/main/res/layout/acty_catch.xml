@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack">
+
+
+    <GridView
+        android:id="@+id/ac_gv_catch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ac_tv_times"
+        android:verticalSpacing="5dp"
+        android:numColumns="4"/>
+
+    <TextView
+        style="@style/tv_common"
+        android:id="@+id/ac_tv_times"
+        android:layout_above="@+id/ac_btn_catch"
+        android:text="抽卡次数：1"
+        android:textColor="@color/colorWhite"/>
+
+    <Button
+        android:id="@+id/ac_btn_catch"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/se_radius_blue"
+        android:text="抽卡"
+        android:textColor="@color/colorWhite"/>
+
+</RelativeLayout>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "classType">
+        <item>Saber</item>
+        <item>Archer</item>
+        <item>Lancer</item>
+        <item>Rider</item>
+        <item>Caster</item>
+        <item>Assassin</item>
+        <item>Berserker</item>
+        <item>Ruler</item>
+        <item>Shielder</item>
+        <item>Alterego</item>
+        <item>Avenger</item>
+        <item>Beast</item>
+        <item>MoonCancer</item>
+    </string-array>
+
+    <string-array name = "star">
+        <item>无星</item>
+        <item>1星</item>
+        <item>2星</item>
+        <item>3星</item>
+        <item>4星</item>
+        <item>5星</item>
+    </string-array>
+
+    <integer-array name = "star_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+
+    <integer-array name = "trump_lv">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </integer-array>
+
+    <string-array name="cardType">
+        <item>Buster</item>
+        <item>Arts</item>
+        <item>Quick</item>
+    </string-array>
+</resources>

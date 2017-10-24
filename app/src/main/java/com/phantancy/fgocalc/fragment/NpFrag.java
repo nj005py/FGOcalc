@@ -100,6 +100,8 @@ public class NpFrag extends BaseFrag {
     LinearLayout fnLlBuff;
     @BindView(R.id.fn_ll_calc)
     LinearLayout fnLlCalc;
+
+    private View view;
     private String TAG = getClass().getSimpleName();
     private Context mContext;
     private String result = "", cardType1, cardType2, cardType3;
@@ -112,8 +114,10 @@ public class NpFrag extends BaseFrag {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_np, container, false);
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.frag_np, container, false);
+            ButterKnife.bind(this, view);
+        }
         return view;
     }
 
@@ -122,6 +126,14 @@ public class NpFrag extends BaseFrag {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
         init();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
     }
 
     private void init() {
@@ -408,10 +420,5 @@ public class NpFrag extends BaseFrag {
         list.add(map3);
 
         return list;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 }

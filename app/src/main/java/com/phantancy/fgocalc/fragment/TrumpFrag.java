@@ -116,6 +116,8 @@ public class TrumpFrag extends BaseFrag {
     EditText ftEtTrumpExtraTimes;
     @BindView(R.id.ft_ll_extra_times)
     LinearLayout ftLlExtraTimes;
+
+    private View view;
     private ServantItem servantItem;
     private int weakType = 1;//克制类型1 白值，2 克制，3 被克
     private int hpTotal = 0,hpLeft = 0;
@@ -136,8 +138,10 @@ public class TrumpFrag extends BaseFrag {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_trump, container, false);
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.frag_trump, container, false);
+            ButterKnife.bind(this, view);
+        }
         return view;
     }
 
@@ -146,6 +150,14 @@ public class TrumpFrag extends BaseFrag {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
         init();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
     }
 
     private void init() {
@@ -484,10 +496,5 @@ public class TrumpFrag extends BaseFrag {
         ftRlCharacter.setVisibility(View.VISIBLE);
         ftTvCharacter.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
         ftTvCharacter.setText(str);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 }

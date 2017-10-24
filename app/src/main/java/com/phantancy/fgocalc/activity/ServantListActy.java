@@ -31,6 +31,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,9 +56,9 @@ import android.widget.Toast;
 import com.phantancy.fgocalc.R;
 import com.phantancy.fgocalc.adapter.ItemAdapter;
 import com.phantancy.fgocalc.adapter.MenuAdapter;
-import com.phantancy.fgocalc.database.DBHelper;
 import com.phantancy.fgocalc.database.DBManager;
 import com.phantancy.fgocalc.dialog.AboutDialog;
+import com.phantancy.fgocalc.dialog.MenulLocDialog;
 import com.phantancy.fgocalc.dialog.UpdateDialog;
 import com.phantancy.fgocalc.item.Item;
 import com.phantancy.fgocalc.item.MenuItem;
@@ -141,6 +142,8 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     TextView aslTvLeft;
     @BindView(R.id.asl_tv_about)
     TextView aslTvAbout;
+    @BindView(R.id.asl_tv_right)
+    TextView aslTvRight;
     private DBManager dbManager;
     private SQLiteDatabase database;
     private ItemAdapter itemAdapter;
@@ -156,8 +159,9 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     private MyDatabaseUtil myDatabaseUtil;
     private int curDbVersion;
     private int preDbVersion;
-    private String downloadUrl,checkUrl = "http://git.oschina.net/nj005py/fgocalc/raw/master/fgocalc_config.xml";
+    private String downloadUrl, checkUrl = "http://git.oschina.net/nj005py/fgocalc/raw/master/fgocalc_config.xml";
     private String preVersion;
+    private String update;//更新文本
     private TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -192,14 +196,14 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         setMenu();
         preVersion = getVersion();
         preDbVersion = (int) SharedPreferencesUtils.getParam(mContext, "dbVersion", 1);
-        Log.d(TAG,"preVersion->" + preVersion);
+        Log.d(TAG, "preVersion->" + preVersion);
         //注册广播接收器
-        IntentFilter filter = new IntentFilter( DownloadManager.ACTION_DOWNLOAD_COMPLETE ) ;
-        registerReceiver( receiver , filter ) ;
-        if (ContextCompat.checkSelfPermission(mContext,Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(mContext,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ServantListActy.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE},READ_WRITE);
-        }else{
+        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        registerReceiver(receiver, filter);
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ServantListActy.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, READ_WRITE);
+        } else {
             //判断网络是否可用
             if (isNetworkAvailable(mContext)) {
                 //下载配置文件
@@ -242,10 +246,10 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
             Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -279,7 +283,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         lp.width = width * 3 / 4;
         aslLlMenu.setLayoutParams(lp);
         //菜单名称列表
-        String[] menuNames = {"偷渡GO","砸圣晶石"};
+        String[] menuNames = {"玄学计算器", "夕学计算器", "冰学计算器", "偷渡GO", "砸圣晶石(暂无意义)","菜单位置","反馈"};
         menuList = new ArrayList<>();
         for (int i = 0; i < menuNames.length; i++) {
             MenuItem mItem = new MenuItem();
@@ -290,6 +294,8 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         aslRvMenu.setItemAnimator(new DefaultItemAnimator());
         aslRvMenu.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
+        boolean locLeft = (Boolean)SharedPreferencesUtils.getParam(mContext,"locLeft",true);
+        checkMenuLoc(locLeft);
         menuAdapter = new MenuAdapter(mContext, menuList);
         aslRvMenu.setAdapter(menuAdapter);
 //        aslDlMenu.closeDrawer(GravityCompat.START);
@@ -299,6 +305,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     private void setListener() {
         aslTvAbout.setOnClickListener(this);
         aslTvLeft.setOnClickListener(this);
+        aslTvRight.setOnClickListener(this);
         aslLlSearch.setOnClickListener(this);
         aslBtnClear.setOnClickListener(this);
         aslBtnSreen.setOnClickListener(this);
@@ -391,27 +398,33 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent();
                 switch (position) {
-//                    case 0:
-//                        intent.setClass(mContext, MetaphysicsActy.class);
-//                        startActivity(intent);
-//                        break;
-//                    case 1:
-//                        intent.setClass(mContext, ExtractActivity.class);
-//                        intent.putExtra("type", 1);
-//                        startActivity(intent);
-//                        break;
-//                    case 2:
-//                        intent.setClass(mContext, ExtractActivity.class);
-//                        intent.putExtra("type", 2);
-//                        startActivity(intent);
-//                        break;
                     case 0:
-                        intent.setClass(mContext,MapActivity.class);
+                        intent.setClass(mContext, MetaphysicsActy.class);
                         startActivity(intent);
                         break;
                     case 1:
-                        intent.setClass(mContext,FateGoActy.class);
+                        intent.setClass(mContext, ExtractActivity.class);
+                        intent.putExtra("type", 1);
                         startActivity(intent);
+                        break;
+                    case 2:
+                        intent.setClass(mContext, ExtractActivity.class);
+                        intent.putExtra("type", 2);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent.setClass(mContext, MapActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        intent.setClass(mContext, FateGoActy.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        showMenuLocDialog();
+                        break;
+                    case 6:
+                        sendEmail();
                         break;
                 }
             }
@@ -436,20 +449,88 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             case R.id.asl_tv_left:
                 aslDlMenu.openDrawer(aslLlMenu);
                 break;
+            case R.id.asl_tv_right:
+                aslDlMenu.openDrawer(aslLlMenu);
+                break;
             case R.id.asl_tv_about:
                 showAboutDialog();
                 break;
         }
     }
 
-    private void showAboutDialog(){
+    private void showAboutDialog() {
         AboutDialog ad = new AboutDialog(mContext);
         ad.show();
     }
 
+    private void showMenuLocDialog() {
+        final MenulLocDialog md = new MenulLocDialog(mContext);
+        boolean locLeft = (Boolean)SharedPreferencesUtils.getParam(mContext,"locLeft",true);
+        md.setCheck(locLeft);
+        md.setLeftListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aslTvLeft.setVisibility(View.VISIBLE);
+                aslTvRight.setVisibility(View.GONE);
+                DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
+                lp.gravity = Gravity.START;
+                aslLlMenu.setLayoutParams(lp);
+                SharedPreferencesUtils.setParam(mContext,"locLeft",true);
+                md.dismiss();
+            }
+        });
+
+        md.setRightListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aslTvLeft.setVisibility(View.GONE);
+                aslTvRight.setVisibility(View.VISIBLE);
+                DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
+                lp.gravity = Gravity.END;
+                aslLlMenu.setLayoutParams(lp);
+                SharedPreferencesUtils.setParam(mContext,"locLeft",false);
+                md.dismiss();
+            }
+        });
+        md.show();
+    }
+
+    private void sendEmail(){
+        Intent i = new Intent(Intent.ACTION_SENDTO);
+//        i.setType("message/rfc822");
+        i.setData(Uri.parse("mailto:phantancy@hotmail.com"));// only email apps should handle this
+//        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"phantancy@hotmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "fgo计算器反馈");
+        i.putExtra(Intent.EXTRA_TEXT   , "我想反馈");
+        try {
+            startActivity(Intent.createChooser(i, "邮件反馈"));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(mContext, "没找到Email相关应用.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void checkMenuLoc(boolean locLeft){
+        if (locLeft) {
+            aslTvLeft.setVisibility(View.VISIBLE);
+            aslTvRight.setVisibility(View.GONE);
+            DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
+            lp.gravity = Gravity.START;
+            aslLlMenu.setLayoutParams(lp);
+        }else{
+            aslTvLeft.setVisibility(View.GONE);
+            aslTvRight.setVisibility(View.VISIBLE);
+            DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
+            lp.gravity = Gravity.END;
+            aslLlMenu.setLayoutParams(lp);
+        }
+    }
+
     //更新对话框
-    private void showUpdateDiag(){
+    private void showUpdateDiag() {
         final UpdateDialog up = new UpdateDialog(mContext);
+        if (notEmpty(update)) {
+            up.setUpdate(update);
+        }
         up.setDownloadListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -626,8 +707,8 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                         //下载配置文件
                         downloadConfig();
                     }
-                }else{
-                    ToastUtils.displayShortToast(mContext,"您拒绝了权限");
+                } else {
+                    ToastUtils.displayShortToast(mContext, "您拒绝了权限");
                 }
                 break;
         }
@@ -681,6 +762,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
 
     /**
      * 获取版本号
+     *
      * @return 当前应用的版本号
      */
     public String getVersion() {
@@ -696,18 +778,18 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     }
 
     //下载版本文件
-    private void downloadConfig(){
+    private void downloadConfig() {
         File configFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
         if (configFile.exists()) {
             configFile.delete();
-            Log.d(TAG,"配置文件存在，删除配置文件");
+            Log.d(TAG, "配置文件存在，删除配置文件");
         }
         //创建下载任务,downloadUrl就是下载链接
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(checkUrl));
         //指定下载路径和下载文件名
-        request.setDestinationInExternalPublicDir("download" ,"/fgocalc_config.xml");
+        request.setDestinationInExternalPublicDir("download", "/fgocalc_config.xml");
         //获取下载管理器
-        DownloadManager downloadManager= (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
         //将下载任务加入下载队列，否则不会进行下载
         downloadManager.enqueue(request);
     }
@@ -718,19 +800,19 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction() ;
-            if( action.equals( DownloadManager.ACTION_DOWNLOAD_COMPLETE  )){
+            String action = intent.getAction();
+            if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 //下载完成了
                 //获取当前完成任务的ID
-                long  reference = intent.getLongExtra( DownloadManager.EXTRA_DOWNLOAD_ID , -1 );
-                Log.d(TAG,"配置文件下载完成");
+                long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                Log.d(TAG, "配置文件下载完成");
                 if (checkUpdate()) {
                     showUpdateDiag();
-                    Log.d(TAG,"有更新,更新地址->" + downloadUrl);
+                    Log.d(TAG, "有更新,更新地址->" + downloadUrl);
                 }
             }
 
-            if( action.equals( DownloadManager.ACTION_NOTIFICATION_CLICKED )){
+            if (action.equals(DownloadManager.ACTION_NOTIFICATION_CLICKED)) {
 
             }
         }
@@ -756,21 +838,21 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     }
 
     //检查新版本
-    private boolean checkUpdate(){
+    private boolean checkUpdate() {
         InputStream in = null;
         File configFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
-        Log.d(TAG,"check path->" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
+        Log.d(TAG, "check path->" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
         if (!configFile.exists()) {
-            Log.d(TAG,"配置文件不存在");
+            Log.d(TAG, "配置文件不存在");
             return false;
-        }else{
-            try{
+        } else {
+            try {
                 in = new FileInputStream(configFile);
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             XmlPullParserFactory factory;
-            try{
+            try {
                 factory = XmlPullParserFactory.newInstance();
                 factory.setNamespaceAware(true);
                 XmlPullParser xpp = factory.newPullParser();
@@ -786,6 +868,8 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                                 version = xpp.getAttributeValue(0);
                             } else if (tag.equals("path")) {
                                 downloadUrl = xpp.getAttributeValue(0);
+                            }else if(tag.equals("update")){
+                                update = xpp.getAttributeValue(0);
                             }
                             break;
                         case XmlPullParser.END_TAG:
@@ -798,10 +882,10 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                 }
                 if (!preVersion.equals(version)) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

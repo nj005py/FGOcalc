@@ -33,6 +33,18 @@
             android:textColor="@color/colorBlack"
             android:textSize="16dp" />
 
+        <TextView
+            android:id="@+id/du_tv_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="更新内容"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

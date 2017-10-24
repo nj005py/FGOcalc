@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.phantancy.fgocalc.R;
@@ -14,7 +15,7 @@ import com.phantancy.fgocalc.R;
 
 public class UpdateDialog extends Dialog implements View.OnClickListener{
     private Context mContext;
-    private TextView tvCancel,tvDownload;
+    private TextView tvCancel,tvDownload,tvUpdate;
 
     public UpdateDialog(@NonNull Context context) {
         super(context,R.style.dialog);
@@ -23,6 +24,7 @@ public class UpdateDialog extends Dialog implements View.OnClickListener{
 
         tvCancel = (TextView)findViewById(R.id.du_tv_cancel);
         tvDownload = (TextView)findViewById(R.id.du_tv_download);
+        tvUpdate = (TextView)findViewById(R.id.du_tv_update);
         tvCancel.setOnClickListener(this);
         tvDownload.setOnClickListener(this);
     }
@@ -38,5 +40,9 @@ public class UpdateDialog extends Dialog implements View.OnClickListener{
 
     public void setDownloadListener(View.OnClickListener onClickListener){
         tvDownload.setOnClickListener(onClickListener);
+    }
+
+    public void setUpdate(String str){
+        tvUpdate.setText(str);
     }
 }

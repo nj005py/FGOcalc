@@ -121,6 +121,7 @@ public class AtkFrag extends BaseFrag {
     LinearLayout faLlBuff;
     @BindView(R.id.fa_ll_calc)
     LinearLayout faLlCalc;
+    private View view;
     private String TAG = getClass().getSimpleName();
     private Context mContext;
     private int atk = 0, overallAttack = 0;
@@ -136,8 +137,10 @@ public class AtkFrag extends BaseFrag {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_atk, container, false);
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.frag_atk, container, false);
+            ButterKnife.bind(this, view);
+        }
         return view;
     }
 
@@ -146,6 +149,14 @@ public class AtkFrag extends BaseFrag {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
         init();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
     }
 
     private void init() {
@@ -491,8 +502,4 @@ public class AtkFrag extends BaseFrag {
         return list;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }

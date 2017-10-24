@@ -69,6 +69,8 @@ public class InfoFrag extends BaseFrag {
     TextView fiTvSolid;
     @BindView(R.id.fi_gv_cards)
     GridView fiGvCards;
+
+    private View view;
     private ServantItem servantItem;
     private String name, nickname, class_type;
     private int id, star, arts_hit, buster_hit, quick_hit, ex_hit, solid_buff;
@@ -81,8 +83,10 @@ public class InfoFrag extends BaseFrag {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.frag_info, container, false);
-        ButterKnife.bind(this, view);
+        if (view == null) {
+            view = inflater.inflate(R.layout.frag_info, container, false);
+            ButterKnife.bind(this, view);
+        }
         return view;
     }
 
@@ -91,6 +95,14 @@ public class InfoFrag extends BaseFrag {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
         init();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (view != null) {
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
     }
 
     private void init() {
@@ -174,8 +186,4 @@ public class InfoFrag extends BaseFrag {
         cardsAdapter.setItems(cardsList);;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }

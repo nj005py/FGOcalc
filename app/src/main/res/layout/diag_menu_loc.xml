@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dml_ll_menu"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,39 +19,37 @@
             android:background="@drawable/sh_r_top_lightblue"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="数据取自fgowiki,茹西教王的理想乡"
+            android:gravity="center"
+            android:text="好想更换侧滑菜单位置"
             android:textColor="@color/colorWhite"
             android:textSize="16dp" />
 
-        <TextView
+        <RadioGroup
+            android:id="@+id/dml_rg_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="APP制作：空谕，百度月系吧刊组\n程序：纯蓝魔法使\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌"
-            android:textColor="@color/colorBlack"
-            android:textSize="16dp" />
+            android:orientation="horizontal"
+            android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+            <RadioButton
+                android:id="@+id/dml_rb_left"
+                style="@style/rb_common"
+                android:text="←_←喜欢左边"/>
+
+            <RadioButton
+                android:id="@+id/dml_rb_right"
+                style="@style/rb_common"
                 android:layout_marginLeft="10dp"
-                android:src="@mipmap/phantancy" />
+                android:text="喜欢右边→_→"/>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@mipmap/image999" />
+        </RadioGroup>
 
-        </LinearLayout>
+
 
     </LinearLayout>
 

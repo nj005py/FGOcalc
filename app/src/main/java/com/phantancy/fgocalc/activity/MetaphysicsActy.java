@@ -103,8 +103,8 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
     }
 
     private void init() {
-        initBaseStatusBar(mContext);
-        llStatusBar.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorBlack));
+//        initBaseStatusBar(mContext);
+//        llStatusBar.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorBlack));
         fgoId = (long) SharedPreferencesUtils.getParam(mContext, "fgoId", 0l);
         if (fgoId > 0) {
             amCbRemember.setChecked(true);

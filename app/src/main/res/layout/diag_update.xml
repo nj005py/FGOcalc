@@ -45,6 +45,13 @@
             android:textColor="@color/colorBlack"
             android:textSize="16dp" />
 
+        <CheckBox
+            android:id="@+id/du_cb_ignore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="忽略本次更新"
+            android:textColor="@color/colorBlack"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,16 +62,16 @@
                 style="@style/tv_common"
                 android:id="@+id/du_tv_cancel"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_blue_deepblue"
-                android:text="取消"
-                android:textColor="@color/colorWhite"/>
+                android:background="@drawable/se_gray"
+                android:text="取消"/>
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/du_tv_download"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_gray"
-                android:text="下载" />
+                android:background="@drawable/se_blue_deepblue"
+                android:text="下载"
+                android:textColor="@color/colorWhite"/>
 
         </LinearLayout>
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nsm_about"
+            android:title="关于"/>
+
+        <item
+            android:id="@+id/nsm_metaphysics"
+            android:title="玄学计算器"/>
+
+        <item
+            android:id="@+id/nsm_go"
+            android:title="偷渡GO"/>
+
+        <item
+            android:id="@+id/nsm_stone"
+            android:title="砸圣晶石(暂无意义)"/>
+
+
+        <item
+            android:id="@+id/nsm_menu_loc"
+            android:title="菜单位置"/>
+
+        <item
+            android:id="@+id/nsm_reload_database"
+            android:title="重载数据库"/>
+
+        <item
+            android:id="@+id/nsm_feedback"
+            android:title="反馈"/>
+
+    </group>
+
+</menu>

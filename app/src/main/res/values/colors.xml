@@ -2,9 +2,10 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/colorShineBlue</color>
     <color name="colorShineBlue">#28C1FB</color>
     <color name="colorLightBlue">#2A8AE0</color>
+    <color name="colorLightBlue2">#4E8DFC</color>
     <color name="colorLabelBlue">#DAEAF9</color>
     <color name="colorDeepBlue">#276AB0</color>
     <color name="colorWhite">#ffffff</color>
@@ -14,5 +15,7 @@
     <color name="colorLightGray">#D9D9D9</color>
     <color name="colorRed">#AF0301</color>
     <color name="colorGreen">#16580B</color>
-    <color name="colorGolden">#FFC928</color>
+    <color name="colorGolden">#E4B222</color>
+    <color name="colorBrown">#86755C</color>
+    <color name="colorSilver">#B3B3B3</color>
 </resources>

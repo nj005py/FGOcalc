@@ -31,20 +31,25 @@
 
 
         <activity
-            android:name=".activity.ServantListActy"
+            android:name=".splash.SplashActy"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan">
+            android:windowSoftInputMode="stateUnchanged|adjustResize"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".servant.ServantListMVPActy"/>
         <activity android:name=".activity.MetaphysicsActy"/>
         <activity android:name=".activity.ExtractActivity"/>
         <activity android:name=".activity.MapActivity"/>
         <activity android:name=".activity.CatchActivity"/>
         <activity android:name=".activity.FateGoActy"/>
+        <activity android:name=".calc.CalcActy"
+            android:theme="@style/TransTheme"/>
+        <activity android:name=".calc.buff.BuffActy"
+            android:theme="@style/TransTheme"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

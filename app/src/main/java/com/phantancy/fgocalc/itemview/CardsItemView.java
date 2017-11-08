@@ -28,7 +28,7 @@ public class CardsItemView extends RelativeLayout implements ItemView{
 
     @Override
     public void findViewsByIds() {
-        ivCards = (ImageView)findViewById(R.id.ic_iv_cards);
+        ivCards = (ImageView)findViewById(R.id.iic_iv_cards);
     }
 
     @Override

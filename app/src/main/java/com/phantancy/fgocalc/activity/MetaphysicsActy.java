@@ -103,8 +103,8 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
     }
 
     private void init() {
-//        initBaseStatusBar(mContext);
-//        llStatusBar.setBackgroundColor(ContextCompat.getColor(mContext,R.color.colorBlack));
+//        initBaseStatusBar(ctx);
+//        llStatusBar.setBackgroundColor(ContextCompat.getColor(ctx,R.color.colorBlack));
         fgoId = (long) SharedPreferencesUtils.getParam(mContext, "fgoId", 0l);
         if (fgoId > 0) {
             amCbRemember.setChecked(true);
@@ -223,9 +223,9 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
                 case TAKE_PHOTO:
                     newcolor2bw();
 //                    if (imageUri == null) {
-//                        ToastUtils.displayShortToast(mContext, "图没了，别测了，也别抽卡了，本玄学救不了你");
+//                        ToastUtils.displayShortToast(ctx, "图没了，别测了，也别抽卡了，本玄学救不了你");
 //                    } else {
-//                        color2bw(mContext, imageUri);
+//                        color2bw(ctx, imageUri);
 //                    }
                     break;
             }

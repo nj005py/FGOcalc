@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.phantancy.fgocalc.R;
+import com.phantancy.fgocalc.common.ActivityCollector;
 import com.phantancy.fgocalc.util.BaseUtils;
 import com.spreada.utils.chinese.ZHConverter;
 
@@ -32,13 +33,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        ActivityCollector.addActy(this);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        AppManager.getInstance().AppExit(this);
+        ActivityCollector.removeActy(this);
     }
 
     public void initBaseStatusBar(Context context){

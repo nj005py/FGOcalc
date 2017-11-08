@@ -12,6 +12,14 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <style name="SplashTheme" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
+
+    <style name="TransTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <!--横线-->
     <style name="line_x">
         <item name="android:layout_width">match_parent</item>

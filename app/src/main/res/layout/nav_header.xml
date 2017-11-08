@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@color/colorDeepBlue">
+
+    <LinearLayout
+        style="@style/ll_match_width_vertical"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/nh_iv_app"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            style="@style/tv_common"
+            android:layout_below="@+id/nh_iv_app"
+            android:text="FGO计算器(fgocalc)\n实验性功能菜单"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -18,18 +18,20 @@
             android:background="@drawable/sh_r_top_lightblue"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="数据取自fgowiki,茹西教王的理想乡"
+            android:gravity="center"
+            android:text="关于"
             android:textColor="@color/colorWhite"
             android:textSize="16dp" />
 
         <TextView
+            android:id="@+id/da_tv_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="APP制作：空谕，百度月系吧刊组\n程序：纯蓝魔法使\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌"
+            android:text="@string/app_about"
             android:textColor="@color/colorBlack"
             android:textSize="16dp" />
 

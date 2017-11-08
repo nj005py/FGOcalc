@@ -11,9 +11,10 @@ public class ServantItem extends Item{
     private int layoutId = R.layout.item_servant;
     private String name,nickname,class_type,trump_color;
     private int id,star, arts_hit,buster_hit,quick_hit,ex_hit,solid_buff,buster_num,
-            arts_num,quick_num;
+            arts_num,quick_num,trump_upgraded,default_atk,default_hp;
     private double quick_na,arts_na,buster_na,ex_na,trump_na,nd,arts_buff,buster_buff,quick_buff,
-            atk_buff,special_buff,critical_buff,star_occur,trump_lv1,trump_lv2,trump_lv3,trump_lv4,trump_lv5;
+            atk_buff,special_buff,critical_buff,star_occur,trump_lv1,trump_lv2,trump_lv3,trump_lv4,trump_lv5,
+            star_occur_extra,trump_lv1_before,trump_lv2_before,trump_lv3_before,trump_lv4_before,trump_lv5_before;
 
     public void setLayoutId(int id){
         layoutId = id;
@@ -26,6 +27,22 @@ public class ServantItem extends Item{
 
     public int getLayoutId() {
         return layoutId;
+    }
+
+    public int getDefault_atk() {
+        return default_atk;
+    }
+
+    public void setDefault_atk(int default_atk) {
+        this.default_atk = default_atk;
+    }
+
+    public int getDefault_hp() {
+        return default_hp;
+    }
+
+    public void setDefault_hp(int default_hp) {
+        this.default_hp = default_hp;
     }
 
     public int getId() {
@@ -282,5 +299,61 @@ public class ServantItem extends Item{
 
     public void setTrump_lv5(double trump_lv5) {
         this.trump_lv5 = trump_lv5;
+    }
+
+    public int getTrump_upgraded() {
+        return trump_upgraded;
+    }
+
+    public void setTrump_upgraded(int trump_upgraded) {
+        this.trump_upgraded = trump_upgraded;
+    }
+
+    public double getStar_occur_extra() {
+        return star_occur_extra;
+    }
+
+    public void setStar_occur_extra(double star_occur_extra) {
+        this.star_occur_extra = star_occur_extra;
+    }
+
+    public double getTrump_lv1_before() {
+        return trump_lv1_before;
+    }
+
+    public void setTrump_lv1_before(double trump_lv1_before) {
+        this.trump_lv1_before = trump_lv1_before;
+    }
+
+    public double getTrump_lv2_before() {
+        return trump_lv2_before;
+    }
+
+    public void setTrump_lv2_before(double trump_lv2_before) {
+        this.trump_lv2_before = trump_lv2_before;
+    }
+
+    public double getTrump_lv3_before() {
+        return trump_lv3_before;
+    }
+
+    public void setTrump_lv3_before(double trump_lv3_before) {
+        this.trump_lv3_before = trump_lv3_before;
+    }
+
+    public double getTrump_lv4_before() {
+        return trump_lv4_before;
+    }
+
+    public void setTrump_lv4_before(double trump_lv4_before) {
+        this.trump_lv4_before = trump_lv4_before;
+    }
+
+    public double getTrump_lv5_before() {
+        return trump_lv5_before;
+    }
+
+    public void setTrump_lv5_before(double trump_lv5_before) {
+        this.trump_lv5_before = trump_lv5_before;
     }
 }

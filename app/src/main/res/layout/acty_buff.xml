@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/status_bar"/>
+
+    <!--buff设置开关-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/se_gradient_blue_deepblue">
+
+
+        <Button
+            android:id="@+id/ab_btn_buff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_gradient_blue_deepblue"
+            android:text="完成设置︾"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGolden"/>
+
+        <Button
+            android:id="@+id/ab_btn_clean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_gradient_blue_deepblue"
+            android:text="清空buff"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/ab_et_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ab_rv_buff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

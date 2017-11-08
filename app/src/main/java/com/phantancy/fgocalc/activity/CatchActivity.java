@@ -111,7 +111,7 @@ public class CatchActivity extends BaseActivity implements View.OnClickListener 
             curCard = 0;
             curStar = 1;
         }
-//        ToastUtils.displayLongToast(mContext,"extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
+//        ToastUtils.displayLongToast(ctx,"extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
         Log.d(TAG, "extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
         CatchItem item = new CatchItem();
         item.setImgResource(card[curCard]);

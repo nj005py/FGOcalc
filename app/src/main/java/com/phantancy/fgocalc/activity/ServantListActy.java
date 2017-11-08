@@ -3,6 +3,7 @@ package com.phantancy.fgocalc.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -45,7 +47,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -56,6 +57,7 @@ import android.widget.Toast;
 import com.phantancy.fgocalc.R;
 import com.phantancy.fgocalc.adapter.ItemAdapter;
 import com.phantancy.fgocalc.adapter.MenuAdapter;
+import com.phantancy.fgocalc.adapter.ServantCardViewAdapter;
 import com.phantancy.fgocalc.database.DBManager;
 import com.phantancy.fgocalc.dialog.AboutDialog;
 import com.phantancy.fgocalc.dialog.MenulLocDialog;
@@ -116,8 +118,6 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     Button aslBtnClear;
     @BindView(R.id.asl_ll_area_screen)
     LinearLayout aslLlAreaScreen;
-    @BindView(R.id.asl_lv_servant)
-    ListView aslLvServant;
     @BindView(R.id.asl_fl_main)
     FrameLayout aslFlMain;
     @BindView(R.id.asl_rv_menu)
@@ -144,10 +144,12 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     TextView aslTvAbout;
     @BindView(R.id.asl_tv_right)
     TextView aslTvRight;
+    @BindView(R.id.asl_rv_servant)
+    RecyclerView aslRvServant;
     private DBManager dbManager;
     private SQLiteDatabase database;
     private ItemAdapter itemAdapter;
-    private List<Item> servantList = new ArrayList<>();
+    private List<ServantItem> servantList = new ArrayList<>();
     private ServantItem sItem;//用于占位的
     private long exitTime = 0;//用于记录退出时间
     private String[] classType, starNum;
@@ -181,6 +183,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         }
     };
     private final int READ_WRITE = 1;
+    private ServantCardViewAdapter sAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,8 +230,11 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         sItem.setName("百度月系吧刊组");//6星天花板
         sItem.setClass_type("Creator");
         sItem.setStar(6);
-        itemAdapter = new ItemAdapter(this);
-        aslLvServant.setAdapter(itemAdapter);
+//        itemAdapter = new ItemAdapter(this);
+//        aslLvServant.setAdapter(itemAdapter);
+        StaggeredGridLayoutManager sgL = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL);
+        aslRvServant.setLayoutManager(sgL);
+
         setMethod(0);
         classType = getResources().getStringArray(R.array.classType);
         starNum = getResources().getStringArray(R.array.star);
@@ -283,7 +289,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         lp.width = width * 3 / 4;
         aslLlMenu.setLayoutParams(lp);
         //菜单名称列表
-        String[] menuNames = {"玄学计算器", "夕学计算器", "冰学计算器", "偷渡GO", "砸圣晶石(暂无意义)","菜单位置","反馈"};
+        String[] menuNames = {"玄学计算器", "夕学计算器", "冰学计算器", "偷渡GO", "砸圣晶石(暂无意义)", "菜单位置", "反馈"};
         menuList = new ArrayList<>();
         for (int i = 0; i < menuNames.length; i++) {
             MenuItem mItem = new MenuItem();
@@ -294,7 +300,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
         aslRvMenu.setItemAnimator(new DefaultItemAnimator());
         aslRvMenu.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL_LIST));
-        boolean locLeft = (Boolean)SharedPreferencesUtils.getParam(mContext,"locLeft",true);
+        boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(mContext, "locLeft", true);
         checkMenuLoc(locLeft);
         menuAdapter = new MenuAdapter(mContext, menuList);
         aslRvMenu.setAdapter(menuAdapter);
@@ -368,18 +374,18 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             }
         });
 
-        aslLvServant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ServantItem item = (ServantItem) servantList.get(position);
-                if (item.getId() != 999) {
-                    ServantItem sItem = (ServantItem) itemAdapter.getItem(position);
-                    Intent sIntent = new Intent(mContext, MainActivity.class);
-                    sIntent.putExtra("servants", sItem);
-                    startActivity(sIntent);
-                }
-            }
-        });
+//        aslLvServant.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                ServantItem item = (ServantItem) servantList.get(position);
+//                if (item.getId() != 999) {
+//                    ServantItem sItem = (ServantItem) itemAdapter.getItem(position);
+//                    Intent sIntent = new Intent(ctx, MainActivity.class);
+//                    sIntent.putExtra("servants", sItem);
+//                    startActivity(sIntent);
+//                }
+//            }
+//        });
 
         aslDlMenu.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
@@ -465,7 +471,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
 
     private void showMenuLocDialog() {
         final MenulLocDialog md = new MenulLocDialog(mContext);
-        boolean locLeft = (Boolean)SharedPreferencesUtils.getParam(mContext,"locLeft",true);
+        boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(mContext, "locLeft", true);
         md.setCheck(locLeft);
         md.setLeftListener(new View.OnClickListener() {
             @Override
@@ -475,7 +481,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                 DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
                 lp.gravity = Gravity.START;
                 aslLlMenu.setLayoutParams(lp);
-                SharedPreferencesUtils.setParam(mContext,"locLeft",true);
+                SharedPreferencesUtils.setParam(mContext, "locLeft", true);
                 md.dismiss();
             }
         });
@@ -488,35 +494,35 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                 DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
                 lp.gravity = Gravity.END;
                 aslLlMenu.setLayoutParams(lp);
-                SharedPreferencesUtils.setParam(mContext,"locLeft",false);
+                SharedPreferencesUtils.setParam(mContext, "locLeft", false);
                 md.dismiss();
             }
         });
         md.show();
     }
 
-    private void sendEmail(){
+    private void sendEmail() {
         Intent i = new Intent(Intent.ACTION_SENDTO);
 //        i.setType("message/rfc822");
         i.setData(Uri.parse("mailto:phantancy@hotmail.com"));// only email apps should handle this
 //        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"phantancy@hotmail.com"});
         i.putExtra(Intent.EXTRA_SUBJECT, "fgo计算器反馈");
-        i.putExtra(Intent.EXTRA_TEXT   , "我想反馈");
+        i.putExtra(Intent.EXTRA_TEXT, "我想反馈");
         try {
             startActivity(Intent.createChooser(i, "邮件反馈"));
-        } catch (android.content.ActivityNotFoundException ex) {
+        } catch (ActivityNotFoundException ex) {
             Toast.makeText(mContext, "没找到Email相关应用.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void checkMenuLoc(boolean locLeft){
+    private void checkMenuLoc(boolean locLeft) {
         if (locLeft) {
             aslTvLeft.setVisibility(View.VISIBLE);
             aslTvRight.setVisibility(View.GONE);
             DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
             lp.gravity = Gravity.START;
             aslLlMenu.setLayoutParams(lp);
-        }else{
+        } else {
             aslTvLeft.setVisibility(View.GONE);
             aslTvRight.setVisibility(View.VISIBLE);
             DrawerLayout.LayoutParams lp = (DrawerLayout.LayoutParams) aslLlMenu.getLayoutParams();
@@ -555,10 +561,13 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             case 0:
                 cur = database.rawQuery("SELECT * FROM servants", null);
                 servantList = getServants(cur);
-                servantList.add(sItem);
-                itemAdapter.setItems(servantList);
-                itemAdapter.notifyDataSetChanged();
+//                servantList.add(sItem);
+//                itemAdapter.setItems(servantList);
+//                itemAdapter.notifyDataSetChanged();
                 database.close();
+                sAdapter = new ServantCardViewAdapter(mContext,servantList);
+                aslRvServant.setAdapter(sAdapter);
+                sAdapter.notifyDataSetChanged();
                 break;
             case 1:
                 keyWord = etValue(aslEtSearch);
@@ -567,10 +576,12 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                     cur = database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY id",
                             new String[]{"%" + keyWord + "%", "%" + keyWord + "%"});
                     servantList = getServants(cur);
-                    itemAdapter.setItems(servantList);
-                    itemAdapter.notifyDataSetChanged();
+//                    itemAdapter.setItems(servantList);
+//                    itemAdapter.notifyDataSetChanged();
                 }
                 database.close();
+                sAdapter.setItems(servantList);
+                sAdapter.notifyDataSetChanged();
                 break;
             case 2:
                 Log.d(TAG, "curClassType->" + curClassType + " curStarValue->" + curStarValue);
@@ -581,18 +592,22 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                     if (servantList != null && servantList.size() > 0) {
                         servantList.add(sItem);
                     }
-                    itemAdapter.setItems(servantList);
-                    itemAdapter.notifyDataSetChanged();
+//                    itemAdapter.setItems(servantList);
+//                    itemAdapter.notifyDataSetChanged();
                 }
                 database.close();
+                sAdapter.setItems(servantList);
+                sAdapter.notifyDataSetChanged();
                 break;
             default:
                 cur = database.rawQuery("SELECT * FROM servants", null);
                 servantList = getServants(cur);
-                servantList.add(sItem);
-                itemAdapter.setItems(servantList);
-                itemAdapter.notifyDataSetChanged();
+//                servantList.add(sItem);
+//                itemAdapter.setItems(servantList);
+//                itemAdapter.notifyDataSetChanged();
                 database.close();
+                sAdapter.setItems(servantList);
+                sAdapter.notifyDataSetChanged();
                 break;
         }
         database.close();
@@ -615,10 +630,10 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
     }
 
     //获取从者
-    private ArrayList<Item> getServants(Cursor cur) {
+    private ArrayList<ServantItem> getServants(Cursor cur) {
         if (cur != null) {
             int NUM_SERVANT = cur.getCount();
-            ArrayList<Item> cache = new ArrayList<Item>();
+            ArrayList<ServantItem> cache = new ArrayList<>();
             if (cur.moveToFirst()) {
                 do {
                     int id = cur.getInt(0);
@@ -868,7 +883,7 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
                                 version = xpp.getAttributeValue(0);
                             } else if (tag.equals("path")) {
                                 downloadUrl = xpp.getAttributeValue(0);
-                            }else if(tag.equals("update")){
+                            } else if (tag.equals("update")) {
                                 update = xpp.getAttributeValue(0);
                             }
                             break;

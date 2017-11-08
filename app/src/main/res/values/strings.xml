@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">FGOcalc</string>
+    <string name="data_from">数据取自fgowiki,茹西教王的理想乡</string>
+    <string name="app_about">APP制作：空谕，百度月系吧刊组\n\n程序：纯蓝魔法使\n\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌\n\n数据取自fgowiki,茹西教王的理想乡</string>
+    <string name="database_upgrade_done">数据库更新完毕！！！</string>
+    <string name="database_reload_done">数据库重载完毕！！！</string>
+    <string name="database_error">数据库异常，请去侧滑菜单点击重载数据库！！！</string>
+    <string name="arts_hit">蓝卡hit</string>
+    <string name="buster_hit">红卡hit</string>
+    <string name="quick_hit">绿卡hit</string>
+    <string name="ex_hit">EX卡hit</string>
+    <string name="quick_na">绿卡NP获取率</string>
+    <string name="arts_na">蓝卡NP获取率</string>
+    <string name="buster_na">红卡NP获取率</string>
+    <string name="ex_na">EX卡NP获取率</string>
+    <string name="trump_na">宝具NP获取率</string>
+    <string name="nd">被动NP获取率</string>
+    <string name="arts_buff">蓝卡性能提升</string>
+    <string name="buster_buff">红卡性能提升</string>
+    <string name="quick_buff">绿卡性能提升</string>
+    <string name="atk_buff">攻击提升</string>
+    <string name="special_buff">特攻提升提升</string>
+    <string name="critical_buff">暴击威力提升</string>
+    <string name="solid_buff">固定伤害</string>
+    <string name="star_occur">掉星率</string>
+    <string name="star_occur_extra">额外掉星率</string>
+    <string name="default_atk">满级atk+990</string>
+    <string name="default_hp">满级hp+990</string>
+    <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+990，默认hp为满级hp+990。3蓝的20np，3绿的10星都自己加加。</string>
 </resources>

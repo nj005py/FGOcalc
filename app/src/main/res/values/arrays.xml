@@ -23,6 +23,7 @@
         <item>3星</item>
         <item>4星</item>
         <item>5星</item>
+        <item>不限</item>
     </string-array>
 
     <integer-array name = "star_value">
@@ -32,6 +33,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>7</item>
     </integer-array>
 
     <integer-array name = "trump_lv">
@@ -42,9 +44,36 @@
         <item>5</item>
     </integer-array>
 
+    <string-array name="trump_lv_str">
+        <item>一宝</item>
+        <item>二宝</item>
+        <item>三宝</item>
+        <item>四宝</item>
+        <item>五宝</item>
+    </string-array>
+
     <string-array name="cardType">
         <item>Buster</item>
         <item>Arts</item>
         <item>Quick</item>
     </string-array>
+
+    <string-array name="buffs">
+        <item>atk_up,加攻,d,AtkUp</item>
+        <item>defence_down,减防,d,EnemyDefence</item>
+        <item>critical_up,暴击,d,CriticalUp</item>
+        <item>buster_up,红魔放,d,BusterUp</item>
+        <item>arts_up,蓝魔放,d,ArtsUp</item>
+        <item>quick_up,绿魔放,d,QuickUp</item>
+        <item>special_up,特攻,d,SpecialUp</item>
+        <item>trump_up,宝具威力,d,TrumpUp</item>
+        <item>trump_special_up,宝具特攻,d,TrumpSpecialUp</item>
+        <item>np_up,np获取量,d,NpUp</item>
+        <item>wake_up,固定伤害,d,SolidAtk</item>
+        <item>star_up,掉星率,d,StarUp</item>
+        <item>image66,附加倍率,d,ExtraTimes</item>
+    </string-array>
+    private double enemyDefence = 0,//敌方防御
+    specialDefence = 0,//敌方特攻防御
+    solidDefence = 0,//敌方固定防御
 </resources>

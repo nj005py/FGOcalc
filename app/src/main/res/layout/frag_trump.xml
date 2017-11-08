@@ -8,7 +8,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/ft_ll_calc">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!--输入-->
         <LinearLayout
@@ -324,7 +326,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <!--加攻，降防，宝具提升-->
                 <LinearLayout
@@ -516,7 +518,7 @@
                         style="@style/ll_match_width_horizontal"
                         android:id="@+id/ft_ll_extra_times"
                         android:layout_weight="1.0"
-                        android:visibility="invisible">
+                        android:visibility="visible">
 
                         <ImageView
                             style="@style/iv_trump"

@@ -8,7 +8,7 @@ import com.phantancy.fgocalc.R;
  */
 public class CardsItem extends Item{
 
-    private int layoutId = R.layout.item_cards;
+    private int layoutId = R.layout.item_info_cards;
     private String type;
 
     public CardsItem(String type) {

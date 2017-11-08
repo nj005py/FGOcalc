@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sh_stroke_black_bg_white">
+
+    <ImageView
+        android:id="@+id/ii_iv_info"
+        android:layout_width="80dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:src="@mipmap/image1"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/ii_tv_info"
+        style="@style/tv_common"
+        android:layout_width="match_parent"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp"
+        android:text=""
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ii_rv_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

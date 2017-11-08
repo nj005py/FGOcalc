@@ -165,24 +165,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="10dp"
                     android:gravity="center"
+                    android:padding="10dp"
                     android:text="Buff设置"
-                    android:textColor="@color/colorBlack"/>
+                    android:textColor="@color/colorBlack" />
 
                 <ToggleButton
                     android:id="@+id/fn_tb_buff"
                     android:layout_width="50dp"
                     android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
+                    android:layout_gravity="center_horizontal"
                     android:background="@android:color/transparent"
                     android:button="@drawable/se_toggle_btn"
                     android:checked="false"
@@ -199,7 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <!--蓝魔放，绿魔放，np获取量-->
                 <LinearLayout

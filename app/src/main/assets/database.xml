@@ -4,5 +4,5 @@
     <dbname value="servants.db"></dbname>
 
     <!-- 数据库版本 -->
-    <version value="10"></version>
+    <version value="13"></version>
 </database>

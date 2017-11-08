@@ -3,6 +3,24 @@
 
     <item
         is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\viewexplosion\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="71984ffacde72cd632eded04c8976d8f7a267719">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_2f70156382df9e4766de0d772383b10b12e9a7db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\bdcb6f96f7a7e1f48aaa87f53d94cb3583ceee1e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7f70c358b66a3f0fa062d8b6b1e697dee1ca3c22">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_d926a4d5b6a3c9d4da5dbf3580e7a528c4451418.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="F:\AndroidLab\FGOcalc\app\libs\Android_Map3D_SDK_V5.4.0_20170928.jar"
         jumboMode="false"
         optimize="true"
@@ -39,12 +57,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="F:\AndroidLab\FGOcalc\viewexplosion\build\intermediates\bundles\default\classes.jar"
+        jar="C:\Android\.android\build-cache\7a58454264ff8fd1f63885a37250299fd5b26995\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
-        sha1="71984ffacde72cd632eded04c8976d8f7a267719">
-        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_2f70156382df9e4766de0d772383b10b12e9a7db.jar" />
+        sha1="5673281101aad13630046eeab1c172f83d675b07">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_bd69bdad557883cac9b1756983a1a95f5e019352.jar" />
     </item>
 
 </items>

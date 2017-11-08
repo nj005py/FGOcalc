@@ -107,7 +107,7 @@ public class ExtractActivity extends BaseActivity implements View.OnClickListene
             curCard = 0;
             curStar = 1;
         }
-//        ToastUtils.displayLongToast(mContext,"extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
+//        ToastUtils.displayLongToast(ctx,"extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
         Log.d(TAG, "extract->" + extract + " curCard->" + curCard + " curStar->" + curStar);
         aeIvCard.setImageResource(card[curCard]);
         aeIvCover.setImageResource(card[num]);

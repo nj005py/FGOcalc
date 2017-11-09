@@ -175,7 +175,6 @@
                     android:id="@+id/fsm_rb_low"
                     style="@style/rb_atk"
                     android:layout_weight="1.0"
-                    android:checked="true"
                     android:text="最小" />
 
                 <RadioButton
@@ -190,7 +189,8 @@
                     style="@style/rb_atk"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
-                    android:text="平均" />
+                    android:text="平均"
+                    android:checked="true"/>
 
                 <RadioButton
                     android:id="@+id/fsm_rb_ran"

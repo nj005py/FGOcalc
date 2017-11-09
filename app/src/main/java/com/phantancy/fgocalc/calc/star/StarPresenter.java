@@ -23,7 +23,7 @@ public class StarPresenter implements StarContract.Presenter {
     private StarContract.View mView;
     private Context ctx;
     private String result = "";
-    private double overallMax,overallMin;
+    private double overallMax,overallMin,overAllAverage;
 
     public StarPresenter(StarContract.View mView, Context ctx) {
         this.mView = mView;
@@ -106,6 +106,7 @@ public class StarPresenter implements StarContract.Presenter {
         String[] starInfo = getStarNum(starOccur,c);
         double max = Double.valueOf(starInfo[1]);
         double min = Double.valueOf(starInfo[2]);
+        double average = Double.valueOf(starInfo[3]);
         if (result.length() < 1) {
             ServantItem sItem = conS.getServantItem();
             result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
@@ -117,6 +118,7 @@ public class StarPresenter implements StarContract.Presenter {
                     .append(starInfo[0]).toString();
             overallMax += max;
             overallMin += min;
+            overAllAverage += average;
         }else{
             if (c.cardPosition == 1) {
                 result = new StringBuilder().append(result)
@@ -128,6 +130,7 @@ public class StarPresenter implements StarContract.Presenter {
                         .append(starInfo[0]).toString();
                 overallMax += max;
                 overallMin += min;
+                overAllAverage += average;
             }else{
                 result = new StringBuilder().append(result).append("\n")
                         .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
@@ -136,12 +139,15 @@ public class StarPresenter implements StarContract.Presenter {
                         .append(starInfo[0]).toString();
                 overallMax += max;
                 overallMin += min;
+                overAllAverage += average;
             }
             if (c.cardPosition == 4) {
                 result = new StringBuilder().append(result).append("\n合计---->可获得").append(overallMin).append("-")
-                        .append(overallMax).append("颗星").append("\n").toString();
+                        .append(overallMax).append("颗星 ")
+                        .append("平均").append(overAllAverage).append("颗星").append("\n").toString();
                 overallMax = 0;
                 overallMin = 0;
+                overAllAverage = 0;
             }
         }
     }
@@ -201,31 +207,39 @@ public class StarPresenter implements StarContract.Presenter {
 
     private String[] getStarNum(double starOccur,CommandCard c){
         StringBuilder sb = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("#0.##");
         String max;
         String min;
-        String[] result = new String[3];
+        String average;
+        String[] result = new String[4];
         if (starOccur > 0) {
             if (starOccur > 0 && starOccur < 1) {
-                sb.append("可获得0-").append(c.hits).append("颗星 ");
                 max = String.valueOf(c.hits);
                 min = "0";
+                average = df.format(starOccur * c.hits);
+                sb.append("可获得0-").append(c.hits).append("颗星 ")
+                        .append("平均").append(average).append("颗星 ");
                 result[0] = sb.toString();
                 result[1] = max;
                 result[2] = min;
+                result[3] = average;
             }else if (starOccur > 1) {
-                sb.append("可获得").append(Math.floor(starOccur) * c.hits).append("-")
-                        .append(Math.ceil(starOccur) * c.hits).append("颗星 ");
-                DecimalFormat df = new DecimalFormat("#0.##");
                 max = df.format(Math.ceil(starOccur) * c.hits);
                 min = df.format(Math.floor(starOccur) * c.hits);
+                average = df.format(starOccur * c.hits);
+                sb.append("可获得").append(Math.floor(starOccur) * c.hits).append("-")
+                        .append(Math.ceil(starOccur) * c.hits).append("颗星 ")
+                        .append("平均").append(average).append("颗星 ");
                 result[0] = sb.toString();
                 result[1] = max;
                 result[2] = min;
+                result[3] = average;
             }
         }else{
             result[0] = "可获得0颗星";
             result[1] = "0";
             result[2] = "0";
+            result[3] = "0";
         }
         return result;
     }

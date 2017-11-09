@@ -117,7 +117,7 @@ public class AtkFrag extends BaseFrag implements
     private boolean ifCr1, ifCr2, ifCr3;//1-3号位是否暴击
     private int weakType = 1;//职阶相性类型
     private double teamCor = 1.0, //阵营相性
-            randomCor = 0.9;//乱数补正
+            randomCor = 1.0;//平均乱数补正
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private ConditionAtk conAtk;

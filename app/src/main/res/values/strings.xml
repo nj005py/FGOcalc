@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FGOcalc</string>
     <string name="data_from">数据取自fgowiki,茹西教王的理想乡</string>
-    <string name="app_about">APP制作：空谕，百度月系吧刊组\n\n程序：纯蓝魔法使\n\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌\n\n数据取自fgowiki,茹西教王的理想乡</string>
+    <string name="app_about">APP制作：空谕，百度月系吧刊组\n\n程序：纯蓝魔法使\n\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌\n\n数据取自fgowiki,茹西教王的理想乡\n\n感谢浮云大佬、妹红，为打星计算器的开发提出了建设性建议。</string>
     <string name="database_upgrade_done">数据库更新完毕！！！</string>
     <string name="database_reload_done">数据库重载完毕！！！</string>
     <string name="database_error">数据库异常，请去侧滑菜单点击重载数据库！！！</string>

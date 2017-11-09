@@ -106,7 +106,7 @@ public class NpFrag extends BaseFrag implements
     private String cardType1, cardType2, cardType3;
     private boolean ifok1 = false, ifok2 = false, ifok3 = false,
             ifCr1, ifCr2, ifCr3;
-    private double random = 0.8;
+    private double random = 1.015;//平均敌补正
     private ConditionNp conNp;
 
     @NonNull

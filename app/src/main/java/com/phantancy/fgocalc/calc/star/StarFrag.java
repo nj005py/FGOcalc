@@ -99,7 +99,7 @@ public class StarFrag extends BaseFrag implements
     private String cardType1, cardType2, cardType3;
     private boolean ifok1 = false, ifok2 = false, ifok3 = false,
             ifCr1, ifCr2, ifCr3;
-    private double random = -0.1;
+    private double random = 0.05;//平均敌补正
     private ConditionStar conS;
     private StarContract.Presenter mPresenter;
 

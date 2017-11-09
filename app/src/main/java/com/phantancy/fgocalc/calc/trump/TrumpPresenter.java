@@ -49,7 +49,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                 ran = 1.1;
                 break;
             case Constant.TYPE_AVERAGE:
-                ran = (0.9 + 1.1) / 2;
+                ran = 1.0;
                 break;
             case Constant.TYPE_RANDOM:
                 ran = Math.random() * 0.2 + 0.9;

@@ -125,7 +125,7 @@ public class TrumpFrag extends BaseFrag implements
     private String trumpColor;
     private int weakType = 1;//职阶相性类型
     private double teamCor = 1.0, //阵营相性
-            randomCor = 0.9,//乱数补正
+            randomCor = 1.0,//乱数补正
             trumpTimes = 0;//宝具倍率
     private int[] lv;
     private String[] lvStr;

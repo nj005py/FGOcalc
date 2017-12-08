@@ -66,6 +66,9 @@ public class BuffPresenter implements BuffContract.Presenter {
                     item.setDefaultDouble(value);
                 }else{
                     item.setIfPercent(false);
+                    Method method = cls.getDeclaredMethod("get" + buff[3]);
+                    int value = (int)method.invoke(bItem);
+                    item.setDefaultInt(value);
                 }
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();

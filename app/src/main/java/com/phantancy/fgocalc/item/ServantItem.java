@@ -9,12 +9,46 @@ import com.phantancy.fgocalc.R;
 public class ServantItem extends Item{
 
     private int layoutId = R.layout.item_servant;
-    private String name,nickname,class_type,trump_color;
-    private int id,star, arts_hit,buster_hit,quick_hit,ex_hit,solid_buff,buster_num,
-            arts_num,quick_num,trump_upgraded,default_atk,default_hp;
-    private double quick_na,arts_na,buster_na,ex_na,trump_na,nd,arts_buff,buster_buff,quick_buff,
-            atk_buff,special_buff,critical_buff,star_occur,trump_lv1,trump_lv2,trump_lv3,trump_lv4,trump_lv5,
-            star_occur_extra,trump_lv1_before,trump_lv2_before,trump_lv3_before,trump_lv4_before,trump_lv5_before;
+    private String name,
+            nickname,
+            class_type,
+            trump_color;
+    private int id,star,
+            arts_hit,
+            buster_hit,
+            quick_hit,
+            ex_hit,
+            solid_buff,
+            buster_num,
+            arts_num,
+            quick_num,
+            trump_upgraded,
+            default_atk,
+            default_hp;
+    private double quick_na,
+            arts_na,
+            buster_na,
+            ex_na,
+            trump_na,
+            nd,
+            arts_buff,
+            buster_buff,
+            quick_buff,
+            atk_buff,
+            special_buff,
+            critical_buff,
+            star_occur,
+            trump_lv1,
+            trump_lv2,
+            trump_lv3,
+            trump_lv4,
+            trump_lv5,
+            star_occur_extra,
+            trump_lv1_before,
+            trump_lv2_before,
+            trump_lv3_before,
+            trump_lv4_before,
+            trump_lv5_before;
 
     public void setLayoutId(int id){
         layoutId = id;

@@ -1,8 +1,5 @@
 package com.phantancy.fgocalc.calc.trump;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,7 +32,6 @@ import com.phantancy.fgocalc.common.Constant;
 import com.phantancy.fgocalc.item.BuffsItem;
 import com.phantancy.fgocalc.item.ConditionTrump;
 import com.phantancy.fgocalc.item.ServantItem;
-import com.phantancy.fgocalc.util.ToastUtils;
 import com.phantancy.fgocalc.util.ToolCase;
 
 import java.util.ArrayList;
@@ -115,12 +111,15 @@ public class TrumpFrag extends BaseFrag implements
     Unbinder unbinder;
     @BindView(R.id.ftm_cb_upgraded)
     CheckBox ftmCbUpgraded;
+    @BindView(R.id.ftm_rb_weak_b)
+    RadioButton ftmRbWeakB;
+    Unbinder unbinder1;
 
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private int id;
     private int atk;
-    private int hpTotal = 0,hpLeft = 0;
+    private int hpTotal = 0, hpLeft = 0;
     //环境类型的参数例如选卡、是否暴击、职阶相性、阵营相性、乱数补正
     private String trumpColor;
     private int weakType = 1;//职阶相性类型
@@ -130,7 +129,7 @@ public class TrumpFrag extends BaseFrag implements
     private int[] lv;
     private String[] lvStr;
     private boolean isUpgraded,//是否有宝具本
-                        isPreTimes;//是否是旧倍率
+            isPreTimes;//是否是旧倍率
     private int curPos = 0;
     private ConditionTrump conT;
     private List<Double> curLv = new ArrayList<>();
@@ -174,9 +173,14 @@ public class TrumpFrag extends BaseFrag implements
             id = servantItem.getId();
             isUpgraded = servantItem.getTrump_upgraded() == 1 ? true : false;
             trumpColor = servantItem.getTrump_color();
+            //判断是否是alterego
+            String classType = servantItem.getClass_type();
+            if (classType.toLowerCase().equals("alterego")) {
+                ftmRbWeakB.setVisibility(View.VISIBLE);
+            }
             if (isUpgraded) {
                 ftmCbUpgraded.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 ftmCbUpgraded.setVisibility(View.GONE);
             }
             showTrumpColor();
@@ -191,7 +195,7 @@ public class TrumpFrag extends BaseFrag implements
                 ftmLlHp.setVisibility(View.GONE);
             }
 //            ToolCase.spInitSimple(ctx, lv, ftmSpLv);
-            ToolCase.spInitSimple(ctx,lvStr,ftmSpLv);
+            ToolCase.spInitDeep(ctx, lvStr, ftmSpLv);
             curLv.add(servantItem.getTrump_lv1());
             curLv.add(servantItem.getTrump_lv2());
             curLv.add(servantItem.getTrump_lv3());
@@ -240,7 +244,7 @@ public class TrumpFrag extends BaseFrag implements
                 if (isChecked) {
                     isPreTimes = true;
                     trumpTimes = preLv.get(curPos);
-                }else {
+                } else {
                     isPreTimes = false;
                     trumpTimes = curLv.get(curPos);
                 }
@@ -256,7 +260,7 @@ public class TrumpFrag extends BaseFrag implements
                             curPos = 0;
                             if (isPreTimes) {
                                 trumpTimes = servantItem.getTrump_lv1_before();
-                            }else {
+                            } else {
                                 trumpTimes = servantItem.getTrump_lv1();
                             }
                             break;
@@ -264,7 +268,7 @@ public class TrumpFrag extends BaseFrag implements
                             curPos = 1;
                             if (isPreTimes) {
                                 trumpTimes = servantItem.getTrump_lv2_before();
-                            }else{
+                            } else {
                                 trumpTimes = servantItem.getTrump_lv2();
                             }
                             break;
@@ -272,7 +276,7 @@ public class TrumpFrag extends BaseFrag implements
                             curPos = 2;
                             if (isPreTimes) {
                                 trumpTimes = servantItem.getTrump_lv3_before();
-                            }else{
+                            } else {
                                 trumpTimes = servantItem.getTrump_lv3();
                             }
                             break;
@@ -280,7 +284,7 @@ public class TrumpFrag extends BaseFrag implements
                             curPos = 3;
                             if (isPreTimes) {
                                 trumpTimes = servantItem.getTrump_lv4_before();
-                            }else {
+                            } else {
                                 trumpTimes = servantItem.getTrump_lv4();
                             }
                             break;
@@ -288,7 +292,7 @@ public class TrumpFrag extends BaseFrag implements
                             curPos = 4;
                             if (isPreTimes) {
                                 trumpTimes = servantItem.getTrump_lv5_before();
-                            }else{
+                            } else {
                                 trumpTimes = servantItem.getTrump_lv5();
                             }
                             break;
@@ -314,6 +318,9 @@ public class TrumpFrag extends BaseFrag implements
                         break;
                     case R.id.ftm_rb_weakened:
                         weakType = 3;
+                        break;
+                    case R.id.ftm_rb_weak_b:
+                        weakType = 4;
                         break;
                 }
             }
@@ -358,7 +365,7 @@ public class TrumpFrag extends BaseFrag implements
         ftmTvResult.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolCase.copy2Clipboard(ctx,ftmTvResult);
+                ToolCase.copy2Clipboard(ctx, ftmTvResult);
                 return false;
             }
         });
@@ -416,12 +423,12 @@ public class TrumpFrag extends BaseFrag implements
     public void setResult(String result) {
         ToolCase.setViewValue(ftmTvResult, result);
         int offset = ftmTvResult.getLineCount() * ftmTvResult.getLineHeight();
-        if(offset > ftmTvResult.getHeight()){
-            ftmTvResult.scrollTo(0,offset - ftmTvResult.getHeight());
+        if (offset > ftmTvResult.getHeight()) {
+            ftmTvResult.scrollTo(0, offset - ftmTvResult.getHeight());
         }
     }
 
-    private boolean validateData(){
+    private boolean validateData() {
         String atkStr = ToolCase.getViewValue(ftmEtAtk);
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         if (TextUtils.isEmpty(atkStr)) {
@@ -434,7 +441,7 @@ public class TrumpFrag extends BaseFrag implements
         if (id == 66 || id == 131) {
             hpTotal = ToolCase.getViewInt(ftmEtHpTotal);
             hpLeft = ToolCase.getViewInt(ftmEtHpLeft);
-            Log.d(TAG,"total:" + hpTotal + " left:" + hpLeft);
+            Log.d(TAG, "total:" + hpTotal + " left:" + hpLeft);
             if (hpTotal == 0 || hpLeft == 0) {
                 setCharacter("hp信息不全！！！");
                 return false;
@@ -453,8 +460,8 @@ public class TrumpFrag extends BaseFrag implements
                 }
             }
         }
-        conT = mPresenter.getConditionTrump(atk,hpTotal,hpLeft,trumpColor,weakType,
-                teamCor,randomCor,trumpTimes,servantItem,buffsItem);
+        conT = mPresenter.getConditionTrump(atk, hpTotal, hpLeft, trumpColor, weakType,
+                teamCor, randomCor, trumpTimes, servantItem, buffsItem);
 
         return true;
     }

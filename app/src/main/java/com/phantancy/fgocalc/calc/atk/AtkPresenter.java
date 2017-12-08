@@ -52,7 +52,7 @@ public class AtkPresenter implements AtkContract.Presenter {
                 ran = 1.0;
                 break;
             case Constant.TYPE_RANDOM:
-                ran = Math.random() * 0.2 + 0.9;
+                ran = 0.01;//占位表示随机数
             break;
         }
         return ran;
@@ -77,6 +77,9 @@ public class AtkPresenter implements AtkContract.Presenter {
         }
         if (buffsItem == null) {
             buffsItem = new BuffsItem();
+        }
+        if (randomCor == 0.01) {
+            randomCor = Math.random() * 0.2 + 0.9;
         }
         ConditionAtk conAtk = new ConditionAtk();
         conAtk.setAtk(atk);
@@ -168,6 +171,9 @@ public class AtkPresenter implements AtkContract.Presenter {
             case 3:
                 a[0] = "职阶被克";
                 break;
+            case 4:
+                a[0] = "职阶克制狂";
+                break;
         }
         if (conAtk.getTeamCor() == 1.0) {
             a[1] = "阵营无克";
@@ -205,7 +211,7 @@ public class AtkPresenter implements AtkContract.Presenter {
                         Method method = cls.getDeclaredMethod("get" + buff[3]);
                         double value = (double)method.invoke(item);
                         if (value != 0) {
-                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).toString();
+                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).append("%").toString();
                         }
                     }else{
                         Method method = cls.getDeclaredMethod("get" + buff[3]);

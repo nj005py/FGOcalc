@@ -3,12 +3,30 @@
 
     <item
         is-multidex="false"
+        jar="C:\Android\.android\build-cache\a27048f9f87870d53e366dc5d2ef4d68d04b8dbd\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e234aabd1c11160b5f76f50c5c53a324be322ede">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_08920103798422cfd0db10b509357506f79b0cff.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="F:\AndroidLab\FGOcalc\viewexplosion\build\intermediates\bundles\default\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="71984ffacde72cd632eded04c8976d8f7a267719">
         <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_2f70156382df9e4766de0d772383b10b12e9a7db.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\2ef2cae26d73a37c3750ffadf14a446a914057f9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5a743d0934e90e7f26d75a2463142c4b884b2981">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_455b636e52ab678041ebb3970b21e5474f8b8c09.jar" />
     </item>
     <item
         is-multidex="false"
@@ -57,12 +75,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Android\.android\build-cache\2a1a4865d7c98b7a87b017bcb4eae3d47f7df8e0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cc343a74c077ec04bbedf0c88f8a5473306edc78">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_5777fea4d5b37557fe33fcc3fe10fab94246ff50.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\7bc734b5fdf21cdc5877165ab421d5b3d700822a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="13430a12bb2eb82b397f10f61fe1f6989279c6bd">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_1cb255c60c4a1ce2f0943553f933a0dfc350f976.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Android\.android\build-cache\7a58454264ff8fd1f63885a37250299fd5b26995\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="5673281101aad13630046eeab1c172f83d675b07">
         <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_bd69bdad557883cac9b1756983a1a95f5e019352.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\.android\build-cache\5f7fb37f93f4f1640fe7c0087a5eaeab28ea8fe8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d5ee4b7829f6ec48400e678cc969176f455cb14c">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\classes_13b63b7903fe154b9bc9f8214872121e533ca029.jar" />
     </item>
 
 </items>

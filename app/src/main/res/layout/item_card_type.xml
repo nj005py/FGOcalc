@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/colorL">
 
     <ImageView
         android:id="@+id/ict_iv_card"

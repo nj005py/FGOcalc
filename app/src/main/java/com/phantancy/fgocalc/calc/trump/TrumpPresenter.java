@@ -106,6 +106,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         c.setAtkBuff(buffsItem.getAtkUp() / 100 + atk_buff);
         c.setSpecialBuff(buffsItem.getSpecialUp() / 100 + special_buff);
         c.setEnemyDefence(buffsItem.getEnemyDefence() / 100);
+        c.setTrumpDown(buffsItem.getTrumpDown() / 100);
         switch (trumpColor) {
             case "b":
                 c.setCardBuff(buffsItem.getBusterUp() / 100 + buster_buff);
@@ -140,12 +141,13 @@ public class TrumpPresenter implements TrumpContract.Presenter {
 
     private double weakCorForAtk(int weak_type,String class_type){
         double weakCor = 1.0;
+        String cacheClass = class_type.toLowerCase();
         switch (weak_type) {
             case 1:
                 weakCor = 1.0;
                 break;
             case 2:
-                if (class_type.equals("Berserker")) {
+                if (cacheClass.equals("berserker") || cacheClass.equals("alterego")) {
                     weakCor = 1.5;
                 } else {
                     weakCor = 2.0;
@@ -153,6 +155,9 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                 break;
             case 3:
                 weakCor = 0.5;
+                break;
+            case 4:
+                weakCor = 2.0;
                 break;
         }
         return weakCor;
@@ -202,6 +207,9 @@ public class TrumpPresenter implements TrumpContract.Presenter {
             case "mooncancer":
                 classCor = 1.0;
                 break;
+            case "foreigner":
+                classCor = 1.0;
+                break;
         }
         return classCor;
     }
@@ -215,7 +223,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         int overallAttack;
         double attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
                 * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
-                (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff())
+                (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
                 * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
         int attackInt = (int) Math.floor(attack);
         overallAttack = attackInt;

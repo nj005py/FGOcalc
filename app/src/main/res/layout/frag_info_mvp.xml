@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
+    <Button
+        android:id="@+id/fim_btn_more"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/se_lightblue2_deepblue"
+        android:text="更多信息，切到fgowiki"
+        android:textSize="14dp"
+        android:textColor="@color/colorWhite"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fim_rv_info"
         android:layout_width="match_parent"

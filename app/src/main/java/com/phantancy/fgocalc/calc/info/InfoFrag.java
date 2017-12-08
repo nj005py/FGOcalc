@@ -1,9 +1,7 @@
 package com.phantancy.fgocalc.calc.info;
 
-import android.icu.text.IDNA;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,24 +10,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.alibaba.android.vlayout.DelegateAdapter;
-import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.alibaba.android.vlayout.layout.OnePlusNLayoutHelper;
 import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
 import com.beloo.widget.chipslayoutmanager.gravity.IChildGravityResolver;
 import com.beloo.widget.chipslayoutmanager.layouter.breaker.IRowBreaker;
 import com.phantancy.fgocalc.R;
+import com.phantancy.fgocalc.activity.WebviewActy;
 import com.phantancy.fgocalc.adapter.InfoAdapter;
 import com.phantancy.fgocalc.base.BaseFrag;
 import com.phantancy.fgocalc.common.Constant;
-import com.phantancy.fgocalc.item.InfoCardsMVPItem;
 import com.phantancy.fgocalc.item.InfoItem;
-import com.phantancy.fgocalc.item.Item;
 import com.phantancy.fgocalc.item.ServantItem;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,17 +35,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by HATTER on 2017/11/4.
  */
 
-public class InfoFrag extends BaseFrag implements InfoContract.View{
+public class InfoFrag extends BaseFrag implements InfoContract.View {
 
     @BindView(R.id.fim_rv_info)
     RecyclerView fimRvInfo;
     Unbinder unbinder;
+    @BindView(R.id.fim_btn_more)
+    Button fimBtnMore;
+    Unbinder unbinder1;
     private ServantItem servantItem;
     private InfoContract.Presenter mPresenter;
     private List<InfoItem> infoList;
     private InfoAdapter infoAdapter;
     private static final boolean ONEN_LAYOUT = true;
     private Runnable trigger;
+    private int id;
 
     @Override
     public void setPresenter(InfoContract.Presenter presenter) {
@@ -76,18 +73,19 @@ public class InfoFrag extends BaseFrag implements InfoContract.View{
         servantItem = (ServantItem) data.getSerializable("servantItem");
         if (servantItem != null) {
             infoList = mPresenter.getInfoList(servantItem);
+            id = servantItem.getId();
             //配置recyclerview
-            GridLayoutManager gl = new GridLayoutManager(ctx,4);
+            GridLayoutManager gl = new GridLayoutManager(ctx, 4);
             gl.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     InfoItem item = infoList.get(position);
                     if (item.getType() == Constant.TYPE_LIST) {
                         return 3;
-                    }else{
+                    } else {
                         if (item.getColumn() > 0) {
                             return item.getColumn();
-                        }else{
+                        } else {
                             return 1;
                         }
                     }
@@ -146,10 +144,19 @@ public class InfoFrag extends BaseFrag implements InfoContract.View{
                     })
                     .build();
             fimRvInfo.setLayoutManager(gl);
-            fimRvInfo.getRecycledViewPool().setMaxRecycledViews(0,30);
-            fimRvInfo.getRecycledViewPool().setMaxRecycledViews(1,30);
-            infoAdapter = new InfoAdapter(infoList,ctx);
+            fimRvInfo.getRecycledViewPool().setMaxRecycledViews(0, 30);
+            fimRvInfo.getRecycledViewPool().setMaxRecycledViews(1, 30);
+            infoAdapter = new InfoAdapter(infoList, ctx);
             fimRvInfo.setAdapter(infoAdapter);
+            fimBtnMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = new StringBuilder().append("http://fgowiki.com/guide/petdetail/").append(id).toString();
+                    Intent i = new Intent(ctx, WebviewActy.class);
+                    i.putExtra("url",url);
+                    startActivity(i);
+                }
+            });
         }
     }
 

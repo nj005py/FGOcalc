@@ -4,7 +4,7 @@
 
     <item>
         <bitmap android:src="@mipmap/get_merlin"
-            android:gravity="center"/>
+            android:gravity="fill"/>
     </item>
 
 </layer-list>

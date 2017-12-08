@@ -27,10 +27,19 @@ public class ConditionTrump implements Serializable {
             specialBuff,
             trumpPowerBuff,
             trumpBuff,
-            solidBuff;
+            solidBuff,
+            trumpDown = 0;
 
     private ServantItem servantItem;
     private BuffsItem buffsItem;
+
+    public double getTrumpDown() {
+        return trumpDown;
+    }
+
+    public void setTrumpDown(double trumpDown) {
+        this.trumpDown = trumpDown;
+    }
 
     public double getCardBuff() {
         return cardBuff;

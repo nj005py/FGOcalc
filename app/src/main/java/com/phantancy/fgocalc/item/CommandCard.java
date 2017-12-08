@@ -395,44 +395,48 @@ public class CommandCard {
     }
 
     private void classCorForAtk(){
-        switch (class_type) {
-            case "Saber":
+        String classCache = class_type.toLowerCase();
+        switch (classCache) {
+            case "saber":
                 classCor = 1.00;
                 break;
-            case "Archer":
+            case "archer":
                 classCor = 0.95;
                 break;
-            case "Lancer":
+            case "lancer":
                 classCor = 1.05;
                 break;
-            case "Rider":
+            case "rider":
                 classCor = 1.0;
                 break;
-            case "Caster":
+            case "caster":
                 classCor = 0.9;
                 break;
-            case "Assassin":
+            case "assassin":
                 classCor = 0.9;
                 break;
-            case "Berserker":
+            case "berserker":
                 classCor = 1.1;
                 break;
-            case "Ruler":
+            case "ruler":
                 classCor = 1.1;
                 break;
-            case "Shielder":
+            case "shielder":
                 classCor = 1.0;
                 break;
-            case "Alterego":
+            case "alterego":
                 classCor = 1.0;
                 break;
-            case "Avenger":
+            case "avenger":
                 classCor = 1.1;
                 break;
-            case "Beast":
+            case "beast":
                 classCor = 1.0;
                 break;
-            case "MoonCancer":
+            case "mooncancer":
+                classCor = 1.0;
+                break;
+            case "foreigner":
                 classCor = 1.0;
                 break;
         }
@@ -466,12 +470,13 @@ public class CommandCard {
 
     private void weakCorForAtk(){
         weak_type = conAtk.getWeakType();
+        String cacheClass = class_type.toLowerCase();
         switch (weak_type) {
             case 1:
                 weakCor = 1.0;
                 break;
             case 2:
-                if (class_type.equals("Berserker")) {
+                if (cacheClass.equals("berserker") || cacheClass.equals("alterego")) {
                     weakCor = 1.5;
                 } else {
                     weakCor = 2.0;
@@ -479,6 +484,9 @@ public class CommandCard {
                 break;
             case 3:
                 weakCor = 0.5;
+                break;
+            case 4:
+                weakCor = 2.0;
                 break;
         }
     }

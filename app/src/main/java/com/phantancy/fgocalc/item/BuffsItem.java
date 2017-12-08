@@ -20,9 +20,19 @@ public class BuffsItem implements Serializable {
             trumpUp = 0,//宝具威力提升
             trumpSpecialUp = 0,//宝具特攻
             npUp = 0,//np获取量
-            solidAtk = 0,//固定伤害
             starUp = 0,//掉星率
-            extraTimes = 0;//附加倍率
+            extraTimes = 0,//附加倍率
+            trumpDown = 0;
+
+    private int solidAtk = 0;//固定伤害
+
+    public double getTrumpDown() {
+        return trumpDown;
+    }
+
+    public void setTrumpDown(double trumpDown) {
+        this.trumpDown = trumpDown;
+    }
 
     public double getEnemyDefence() {
         return enemyDefence;
@@ -120,14 +130,6 @@ public class BuffsItem implements Serializable {
         this.npUp = npUp;
     }
 
-    public double getSolidAtk() {
-        return solidAtk;
-    }
-
-    public void setSolidAtk(double solidAtk) {
-        this.solidAtk = solidAtk;
-    }
-
     public double getStarUp() {
         return starUp;
     }
@@ -142,5 +144,13 @@ public class BuffsItem implements Serializable {
 
     public void setExtraTimes(double extraTimes) {
         this.extraTimes = extraTimes;
+    }
+
+    public int getSolidAtk() {
+        return solidAtk;
+    }
+
+    public void setSolidAtk(int solidAtk) {
+        this.solidAtk = solidAtk;
     }
 }

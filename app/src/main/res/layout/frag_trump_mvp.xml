@@ -9,7 +9,11 @@
         android:id="@+id/ftm_ll_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorDeepBlue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,12 +65,14 @@
 
         <LinearLayout
             style="@style/ll_match_width_horizontal"
-            android:gravity="start|center_vertical">
+            android:gravity="start|center_vertical"
+            android:background="@color/colorL">
 
             <TextView
                 style="@style/tv_common"
                 android:layout_width="wrap_content"
-                android:text="宝具卡色"/>
+                android:text="宝具卡色"
+                android:textColor="@color/colorWhite"/>
 
             <!--宝具卡色-->
             <ImageView
@@ -80,6 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="切换旧倍率"
+                android:textColor="@color/colorWhite"
                 android:visibility="gone"/>
 
         </LinearLayout>
@@ -93,15 +100,21 @@
 
             <TextView
                 style="@style/tv_common"
-                android:layout_weight="5.0"
-                android:text="ATK"/>
+                android:layout_weight="4.0"
+                android:text="ATK"
+                android:textColor="@color/colorWhite"/>
 
             <EditText
                 android:id="@+id/ftm_et_atk"
-                android:layout_weight="1.0"
                 style="@style/et_common"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorDeepBlue"
                 android:inputType="number"
-                android:hint="ATK"/>
+                android:hint="ATK"
+                android:textColor="@color/colorWhite"/>
 
         </LinearLayout>
 
@@ -160,20 +173,22 @@
 
             <TextView
                 style="@style/tv_common"
-                android:layout_weight="5.0"
-                android:text="宝具lv"/>
+                android:layout_weight="4.0"
+                android:text="宝具lv"
+                android:textColor="@color/colorWhite"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:padding="1dp"
-                android:background="@drawable/sh_stroke">
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorDeepBlue">
 
                 <Spinner
                     android:id="@+id/ftm_sp_lv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -183,9 +198,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -193,7 +206,7 @@
                 android:layout_weight="4.0"
                 android:gravity="center"
                 android:text="职阶相性"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorWhite"/>
 
             <RadioGroup
                 android:id="@+id/ftm_rg_weak"
@@ -207,23 +220,29 @@
                     style="@style/rb_atk"
                     android:layout_width="match_parent"
                     android:layout_weight="1.0"
-                    android:text="白值"
-                    android:checked="true"/>
+                    android:checked="true"
+                    android:text="白值" />
 
                 <RadioButton
                     android:id="@+id/ftm_rb_weak"
                     style="@style/rb_atk"
                     android:layout_width="match_parent"
                     android:layout_weight="1.0"
-                    android:layout_marginLeft="5dp"
-                    android:text="克制"/>
+                    android:text="克制" />
+
+                <RadioButton
+                    android:id="@+id/ftm_rb_weak_b"
+                    style="@style/rb_atk"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="克制狂"
+                    android:visibility="gone"/>
 
                 <RadioButton
                     android:id="@+id/ftm_rb_weakened"
                     style="@style/rb_atk"
                     android:layout_width="match_parent"
                     android:layout_weight="1.0"
-                    android:layout_marginLeft="5dp"
                     android:text="被克"/>
 
             </RadioGroup>
@@ -234,9 +253,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -244,7 +261,7 @@
                 android:layout_weight="4.0"
                 android:gravity="center"
                 android:text="阵营相性"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorWhite"/>
 
             <RadioGroup
                 android:id="@+id/ftm_rg_team"
@@ -263,14 +280,12 @@
                 <RadioButton
                     android:id="@+id/ftm_rb_tweak"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="克制"/>
 
                 <RadioButton
                     android:id="@+id/ftm_rb_tweakened"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="被克"/>
 
@@ -282,9 +297,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -292,7 +305,7 @@
                 android:layout_weight="4.0"
                 android:gravity="center"
                 android:text="乱数补正"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorWhite"/>
 
             <RadioGroup
                 android:id="@+id/ftm_rg_random"
@@ -310,14 +323,12 @@
                 <RadioButton
                     android:id="@+id/ftm_rb_random_max"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
-                    android:text="最大"/>
+                    android:text="最大" />
 
                 <RadioButton
                     android:id="@+id/ftm_rb_random_average"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="平均"
                     android:checked="true"/>
@@ -325,7 +336,6 @@
                 <RadioButton
                     android:id="@+id/ftm_rb_random"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="随机"/>
 

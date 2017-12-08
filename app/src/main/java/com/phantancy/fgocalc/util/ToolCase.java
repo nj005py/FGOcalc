@@ -131,17 +131,11 @@ public class ToolCase {
         }
     }
 
-    //spinner绑定数据源,特供版
-    public static void spInitSpecial(Context context,String[] str,Spinner sp){
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_simple_spinner,str){
-            @Override
-            public int getCount() {
-                return super.getCount() - 1;
-            }
-        };
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner);
+    //spinner绑定数据源,deep样式
+    public static void spInitDeep(Context context,String[] str,Spinner sp){
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_deep,str);
+        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_deep);
         sp.setAdapter(spAdapter);
-        sp.setSelection(spAdapter.getCount());
     }
 
     public static void copy2Clipboard(Context ctx,TextView tv){

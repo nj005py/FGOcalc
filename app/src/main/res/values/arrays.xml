@@ -69,9 +69,10 @@
         <item>trump_up,宝具威力,d,TrumpUp</item>
         <item>trump_special_up,宝具特攻,d,TrumpSpecialUp</item>
         <item>np_up,np获取量,d,NpUp</item>
-        <item>wake_up,固定伤害,d,SolidAtk</item>
+        <item>wake_up,固定伤害,i,SolidAtk</item>
         <item>star_up,掉星率,d,StarUp</item>
         <item>image66,附加倍率,d,ExtraTimes</item>
+        <item>trump_down,降宝具威力,d,TrumpDown</item>
     </string-array>
     private double enemyDefence = 0,//敌方防御
     specialDefence = 0,//敌方特攻防御

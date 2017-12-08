@@ -29,6 +29,9 @@
             android:name="com.amap.api.v2.apikey"
             android:value="e3bdf0f988fbbab4ed131fbc08181198" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="31289302ccafb98d34ad986ca0418aa5075f77fb" />
 
         <activity
             android:name=".splash.SplashActy"
@@ -50,6 +53,7 @@
             android:theme="@style/TransTheme"/>
         <activity android:name=".calc.buff.BuffActy"
             android:theme="@style/TransTheme"/>
+        <activity android:name=".activity.WebviewActy"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

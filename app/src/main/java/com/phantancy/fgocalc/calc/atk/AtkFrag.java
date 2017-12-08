@@ -108,6 +108,11 @@ public class AtkFrag extends BaseFrag implements
     @BindView(R.id.fam_rl_character)
     RelativeLayout famRlCharacter;
     Unbinder unbinder;
+    @BindView(R.id.textView)
+    TextView textView;
+    @BindView(R.id.fam_rb_weak_b)
+    RadioButton famRbWeakB;
+    Unbinder unbinder1;
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
     private String[] cardValues = {"b", "a", "q"};
@@ -179,13 +184,18 @@ public class AtkFrag extends BaseFrag implements
     //默认hp atk
     private void setDefault() {
         ToolCase.setViewValue(famEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
+        //判断是否是alterego
+        String classType = servantItem.getClass_type();
+        if (classType.toLowerCase().equals("alterego")) {
+            famRbWeakB.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setListener() {
         famBtnCalc.setOnClickListener(this);
         famBtnClean.setOnClickListener(this);
         famRlCharacter.setOnClickListener(this);
-        //宝具设置开关
+        //buff设置开关
         famBtnBuff.setOnClickListener(this);
         //1-3号卡选卡
         famSpCard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -279,6 +289,9 @@ public class AtkFrag extends BaseFrag implements
                     case R.id.fam_rb_weakened:
                         weakType = 3;
                         break;
+                    case R.id.fam_rb_weak_b:
+                        weakType = 4;
+                        break;
                 }
             }
         });
@@ -359,8 +372,8 @@ public class AtkFrag extends BaseFrag implements
     public void setResult(String result) {
         ToolCase.setViewValue(famTvResult, result);
         int offset = famTvResult.getLineCount() * famTvResult.getLineHeight();
-        if(offset > famTvResult.getHeight()){
-            famTvResult.scrollTo(0,offset - famTvResult.getHeight());
+        if (offset > famTvResult.getHeight()) {
+            famTvResult.scrollTo(0, offset - famTvResult.getHeight());
         }
     }
 

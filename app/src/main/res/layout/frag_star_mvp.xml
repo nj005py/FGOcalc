@@ -10,7 +10,11 @@
         android:id="@+id/fsm_ll_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorDeepBlue"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/fsm_rl_character"
+        android:layout_toEndOf="@+id/fsm_rl_character">
 
         <!--buff设置开关-->
         <LinearLayout
@@ -65,7 +69,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/colorL">
 
             <Spinner
                 android:id="@+id/fsm_sp_card1"
@@ -94,8 +99,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/fsm_cb_ok1"
@@ -107,14 +111,12 @@
                 android:id="@+id/fsm_cb_ok2"
                 style="@style/cb_np"
                 android:layout_weight="1.0"
-                android:layout_marginLeft="5dp"
                 android:text="OverKill"/>
 
             <CheckBox
                 android:id="@+id/fsm_cb_ok3"
                 style="@style/cb_np"
                 android:layout_weight="1.0"
-                android:layout_marginLeft="5dp"
                 android:text="OverKill"/>
 
         </LinearLayout>
@@ -123,8 +125,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
+            android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/fsm_cb_cr1"
@@ -136,14 +137,12 @@
                 android:id="@+id/fsm_cb_cr2"
                 style="@style/cb_np"
                 android:layout_weight="1.0"
-                android:layout_marginLeft="5dp"
                 android:text="暴击"/>
 
             <CheckBox
                 android:id="@+id/fsm_cb_cr3"
                 style="@style/cb_np"
                 android:layout_weight="1.0"
-                android:layout_marginLeft="5dp"
                 android:text="暴击"/>
 
         </LinearLayout>
@@ -152,9 +151,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -162,7 +159,7 @@
                 android:layout_weight="4.0"
                 android:gravity="center"
                 android:text="敌补正"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorWhite" />
 
             <RadioGroup
                 android:id="@+id/fsm_rg_ran"
@@ -180,14 +177,12 @@
                 <RadioButton
                     android:id="@+id/fsm_rb_high"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="最大" />
 
                 <RadioButton
                     android:id="@+id/fsm_rb_middle"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="平均"
                     android:checked="true"/>
@@ -195,7 +190,6 @@
                 <RadioButton
                     android:id="@+id/fsm_rb_ran"
                     style="@style/rb_atk"
-                    android:layout_marginLeft="5dp"
                     android:layout_weight="1.0"
                     android:text="随机" />
 

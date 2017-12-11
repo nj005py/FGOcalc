@@ -31,6 +31,7 @@ public interface ServantListContract {
         void sendEmail(Context ctx);
         void simpleCheck(Context ctx, Activity acty);//检查权限、版本更新、数据库更新
         void reloadDatabase();
+        void loadDatabaseExtra();
         void unregisterReceiver(Context ctx);
         List<ServantItem> getAllServants();
         List<ServantItem> searchServantsByKeyword(String value);

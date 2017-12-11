@@ -12,7 +12,7 @@
 
         <item
             android:id="@+id/nsm_metaphysics"
-            android:title="玄学计算器"/>
+            android:title="欧非检测仪"/>
 
         <item
             android:id="@+id/nsm_go"
@@ -30,6 +30,10 @@
         <item
             android:id="@+id/nsm_reload_database"
             android:title="重载数据库"/>
+
+        <item
+            android:id="@+id/nsm_load_database_extra"
+            android:title="载入外置数据库"/>
 
         <item
             android:id="@+id/nsm_feedback"

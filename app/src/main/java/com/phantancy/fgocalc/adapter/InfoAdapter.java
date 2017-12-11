@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.phantancy.fgocalc.R;
 import com.phantancy.fgocalc.common.Constant;
 import com.phantancy.fgocalc.item.InfoCardsMVPItem;
@@ -77,7 +78,21 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
             InfoItem item = mList.get(position);
             switch (item.getType()) {
                 case Constant.TYPE_IMG:
-                    holder.ivInfo.setImageResource(item.getPortrait());
+                    if (item.getPortrait() != 0) {
+                        holder.ivInfo.setImageResource(item.getPortrait());
+                    }else{
+                        String num = "";
+                        if (item.getId() > 0 && item.getId() < 10) {
+                            num = new StringBuilder().append("00").append(item.getId()).toString();
+                        }else if (item.getId() >= 10 && item.getId() < 100) {
+                            num = new StringBuilder().append("0").append(item.getId()).toString();
+                        }else{
+                            num = new StringBuilder().append(item.getId()).toString();
+                        }
+                        //从fgowiki获取头像
+                        String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(num).append(".jpg").toString();
+                        ImageLoader.getInstance().displayImage(url,holder.ivInfo);
+                    }
                     holder.ivInfo.setVisibility(View.VISIBLE);
                     break;
                 case Constant.TYPE_VALUE:

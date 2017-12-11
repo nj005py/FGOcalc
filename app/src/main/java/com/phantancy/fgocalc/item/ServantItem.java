@@ -12,7 +12,8 @@ public class ServantItem extends Item{
     private String name,
             nickname,
             class_type,
-            trump_color;
+            trump_color,
+            portrait;
     private int id,star,
             arts_hit,
             buster_hit,
@@ -389,5 +390,13 @@ public class ServantItem extends Item{
 
     public void setTrump_lv5_before(double trump_lv5_before) {
         this.trump_lv5_before = trump_lv5_before;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
     }
 }

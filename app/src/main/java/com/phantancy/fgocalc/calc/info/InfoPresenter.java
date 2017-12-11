@@ -73,7 +73,7 @@ public class InfoPresenter implements InfoContract.Presenter {
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(2);
         List<InfoCardsMVPItem> cardList = getCardsNum(busterNum,artNum,quickNum);
-        list.add(new InfoItem(resId,Constant.TYPE_IMG));
+        list.add(new InfoItem(id,resId,Constant.TYPE_IMG));
         list.add(new InfoItem(new StringBuilder().append("No.").append(id).append("\n").append(name).append("\n").append(star).append("星\n")
                 .append(nickname)
                 .toString(), Constant.TYPE_VALUE,3));

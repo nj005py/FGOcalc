@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class InfoItem implements Serializable {
+    private int id;
     private int portrait;
     private String info;
     private List<InfoCardsMVPItem> cardsList;
@@ -21,7 +22,8 @@ public class InfoItem implements Serializable {
         this.type = type;
     }
 
-    public InfoItem(int portrait, int type) {
+    public InfoItem(int id,int portrait, int type) {
+        this.id = id;
         this.portrait = portrait;
         this.type = type;
     }
@@ -80,5 +82,13 @@ public class InfoItem implements Serializable {
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

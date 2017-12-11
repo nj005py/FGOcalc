@@ -18,34 +18,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.phantancy.fgocalc.R;
-import com.phantancy.fgocalc.util.BaseUtils;
 import com.phantancy.fgocalc.util.ImageUtils;
-import com.phantancy.fgocalc.util.SharedPreferencesUtils;
 import com.phantancy.fgocalc.util.ToastUtils;
+import com.phantancy.fgocalc.view.VerticalProgressBar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,16 +50,25 @@ import butterknife.ButterKnife;
  * Created by PY on 2016/10/31.
  */
 public class MetaphysicsActy extends BaseActivity implements View.OnClickListener {
-    @BindView(R.id.am_cb_remember)
-    CheckBox amCbRemember;
-    @BindView(R.id.am_et_id)
-    EditText amEtId;
+
+    @BindView(R.id.am_rb_believe)
+    RadioButton amRbBelieve;
+    @BindView(R.id.am_rb_unbelieve)
+    RadioButton amRbUnbelieve;
+    @BindView(R.id.am_rg_method)
+    RadioGroup amRgMethod;
     @BindView(R.id.am_btn_screen)
     Button amBtnScreen;
     @BindView(R.id.am_tv_percent)
     TextView amTvPercent;
     @BindView(R.id.am_iv_thing)
     ImageView amIvThing;
+    @BindView(R.id.am_tv_europe)
+    TextView amTvEurope;
+    @BindView(R.id.am_pb_europe)
+    VerticalProgressBar amPbEurope;
+    @BindView(R.id.am_tv_africa)
+    TextView amTvAfrica;
     @BindView(R.id.am_btn_time)
     Button amBtnTime;
     @BindView(R.id.am_tv_time)
@@ -79,14 +81,12 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
     TextView amTvCharacter;
     @BindView(R.id.am_rl_character)
     RelativeLayout amRlCharacter;
-    @BindView(R.id.am_rb_believe)
-    RadioButton amRbBelieve;
-    @BindView(R.id.am_rb_unbelieve)
-    RadioButton amRbUnbelieve;
-    @BindView(R.id.am_rg_method)
-    RadioGroup amRgMethod;
+    @BindView(R.id.am_pb_africa)
+    VerticalProgressBar amPbAfrica;
     private long fgoId;
     private double blackPercent = -1;
+    private double grayPercent = -1;
+    private double[] percent = {-1, -1};
     private boolean ifRemember;
     private AnimationSet textAnimationSet;
     private static final int TAKE_PHOTO = 1;
@@ -105,11 +105,6 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
     private void init() {
 //        initBaseStatusBar(ctx);
 //        llStatusBar.setBackgroundColor(ContextCompat.getColor(ctx,R.color.colorBlack));
-        fgoId = (long) SharedPreferencesUtils.getParam(mContext, "fgoId", 0l);
-        if (fgoId > 0) {
-            amCbRemember.setChecked(true);
-            amEtId.setText(fgoId + "");
-        }
         setListener();
     }
 
@@ -117,28 +112,6 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
         amBtnScreen.setOnClickListener(this);
         amBtnTime.setOnClickListener(this);
         amRlCharacter.setOnClickListener(this);
-        amCbRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    if (notEmpty(etValue(amEtId))) {
-                        fgoId = Long.parseLong(etValue(amEtId));
-                        if (!verifyId(etValue(amEtId))) {
-                            amCbRemember.setChecked(false);
-                            ToastUtils.displayShortToast(mContext, "fgo数字Id有误");
-                            return;
-                        } else {
-                            SharedPreferencesUtils.setParam(mContext, "fgoId", fgoId);
-                        }
-                    } else {
-                        amCbRemember.setChecked(false);
-                        ToastUtils.displayShortToast(mContext, "请输入fgo数字id");
-                    }
-                } else {
-                    SharedPreferencesUtils.setParam(mContext, "fgoId", 0l);
-                }
-            }
-        });
     }
 
     @Override
@@ -147,70 +120,65 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
             case R.id.am_btn_screen:
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                         ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},TAKE_PHOTO);
-                }else{
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, TAKE_PHOTO);
+                } else {
                     imgByPhoto();
                 }
                 break;
             case R.id.am_btn_time:
-                if (notEmpty(etValue(amEtId))) {
-                    if (!verifyId(etValue(amEtId))) {
-                        ToastUtils.displayShortToast(mContext, "fgo数字Id有误");
-                        return;
-                    }
-                    fgoId = Long.parseLong(etValue(amEtId));
-                    if (blackPercent == -1) {
-                        ToastUtils.displayShortToast(mContext, "请进行圣遗物检测");
-                    } else {
-                        if (blackPercent >= 0.85) {
-                            amRlCharacter.setVisibility(View.VISIBLE);
-                            amIvCharacter.setImageResource(R.mipmap.joan_alter_dislike);
-                            amTvCharacter.setText("非气浓度都高成这样了还要抽卡？\n难道你是受虐狂吗？");
-                            amTvCharacter.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.push_left_in));
-                            amTvTime.setText("不换换圣遗物吗？");
-                        }else{
-                            if(blackPercent < 0.1){
-                                amRlCharacter.setVisibility(View.VISIBLE);
-                                amIvCharacter.setImageResource(R.mipmap.joan_alter_smile);
-                                amTvCharacter.setText("欧气足的Master!\n快去迎接新Servant吧!");
-                                amTvCharacter.setAnimation(AnimationUtils.loadAnimation(mContext,R.anim.push_left_in));
-//                                textAnimation(fmTvCharacter);
-                            }
-                            double result = fgoId * blackPercent;
-                            String value = result + "";
-                            Calendar ca = Calendar.getInstance();//可以对每个时间域单独修改
-                            int hour = ca.get(Calendar.HOUR_OF_DAY);
-                            int minute = ca.get(Calendar.MINUTE);
-                            if (isNumeric(String.valueOf(value.charAt(0)))) {
-                                hour += Integer.parseInt(String.valueOf(value.charAt(0)));
-                            } else {
-                                hour += Integer.parseInt(String.valueOf(value.charAt(1)));
-                            }
-                            if (hour > 24) {
-                                hour = hour - 24;
-                            }
-                            if (isNumeric(String.valueOf(value.charAt(5)))) {
-                                minute += Integer.parseInt(String.valueOf(value.charAt(5)));
-                            } else {
-                                minute += Integer.parseInt(String.valueOf(value.charAt(6)));
-                            }
-                            if (minute > 60) {
-                                minute = minute - 60;
-                            }
-                            String min = minute + "";
-                            if (minute >= 0 && minute <= 9) {
-                                min = "0" + minute;
-                            }
-                            amTvTime.setText(hour + ":" + min);
-                        }
-                    }
-                } else {
-                    ToastUtils.displayShortToast(mContext, "请输入fgo数字id");
-                }
+
                 break;
             case R.id.am_rl_character:
                 amRlCharacter.setVisibility(View.GONE);
                 break;
+        }
+    }
+
+    private void check() {
+        if (blackPercent == -1) {
+            ToastUtils.displayShortToast(mContext, "请进行圣遗物检测");
+        } else {
+            if (blackPercent >= 0.85) {
+                amRlCharacter.setVisibility(View.VISIBLE);
+                amIvCharacter.setImageResource(R.mipmap.joan_alter_dislike);
+                amTvCharacter.setText("非气浓度都高成这样了还要抽卡？\n难道你是受虐狂吗？");
+                amTvCharacter.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
+                amTvTime.setText("不换换圣遗物吗？");
+            } else {
+                if (blackPercent < 0.1) {
+                    amRlCharacter.setVisibility(View.VISIBLE);
+                    amIvCharacter.setImageResource(R.mipmap.joan_alter_smile);
+                    amTvCharacter.setText("欧气足的Master!\n快去迎接新Servant吧!");
+                    amTvCharacter.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
+//                                textAnimation(fmTvCharacter);
+                }
+//                double result = fgoId * blackPercent;
+//                String value = result + "";
+//                Calendar ca = Calendar.getInstance();//可以对每个时间域单独修改
+//                int hour = ca.get(Calendar.HOUR_OF_DAY);
+//                int minute = ca.get(Calendar.MINUTE);
+//                if (isNumeric(String.valueOf(value.charAt(0)))) {
+//                    hour += Integer.parseInt(String.valueOf(value.charAt(0)));
+//                } else {
+//                    hour += Integer.parseInt(String.valueOf(value.charAt(1)));
+//                }
+//                if (hour > 24) {
+//                    hour = hour - 24;
+//                }
+//                if (isNumeric(String.valueOf(value.charAt(5)))) {
+//                    minute += Integer.parseInt(String.valueOf(value.charAt(5)));
+//                } else {
+//                    minute += Integer.parseInt(String.valueOf(value.charAt(6)));
+//                }
+//                if (minute > 60) {
+//                    minute = minute - 60;
+//                }
+//                String min = minute + "";
+//                if (minute >= 0 && minute <= 9) {
+//                    min = "0" + minute;
+//                }
+//                amTvTime.setText(hour + ":" + min);
+            }
         }
     }
 
@@ -240,8 +208,8 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
             case TAKE_PHOTO:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     imgByPhoto();
-                }else{
-                    ToastUtils.displayShortToast(mContext,"您拒绝了权限");
+                } else {
+                    ToastUtils.displayShortToast(mContext, "您拒绝了权限");
                 }
                 break;
 
@@ -269,17 +237,17 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
     public void imgByPhoto() {
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/screenTest.jpg";
         File outputImage = new File(path);
-        try{
+        try {
             if (outputImage.exists()) {
                 outputImage.delete();
             }
             outputImage.createNewFile();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (Build.VERSION.SDK_INT >= 24) {
-            imageUri = FileProvider.getUriForFile(mContext,"com.phantancy.fgocalc.fileprovider",outputImage);
-        }else{
+            imageUri = FileProvider.getUriForFile(mContext, "com.phantancy.fgocalc.fileprovider", outputImage);
+        } else {
             imageUri = Uri.fromFile(outputImage);
         }
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -318,22 +286,29 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
         return data;
     }
 
-    private void newcolor2bw(){
-        try{
+    private void newcolor2bw() {
+        try {
             Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
             Bitmap photo = ImageUtils.reduce(bitmap, 1200, 900, true);
             bitmap.recycle();
-            amIvThing.setImageBitmap(photo);
+//            amIvThing.setImageBitmap(photo);
             photo = ImageUtils.convertToBMW(photo, 1200, 900, 55);
             NumberFormat nf = NumberFormat.getPercentInstance();
             nf.setMinimumFractionDigits(2);
-            blackPercent = ImageUtils.blackArea(photo);
+            percent = ImageUtils.check(photo);
+            blackPercent = percent[0];
+            grayPercent = percent[1];
             if (blackPercent == 0) {
                 blackPercent = 0.01;
             }
             String black = nf.format(blackPercent);
-            amTvPercent.setText("非气浓度: " + black);
-        }catch (FileNotFoundException e){
+            String gray = nf.format(grayPercent);
+            amTvEurope.setText("欧气浓度: " + gray);
+            amTvAfrica.setText("非气浓度: " + black);
+            amPbEurope.setSecondaryProgress((int)( grayPercent * 100));
+            amPbAfrica.setSecondaryProgress((int) (blackPercent * 100));
+            check();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             ToastUtils.displayShortToast(mContext, "图没了，别测了，也别抽卡了，本玄学救不了你");
         }
@@ -357,21 +332,27 @@ public class MetaphysicsActy extends BaseActivity implements View.OnClickListene
             photo = ImageUtils.convertToBMW(photo, 1200, 900, 55);
             NumberFormat nf = NumberFormat.getPercentInstance();
             nf.setMinimumFractionDigits(2);
-            blackPercent = ImageUtils.blackArea(photo);
+            percent = ImageUtils.check(photo);
+//            blackPercent = ImageUtils.blackArea(photo);
+            blackPercent = percent[0];
+            grayPercent = percent[1];
             if (blackPercent == 0) {
                 blackPercent = 0.01;
             }
             String black = nf.format(blackPercent);
-            amTvPercent.setText("非气浓度: " + black);
+            String gray = nf.format(grayPercent);
+            amTvEurope.setText("欧气浓度: " + gray);
+            amTvAfrica.setText("非气浓度: " + black);
+            check();
 //            Uri photoUri = Uri.parse(MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), photo, null,null));
         } catch (Exception e) {
             ToastUtils.displayShortToast(mContext, "图片异常，别测了，也别抽卡了，本玄学救不了你");
         }
     }
 
-    public void textAnimation(TextView textScore){
+    public void textAnimation(TextView textScore) {
         textScore.setVisibility(View.VISIBLE);
-        TranslateAnimation tAnimation = new TranslateAnimation(0f,0f,0f,-80); //位移动画效果
+        TranslateAnimation tAnimation = new TranslateAnimation(0f, 0f, 0f, -80); //位移动画效果
         AlphaAnimation aAnimation = new AlphaAnimation(1, 0); //透明度动画效果
         ScaleAnimation sAnimation = new ScaleAnimation(1.0f, 1.6f, 1.0f, 1.6f, 0.5f, 0.5f);  //缩放动画效果
         textAnimationSet = new AnimationSet(true);

@@ -167,4 +167,40 @@ public class ImageUtils {
         " percent->" + percent);
         return percent;
     }
+
+    public static double[] check(Bitmap bmp){
+        double[] result = {0,0};
+        int black = 0;
+        int gray = 0;
+        int width = bmp.getWidth(); // 获取位图的宽
+        int height = bmp.getHeight(); // 获取位图的高
+        Log.d("ImageUtils","width->" + width + " height->" + height);
+        int[] pixels = new int[width * height]; // 通过位图的大小创建像素点数组
+        // 设定二值化的域值，默认值为100
+        //tmp = 180;
+        int eu = 220;//欧洲标准值
+        bmp.getPixels(pixels, 0, width, 0, 0, width, height);
+        int alpha = 0xFF << 24;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int grey = pixels[width * i + j];
+                // 分离三原色
+                alpha = ((grey & 0xFF000000) >> 24);
+                int red = ((grey & 0x00FF0000) >> 16);
+                int green = ((grey & 0x0000FF00) >> 8);
+                int blue = (grey & 0x000000FF);
+                if (red == 0) {
+                    black++;
+                }
+                if (red > eu && green > eu && blue == 255) {
+                    gray++;
+                }
+            }
+        }
+        double percent = (double) black / ((double) width * (double)height);
+        double gPercent = (double) gray / ((double) width * (double)height);
+        result[0] = percent;
+        result[1] = gPercent;
+        return result;
+    }
 }

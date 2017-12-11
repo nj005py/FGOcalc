@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,7 +16,7 @@
 
         <TextView
             style="@style/tv_common"
-            android:text="圣遗物检测可拍照计算非气浓度,\n玄学计算器与当前从者数据无关。"
+            android:text="圣遗物检测可拍照计算欧/非气浓度,\n仅供娱乐。"
             android:textColor="@color/colorWhite"/>
 
         <LinearLayout
@@ -55,69 +56,83 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp">
+            android:gravity="center_vertical">
 
-            <CheckBox
-                android:id="@+id/am_cb_remember"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="7dp"
-                android:button="@null"
-                android:background="@drawable/se_rb_gray"
-                android:text="记住ID"
-                android:textColor="@drawable/se_textcolor"/>
-
-            <EditText
-                android:id="@+id/am_et_id"
-                style="@style/et_common"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/sh_stroke_black"
-                android:hint="请输入fgo数字ID"
-                android:inputType="number"
-                android:textColor="@color/colorWhite"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/am_btn_screen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/se_radius_blue"
-                    android:text="圣遗物检测"
-                    android:textColor="@color/colorWhite"/>
-
-                <TextView
-                    android:id="@+id/am_tv_percent"
-                    style="@style/tv_common"
-                    android:text="非气浓度"
-                    android:textColor="@color/colorWhite"/>
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/am_tv_percent"
+                style="@style/tv_common"
+                android:text="非气浓度"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/am_iv_thing"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_weight="1.0"/>
+                android:layout_weight="1.0"
+                android:src="@mipmap/guda_tip"/>
+
+            <Button
+                android:id="@+id/am_btn_screen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginLeft="50dp"
+                android:background="@mipmap/stone"
+                android:textColor="@color/colorWhite"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            style="@style/ll_match_width_horizontal"
+            android:layout_height="match_parent">
+
+            <!--欧气浓度-->
+            <LinearLayout
+                style="@style/ll_match_width_vertical"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <com.phantancy.fgocalc.view.VerticalProgressBar
+                    android:id="@+id/am_pb_europe"
+                    style="@style/progress_bar_vertical"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:max="100"/>
+
+                <TextView
+                    android:id="@+id/am_tv_europe"
+                    style="@style/tv_common"
+                    android:text=""
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
+
+            <!--非气浓度-->
+            <LinearLayout
+                style="@style/ll_match_width_vertical"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0">
+
+                <com.phantancy.fgocalc.view.VerticalProgressBar
+                    android:id="@+id/am_pb_africa"
+                    style="@style/progress_bar_vertical"
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:max="100" />
+
+                <TextView
+                    android:id="@+id/am_tv_africa"
+                    style="@style/tv_common"
+                    android:text=""
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -125,12 +140,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 style="@style/tv_common"
                 android:text="抽卡玄学时间计算，仅供娱乐"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
 
             <Button
                 android:id="@+id/am_btn_time"
@@ -139,7 +155,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/se_radius_blue"
-                android:text="下一个抽卡玄学时间"
+                android:text="欧非检测"
                 android:textColor="@color/colorWhite" />
 
             <TextView

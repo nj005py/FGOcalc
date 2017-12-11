@@ -102,6 +102,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="F:\AndroidLab\FGOcalc\app\libs\universal-image-loader-1.9.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="F:\AndroidLab\FGOcalc\app\build\intermediates\pre-dexed\debug\universal-image-loader-1.9.5_e439c4be64be715d31e7f7d446192c1530c72e65.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Android\.android\build-cache\5f7fb37f93f4f1640fe7c0087a5eaeab28ea8fe8\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"

@@ -366,6 +366,10 @@ public class ServantListFragment extends BaseFrag implements
                         mPresenter.reloadDatabase();
                         sAdapter.setItems(mPresenter.getAllServants());
                         break;
+                    case R.id.nsm_load_database_extra:
+                        mPresenter.loadDatabaseExtra();
+                        sAdapter.setItems(mPresenter.getAllServants());
+                        break;
                     case R.id.nsm_feedback:
                         mPresenter.sendEmail(ctx);
                         break;

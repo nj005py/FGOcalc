@@ -173,6 +173,20 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         mView.showCharacter(ctx.getResources().getString(R.string.database_reload_done));
     }
 
+    @Override
+    public void loadDatabaseExtra() {
+        File dbFile = new File(DBManager.DB_PATH + "/" + DBManager.DB_NAME);
+        dbFile.delete();
+        if (dbManager == null) {
+            dbManager = new DBManager(ctx);
+        }
+        //载入db文件
+        dbManager.openDatabaseExtra();
+        dbManager.closeDatabase();
+//        ToastUtils.displayShortToast(ctx, "数据库重载完毕");
+        mView.showCharacter(ctx.getResources().getString(R.string.database_load_extra_done));
+    }
+
     //检查app版本更新
     public boolean checkUpdate() {
         InputStream in = null;

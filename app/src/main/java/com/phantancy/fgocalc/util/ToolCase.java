@@ -138,6 +138,16 @@ public class ToolCase {
         sp.setAdapter(spAdapter);
     }
 
+    public static void spInitDeep(Context context,int[] inte,Spinner sp){
+        String[] str = new String[inte.length];
+        for(int i = 0;i < inte.length;i ++){
+            str[i] = String.valueOf(inte[i]);
+        }
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_deep,str);
+        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_deep);
+        sp.setAdapter(spAdapter);
+    }
+
     public static void copy2Clipboard(Context ctx,TextView tv){
         //获取剪贴板管理器：
         ClipboardManager cm = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);

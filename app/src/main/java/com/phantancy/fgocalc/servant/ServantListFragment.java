@@ -54,12 +54,15 @@ import com.phantancy.fgocalc.dialog.AboutDialog;
 import com.phantancy.fgocalc.dialog.MenulLocDialog;
 import com.phantancy.fgocalc.dialog.UpdateDialog;
 import com.phantancy.fgocalc.fragment.BaseFragment;
+import com.phantancy.fgocalc.item.ServantItem;
 import com.phantancy.fgocalc.item_decoration.GridItemDecoration;
 import com.phantancy.fgocalc.util.BaseUtils;
 import com.phantancy.fgocalc.util.SharedPreferencesUtils;
 import com.phantancy.fgocalc.util.ToastUtils;
 import com.phantancy.fgocalc.util.ToolCase;
 import com.phantancy.fgocalc.view.ClearEditText;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,7 +153,7 @@ public class ServantListFragment extends BaseFrag implements
         @Override
         public void afterTextChanged(Editable s) {
             if (!ToolCase.notEmpty(ToolCase.etValue(fslEtSearch))) {
-                sAdapter.setItems(mPresenter.getAllServants());
+                mPresenter.getAllServants();
             }
         }
     };
@@ -244,8 +247,9 @@ public class ServantListFragment extends BaseFrag implements
         //检查app版本、数据库版本
         mPresenter.simpleCheck(ctx,mActy);
 //        sAdapter = new ServantCardViewAdapter(ctx,mPresenter.getAllServants());
-        sAdapter = new ServantCardViewAdapter(mPresenter.getAllServants(),ctx,fslTvCharacter,fslRlCharacter);
+        sAdapter = new ServantCardViewAdapter(null,ctx,fslTvCharacter,fslRlCharacter);
         fslRvServant.setAdapter(sAdapter);
+        mPresenter.getAllServants();
     }
 
     public void initStatusBar() {
@@ -292,7 +296,7 @@ public class ServantListFragment extends BaseFrag implements
                                     mActy.getCurrentFocus().getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     keyWord = ToolCase.etValue(fslEtSearch);
-                    sAdapter.setItems(mPresenter.searchServantsByKeyword(keyWord));
+                    mPresenter.searchServantsByKeyword(keyWord);
                     return true;
                 }
                 return false;
@@ -329,12 +333,12 @@ public class ServantListFragment extends BaseFrag implements
                     case R.id.fsl_rb_search:
                         fslLlAreaSearch.setVisibility(View.VISIBLE);
                         fslLlAreaScreen.setVisibility(View.GONE);
-                        sAdapter.setItems(mPresenter.getAllServants());
+                        mPresenter.getAllServants();
                         break;
                     case R.id.fsl_rb_screen:
                         fslLlAreaSearch.setVisibility(View.GONE);
                         fslLlAreaScreen.setVisibility(View.VISIBLE);
-                        sAdapter.setItems(mPresenter.getAllServants());
+                        mPresenter.getAllServants();
                         break;
                 }
             }
@@ -364,14 +368,16 @@ public class ServantListFragment extends BaseFrag implements
                         break;
                     case R.id.nsm_reload_database:
                         mPresenter.reloadDatabase();
-                        sAdapter.setItems(mPresenter.getAllServants());
                         break;
                     case R.id.nsm_load_database_extra:
+                        //ctrl + alt + b直接跳到实现方法
                         mPresenter.loadDatabaseExtra();
-                        sAdapter.setItems(mPresenter.getAllServants());
+                        break;
+                    case R.id.nsm_fgotool:
+                        mPresenter.fgotool();
                         break;
                     case R.id.nsm_feedback:
-                        mPresenter.sendEmail(ctx);
+                        mPresenter.feedback();
                         break;
                 }
                 fslDlMenu.closeDrawers();
@@ -388,13 +394,13 @@ public class ServantListFragment extends BaseFrag implements
                 break;
             case R.id.fsl_ll_search:
                 keyWord = ToolCase.getViewValue(fslEtSearch);
-                sAdapter.setItems(mPresenter.searchServantsByKeyword(keyWord));
+                mPresenter.searchServantsByKeyword(keyWord);
                 break;
             case R.id.fsl_btn_clear:
-                sAdapter.setItems(mPresenter.getAllServants());
+                mPresenter.getAllServants();
                 break;
             case R.id.fsl_btn_sreen:
-                sAdapter.setItems(mPresenter.searchServantsByCondition(curClassType,curStarValue));
+                mPresenter.searchServantsByCondition(curClassType,curStarValue);
                 break;
             case R.id.fsl_tv_left:
                 fslDlMenu.openDrawer(fslLlSidebar);
@@ -497,10 +503,16 @@ public class ServantListFragment extends BaseFrag implements
     }
 
     @Override
-    public void showCharacter(String content) {
+    public void showCharacter(String content,int img) {
         ToolCase.setViewValue(fslTvCharacter,content);
+        fslIvCharacter.setImageResource(img);
         fslRlCharacter.setVisibility(View.VISIBLE);
         fslRlCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
+    }
+
+    @Override
+    public void setServantList(List<ServantItem> list) {
+        sAdapter.setItems(list);
     }
 
     @Override

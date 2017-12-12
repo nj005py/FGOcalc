@@ -17,6 +17,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -28,6 +30,7 @@ import com.phantancy.fgocalc.R;
 import com.phantancy.fgocalc.activity.ServantListActy;
 import com.phantancy.fgocalc.adapter.ServantCardViewAdapter;
 import com.phantancy.fgocalc.database.DBManager;
+import com.phantancy.fgocalc.dialog.FeedbackDialog;
 import com.phantancy.fgocalc.item.ServantItem;
 import com.phantancy.fgocalc.util.SharedPreferencesUtils;
 import com.phantancy.fgocalc.util.ToastUtils;
@@ -41,6 +44,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import static com.phantancy.fgocalc.util.ToolCase.notEmpty;
@@ -63,17 +67,34 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     private String update;//更新文本
     private String keyWord;
     private DBManager dbManager;
-    private SQLiteDatabase database;
+//    private SQLiteDatabase database;
     private List<ServantItem> servantList = new ArrayList<>();
     private RecyclerView rv;
     private ServantItem sItem,pItem;
     private boolean isReceiverRegister = false;
+    private final int SHOW_SERVANTS = 1;
+    private final int SHOW_EXCEPTION = 2;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case SHOW_SERVANTS:
+                    mView.setServantList(servantList);
+                    break;
+                case SHOW_EXCEPTION:
+                    mView.showCharacter(ctx.getString(R.string.database_error),R.mipmap.altria_alter_b);
+                    break;
+            }
+        }
+    };
 
 
     @NonNull
     private final ServantListContract.View mView;
 
-    public ServantListPresenter(@NonNull ServantListContract.View mView) {
+    public ServantListPresenter(@NonNull ServantListContract.View mView,Context ctx) {
+        this.ctx = ctx;
         this.mView = mView;
         mView.setPresenter(this);
     }
@@ -103,7 +124,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             File dbFile = new File(DBManager.DB_PATH + "/" + DBManager.DB_NAME);
             dbFile.delete();
 //            ToastUtils.displayShortToast(ctx, "数据库更新");
-            mView.showCharacter(ctx.getResources().getString(R.string.database_upgrade_done));
+            mView.showCharacter(ctx.getResources().getString(R.string.database_upgrade_done),R.mipmap.altria_alter_a);
         }
         //实装末端servant
         sItem = new ServantItem();
@@ -170,7 +191,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         dbManager.openDatabase();
         dbManager.closeDatabase();
 //        ToastUtils.displayShortToast(ctx, "数据库重载完毕");
-        mView.showCharacter(ctx.getResources().getString(R.string.database_reload_done));
+        mView.showCharacter(ctx.getResources().getString(R.string.database_reload_done),R.mipmap.altria_alter_a);
+        getAllServants();
     }
 
     @Override
@@ -184,7 +206,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         dbManager.openDatabaseExtra();
         dbManager.closeDatabase();
 //        ToastUtils.displayShortToast(ctx, "数据库重载完毕");
-        mView.showCharacter(ctx.getResources().getString(R.string.database_load_extra_done));
+        mView.showCharacter(ctx.getResources().getString(R.string.database_load_extra_done),R.mipmap.altria_alter_a);
+        getAllServants();
     }
 
     //检查app版本更新
@@ -350,106 +373,144 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     }
 
     @Override
-    public List<ServantItem> getAllServants() {
-        //模拟异常情况
-//        if ((Boolean) SharedPreferencesUtils.getParam(ctx,"error",true)) {
-//            dbManager.dropTable();
-//            SharedPreferencesUtils.setParam(ctx,"error",false);
-//        }
-        try{
-            database = dbManager.getDatabase();
-            Cursor cur;
-            cur = database.rawQuery("SELECT * FROM servants", null);
-            servantList = getServants(cur);
-            if (sItem == null) {
-                //实装末端servant
-                sItem = new ServantItem();
-                sItem.setId(999);
-                sItem.setName("百度月系吧刊组");//6星天花板
-                sItem.setClass_type("Creator");
-                sItem.setStar(6);
+    public void getAllServants() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    SQLiteDatabase database = dbManager.getDatabase();
+                    Cursor cur;
+                    cur = database.rawQuery("SELECT * FROM servants", null);
+                    servantList = getServants(cur);
+                    if (sItem == null) {
+                        //实装末端servant
+                        sItem = new ServantItem();
+                        sItem.setId(999);
+                        sItem.setName("百度月系吧刊组");//6星天花板
+                        sItem.setClass_type("Creator");
+                        sItem.setStar(6);
+                    }
+                    if (pItem == null) {
+                        pItem = new ServantItem();
+                        pItem.setId(9999);
+                        pItem.setName("空谕");
+                        sItem.setClass_type("Creator");
+                        sItem.setStar(7);
+                    }
+                    servantList.add(sItem);
+                    servantList.add(pItem);
+                    if (cur != null) {
+                        cur.close();
+                    }
+                    database.close();
+                    Message msg = new Message();
+                    msg.what = SHOW_SERVANTS;
+                    mHandler.sendMessage(msg);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Message msg = new Message();
+                    msg.what = SHOW_EXCEPTION;
+                    mHandler.sendMessage(msg);
+                }
             }
-            if (pItem == null) {
-                pItem = new ServantItem();
-                pItem.setId(9999);
-                pItem.setName("空谕");
-                sItem.setClass_type("Creator");
-                sItem.setStar(7);
-            }
-            servantList.add(sItem);
-            servantList.add(pItem);
-            if (cur != null) {
-                cur.close();
-            }
-            database.close();
-            return servantList;
-        }catch (Exception e){
-            mView.showCharacter(ctx.getString(R.string.database_error));
-            return null;
-        }
+        }).start();
     }
 
     @Override
-    public List<ServantItem> searchServantsByKeyword(String value) {
-        try{
-            database = dbManager.getDatabase();
-            Cursor cur;
-            if (notEmpty(value)) {
-                keyWord = ToolCase.tc2sc(value);
-                cur = database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY CAST(id AS SIGNED) ASC",
-                        new String[]{"%" + value + "%", "%" + value + "%"});
-                servantList = getServants(cur);
-//                    itemAdapter.setItems(servantList);
-//                    itemAdapter.notifyDataSetChanged();
-                if (cur != null) {
-                    cur.close();
+    public void searchServantsByKeyword(final String value) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if (notEmpty(value)) {
+                        SQLiteDatabase database = dbManager.getDatabase();
+                        Cursor cur;
+                        keyWord = ToolCase.tc2sc(value);
+                        cur = database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY CAST(id AS SIGNED) ASC",
+                                new String[]{"%" + value + "%", "%" + value + "%"});
+                        servantList = getServants(cur);
+                        if (cur != null) {
+                            cur.close();
+                        }
+                        database.close();
+                        Message msg = new Message();
+                        msg.what = SHOW_SERVANTS;
+                        mHandler.sendMessage(msg);
+                    }else{
+                        servantList = null;
+                        Message msg = new Message();
+                        msg.what = SHOW_SERVANTS;
+                        mHandler.sendMessage(msg);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Message msg = new Message();
+                    msg.what = SHOW_EXCEPTION;
+                    mHandler.sendMessage(msg);
                 }
-                database.close();
-                return servantList;
-            }else{
-                return null;
             }
-        }catch (Exception e){
-            mView.showCharacter(ctx.getString(R.string.database_error));
-            return null;
-        }
+        }).start();
     }
 
     @Override
-    public List<ServantItem> searchServantsByCondition(String classType, int star) {
-        try{
-            database = dbManager.getDatabase();
-            Cursor cur;
-            if (notEmpty(classType)) {
-                if (star == 7) {
-                    //SELECT * FROM servants WHERE class_type = 'Saber' ORDER BY CAST(id AS SIGNED)
-                    cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(id AS SIGNED) ASC",
-                            new String[]{classType});
-                }else{
-                    cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(id AS SIGNED) ASC",
-                            new String[]{classType, star + ""});
+    public void searchServantsByCondition(final String classType,final int star) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    if (notEmpty(classType)) {
+                        SQLiteDatabase database = dbManager.getDatabase();
+                        Cursor cur;
+                        if (star == 7) {
+                            //SELECT * FROM servants WHERE class_type = 'Saber' ORDER BY CAST(id AS SIGNED)
+                            cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(id AS SIGNED) ASC",
+                                    new String[]{classType});
+                        }else{
+                            cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(id AS SIGNED) ASC",
+                                    new String[]{classType, star + ""});
+                        }
+                        servantList = getServants(cur);
+                        if (cur != null) {
+                            cur.close();
+                        }
+                        database.close();
+                        Message msg = new Message();
+                        msg.what = SHOW_SERVANTS;
+                        mHandler.sendMessage(msg);
+                    }else{
+                        servantList = null;
+                        Message msg = new Message();
+                        msg.what = SHOW_SERVANTS;
+                        mHandler.sendMessage(msg);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Message msg = new Message();
+                    msg.what = SHOW_EXCEPTION;
+                    mHandler.sendMessage(msg);
                 }
-                servantList = getServants(cur);
-//            if (servantList != null && servantList.size() > 0) {
-//                servantList.add(sItem);
-//            }
-                if (cur != null) {
-                    cur.close();
-                }
-                database.close();
-                return servantList;
-            }else{
-                return null;
             }
-        }catch (Exception e){
-            mView.showCharacter(ctx.getString(R.string.database_error));
-            return null;
-        }
+        }).start();
     }
 
     @Override
     public void checkMenuLoc(boolean locLeft) {
 
+    }
+
+    @Override
+    public void fgotool() {
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri content_url = Uri.parse("https://fgotool.com");
+        intent.setData(content_url);
+        ctx.startActivity(intent);
+    }
+
+    @Override
+    public void feedback() {
+        FeedbackDialog d = new FeedbackDialog(ctx);
+        d.show();
     }
 
     @Override

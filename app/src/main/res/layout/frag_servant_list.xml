@@ -226,17 +226,17 @@
 
                 <ImageView
                     android:id="@+id/fsl_iv_character"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/longniang"/>
+                    android:layout_width="331dp"
+                    android:layout_height="404dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/altria_alter_a"/>
 
                 <View
                     android:id="@+id/fsl_v_character"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_below="@+id/fsl_iv_character"
-                    android:background="@drawable/sh_radius_deepblue_alpha"/>
+                    android:background="@mipmap/chat_bg"/>
 
                 <TextView
                     android:id="@+id/fsl_tv_character"

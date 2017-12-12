@@ -114,7 +114,8 @@ public class TrumpFrag extends BaseFrag implements
     @BindView(R.id.ftm_rb_weak_b)
     RadioButton ftmRbWeakB;
     Unbinder unbinder1;
-
+    @BindView(R.id.ftm_sp_essence)
+    Spinner ftmSpEssence;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private int id;
@@ -127,6 +128,8 @@ public class TrumpFrag extends BaseFrag implements
             randomCor = 1.0,//乱数补正
             trumpTimes = 0;//宝具倍率
     private int[] lv;
+    private int essenceAtk = 0;//礼装atk
+    private int[] essenceAtks;
     private String[] lvStr;
     private boolean isUpgraded,//是否有宝具本
             isPreTimes;//是否是旧倍率
@@ -168,6 +171,7 @@ public class TrumpFrag extends BaseFrag implements
         ftmTvResult.setMovementMethod(new ScrollingMovementMethod());
         lv = getResources().getIntArray(R.array.trump_lv);
         lvStr = getResources().getStringArray(R.array.trump_lv_str);
+        essenceAtks = getResources().getIntArray(R.array.essence_atk);
         if (servantItem != null) {
             setDefault();
             id = servantItem.getId();
@@ -196,6 +200,7 @@ public class TrumpFrag extends BaseFrag implements
             }
 //            ToolCase.spInitSimple(ctx, lv, ftmSpLv);
             ToolCase.spInitDeep(ctx, lvStr, ftmSpLv);
+            ToolCase.spInitDeep(ctx,essenceAtks,ftmSpEssence);
             curLv.add(servantItem.getTrump_lv1());
             curLv.add(servantItem.getTrump_lv2());
             curLv.add(servantItem.getTrump_lv3());
@@ -224,7 +229,6 @@ public class TrumpFrag extends BaseFrag implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     //默认hp atk
@@ -367,6 +371,20 @@ public class TrumpFrag extends BaseFrag implements
             public boolean onLongClick(View v) {
                 ToolCase.copy2Clipboard(ctx, ftmTvResult);
                 return false;
+            }
+        });
+        ftmSpEssence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
+                atk = atk - essenceAtk + essenceAtks[position];
+                ToolCase.setViewValue(ftmEtAtk,String.valueOf(atk));
+                essenceAtk = essenceAtks[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
     }

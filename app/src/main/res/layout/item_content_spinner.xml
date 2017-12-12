@@ -8,7 +8,7 @@
     android:ellipsize="marquee"
     android:gravity="center"
     android:padding="8dp"
-    android:background="@color/colorWhite"
-    android:textColor="@color/colorBlack"
+    android:background="@color/colorDeepBlue"
+    android:textColor="@color/colorWhite"
     android:textSize="14dp">
 </TextView>

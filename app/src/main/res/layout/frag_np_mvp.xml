@@ -188,7 +188,8 @@
                     android:id="@+id/fnm_rb_ran"
                     style="@style/rb_atk"
                     android:layout_weight="1.0"
-                    android:text="随机" />
+                    android:text="随机"
+                    android:visibility="gone"/>
 
             </RadioGroup>
 
@@ -233,7 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/fnm_iv_character"
-            android:background="@drawable/sh_radius_deepblue_alpha"/>
+            android:background="@mipmap/chat_bg"/>
 
         <TextView
             android:id="@+id/fnm_tv_character"

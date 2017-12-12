@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.phantancy.fgocalc.R;
+import com.phantancy.fgocalc.util.ToastUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,10 +28,10 @@ public class DBManager {
             + PACKAGE_NAME;  //在手机里存放数据库的位置
 
     private SQLiteDatabase database;
-    private Context context;
+    private Context ctx;
 
     public DBManager(Context context) {
-        this.context = context;
+        this.ctx = context;
         Log.d(TAG,"DB_PATH->" + DB_PATH);
     }
 
@@ -49,7 +50,7 @@ public class DBManager {
     public SQLiteDatabase openDatabase(String dbfile) {
         try {
             if (!(new File(dbfile).exists())) {//判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
-                InputStream is = this.context.getResources().openRawResource(
+                InputStream is = this.ctx.getResources().openRawResource(
                         R.raw.servants); //欲导入的数据库
                 FileOutputStream fos = new FileOutputStream(dbfile);
                 byte[] buffer = new byte[BUFFER_SIZE];
@@ -88,11 +89,13 @@ public class DBManager {
                     }
                     fos.close();
                     is.close();
-                    SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(extra,
-                            null);
-                    return db;
+                }else{
+                    ToastUtils.displayShortToast(ctx,"外部db文件不存在");
                 }
             }
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(dbfile,
+                    null);
+            return db;
         } catch (FileNotFoundException e) {
             Log.e("Database", "File not found");
             e.printStackTrace();

@@ -113,6 +113,8 @@ public class AtkFrag extends BaseFrag implements
     @BindView(R.id.fam_rb_weak_b)
     RadioButton famRbWeakB;
     Unbinder unbinder1;
+    @BindView(R.id.fam_sp_essence)
+    Spinner famSpEssence;
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
     private String[] cardValues = {"b", "a", "q"};
@@ -123,6 +125,8 @@ public class AtkFrag extends BaseFrag implements
     private int weakType = 1;//职阶相性类型
     private double teamCor = 1.0, //阵营相性
             randomCor = 1.0;//平均乱数补正
+    private int essenceAtk = 0;//礼装atk
+    private int[] essenceAtks;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private ConditionAtk conAtk;
@@ -165,10 +169,12 @@ public class AtkFrag extends BaseFrag implements
         //声明一个简单simpleAdapter
         SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandCards(), R.layout.item_card_type,
                 new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
+        essenceAtks = getResources().getIntArray(R.array.essence_atk);
         famSpCard1.setAdapter(simpleAdapter);
         famSpCard2.setAdapter(simpleAdapter);
         famSpCard3.setAdapter(simpleAdapter);
         famTvResult.setMovementMethod(new ScrollingMovementMethod());
+        ToolCase.spInitDeep(ctx,essenceAtks,famSpEssence);
         setListener();
         if (servantItem != null) {
             setDefault();
@@ -340,6 +346,21 @@ public class AtkFrag extends BaseFrag implements
                 return false;
             }
         });
+
+        famSpEssence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
+                atk = atk - essenceAtk + essenceAtks[position];
+                ToolCase.setViewValue(famEtAtk,String.valueOf(atk));
+                essenceAtk = essenceAtks[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -411,6 +432,5 @@ public class AtkFrag extends BaseFrag implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }

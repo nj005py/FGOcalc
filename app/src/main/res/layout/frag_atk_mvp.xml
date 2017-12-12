@@ -72,7 +72,7 @@
             <TextView
                 android:id="@+id/textView"
                 style="@style/tv_common"
-                android:layout_weight="5.0"
+                android:layout_weight="1.3"
                 android:text="ATK"
                 android:textColor="@color/colorWhite" />
 
@@ -87,6 +87,19 @@
                 android:inputType="number"
                 android:hint="ATK"
                 android:textColor="@color/colorWhite"/>
+
+            <TextView
+                style="@style/tv_common"
+                android:layout_weight="1.2"
+                android:text="礼装ATK"
+                android:textColor="@color/colorWhite" />
+
+            <Spinner
+                android:id="@+id/fam_sp_essence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
@@ -289,7 +302,8 @@
                     android:id="@+id/fam_rb_random"
                     style="@style/rb_atk"
                     android:layout_weight="1.0"
-                    android:text="随机"/>
+                    android:text="随机"
+                    android:visibility="gone"/>
 
             </RadioGroup>
 
@@ -334,7 +348,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/fam_iv_character"
-            android:background="@drawable/sh_radius_deepblue_alpha"/>
+            android:background="@mipmap/chat_bg"/>
 
         <TextView
             android:id="@+id/fam_tv_character"

@@ -14,6 +14,7 @@
         <item>Avenger</item>
         <item>Beast</item>
         <item>MoonCancer</item>
+        <item>Foreigner</item>
     </string-array>
 
     <string-array name = "star">
@@ -42,6 +43,17 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+    </integer-array>
+
+    <integer-array name = "essence_atk">
+        <item>0</item>
+        <item>250</item>
+        <item>393</item>
+        <item>500</item>
+        <item>768</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>2400</item>
     </integer-array>
 
     <string-array name="trump_lv_str">

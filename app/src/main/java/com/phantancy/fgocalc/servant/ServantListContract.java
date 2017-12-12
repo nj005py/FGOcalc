@@ -19,24 +19,27 @@ import java.util.List;
 public interface ServantListContract {
 
     interface View extends BaseView<Presenter> {
-        void showCharacter(String content);
+        void showCharacter(String content,int img);
         void showMenuLocDialog();
         void showAboutDialog();
         void showUpdateDiag(String update,String downloadUrl,String curVersion);
+        void setServantList(List<ServantItem> list);
     }
 
     interface Presenter extends BasePresenter{
         void setMethod(int method);
         void checkMenuLoc(boolean locLeft);
+        void fgotool();
         void sendEmail(Context ctx);
         void simpleCheck(Context ctx, Activity acty);//检查权限、版本更新、数据库更新
         void reloadDatabase();
         void loadDatabaseExtra();
         void unregisterReceiver(Context ctx);
-        List<ServantItem> getAllServants();
-        List<ServantItem> searchServantsByKeyword(String value);
-        List<ServantItem> searchServantsByCondition(String classType,int star);
+        void getAllServants();
+        void searchServantsByKeyword(String value);
+        void searchServantsByCondition(String classType,int star);
         String getVersion();
+        void feedback();
     }
 
 }

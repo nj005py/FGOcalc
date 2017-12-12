@@ -13,8 +13,8 @@
         android:orientation="vertical"
         android:background="@color/colorDeepBlue"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/fsm_rl_character"
-        android:layout_toEndOf="@+id/fsm_rl_character">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <!--buff设置开关-->
         <LinearLayout
@@ -191,7 +191,8 @@
                     android:id="@+id/fsm_rb_ran"
                     style="@style/rb_atk"
                     android:layout_weight="1.0"
-                    android:text="随机" />
+                    android:text="随机"
+                    android:visibility="gone"/>
 
             </RadioGroup>
 

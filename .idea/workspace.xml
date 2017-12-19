@@ -67,120 +67,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="677370ba-15c2-4780-9b4c-1c10b60d19de" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/OKhttpManager.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/info/InfoPresenter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/np/NpContract.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/np/NpPresenter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/star/StarContract.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/dialog/AboutDialog.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/InfoCardsMVPItem.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/servant/ServantListContract.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/servant/ServantListFragment.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/servant/ServantListPresenter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/splash/SplashActy.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/ActivityUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/BaseUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/ImageUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/MyDatabaseUtil.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/SharedPreferencesUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/ToastUtils.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/util/ToolCase.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/view/CameraPreview.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/view/ClearEditText.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/view/DividerItemDecoration.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/view/ProgressWebView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/view/VerticalProgressBar.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_viewexplosion_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_viewexplosion_compileReleaseJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/tasks/_viewexplosion_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/tasks/_viewexplosion_compileReleaseJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" afterPath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/phantancy/fgocalc/ApplicationTest.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/phantancy/fgocalc/ExampleUnitTest.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_servant_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_servant_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_servant_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_servant_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_catch.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_catch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" afterPath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/CatchActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CatchActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ExtractActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ExtractActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/FateGoActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/FateGoActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/MapActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MapActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/MetaphysicsActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MetaphysicsActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ServantListActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ServantListActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/WebviewActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/activity/ZActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ZActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/BuffAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/InfoAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/InfoCardsMVPAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoCardsMVPAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/ItemAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ItemAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/MenuAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/MenuAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/base/BaseActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/base/BaseFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/base/BasePresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BasePresenter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/base/BaseView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/CalcActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/CalcActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/atk/AtkContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkContract.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/atk/AtkFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/atk/AtkPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/buff/BuffActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/buff/BuffContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffContract.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/buff/BuffPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffPresenter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/info/InfoContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoContract.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/info/InfoFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/np/NpFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/star/StarFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/star/StarPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/trump/TrumpContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpContract.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/trump/TrumpFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/calc/trump/TrumpPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpPresenter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/common/ActivityCollector.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/ActivityCollector.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/common/App.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/common/Constant.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/Constant.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/database/DBHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/database/DBHelper.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/database/DBManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/database/DBManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/dialog/FeedbackDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/FeedbackDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/dialog/MenulLocDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/MenulLocDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/dialog/UpdateDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/UpdateDialog.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/fragment/BaseFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/fragment/MetaphysicsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MetaphysicsFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/BuffItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/BuffsItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffsItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/CardsItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CardsItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/CatchItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CatchItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/CommandCard.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/ConditionAtk.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionAtk.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/ConditionNp.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionNp.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/ConditionStar.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionStar.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/ConditionTrump.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionTrump.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/HotItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/HotItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/InfoItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/InfoItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/Item.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/Item.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/MenuItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/MenuItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/ServantItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ServantItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item/zItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/zItem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item_decoration/DividerItemDecoration.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/DividerItemDecoration.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item_decoration/GridItemDecoration.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/GridItemDecoration.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/CardsItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CardsItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/CatchItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CatchItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/ItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/ItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/ServantCardviewItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/ServantCardviewItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/ServantItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/ServantItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/itemview/zItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/zItemView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/phantancy/fgocalc/servant/ServantListMVPActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListMVPActy.java" />
     </list>
     <ignored path="FGOcalc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -230,7 +119,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ExtractActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ExtractActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ExtractActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
@@ -250,11 +139,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OKhttpManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OKhttpManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/OKhttpManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="158" column="7" selection-start-line="158" selection-start-column="7" selection-end-line="160" selection-end-column="11" />
+            <state relative-caret-position="44">
+              <caret line="144" column="66" selection-start-line="144" selection-start-column="66" selection-end-line="144" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -3185,7 +3074,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -3202,20 +3091,115 @@
       <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
-        <subPane />
-      </pane>
-      <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="FGOcalc" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Gradle Scripts" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="androidTest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fgocalc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="FGOcalc" />
@@ -3230,6 +3214,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FGOcalc" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3861,15 +3859,22 @@
       <option name="project" value="LOCAL" />
       <updated>1513094543557</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="修改了包名">
+      <created>1513685074769</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1513685074769</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2857143" sideWeight="0.48987207" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2857143" sideWeight="0.48987207" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -3881,7 +3886,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2909699" sideWeight="0.5101279" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13486141" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13486141" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -3955,7 +3960,8 @@
     <MESSAGE value="增加新从者数据&#10;修改bug&#10;增加新判断" />
     <MESSAGE value="修改欧非检测仪" />
     <MESSAGE value="一堆修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="一堆修改" />
+    <MESSAGE value="修改了包名" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了包名" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4032,13 +4038,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/se_gradient_blue_deepblue.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/se_gray.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -4350,14 +4349,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/org/phantancy/fgocalc/activity/CatchActivity_ViewBinding.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ExtractActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/app/libs/Android_Map3D_SDK_V5.4.0_20170928.jar!/com/amap/api/maps/AMap.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -4374,14 +4365,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MapActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="119" column="60" selection-start-line="119" selection-start-column="60" selection-end-line="119" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -4390,10 +4373,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/OKhttpManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="158" column="7" selection-start-line="158" selection-start-column="7" selection-end-line="160" selection-end-column="11" />
+        <state relative-caret-position="44">
+          <caret line="144" column="66" selection-start-line="144" selection-start-column="66" selection-end-line="144" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MapActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="119" column="60" selection-start-line="119" selection-start-column="60" selection-end-line="119" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ExtractActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="30" />
           <folding />
         </state>
       </provider>

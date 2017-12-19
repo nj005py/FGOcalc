@@ -106,4 +106,5 @@ dependencies {
         transitive = true;
     }
     compile files('libs/universal-image-loader-1.9.5.jar')
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
 }

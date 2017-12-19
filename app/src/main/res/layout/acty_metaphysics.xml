@@ -96,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.0">
 
-                <com.phantancy.fgocalc.view.VerticalProgressBar
+                <org.phantancy.fgocalc.view.VerticalProgressBar
                     android:id="@+id/am_pb_europe"
                     style="@style/progress_bar_vertical"
                     android:layout_width="30dp"
@@ -118,7 +118,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1.0">
 
-                <com.phantancy.fgocalc.view.VerticalProgressBar
+                <org.phantancy.fgocalc.view.VerticalProgressBar
                     android:id="@+id/am_pb_africa"
                     style="@style/progress_bar_vertical"
                     android:layout_width="30dp"

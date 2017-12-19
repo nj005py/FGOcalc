@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.phantancy.fgocalc.view.ProgressWebView
+    <org.phantancy.fgocalc.view.ProgressWebView
         android:id="@+id/aw_wv_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

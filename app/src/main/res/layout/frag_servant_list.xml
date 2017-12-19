@@ -92,7 +92,7 @@
                     android:orientation="horizontal"
                     android:background="@color/colorWhite">
 
-                    <com.phantancy.fgocalc.view.ClearEditText
+                    <org.phantancy.fgocalc.view.ClearEditText
                         android:id="@+id/fsl_et_search"
                         style="@style/et_common"
                         android:layout_weight="1.0"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.phantancy.fgocalc.itemview.CatchItemView
+<org.phantancy.fgocalc.itemview.CatchItemView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="80dp"
@@ -20,4 +20,4 @@
         android:layout_centerHorizontal="true"
         android:src="@mipmap/star_ssr"/>
 
-</com.phantancy.fgocalc.itemview.CatchItemView>
+</org.phantancy.fgocalc.itemview.CatchItemView>

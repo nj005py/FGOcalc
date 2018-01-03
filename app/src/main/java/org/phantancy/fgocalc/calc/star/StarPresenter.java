@@ -143,7 +143,7 @@ public class StarPresenter implements StarContract.Presenter {
             if (c.cardPosition == 4) {
                 result = new StringBuilder().append(result).append("\n合计---->可获得").append(overallMin).append("-")
                         .append(overallMax).append("颗星 ")
-                        .append("平均").append(overAllAverage).append("颗星").append("\n").toString();
+                        .append("平均").append(overAllAverage).append("颗星").append("\n===== FGOcalc分割线 =====\n").toString();
                 overallMax = 0;
                 overallMin = 0;
                 overAllAverage = 0;
@@ -183,7 +183,7 @@ public class StarPresenter implements StarContract.Presenter {
                         Method method = cls.getDeclaredMethod("get" + buff[3]);
                         double value = (double)method.invoke(item);
                         if (value != 0) {
-                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).toString();
+                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).append("%").toString();
                         }
                     }else{
                         Method method = cls.getDeclaredMethod("get" + buff[3]);

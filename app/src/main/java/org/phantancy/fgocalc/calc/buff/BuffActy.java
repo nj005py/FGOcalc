@@ -48,6 +48,12 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     Button abBtnClean;
     @BindView(R.id.ab_et_close)
     EditText abEtClose;
+    @BindView(R.id.ab_ll_kongming)
+    LinearLayout abLlKongming;
+    @BindView(R.id.ab_ll_merlin)
+    LinearLayout abLlMerlin;
+    @BindView(R.id.ab_ll_fox)
+    LinearLayout abLlFox;
     private BuffAdapter adapter;
     private List<BuffItem> list = new ArrayList<>();
     private BuffContract.Presenter mPresenter;
@@ -111,6 +117,24 @@ public class BuffActy extends BaseActy implements BuffContract.View {
                 adapter.cleanBuffs();
             }
         });
+        abLlKongming.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.kongmingBuffs(30, 50,500);
+            }
+        });
+        abLlMerlin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.merlinBuffs(20, 100, 50);
+            }
+        });
+        abLlFox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.foxBuffs(50);
+            }
+        });
     }
 
     //重载返回键
@@ -128,7 +152,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         Intent i = new Intent();
         i.putExtra("buffsItem", buffsItem);
         setResult(RESULT_OK, i);
-        closeKeybord(abEtClose,ctx);
+        closeKeybord(abEtClose, ctx);
         finish();
         overridePendingTransition(0, R.anim.push_bottom_out);
     }

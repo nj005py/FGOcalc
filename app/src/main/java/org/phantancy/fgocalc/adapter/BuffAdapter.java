@@ -61,6 +61,96 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
         }
     }
 
+    public void kongmingBuffs(double atkBuff,double criticalBuff,int solidBuff){
+        if (mList != null) {
+//            mList.get(0).setDefaultDouble(30);
+//            notifyDataSetChanged();
+//
+            for (int i = 0;i < mList.size();i ++){
+                //加攻
+                if (mList.get(i).getBuffName().equals("atk_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + atkBuff;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+                //加暴击
+                if (mList.get(i).getBuffName().equals("critical_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + criticalBuff;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+                //加固定伤害
+                if (mList.get(i).getBuffName().equals("wake_up")) {
+                    //取数据
+                    int data = mList.get(i).getDefaultInt() + solidBuff;
+                    //用数据
+                    mList.get(i).setDefaultInt(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public void merlinBuffs(double atkBuff,double criticalBuff,double busterUp){
+        if (mList != null) {
+//            mList.get(0).setDefaultDouble(30);
+//            notifyDataSetChanged();
+//
+            for (int i = 0;i < mList.size();i ++){
+                //加攻
+                if (mList.get(i).getBuffName().equals("atk_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + atkBuff;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+                //加暴击
+                if (mList.get(i).getBuffName().equals("critical_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + criticalBuff;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+                //红魔放
+                if (mList.get(i).getBuffName().equals("buster_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + busterUp;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public void foxBuffs(double artsUp){
+        if (mList != null) {
+            for (int i = 0;i < mList.size();i ++){
+                //蓝魔放
+                if (mList.get(i).getBuffName().equals("arts_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + artsUp;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivBuff;
         TextView tvPercent;
@@ -82,12 +172,41 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         if (mList != null) {
             BuffItem item = mList.get(position);
             if (item != null) {
                 holder.ivBuff.setImageResource(item.getImg());
                 holder.etBuff.setHint(item.getHint());
+                //通过设置tag，防止position紊乱
+                holder.etBuff.setTag(position);
+                holder.etBuff.clearFocus();
+                TextWatcher watcher = new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        if (s != null) {
+                            BuffItem item = mList.get(Integer.parseInt(holder.etBuff.getTag().toString()));
+                            if (item.isIfPercent()) {
+                                double value = s.toString().isEmpty() ? 0 : Double.valueOf(s.toString());
+                                mList.get(Integer.parseInt(holder.etBuff.getTag().toString())).setDefaultDouble(value);
+                            }else{
+                                int value = s.toString().isEmpty() ? 0 : Integer.valueOf(s.toString());
+                                mList.get(Integer.parseInt(holder.etBuff.getTag().toString())).setDefaultInt(value);
+                            }
+                        }
+                    }
+                };
+                holder.etBuff.addTextChangedListener(watcher);
                 if (item.isIfPercent()) {
                     ToolCase.setViewValue(holder.etBuff,item.getDefaultDouble() == 0 ? "" : new StringBuilder().append(item.getDefaultDouble()).toString());
                     holder.tvPercent.setVisibility(View.VISIBLE);
@@ -95,10 +214,6 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
                     ToolCase.setViewValue(holder.etBuff,item.getDefaultInt() == 0 ? "" : new StringBuilder().append(item.getDefaultInt()).toString());
                     holder.tvPercent.setVisibility(View.GONE);
                 }
-                //添加editText的监听事件
-                holder.etBuff.addTextChangedListener(new MyTextWatcher(holder));
-                //通过设置tag，防止position紊乱
-                holder.etBuff.setTag(position);
             }
         }
     }

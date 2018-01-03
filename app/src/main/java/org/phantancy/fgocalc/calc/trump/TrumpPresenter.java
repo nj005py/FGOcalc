@@ -98,7 +98,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         if (buffsItem.getTrumpSpecialUp() == 0) {
             c.setTrumpBuff(1);
         } else {
-            c.setTrumpBuff(buffsItem.getTrumpSpecialUp() / 100 + 1);
+            c.setTrumpBuff(buffsItem.getTrumpSpecialUp() / 100);
         }
         c.setSolidBuff(buffsItem.getSolidAtk() + solid_atk);
         c.setTrumpPowerBuff(buffsItem.getTrumpUp() / 100);
@@ -132,6 +132,10 @@ public class TrumpPresenter implements TrumpContract.Presenter {
             }
             c.setTrumpTimes(trumpTimes);
         }else{
+            //允许附加倍率吧
+            if (buffsItem.getExtraTimes() != 0) {
+                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) ;
+            }
             c.setTrumpTimes(trumpTimes);
         }
         Log.d(TAG,"trump times:" + trumpTimes);
@@ -234,7 +238,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
         } else {
-            result = new StringBuilder().append(result + "\n")
+            result = new StringBuilder().append(result + "\n===== FGOcalc分割线 =====\n")
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
@@ -292,7 +296,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                         Method method = cls.getDeclaredMethod("get" + buff[3]);
                         double value = (double)method.invoke(item);
                         if (value != 0) {
-                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).toString();
+                            re += new StringBuilder().append(" " + buff[1] + ":").append(value).append("%").toString();
                         }
                     }else{
                         Method method = cls.getDeclaredMethod("get" + buff[3]);

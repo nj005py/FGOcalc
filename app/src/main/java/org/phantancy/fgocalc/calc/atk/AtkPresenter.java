@@ -126,7 +126,6 @@ public class AtkPresenter implements AtkContract.Presenter {
                     .append(getExtraBuffs(conAtk) + "\n")//buff
                     .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
                     .append("的伤害为").append(attackInt).toString();
-//            result = getExtraBuffs(conAtk) + "\n" + c.cardType + "卡在" + c.cardPosition + "号位的伤害为" + attackInt;
             overallAttack = attackInt;
         } else {
             if (c.cardPosition == 1) {
@@ -135,18 +134,15 @@ public class AtkPresenter implements AtkContract.Presenter {
                         .append(getExtraBuffs(conAtk) + "\n")//buff
                         .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
                         .append("的伤害为").append(attackInt).toString();
-//                result += getExtraBuffs(conAtk) + "\n" + c.cardType + "卡在" + c.cardPosition + "号位的伤害为" + attackInt;
                 overallAttack += attackInt;
             }else{
                 result = new StringBuilder().append(result).append("\n").append(c.cardType)
                         .append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
                         .append("的伤害为").append(attackInt).toString();
-//                result = result + "\n" + c.cardType + "卡在" + c.cardPosition + "号位的伤害为" + attackInt;
                 overallAttack += attackInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overallAttack).append("\n").toString();
-//                result = result + "\n" + "合计----->" + overallAttack + "\n";
+                result = new StringBuilder().append(result).append("\n合计----->").append(overallAttack).append("\n===== FGOcalc分割线 =====\n").toString();
                 overallAttack = 0;
             }
         }

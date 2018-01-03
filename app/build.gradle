@@ -24,7 +24,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 12
-        versionName "v1.5.1"
+        versionName "v1.5.2"
     }
 
     buildTypes {
@@ -107,4 +107,5 @@ dependencies {
     }
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.google.code.gson:gson:2.8.2'
 }

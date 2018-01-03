@@ -36,6 +36,7 @@ public class BuffPresenter implements BuffContract.Presenter {
 
     }
 
+    //获取buff列表
     @Override
     public List<BuffItem> getBuffList(ServantItem sItem,BuffsItem bItem) {
         List<BuffItem> list = new ArrayList<>();
@@ -53,6 +54,7 @@ public class BuffPresenter implements BuffContract.Presenter {
             String hint = buff[1];
             item.setImg(resId);
             item.setHint(hint);
+            item.setBuffName(buff[0]);
             // 选择要包裹的代码块，然后按下ctrl + alt + t ，快速生成try catch等
             try {
                 if (buff[2].equals("d")) {
@@ -81,6 +83,7 @@ public class BuffPresenter implements BuffContract.Presenter {
         return list;
     }
 
+    //获取buff组实体
     @Override
     public BuffsItem getBuffsItem(List<BuffItem> list) {
         BuffsItem item = new BuffsItem();

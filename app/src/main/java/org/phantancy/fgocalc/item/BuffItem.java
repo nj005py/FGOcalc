@@ -13,7 +13,25 @@ public class BuffItem implements Serializable {
     private boolean ifPercent;
     private int defaultInt;
     private double defaultDouble;
-    private String hint;
+    private String hint;//中文提示
+    private String buffName;//buff名称
+    private boolean firstTime = true;
+
+    public String getBuffName() {
+        return buffName;
+    }
+
+    public void setBuffName(String buffName) {
+        this.buffName = buffName;
+    }
+
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
+    }
 
     public int getType() {
         return type;

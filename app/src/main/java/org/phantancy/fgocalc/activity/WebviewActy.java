@@ -24,6 +24,7 @@ public class WebviewActy extends BaseActivity {
     ProgressWebView awWvWeb;
     private String url;
     private int id;
+    private WebSettings settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,12 @@ public class WebviewActy extends BaseActivity {
                     return true;
                 }
             });
+            settings = awWvWeb.getSettings();
+            settings.setTextZoom(100);
+            awWvWeb.getSettings().setUseWideViewPort(true);
+            awWvWeb.getSettings().setBuiltInZoomControls(true);
+            awWvWeb.getSettings().setSupportZoom(true);
+            awWvWeb.getSettings().setLoadWithOverviewMode(true);
             awWvWeb.getSettings().setJavaScriptEnabled(true);
             awWvWeb.getSettings().setAppCacheEnabled(true);
             //设置 缓存模式

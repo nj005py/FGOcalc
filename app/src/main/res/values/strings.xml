@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">FGOcalc</string>
     <string name="data_from">数据取自fgowiki,茹西教王的理想乡</string>
-    <string name="app_about">APP制作：空谕，百度月系吧刊组\n\n程序：纯蓝魔法使\n\n数据库录入：妹红，高川，夕月，56，风子，镜子,悲歌\n\n解包+图片素材:遗忘的银灵\n\n数据取自fgowiki,茹西教王的理想乡\n\n感谢浮云大佬、妹红，为打星计算器的开发提出了建设性建议。</string>
+    <string name="app_about">参与名单\nAPP制作：空谕，百度月系吧刊组\n程序-APP：纯蓝魔法使\n程序-后台：windy(森林雪拉比)，strawberryG(黄昏现白骨)\n数据库录入：纯蓝魔法使(蓝魔)，LevsLeos(妹红)，高川，shenzhixiyue(夕月)，major56y(56)，白我风闻(风子)，黑璃v镜(镜子)，saiya(夜魇悲歌)\n解包+图片素材:遗忘的银灵\n宣传：纯蓝魔法使(蓝魔)，你即美好(残留),黑璃v镜(镜子)\n数据取自fgowiki,茹西教王的理想乡\n感谢浮云般飘过(斬撃皇帝騎士団)、LevsLeos(妹红)，为打星计算器的开发提出了建设性建议。</string>
     <string name="database_upgrade_done">数据库更新完毕！！！</string>
     <string name="database_reload_done">数据库重载完毕！！！</string>
+    <string name="database_download_done">外置数据库下载完毕！！！\n可以点载入外置数据库了！！！</string>
     <string name="database_load_extra_done">外置数据库装载完毕！！！</string>
-    <string name="database_error">数据库异常，请去侧滑菜单点击重载数据库！！！</string>
+    <string name="database_error">数据库异常，如果能用就继续用。\n如果没数据了，请去侧滑菜单点击重载数据库！！！</string>
     <string name="arts_hit">蓝卡hit</string>
     <string name="buster_hit">红卡hit</string>
     <string name="quick_hit">绿卡hit</string>

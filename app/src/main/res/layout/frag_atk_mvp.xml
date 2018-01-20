@@ -64,6 +64,68 @@
 
         </LinearLayout>
 
+        <!--宝具卡色 旧倍率-->
+        <LinearLayout
+            style="@style/ll_match_width_horizontal"
+            android:gravity="start|center_vertical"
+            android:background="@color/colorL">
+
+            <TextView
+                style="@style/tv_common"
+                android:layout_width="wrap_content"
+                android:text="宝具卡色"
+                android:textColor="@color/colorWhite"/>
+
+            <!--宝具卡色-->
+            <ImageView
+                android:id="@+id/fam_iv_color"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/buster"/>
+
+            <CheckBox
+                android:id="@+id/fam_cb_upgraded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="切换旧倍率"
+                android:textColor="@color/colorWhite"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <!--宝具lv-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                style="@style/tv_common"
+                android:layout_weight="4.0"
+                android:paddingLeft="10dp"
+                android:gravity="start"
+                android:text="宝具lv"
+                android:textColor="@color/colorWhite"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/colorDeepBlue">
+
+                <Spinner
+                    android:id="@+id/fam_sp_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--atk-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,6 +162,56 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <!--hp-->
+        <LinearLayout
+            style="@style/ll_match_width_vertical"
+            android:id="@+id/fam_ll_hp"
+            android:visibility="gone">
+
+            <!--总hp-->
+            <LinearLayout
+                style="@style/ll_match_width_horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="5.0"
+                    android:text="总HP"
+                    android:textColor="@color/colorWhite"/>
+
+                <EditText
+                    android:id="@+id/fam_et_hp_total"
+                    android:layout_weight="1.0"
+                    style="@style/et_common"
+                    android:background="@color/colorDeepBlue"
+                    android:inputType="number"
+                    android:hint="总HP"/>
+
+            </LinearLayout>
+
+            <!--剩余hp-->
+            <LinearLayout
+                style="@style/ll_match_width_horizontal"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="5.0"
+                    android:text="剩余HP"
+                    android:textColor="@color/colorWhite"/>
+
+                <EditText
+                    android:id="@+id/fam_et_hp_left"
+                    android:layout_weight="1.0"
+                    style="@style/et_common"
+                    android:background="@color/colorDeepBlue"
+                    android:inputType="number"
+                    android:hint="剩余HP"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

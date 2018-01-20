@@ -34,6 +34,12 @@
             android:name="io.fabric.ApiKey"
             android:value="31289302ccafb98d34ad986ca0418aa5075f77fb" />
 
+        <meta-data android:value="5a61306b8f4a9d420400090e" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Umeng" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="635f1a6fb0fe4b7fff7e18bfe4af9a77" />
+
         <activity
             android:name="org.phantancy.fgocalc.splash.SplashActy"
             android:screenOrientation="portrait"

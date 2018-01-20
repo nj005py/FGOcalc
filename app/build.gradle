@@ -20,11 +20,13 @@ android {
     compileSdkVersion 25
     buildToolsVersion '25.0.2'
     defaultConfig {
-        applicationId "com.phantancy.fgocalc"
+        applicationId "org.phantancy.fgocalc"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 12
-        versionName "v1.5.2"
+        versionName "v1.5.3"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -94,13 +96,8 @@ dependencies {
     compile files('libs/AMap_Location_V3.6.0_20170918.jar')
     compile files('libs/AMap_Search_V5.3.1_20170817.jar')
     compile files('libs/Android_Map3D_SDK_V5.4.0_20170928.jar')
-
     //google.common等东西在里面
     compile "com.google.guava:guava:$rootProject.guavaVersion"
-    compile('com.alibaba.android:vlayout:1.2.2@aar')
-    {
-        transitive = true
-    }
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true;
@@ -108,4 +105,9 @@ dependencies {
     compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.android.support:multidex:1.0.1'
+    compile project(':push')
+    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
 }

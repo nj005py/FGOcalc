@@ -238,7 +238,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
         } else {
-            result = new StringBuilder().append(result + "\n===== FGOcalc分割线 =====\n")
+            result = new StringBuilder().append(result + "\n== FGOcalc分割线 ==\n")
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();

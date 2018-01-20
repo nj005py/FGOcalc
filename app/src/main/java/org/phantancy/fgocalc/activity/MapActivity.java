@@ -165,6 +165,7 @@ public class MapActivity extends BaseActivity implements
                 }else{
                     ToastUtils.displayShortToast(mContext,"您拒绝了权限");
                 }
+                break;
         }
     }
 

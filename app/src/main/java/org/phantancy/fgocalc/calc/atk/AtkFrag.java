@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,14 @@ import org.phantancy.fgocalc.calc.buff.BuffActy;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ConditionAtk;
+import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToolCase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,9 +120,22 @@ public class AtkFrag extends BaseFrag implements
     Unbinder unbinder1;
     @BindView(R.id.fam_sp_essence)
     Spinner famSpEssence;
+    @BindView(R.id.fam_et_hp_total)
+    EditText famEtHpTotal;
+    @BindView(R.id.fam_et_hp_left)
+    EditText famEtHpLeft;
+    @BindView(R.id.fam_ll_hp)
+    LinearLayout famLlHp;
+    @BindView(R.id.fam_iv_color)
+    ImageView famIvColor;
+    @BindView(R.id.fam_cb_upgraded)
+    CheckBox famCbUpgraded;
+    @BindView(R.id.fam_sp_lv)
+    Spinner famSpLv;
+    Unbinder unbinder2;
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
-    private String[] cardValues = {"b", "a", "q"};
+    private String[] cardValues = {"b", "a", "q", "np"};
     //环境类型的参数例如选卡、是否暴击、职阶相性、阵营相性、乱数补正
     private String cardType1, cardType2, cardType3;//1,2,3号位选卡
     private boolean ifEx = false;//是否ex卡（4号位卡）
@@ -125,11 +143,23 @@ public class AtkFrag extends BaseFrag implements
     private int weakType = 1;//职阶相性类型
     private double teamCor = 1.0, //阵营相性
             randomCor = 1.0;//平均乱数补正
+    private double trumpTimes;
     private int essenceAtk = 0;//礼装atk
     private int[] essenceAtks;
+    private int[] lv;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private ConditionAtk conAtk;
+    private ConditionTrump conT;
+    private int id;
+    private int hpTotal = 0, hpLeft = 0;
+    private String[] lvStr;
+    private boolean isUpgraded,//是否有宝具本
+            isPreTimes;//是否是旧倍率
+    private String trumpColor;
+    private int curPos = 0;
+    private List<Double> curLv = new ArrayList<>();
+    private List<Double> preLv = new ArrayList<>();
 
 
     //require empty public constructor
@@ -166,18 +196,50 @@ public class AtkFrag extends BaseFrag implements
         servantItem = (ServantItem) data.getSerializable("servantItem");
 //        buffsItem = (BuffsItem) data.getSerializable("buffsItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
-        //声明一个简单simpleAdapter
-        SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandCards(), R.layout.item_card_type,
-                new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
-        essenceAtks = getResources().getIntArray(R.array.essence_atk);
-        famSpCard1.setAdapter(simpleAdapter);
-        famSpCard2.setAdapter(simpleAdapter);
-        famSpCard3.setAdapter(simpleAdapter);
-        famTvResult.setMovementMethod(new ScrollingMovementMethod());
-        ToolCase.spInitDeep(ctx,essenceAtks,famSpEssence);
-        setListener();
         if (servantItem != null) {
             setDefault();
+            trumpColor = servantItem.getTrump_color();
+            //声明一个简单simpleAdapter
+            SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandNPCards(trumpColor), R.layout.item_card_type,
+                    new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
+            essenceAtks = getResources().getIntArray(R.array.essence_atk);
+            famSpCard1.setAdapter(simpleAdapter);
+            famSpCard2.setAdapter(simpleAdapter);
+            famSpCard3.setAdapter(simpleAdapter);
+            famTvResult.setMovementMethod(new ScrollingMovementMethod());
+            ToolCase.spInitDeep(ctx, essenceAtks, famSpEssence);
+            id = servantItem.getId();
+            isUpgraded = servantItem.getTrump_upgraded() == 1 ? true : false;
+            lv = getResources().getIntArray(R.array.trump_lv);
+            lvStr = getResources().getStringArray(R.array.trump_lv_str);
+            if (isUpgraded) {
+                famCbUpgraded.setVisibility(View.VISIBLE);
+            } else {
+                famCbUpgraded.setVisibility(View.GONE);
+            }
+            showTrumpColor();
+            ToolCase.spInitDeep(ctx, lvStr, famSpLv);
+            //id66，131为双子需要显血
+            if (id == 66 || id == 131) {
+                famLlHp.setVisibility(View.VISIBLE);
+                //都需要血量信息
+                famLlHp.setVisibility(View.VISIBLE);
+                //66r双子，附加倍率<超蓄力威力提升> (此倍率×自身已损失HP所占百分比,与宝具倍率加算)
+                //131弓双子，HP降低，宝具威力提高【※总倍率＝攻击倍率+HP特攻倍率*（1—现在HP/最大HP)】
+            } else {
+                famLlHp.setVisibility(View.GONE);
+            }
+            curLv.add(servantItem.getTrump_lv1());
+            curLv.add(servantItem.getTrump_lv2());
+            curLv.add(servantItem.getTrump_lv3());
+            curLv.add(servantItem.getTrump_lv4());
+            curLv.add(servantItem.getTrump_lv5());
+            preLv.add(servantItem.getTrump_lv1_before());
+            preLv.add(servantItem.getTrump_lv2_before());
+            preLv.add(servantItem.getTrump_lv3_before());
+            preLv.add(servantItem.getTrump_lv4_before());
+            preLv.add(servantItem.getTrump_lv5_before());
+            setListener();
         }
     }
 
@@ -352,8 +414,76 @@ public class AtkFrag extends BaseFrag implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
                 atk = atk - essenceAtk + essenceAtks[position];
-                ToolCase.setViewValue(famEtAtk,String.valueOf(atk));
+                ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
                 essenceAtk = essenceAtks[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        famCbUpgraded.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    isPreTimes = true;
+                    trumpTimes = preLv.get(curPos);
+                } else {
+                    isPreTimes = false;
+                    trumpTimes = curLv.get(curPos);
+                }
+            }
+        });
+        //宝具等级
+        famSpLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (servantItem != null) {
+                    switch (position) {
+                        case 0:
+                            curPos = 0;
+                            if (isPreTimes) {
+                                trumpTimes = servantItem.getTrump_lv1_before();
+                            } else {
+                                trumpTimes = servantItem.getTrump_lv1();
+                            }
+                            break;
+                        case 1:
+                            curPos = 1;
+                            if (isPreTimes) {
+                                trumpTimes = servantItem.getTrump_lv2_before();
+                            } else {
+                                trumpTimes = servantItem.getTrump_lv2();
+                            }
+                            break;
+                        case 2:
+                            curPos = 2;
+                            if (isPreTimes) {
+                                trumpTimes = servantItem.getTrump_lv3_before();
+                            } else {
+                                trumpTimes = servantItem.getTrump_lv3();
+                            }
+                            break;
+                        case 3:
+                            curPos = 3;
+                            if (isPreTimes) {
+                                trumpTimes = servantItem.getTrump_lv4_before();
+                            } else {
+                                trumpTimes = servantItem.getTrump_lv4();
+                            }
+                            break;
+                        case 4:
+                            curPos = 4;
+                            if (isPreTimes) {
+                                trumpTimes = servantItem.getTrump_lv5_before();
+                            } else {
+                                trumpTimes = servantItem.getTrump_lv5();
+                            }
+                            break;
+                    }
+                }
             }
 
             @Override
@@ -368,7 +498,7 @@ public class AtkFrag extends BaseFrag implements
         switch (v.getId()) {
             case R.id.fam_btn_calc:
                 if (validateData()) {
-                    mPresenter.getReady(conAtk);
+                    mPresenter.getReady(conAtk,conT);
                 }
                 break;
             case R.id.fam_btn_clean:
@@ -389,6 +519,21 @@ public class AtkFrag extends BaseFrag implements
         }
     }
 
+    //卡色Buff倍率
+    private void showTrumpColor() {
+        switch (trumpColor) {
+            case "b":
+                famIvColor.setImageResource(R.mipmap.buster);
+                break;
+            case "a":
+                famIvColor.setImageResource(R.mipmap.arts);
+                break;
+            case "q":
+                famIvColor.setImageResource(R.mipmap.quick);
+                break;
+        }
+    }
+
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(famTvResult, result);
@@ -401,15 +546,38 @@ public class AtkFrag extends BaseFrag implements
     //检查数据
     private boolean validateData() {
         if (!ToolCase.notEmpty(famEtAtk)) {
-            famRlCharacter.setVisibility(View.VISIBLE);
-            famTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
-            SharedPreferencesUtils.setParam(ctx, "ifLily", false);
+            setCharacter("ATK是必填项！Buff可以不填！\\n能帮上点忙吗？");
             return false;
         }
         atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         conAtk = mPresenter.getCondition(atk, cardType1, cardType2, cardType3,
                 ifEx, ifCr1, ifCr2, ifCr3, weakType, teamCor, randomCor, servantItem, buffsItem);
+        //双子特殊处理倍率
+        if (id == 66 || id == 131) {
+            hpTotal = ToolCase.getViewInt(famEtHpTotal);
+            hpLeft = ToolCase.getViewInt(famEtHpLeft);
+            Log.d(TAG, "total:" + hpTotal + " left:" + hpLeft);
+            if (hpTotal == 0 || hpLeft == 0) {
+                setCharacter("hp信息不全！！！");
+                return false;
+            }
+            //66r双子，附加倍率<超蓄力威力提升> (此倍率×自身已损失HP所占百分比,与宝具倍率加算)
+            //131弓双子，HP降低，宝具威力提高【※总倍率＝攻击倍率+HP特攻倍率*（1—现在HP/最大HP)】
+            //66 r双子
+            if (id == 66) {
+                if (buffsItem == null) {
+                    setCharacter("骑阶双子的附加倍率必填！\n附加倍率随oc1200%,1600%,1800%,1900%,2000%");
+                    return false;
+                }
+                if (buffsItem.getExtraTimes() == 0) {
+                    setCharacter("骑阶双子的附加倍率必填！\n附加倍率随oc1200%,1600%,1800%,1900%,2000%");
+                    return false;
+                }
+            }
+        }
+        conT = mPresenter.getConditionTrump(atk, hpTotal, hpLeft, trumpColor, weakType,
+                teamCor, randomCor, trumpTimes, servantItem, buffsItem);
         return true;
     }
 
@@ -427,6 +595,13 @@ public class AtkFrag extends BaseFrag implements
                 }
             }
         }
+    }
+
+    @Override
+    public void setCharacter(String str) {
+        famRlCharacter.setVisibility(View.VISIBLE);
+        famTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
+        famTvCharacter.setText(str);
     }
 
     @Override

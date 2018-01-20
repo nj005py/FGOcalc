@@ -63,6 +63,7 @@
 
         </LinearLayout>
 
+        <!--宝具卡色 旧倍率-->
         <LinearLayout
             style="@style/ll_match_width_horizontal"
             android:gravity="start|center_vertical"
@@ -145,12 +146,14 @@
                 <TextView
                     style="@style/tv_common"
                     android:layout_weight="5.0"
-                    android:text="总HP"/>
+                    android:text="总HP"
+                    android:textColor="@color/colorWhite"/>
 
                 <EditText
                     android:id="@+id/ftm_et_hp_total"
                     android:layout_weight="1.0"
                     style="@style/et_common"
+                    android:background="@color/colorDeepBlue"
                     android:inputType="number"
                     android:hint="总HP"/>
 
@@ -164,12 +167,14 @@
                 <TextView
                     style="@style/tv_common"
                     android:layout_weight="5.0"
-                    android:text="剩余HP"/>
+                    android:text="剩余HP"
+                    android:textColor="@color/colorWhite"/>
 
                 <EditText
                     android:id="@+id/ftm_et_hp_left"
                     android:layout_weight="1.0"
                     style="@style/et_common"
+                    android:background="@color/colorDeepBlue"
                     android:inputType="number"
                     android:hint="剩余HP"/>
 

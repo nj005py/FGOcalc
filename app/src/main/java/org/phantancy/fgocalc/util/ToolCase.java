@@ -183,4 +183,47 @@ public class ToolCase {
 
         return list;
     }
+
+    //获取指令卡+宝具卡
+    public static List<Map<String, Object>> getCommandNPCards(String npColor) {
+
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+        //每个Map结构为一条数据，key与Adapter中定义的String数组中定义的一一对应。
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("img", R.mipmap.buster);
+        map.put("name", "Buster");
+        list.add(map);
+
+        HashMap<String, Object> map2 = new HashMap<String, Object>();
+        map2.put("img", R.mipmap.arts);
+        map2.put("name", "Arts");
+        list.add(map2);
+
+        HashMap<String, Object> map3 = new HashMap<String, Object>();
+        map3.put("img", R.mipmap.quick);
+        map3.put("name", "Quick");
+        list.add(map3);
+
+        int color = 0;
+        switch (npColor) {
+            case "b":
+                color = R.mipmap.np_b;
+                break;
+            case "a":
+                color = R.mipmap.np_a;
+                break;
+            case "q":
+                color = R.mipmap.np_q;
+                break;
+        }
+
+        HashMap<String, Object> map4 = new HashMap<String, Object>();
+        map4.put("img", color);
+        map4.put("name", "NP");
+        list.add(map4);
+
+        return list;
+    }
 }

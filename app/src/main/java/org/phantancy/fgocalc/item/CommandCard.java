@@ -48,6 +48,8 @@ public class CommandCard {
     public double starOverkillPlus = 0.3;
     public double starCriticalCor = 0;
     public double starFirstCardBuff = 0;
+    //宝具卡的条件
+    public ConditionTrump conT;
     //私有的
     //从者属性+内部机制
     private boolean ifSameColor;
@@ -86,9 +88,10 @@ public class CommandCard {
     private ConditionStar conS;
 
     //atk构造函数
-    public CommandCard(int cardPosition, ConditionAtk conAtk) {
+    public CommandCard(int cardPosition, ConditionAtk conAtk,ConditionTrump conT) {
         this.cardPosition = cardPosition;
         this.conAtk = conAtk;
+        this.conT = conT;
         cardForAtk();
     }
 
@@ -316,6 +319,9 @@ public class CommandCard {
 
     private void getFirstCardBuffForAtk(){
         firstCardType = conAtk.getCardType1();
+        if (firstCardType.equals("np")) {
+            firstCardType = sItem.getTrump_color();
+        }
         switch (firstCardType) {
             case "b":
                 firstCardBuff = 0.5;
@@ -510,5 +516,17 @@ public class CommandCard {
         }else{
             starOverkillPlus = 0;
         }
+    }
+
+    //获取卡色
+    private String getCardColor(String cardType,ServantItem item){
+        if (item != null) {
+            if (cardType.equals("np")) {
+                return item.getTrump_color();
+            }else{
+                return cardType;
+            }
+        }
+        return null;
     }
 }

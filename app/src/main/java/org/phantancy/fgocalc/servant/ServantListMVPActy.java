@@ -1,17 +1,29 @@
 package org.phantancy.fgocalc.servant;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.base.BaseActy;
 import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.util.ActivityUtils;
+import org.phantancy.fgocalc.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 
 /**
@@ -23,6 +35,7 @@ public class ServantListMVPActy extends BaseActy{
     FrameLayout aslmFlMain;
     private long exitTime = 0;//用于记录退出时间
     private ServantListPresenter mPresenter;
+    private final int REQUEST_PERMISSION = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +48,25 @@ public class ServantListMVPActy extends BaseActy{
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),slFrag,R.id.aslm_fl_main);
         }
         mPresenter = new ServantListPresenter(slFrag,ctx);
+        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.setSessionContinueMillis(1000);
+        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE ) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},REQUEST_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                }else{
+                    ToastUtils.displayShortToast(ctx,"您拒绝了权限");
+                }
+                break;
+        }
     }
 
     //重载返回键

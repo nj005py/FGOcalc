@@ -3,12 +3,14 @@ package org.phantancy.fgocalc.calc.atk;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.CommandCard;
 import org.phantancy.fgocalc.item.ConditionAtk;
+import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
 
 import java.lang.reflect.InvocationTargetException;
@@ -24,6 +26,7 @@ public class AtkPresenter implements AtkContract.Presenter {
     private String result = "";
     private int overallAttack;
     private Context ctx;
+    private String TAG = getClass().getSimpleName();
 
     public AtkPresenter(@NonNull AtkContract.View mView,Context ctx) {
         this.mView = mView;
@@ -64,9 +67,14 @@ public class AtkPresenter implements AtkContract.Presenter {
                                      ServantItem servantItem, BuffsItem buffsItem) {
         boolean ifsameColor;
         double busterChain = 0;
-        if (cardType1.equals(cardType2) && cardType2.equals(cardType3)) {
+        //同色比较，增加宝具卡的颜色判断
+        String color1,color2,color3;
+        color1 = getCardColor(cardType1,servantItem);
+        color2 = getCardColor(cardType2,servantItem);
+        color3 = getCardColor(cardType3,servantItem);
+        if (color1.equals(color2) && color2.equals(color3)) {
             ifsameColor = true;
-            if (cardType1.equals("b")) {
+            if (color1.equals("b")) {
                 busterChain = 0.2;
             } else {
                 busterChain = 0;
@@ -100,11 +108,178 @@ public class AtkPresenter implements AtkContract.Presenter {
     }
 
     @Override
-    public void getReady(ConditionAtk conAtk) {
-        CommandCard c1 = new CommandCard(1,conAtk);
-        CommandCard c2 = new CommandCard(2,conAtk);
-        CommandCard c3 = new CommandCard(3,conAtk);
-        CommandCard c4 = new CommandCard(4,conAtk);
+    public ConditionTrump getConditionTrump(int atk, int hpTotal, int hpLeft, String trumpColor,
+                                            int weakType, double teamCor, double randomCor, double trumpTimes,
+                                            ServantItem servantItem, BuffsItem buffsItem) {
+        String class_type;
+        int solid_atk;
+        double arts_buff,
+                buster_buff,
+                quick_buff,
+                atk_buff,
+                special_buff,
+                critical_buff;
+        ConditionTrump c = new ConditionTrump();
+        if (buffsItem == null) {
+            buffsItem = new BuffsItem();
+        }
+        class_type = servantItem.getClass_type();
+        arts_buff = servantItem.getArts_buff();
+        buster_buff = servantItem.getBuster_buff();
+        quick_buff = servantItem.getQuick_buff();
+        atk_buff = servantItem.getAtk_buff();
+        special_buff = servantItem.getSpecial_buff();
+        critical_buff = servantItem.getCritical_buff();
+        solid_atk = servantItem.getSolid_buff();
+        c.setAtk(atk);
+        c.setWeakType(weakType);
+        c.setClassCor(classCor(class_type));
+        c.setWeakCor(weakCorForAtk(weakType,class_type));
+        c.setTeamCor(teamCor);
+        c.setRandomCor(randomCor);
+        c.setServantItem(servantItem);
+        c.setBuffsItem(buffsItem);
+        //无宝具特攻也要写1，不能为0
+        if (buffsItem.getTrumpSpecialUp() == 0) {
+            c.setTrumpBuff(1);
+        } else {
+            c.setTrumpBuff(buffsItem.getTrumpSpecialUp() / 100);
+        }
+        c.setSolidBuff(buffsItem.getSolidAtk() + solid_atk);
+        c.setTrumpPowerBuff(buffsItem.getTrumpUp() / 100);
+        c.setAtkBuff(buffsItem.getAtkUp() / 100 + atk_buff);
+        c.setSpecialBuff(buffsItem.getSpecialUp() / 100 + special_buff);
+        c.setEnemyDefence(buffsItem.getEnemyDefence() / 100);
+        c.setTrumpDown(buffsItem.getTrumpDown() / 100);
+        switch (trumpColor) {
+            case "b":
+                c.setCardBuff(buffsItem.getBusterUp() / 100 + buster_buff);
+                c.setCardTimes(1.5);
+                break;
+            case "a":
+                c.setCardBuff(buffsItem.getArtsUp() / 100 + arts_buff);
+                c.setCardTimes(1.0);
+                break;
+            case "q":
+                c.setCardBuff(buffsItem.getQuickUp() / 100 + quick_buff);
+                c.setCardTimes(0.8);
+                break;
+        }
+        //宝具倍率，双子需要特殊处理
+        if (servantItem.getId() == 66 || servantItem.getId() == 131){
+            if (servantItem.getId() == 66) {
+                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) * (1 - (hpLeft / hpTotal));
+            }
+            //131 a双子
+            if (servantItem.getId() == 131) {
+                //弓双子额外倍率固定600%
+                trumpTimes = trumpTimes + 6 * (1 - (hpLeft / hpTotal));
+            }
+            c.setTrumpTimes(trumpTimes);
+        }else{
+            //允许附加倍率吧
+            if (buffsItem.getExtraTimes() != 0) {
+                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) ;
+            }
+            c.setTrumpTimes(trumpTimes);
+        }
+        Log.d(TAG,"trump times:" + trumpTimes);
+        return c;
+    }
+
+    //获取卡色
+    private String getCardColor(String cardType,ServantItem item){
+        if (item != null) {
+            if (cardType.equals("np")) {
+                return item.getTrump_color();
+            }else{
+                return cardType;
+            }
+        }
+        return null;
+    }
+
+    private double weakCorForAtk(int weak_type,String class_type){
+        double weakCor = 1.0;
+        String cacheClass = class_type.toLowerCase();
+        switch (weak_type) {
+            case 1:
+                weakCor = 1.0;
+                break;
+            case 2:
+                if (cacheClass.equals("berserker") || cacheClass.equals("alterego")) {
+                    weakCor = 1.5;
+                } else {
+                    weakCor = 2.0;
+                }
+                break;
+            case 3:
+                weakCor = 0.5;
+                break;
+            case 4:
+                weakCor = 2.0;
+                break;
+        }
+        return weakCor;
+    }
+
+    //职介补正
+    private double classCor(String classType) {
+        String classCache = classType.toLowerCase();
+        double classCor = 0;
+        switch (classCache) {
+            case "saber":
+                classCor = 1.00;
+                break;
+            case "archer":
+                classCor = 0.95;
+                break;
+            case "lancer":
+                classCor = 1.05;
+                break;
+            case "rider":
+                classCor = 1.0;
+                break;
+            case "caster":
+                classCor = 0.9;
+                break;
+            case "assassin":
+                classCor = 0.9;
+                break;
+            case "berserker":
+                classCor = 1.1;
+                break;
+            case "ruler":
+                classCor = 1.1;
+                break;
+            case "shielder":
+                classCor = 1.0;
+                break;
+            case "alterego":
+                classCor = 1.0;
+                break;
+            case "avenger":
+                classCor = 1.1;
+                break;
+            case "beast":
+                classCor = 1.0;
+                break;
+            case "mooncancer":
+                classCor = 1.0;
+                break;
+            case "foreigner":
+                classCor = 1.0;
+                break;
+        }
+        return classCor;
+    }
+
+    @Override
+    public void getReady(ConditionAtk conAtk,ConditionTrump conT) {
+        CommandCard c1 = new CommandCard(1,conAtk,conT);
+        CommandCard c2 = new CommandCard(2,conAtk,conT);
+        CommandCard c3 = new CommandCard(3,conAtk,conT);
+        CommandCard c4 = new CommandCard(4,conAtk,conT);
         calcAtk(c1,conAtk);
         calcAtk(c2,conAtk);
         calcAtk(c3,conAtk);
@@ -113,10 +288,20 @@ public class AtkPresenter implements AtkContract.Presenter {
     }
 
     private void calcAtk(CommandCard c,ConditionAtk conAtk) {
-        double attack = c.atk * c.atkCor * (c.atkTimes * c.positionBuff * (1 + c.cardBuff) + c.firstCardBuff) *
-                c.classCor * c.weakCor * c.teamCor * c.randomCor * (1 + c.atkBuff + c.enemyDefence) *
-                (1 + c.specialBuff - c.specialDefence + c.criticalBuff) * c.criticalCor * c.exReward
-                + (c.solidBuff - c.solidDefence) + c.atk * c.busterChain;
+        double attack = 0;
+        //卡是宝具卡，条件不为null时计算宝具伤害
+        if (c.cardType.equals("np") && c.conT != null) {
+            ConditionTrump conT = c.conT;
+            attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
+                    * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
+                    (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
+                    * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
+        }else{
+            attack = c.atk * c.atkCor * (c.atkTimes * c.positionBuff * (1 + c.cardBuff) + c.firstCardBuff) *
+                    c.classCor * c.weakCor * c.teamCor * c.randomCor * (1 + c.atkBuff + c.enemyDefence) *
+                    (1 + c.specialBuff - c.specialDefence + c.criticalBuff) * c.criticalCor * c.exReward
+                    + (c.solidBuff - c.solidDefence) + c.atk * c.busterChain;
+        }
         int attackInt = (int) Math.floor(attack);
         String[] con = getConditions(conAtk);
         if (result.length() < 1) {
@@ -142,7 +327,7 @@ public class AtkPresenter implements AtkContract.Presenter {
                 overallAttack += attackInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overallAttack).append("\n===== FGOcalc分割线 =====\n").toString();
+                result = new StringBuilder().append(result).append("\n合计----->").append(overallAttack).append("\n== FGOcalc分割线 ==\n").toString();
                 overallAttack = 0;
             }
         }

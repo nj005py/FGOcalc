@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.BuffAdapter;
@@ -23,6 +25,7 @@ import org.phantancy.fgocalc.item.BuffItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,11 +57,18 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     LinearLayout abLlMerlin;
     @BindView(R.id.ab_ll_fox)
     LinearLayout abLlFox;
+    @BindView(R.id.ab_sp_relationship)
+    Spinner abSpRelationship;
+    @BindView(R.id.ab_ll_relationship)
+    LinearLayout abLlRelationship;
     private BuffAdapter adapter;
     private List<BuffItem> list = new ArrayList<>();
     private BuffContract.Presenter mPresenter;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
+    private String[] relationship;//羁绊
+    private String curRelationship = "";
+    private String preRelationship = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,8 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         buffsItem = (BuffsItem) getIntent().getSerializableExtra("buffsItem");
         //创建presenter
         mPresenter = new BuffPresenter(this, ctx);
+        relationship = getResources().getStringArray(R.array.relationship);
+        ToolCase.spInitCustom(ctx,relationship,abSpRelationship,R.layout.item_content_spinner_l);
         initStatusBar();
         setListener();
         if (servantItem != null) {
@@ -120,7 +132,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         abLlKongming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.kongmingBuffs(30, 50,500);
+                adapter.kongmingBuffs(30, 50, 500);
             }
         });
         abLlMerlin.setOnClickListener(new View.OnClickListener() {
@@ -133,6 +145,21 @@ public class BuffActy extends BaseActy implements BuffContract.View {
             @Override
             public void onClick(View v) {
                 adapter.foxBuffs(50);
+            }
+        });
+        abSpRelationship.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                curRelationship = relationship[position];
+                adapter.relationAtk(curRelationship,preRelationship);
+                preRelationship = curRelationship;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                curRelationship = relationship[0];
+                preRelationship = relationship[0];
+                adapter.relationAtk(curRelationship,preRelationship);
             }
         });
     }

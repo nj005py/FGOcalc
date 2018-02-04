@@ -11,10 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.beloo.widget.chipslayoutmanager.ChipsLayoutManager;
-import com.beloo.widget.chipslayoutmanager.gravity.IChildGravityResolver;
-import com.beloo.widget.chipslayoutmanager.layouter.breaker.IRowBreaker;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.InfoAdapter;
@@ -91,58 +87,6 @@ public class InfoFrag extends BaseFrag implements InfoContract.View {
                     }
                 }
             });
-//            final VirtualLayoutManager layoutManager = new VirtualLayoutManager(ctx);
-//            fimRvInfo.setLayoutManager(layoutManager);
-//            final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-//            fimRvInfo.setRecycledViewPool(viewPool);
-//            viewPool.setMaxRecycledViews(0, 20);
-//            final DelegateAdapter delegateAdapter = new DelegateAdapter(layoutManager, true);
-//            fimRvInfo.setAdapter(delegateAdapter);
-//            List<DelegateAdapter.Adapter> adapters = new LinkedList<>();
-//            if (ONEN_LAYOUT) {
-//                OnePlusNLayoutHelper helper = new OnePlusNLayoutHelper();
-//                helper.setBgColor(0xff876384);
-//                helper.setMargin(10, 10, 10, 10);
-//                helper.setPadding(10, 10, 10, 10);
-//                adapters.add(new InfoAdapter(infoList,ctx,helper,3));
-//            }
-//            delegateAdapter.setAdapters(adapters);
-//
-//            final Handler mainHandler = new Handler(Looper.getMainLooper());
-//            trigger = new Runnable() {
-//                @Override
-//                public void run() {
-//                    // recyclerView.scrollToPosition(22);
-//                    // recyclerView.getAdapter().notifyDataSetChanged();
-//                    fimRvInfo.requestLayout();
-//                    // mainHandler.postDelayed(trigger, 1000);
-//                }
-//            };
-//            mainHandler.postDelayed(trigger, 1000);
-            ChipsLayoutManager spanLayoutManager = ChipsLayoutManager.newBuilder(getContext())
-                    //set vertical gravity for all items in a row. Default = Gravity.CENTER_VERTICAL
-                    .setChildGravity(Gravity.TOP)
-                    //whether RecyclerView can scroll. TRUE by default
-                    .setScrollingEnabled(true)
-                    //set maximum views count in a particular row
-                    .setMaxViewsInRow(2)
-                    //set gravity resolver where you can determine gravity for item in position.
-                    //This method have priority over previous one
-                    .setGravityResolver(new IChildGravityResolver() {
-                        @Override
-                        public int getItemGravity(int position) {
-                            return Gravity.CENTER;
-                        }
-                    })
-                    .setOrientation(ChipsLayoutManager.HORIZONTAL)
-                    //you are able to break row due to your conditions. Row breaker should return true for that views
-                    .setRowBreaker(new IRowBreaker() {
-                        @Override
-                        public boolean isItemBreakRow(@IntRange(from = 0) int position) {
-                            return position == 0 || position == 1;
-                        }
-                    })
-                    .build();
             fimRvInfo.setLayoutManager(gl);
             fimRvInfo.getRecycledViewPool().setMaxRecycledViews(0, 30);
             fimRvInfo.getRecycledViewPool().setMaxRecycledViews(1, 30);

@@ -398,42 +398,6 @@ public class ServantListActy extends BaseActivity implements View.OnClickListene
             }
         });
 
-        menuAdapter.setOnItemClickListener(new MenuAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent();
-                switch (position) {
-                    case 0:
-                        intent.setClass(mContext, MetaphysicsActy.class);
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        intent.setClass(mContext, ExtractActivity.class);
-                        intent.putExtra("type", 1);
-                        startActivity(intent);
-                        break;
-                    case 2:
-                        intent.setClass(mContext, ExtractActivity.class);
-                        intent.putExtra("type", 2);
-                        startActivity(intent);
-                        break;
-                    case 3:
-                        intent.setClass(mContext, MapActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 4:
-                        intent.setClass(mContext, FateGoActy.class);
-                        startActivity(intent);
-                        break;
-                    case 5:
-                        showMenuLocDialog();
-                        break;
-                    case 6:
-                        sendEmail();
-                        break;
-                }
-            }
-        });
     }
 
     @Override

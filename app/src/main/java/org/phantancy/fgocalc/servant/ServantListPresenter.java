@@ -36,6 +36,7 @@ import org.phantancy.fgocalc.item.UpdateItem;
 import org.phantancy.fgocalc.util.JsonUtils;
 import org.phantancy.fgocalc.util.OKhttpManager;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
+import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.util.ToolCase;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -46,7 +47,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 
@@ -254,6 +257,32 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         downloadManager.enqueue(request);
     }
 
+    private void testPost(){
+        Map<String,String> map = new HashMap<>();
+        map.put("version","1.5.3");
+        map.put("content","加了推送 混合计算");
+
+        OKhttpManager.postAsync("api url", new OKhttpManager.DataCallBack() {
+            @Override
+            public void requestFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void requestSuccess(String result) {
+                try {
+                    JSONObject jo = new JSONObject(result);
+                    int status = jo.optInt("status");
+                    if (status  == 0) {
+                        ToastUtils.displayShortToast(ctx,"更新成功");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, map);
+    }
+
     private void checkUpdateByApi(){
         OKhttpManager.getAsync(UrlConstant.CHECK_UPDATE, new OKhttpManager.DataCallBack() {
             @Override
@@ -278,7 +307,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                                 //判断版本号大小
                                 String curVer[] = curVersion.split("\\.");
                                 String preVer[] = preVersion.split("\\.");
-                                //版本号分3段比较
+                                //版本号分4段比较，第4段表示状态
                                 if (curVer[0].compareTo(preVer[0]) == 1) {
                                     showUpdate = true;
                                 }else{
@@ -289,6 +318,9 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                                             showUpdate = true;
                                         }
                                     }
+                                }
+                                if (curVer.length == 4) {
+                                    showUpdate = true;
                                 }
                                 if (showUpdate) {
                                     //升级弹框

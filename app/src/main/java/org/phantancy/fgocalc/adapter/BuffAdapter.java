@@ -151,6 +151,73 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
         }
     }
 
+    public void relationAtk(String cur,String pre){
+        double atkUp = 0;
+        double atkDown = 0;
+        switch (cur) {
+            case "小于0":
+            case "":
+                atkUp = 0;
+                break;
+            case "5":
+                atkUp = 20;
+                break;
+            case "6":
+                atkUp = 40;
+                break;
+            case "7":
+                atkUp = 60;
+                break;
+            case "8":
+                atkUp = 75;
+                break;
+            case "9":
+                atkUp = 90;
+                break;
+            case "10":
+                atkUp = 100;
+                break;
+
+        }
+        switch (pre) {
+            case "小于0":
+            case "":
+                atkDown = 0;
+                break;
+            case "5":
+                atkDown = 20;
+                break;
+            case "6":
+                atkDown = 40;
+                break;
+            case "7":
+                atkDown = 60;
+                break;
+            case "8":
+                atkDown = 75;
+                break;
+            case "9":
+                atkDown = 90;
+                break;
+            case "10":
+                atkDown = 100;
+                break;
+
+        }
+        if (mList != null) {
+            for (int i = 0;i < mList.size();i ++){
+                if (mList.get(i).getBuffName().equals("atk_up")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + atkUp - atkDown;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivBuff;
         TextView tvPercent;

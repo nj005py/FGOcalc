@@ -149,6 +149,12 @@ public class ToolCase {
         sp.setAdapter(spAdapter);
     }
 
+    public static void spInitCustom(Context context,String[] str,Spinner sp,int layout){
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,layout,str);
+        spAdapter.setDropDownViewResource(layout);
+        sp.setAdapter(spAdapter);
+    }
+
     public static void copy2Clipboard(Context ctx,TextView tv){
         //获取剪贴板管理器：
         ClipboardManager cm = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);

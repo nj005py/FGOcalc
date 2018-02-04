@@ -43,14 +43,6 @@
             android:title="fgosimulator(素材规划，同样推荐)"/>
 
         <item
-            android:id="@+id/nsm_go"
-            android:title="偷渡GO"/>
-
-        <item
-            android:id="@+id/nsm_stone"
-            android:title="砸圣晶石(暂无意义)"/>
-
-        <item
             android:id="@+id/nsm_feedback"
             android:title="反馈"/>
 

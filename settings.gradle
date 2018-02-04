@@ -1,1 +1,1 @@
-include ':app',':viewexplosion',':push'
+include ':app',':push'

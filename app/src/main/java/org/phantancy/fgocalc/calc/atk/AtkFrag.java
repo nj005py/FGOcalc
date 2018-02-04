@@ -252,6 +252,7 @@ public class AtkFrag extends BaseFrag implements
     //默认hp atk
     private void setDefault() {
         ToolCase.setViewValue(famEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
+        ToolCase.setViewValue(famEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp()).toString());
         //判断是否是alterego
         String classType = servantItem.getClass_type();
         if (classType.toLowerCase().equals("alterego")) {

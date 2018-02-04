@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,7 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.base.BaseActy;
 import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.util.ActivityUtils;
+import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
 
 import butterknife.BindView;
@@ -50,6 +52,10 @@ public class ServantListMVPActy extends BaseActy{
         mPresenter = new ServantListPresenter(slFrag,ctx);
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType. E_UM_NORMAL);
         MobclickAgent.setSessionContinueMillis(1000);
+//        boolean isToken  = (Boolean) SharedPreferencesUtils.getParam(ctx,"isToken",false);
+//        if (isToken) {
+//            ToastUtils.displayShortToast(ctx, "推送token已复制剪切板");
+//        }
         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE ) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},REQUEST_PERMISSION);
         }

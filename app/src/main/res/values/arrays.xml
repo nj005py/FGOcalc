@@ -56,6 +56,16 @@
         <item>2400</item>
     </integer-array>
 
+    <string-array name = "relationship">
+        <item>小于5</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
     <string-array name="trump_lv_str">
         <item>一宝</item>
         <item>二宝</item>

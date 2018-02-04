@@ -119,10 +119,10 @@ public class CalcActy extends BaseActy {
         //标签列表
         indicatorList = new ArrayList<>();
         indicatorList.add("从者信息");
-        indicatorList.add("伤害计算器");
-        indicatorList.add("NP计算器");
-        indicatorList.add("宝具计算器");
-        indicatorList.add("打星计算器");
+        indicatorList.add("伤害计算");
+        indicatorList.add("NP充能计算");
+        indicatorList.add("宝具计算");
+        indicatorList.add("打星计算");
         //检查fragment
         if (infoFrag == null) {
             infoFrag = new InfoFrag();

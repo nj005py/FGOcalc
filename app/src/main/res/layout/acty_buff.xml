@@ -129,10 +129,27 @@
 
             </LinearLayout>
 
-            <View
+            <LinearLayout
+                android:id="@+id/ab_ll_relationship"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="1.0"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="vertical"
+                android:background="@drawable/se_l_white">
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_width="wrap_content"
+                    android:text="针对国服终章临时加的\n羁绊等级"
+                    android:textColor="@color/colorWhite"/>
+
+                <Spinner
+                    android:id="@+id/ab_sp_relationship"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

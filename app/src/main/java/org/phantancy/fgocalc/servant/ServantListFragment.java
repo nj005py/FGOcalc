@@ -46,7 +46,6 @@ import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.FateGoActy;
-import org.phantancy.fgocalc.activity.MapActivity;
 import org.phantancy.fgocalc.activity.MetaphysicsActy;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.ServantCardViewAdapter;
@@ -358,14 +357,6 @@ public class ServantListFragment extends BaseFrag implements
                     case R.id.nsm_notice:
                         intent.setClass(ctx, WebviewActy.class);
                         intent.putExtra("url","http://nj005py.gitee.io/fgocalc/");
-                        startActivity(intent);
-                        break;
-                    case R.id.nsm_go:
-                        intent.setClass(ctx, MapActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nsm_stone:
-                        intent.setClass(ctx, FateGoActy.class);
                         startActivity(intent);
                         break;
                     case R.id.nsm_menu_loc:

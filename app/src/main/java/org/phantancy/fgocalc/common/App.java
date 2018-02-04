@@ -1,6 +1,8 @@
 package org.phantancy.fgocalc.common;
 
 import android.app.Application;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
@@ -20,6 +22,10 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+
+import org.phantancy.fgocalc.util.SharedPreferencesUtils;
+import org.phantancy.fgocalc.util.ToastUtils;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.io.File;
 
@@ -42,7 +48,14 @@ public class App extends MultiDexApplication {
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
-                Log.d("my token",deviceToken);
+//                Log.d("my token",deviceToken);
+//                //获取剪贴板管理器：
+//                ClipboardManager cm = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
+//                // 创建普通字符型ClipData
+//                ClipData mClipData = ClipData.newPlainText("fgocalc_token", deviceToken);
+//                // 将ClipData内容放到系统剪贴板里。
+//                cm.setPrimaryClip(mClipData);
+//                SharedPreferencesUtils.setParam(getApplicationContext(),"isToken",true);
             }
 
             @Override

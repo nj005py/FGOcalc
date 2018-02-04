@@ -188,6 +188,7 @@
                     style="@style/et_common"
                     android:background="@color/colorDeepBlue"
                     android:inputType="number"
+                    android:textColor="@color/colorWhite"
                     android:hint="总HP"/>
 
             </LinearLayout>
@@ -209,6 +210,7 @@
                     style="@style/et_common"
                     android:background="@color/colorDeepBlue"
                     android:inputType="number"
+                    android:textColor="@color/colorWhite"
                     android:hint="剩余HP"/>
 
             </LinearLayout>

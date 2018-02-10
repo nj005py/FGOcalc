@@ -232,4 +232,23 @@ public class ToolCase {
 
         return list;
     }
+
+    //版本号大小
+    public static int get4thVersion(String v){
+        switch (v) {
+            case "base":
+                return 0;
+            case "alpha":
+                return 1;
+            case "beta":
+                return 2;
+            case "explorer":
+                return 3;
+            case "rc":
+                return 4;
+            case "release":
+                return 5;
+        }
+        return 0;
+    }
 }

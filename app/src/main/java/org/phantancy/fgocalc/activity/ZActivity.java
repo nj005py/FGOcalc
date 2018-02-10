@@ -15,7 +15,7 @@ public class ZActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.z_layout);
-        mContext = this;
+        ctx = this;
         init();
     }
 

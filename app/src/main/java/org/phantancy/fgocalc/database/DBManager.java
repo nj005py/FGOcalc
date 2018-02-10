@@ -27,7 +27,7 @@ public class DBManager {
             + Environment.getDataDirectory().getAbsolutePath() + "/"
             + PACKAGE_NAME;  //在手机里存放数据库的位置
 
-    private SQLiteDatabase database;
+    public SQLiteDatabase database;
     private Context ctx;
 
     public DBManager(Context context) {
@@ -35,19 +35,16 @@ public class DBManager {
         Log.d(TAG,"DB_PATH->" + DB_PATH);
     }
 
-    public void openDatabase() {
-        this.database = this.openDatabase(DB_PATH + "/" + DB_NAME);
+    public void getDatabase(){
+        database = openDatabase();
     }
 
-    public void openDatabaseExtra(){
-        this.database = this.openDatabaseExtra(DB_PATH + "/" + DB_NAME);
+    public void getDatabaseExtra(){
+        database = openDatabaseExtra();
     }
 
-    public SQLiteDatabase getDatabase(){
-        return openDatabase(DB_PATH + "/" + DB_NAME);
-    }
-
-    public SQLiteDatabase openDatabase(String dbfile) {
+    public SQLiteDatabase openDatabase() {
+        String dbfile = DB_PATH + "/" + DB_NAME;
         try {
             if (!(new File(dbfile).exists())) {//判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
                 InputStream is = this.ctx.getResources().openRawResource(
@@ -74,7 +71,8 @@ public class DBManager {
         return null;
     }
 
-    public SQLiteDatabase openDatabaseExtra(String dbfile){
+    public SQLiteDatabase openDatabaseExtra(){
+        String dbfile = DB_PATH + "/" + DB_NAME;
         String extra = Environment.getExternalStoragePublicDirectory("Download") + "/servants.db";
         try {
             if (!(new File(dbfile).exists())) {//判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
@@ -123,8 +121,8 @@ public class DBManager {
     //删除表,模拟异常情况
     public void dropTable(){
         try{
-            SQLiteDatabase db = getDatabase();
-            db.execSQL("drop table servants");
+//            SQLiteDatabase db = getDatabase();
+//            db.execSQL("drop table servants");
         }catch (Exception e){
 
         }

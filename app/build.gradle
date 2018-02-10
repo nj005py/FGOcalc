@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'io.fabric'
 
 buildscript {
@@ -17,14 +17,14 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 12
-        versionName "v1.5.3.beta"
+        versionName "v1.5.3.rc"
         // Enabling multidex support.
         multiDexEnabled true
     }
@@ -83,25 +83,25 @@ android {
 
 dependencies {
     // App's dependencies, including test
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile files('libs/ZHConverter.jar')
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation 'junit:junit:4.12'
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation files('libs/ZHConverter.jar')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
     //google.common等东西在里面
-    compile "com.google.guava:guava:18.0"
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+    implementation 'com.google.guava:guava:18.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
         transitive = true;
     }
-    compile files('libs/universal-image-loader-1.9.5.jar')
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.android.support:multidex:1.0.1'
-    compile project(':push')
-    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
+    implementation files('libs/universal-image-loader-1.9.5.jar')
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.android.support:multidex:1.0.2'
+    implementation project(':push')
+    implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
 }

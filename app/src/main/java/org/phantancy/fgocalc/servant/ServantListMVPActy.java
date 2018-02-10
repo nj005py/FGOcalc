@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.BoolRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
@@ -21,6 +22,8 @@ import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.util.ActivityUtils;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,21 +47,32 @@ public class ServantListMVPActy extends BaseActy{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_servant_list_mvp);
         ButterKnife.bind(this);
+        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE ) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                    ,REQUEST_PERMISSION);
+        }else {
+            init();
+        }
+    }
+
+    private void init(){
+        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType. E_UM_NORMAL);
+        MobclickAgent.setSessionContinueMillis(1000);
+        initFragment();
+    }
+
+    private void initFragment(){
         ServantListFragment slFrag = (ServantListFragment)getSupportFragmentManager().findFragmentById(R.id.aslm_fl_main);
         if (slFrag == null) {
             slFrag = ServantListFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),slFrag,R.id.aslm_fl_main);
         }
         mPresenter = new ServantListPresenter(slFrag,ctx);
-        MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType. E_UM_NORMAL);
-        MobclickAgent.setSessionContinueMillis(1000);
-//        boolean isToken  = (Boolean) SharedPreferencesUtils.getParam(ctx,"isToken",false);
-//        if (isToken) {
-//            ToastUtils.displayShortToast(ctx, "推送token已复制剪切板");
-//        }
-        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_PHONE_STATE ) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE},REQUEST_PERMISSION);
-        }
+        slFrag.setPresenter(mPresenter);
     }
 
     @Override
@@ -67,11 +81,30 @@ public class ServantListMVPActy extends BaseActy{
         switch (requestCode) {
             case REQUEST_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                    init();
                 }else{
-                    ToastUtils.displayShortToast(ctx,"您拒绝了权限");
+                    if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                            ContextCompat.checkSelfPermission(ctx,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        initFragment();
+                    }
+                    ToastUtils.displayShortToast(ctx,"您拒绝了权限，或影响正常使用");
                 }
                 break;
+        }
+        // 获取到Activity下的Fragment
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments == null)
+        {
+            return;
+        }
+        // 查找在Fragment中onRequestPermissionsResult方法并调用
+        for (Fragment fragment : fragments)
+        {
+            if (fragment != null)
+            {
+                // 这里就会调用我们Fragment中的onRequestPermissionsResult方法
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
     }
 

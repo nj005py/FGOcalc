@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack">
 
+    <include layout="@layout/status_bar"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

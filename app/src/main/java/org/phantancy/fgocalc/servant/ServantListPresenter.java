@@ -73,29 +73,16 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     private String update;//更新文本
     private String keyWord;
     private DBManager dbManager;
-    private SQLiteDatabase database;
+//    private SQLiteDatabase database;
     private List<ServantItem> servantList = new ArrayList<>();
     private RecyclerView rv;
     private ServantItem sItem,pItem;
     private boolean isReceiverRegister = false;
     private boolean findUpdate = false;
+    private boolean isExtra = false;//是否加载外置数据库
+    private boolean isUpdateDatabase = false;//是否是更新数据库
     private final int SHOW_SERVANTS = 1;
     private final int SHOW_EXCEPTION = 2;
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case SHOW_SERVANTS:
-                    mView.setServantList(servantList);
-                    break;
-                case SHOW_EXCEPTION:
-                    mView.showCharacter(ctx.getString(R.string.database_error),R.mipmap.altria_alter_b);
-                    break;
-            }
-        }
-    };
-
 
     @NonNull
     private final ServantListContract.View mView;
@@ -151,9 +138,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         sItem.setClass_type("Creator");
         sItem.setStar(7);
         dbManager = new DBManager(ctx);
-        //载入db文件
-        dbManager.openDatabase();
-        dbManager.closeDatabase();
+        getAllServants();
     }
 
     /**
@@ -194,7 +179,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             String action = intent.getAction();
             if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 Log.d(TAG, "外置数据库下载完成");
-                mView.showCharacter(ctx.getResources().getString(R.string.database_download_done),R.mipmap.altria_alter_a);
+                isUpdateDatabase = true;
+                loadDatabaseExtra();
             }
         }
     };
@@ -210,13 +196,6 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     public void reloadDatabase() {
         File dbFile = new File(DBManager.DB_PATH + "/" + DBManager.DB_NAME);
         dbFile.delete();
-        if (dbManager == null) {
-            dbManager = new DBManager(ctx);
-        }
-        //载入db文件
-        dbManager.openDatabase();
-        dbManager.closeDatabase();
-//        ToastUtils.displayShortToast(ctx, "数据库重载完毕");
         mView.showCharacter(ctx.getResources().getString(R.string.database_reload_done),R.mipmap.altria_alter_a);
         getAllServants();
     }
@@ -225,14 +204,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     public void loadDatabaseExtra() {
         File dbFile = new File(DBManager.DB_PATH + "/" + DBManager.DB_NAME);
         dbFile.delete();
-        if (dbManager == null) {
-            dbManager = new DBManager(ctx);
+        if (isUpdateDatabase) {
+            mView.showCharacter(ctx.getResources().getString(R.string.database_upgrade_done),R.mipmap.altria_alter_a);
+            isUpdateDatabase = false;
+        }else {
+            mView.showCharacter(ctx.getResources().getString(R.string.database_load_extra_done),R.mipmap.altria_alter_a);
         }
-        //载入db文件
-        dbManager.openDatabaseExtra();
-        dbManager.closeDatabase();
-//        ToastUtils.displayShortToast(ctx, "数据库重载完毕");
-        mView.showCharacter(ctx.getResources().getString(R.string.database_load_extra_done),R.mipmap.altria_alter_a);
+        isExtra = true;
         getAllServants();
     }
 
@@ -257,32 +235,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         downloadManager.enqueue(request);
     }
 
-    private void testPost(){
-        Map<String,String> map = new HashMap<>();
-        map.put("version","1.5.3");
-        map.put("content","加了推送 混合计算");
-
-        OKhttpManager.postAsync("api url", new OKhttpManager.DataCallBack() {
-            @Override
-            public void requestFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void requestSuccess(String result) {
-                try {
-                    JSONObject jo = new JSONObject(result);
-                    int status = jo.optInt("status");
-                    if (status  == 0) {
-                        ToastUtils.displayShortToast(ctx,"更新成功");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, map);
-    }
-
+    //检测app版本更新，目前使用，现通过api
     private void checkUpdateByApi(){
         OKhttpManager.getAsync(UrlConstant.CHECK_UPDATE, new OKhttpManager.DataCallBack() {
             @Override
@@ -320,7 +273,23 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                                     }
                                 }
                                 if (curVer.length == 4) {
-                                    showUpdate = true;
+                                    //前3个数字编号无法看出谁更大时，比较英文版本号
+                                    /**
+                                     *base 基础版
+                                     * alpha 内测版
+                                     * beta 公测版
+                                     * explorer 探索版，不一定有
+                                     * rc 基本成型版
+                                     * release 正式版
+                                     */
+                                    //无第4版本号直接提示更新
+                                    if(preVer.length < 4){
+                                        showUpdate = true;
+                                    }else{
+                                        if (ToolCase.get4thVersion(curVer[3]) > ToolCase.get4thVersion(preVer[3])) {
+                                            showUpdate = true;
+                                        }
+                                    }
                                 }
                                 if (showUpdate) {
                                     //升级弹框
@@ -337,7 +306,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         });
     }
 
-    //检查app版本更新
+    //检查app版本更新，弃用，原解析xml方法
     public boolean checkUpdate() {
         InputStream in = null;
         File configFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
@@ -413,7 +382,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         return false;
     }
 
-
+    //下载xml配置文件，弃用
     public void downloadConfig() {
         File configFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_config.xml");
         if (configFile.exists()) {
@@ -476,11 +445,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         return false;
     }
 
-    /**
-     * 获取版本号
-     *
-     * @return 当前应用的版本号
-     */
+    //获取app的版本号
     @Override
     public String getVersion() {
         try {
@@ -502,9 +467,19 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     @Override
     public void getAllServants() {
         try{
-            database = dbManager.getDatabase();
+            //算是被坑怕了
+            if (dbManager == null) {
+                dbManager = new DBManager(ctx);
+            }
+            //打开数据库
+            if (isExtra) {
+                dbManager.getDatabaseExtra();
+                isExtra = false;
+            }else{
+                dbManager.getDatabase();
+            }
             Cursor cur;
-            cur = database.rawQuery("SELECT * FROM servants", null);
+            cur = dbManager.database.rawQuery("SELECT * FROM servants", null);
             servantList = getServants(cur);
             if (sItem == null) {
                 //实装末端servant
@@ -526,15 +501,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             if (cur != null) {
                 cur.close();
             }
-            database.close();
-            Message msg = new Message();
-            msg.what = SHOW_SERVANTS;
-            mHandler.sendMessage(msg);
+            dbManager.closeDatabase();
+            mView.setServantList(servantList);
+        }catch (SecurityException e){
+            mView.showCharacter(ctx.getString(R.string.permission_error),R.mipmap.altria_alter_b);
         }catch (Exception e){
             e.printStackTrace();
-            Message msg = new Message();
-            msg.what = SHOW_EXCEPTION;
-            mHandler.sendMessage(msg);
+            mView.showCharacter(ctx.getString(R.string.database_error),R.mipmap.altria_alter_b);
         }
     }
 
@@ -542,30 +515,24 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     public void searchServantsByKeyword(final String value) {
         try{
             if (notEmpty(value)) {
-                database = dbManager.getDatabase();
+                dbManager.getDatabase();
                 Cursor cur;
                 keyWord = ToolCase.tc2sc(value);
-                cur = database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY CAST(id AS SIGNED) ASC",
+                cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY CAST(id AS SIGNED) ASC",
                         new String[]{"%" + value + "%", "%" + value + "%"});
                 servantList = getServants(cur);
                 if (cur != null) {
                     cur.close();
                 }
-                database.close();
-                Message msg = new Message();
-                msg.what = SHOW_SERVANTS;
-                mHandler.sendMessage(msg);
+                dbManager.closeDatabase();
+                mView.setServantList(servantList);
             }else{
                 servantList = null;
-                Message msg = new Message();
-                msg.what = SHOW_SERVANTS;
-                mHandler.sendMessage(msg);
+                mView.setServantList(servantList);
             }
         }catch (Exception e){
             e.printStackTrace();
-            Message msg = new Message();
-            msg.what = SHOW_EXCEPTION;
-            mHandler.sendMessage(msg);
+            mView.showCharacter(ctx.getString(R.string.database_error),R.mipmap.altria_alter_b);
         }
     }
 
@@ -573,35 +540,29 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     public void searchServantsByCondition(final String classType,final int star) {
         try{
             if (notEmpty(classType)) {
-                database = dbManager.getDatabase();
+                dbManager.getDatabase();
                 Cursor cur;
                 if (star == 7) {
                     //SELECT * FROM servants WHERE class_type = 'Saber' ORDER BY CAST(id AS SIGNED)
-                    cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(id AS SIGNED) ASC",
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(id AS SIGNED) ASC",
                             new String[]{classType});
                 }else{
-                    cur = database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(id AS SIGNED) ASC",
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(id AS SIGNED) ASC",
                             new String[]{classType, star + ""});
                 }
                 servantList = getServants(cur);
                 if (cur != null) {
                     cur.close();
                 }
-                database.close();
-                Message msg = new Message();
-                msg.what = SHOW_SERVANTS;
-                mHandler.sendMessage(msg);
+                dbManager.closeDatabase();
+                mView.setServantList(servantList);
             }else{
                 servantList = null;
-                Message msg = new Message();
-                msg.what = SHOW_SERVANTS;
-                mHandler.sendMessage(msg);
+                mView.setServantList(servantList);
             }
         }catch (Exception e){
             e.printStackTrace();
-            Message msg = new Message();
-            msg.what = SHOW_EXCEPTION;
-            mHandler.sendMessage(msg);
+            mView.showCharacter(ctx.getString(R.string.database_error),R.mipmap.altria_alter_b);
         }
     }
 

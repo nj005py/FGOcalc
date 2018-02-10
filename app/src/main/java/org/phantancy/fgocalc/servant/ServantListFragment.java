@@ -45,8 +45,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
-import org.phantancy.fgocalc.activity.FateGoActy;
-import org.phantancy.fgocalc.activity.MetaphysicsActy;
+import org.phantancy.fgocalc.metaphysics.MetaphysicsActy;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.ServantCardViewAdapter;
 import org.phantancy.fgocalc.base.BaseFrag;
@@ -133,11 +132,13 @@ public class ServantListFragment extends BaseFrag implements
     Unbinder unbinder1;
     private ServantListContract.Presenter mPresenter;
     private final int READ_WRITE = 1;
+    private final int WRITE_DOWNLOAD = 2;
     private ServantCardViewAdapter sAdapter;
     private String[] classType, starNum;//职阶 星
     private int[] starValue;//星(int)
     private String keyWord, curClassType;
     private int curStarValue;
+    Bundle savedInstanceStateO;
     private TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -180,6 +181,15 @@ public class ServantListFragment extends BaseFrag implements
         super.onActivityCreated(savedInstanceState);
         //初始化界面、状态栏
         initStatusBar();
+        //获取数组，设置搜索栏
+        classType = getResources().getStringArray(R.array.classType);
+        starNum = getResources().getStringArray(R.array.star);
+        starValue = getResources().getIntArray(R.array.star_value);
+        ToolCase.spInitSimple(ctx, classType, fslSpClasstype);
+        ToolCase.spInitSimple(ctx, starNum, fslSpStar);
+        //判断侧滑菜单
+        boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(ctx, "locLeft", true);
+        checkMenuLoc(locLeft);
         //设置列表展示方式
         View v = getLayoutInflater(savedInstanceState).inflate(R.layout.item_servant_cardview,null);
         CardView cv = (CardView)v.findViewById(R.id.isc_cv_servant);
@@ -193,15 +203,6 @@ public class ServantListFragment extends BaseFrag implements
         GridLayoutManager gl = new GridLayoutManager(ctx,num);
         fslRvServant.setLayoutManager(gl);
         fslRvServant.addItemDecoration(new GridItemDecoration(ctx,5));
-        //获取数组
-        classType = getResources().getStringArray(R.array.classType);
-        starNum = getResources().getStringArray(R.array.star);
-        starValue = getResources().getIntArray(R.array.star_value);
-        ToolCase.spInitSimple(ctx, classType, fslSpClasstype);
-        ToolCase.spInitSimple(ctx, starNum, fslSpStar);
-        //判断侧滑菜单
-        boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(ctx, "locLeft", true);
-        checkMenuLoc(locLeft);
         //设置监听
         setListener();
         //检查权限
@@ -243,12 +244,12 @@ public class ServantListFragment extends BaseFrag implements
     }
 
     public void init() {
-        //检查app版本、数据库版本
-        mPresenter.simpleCheck(ctx,mActy);
 //        sAdapter = new ServantCardViewAdapter(ctx,mPresenter.getAllServants());
         sAdapter = new ServantCardViewAdapter(null,ctx,fslTvCharacter,fslRlCharacter);
         fslRvServant.setAdapter(sAdapter);
-        mPresenter.getAllServants();
+        //检查app版本、数据库版本
+        mPresenter.simpleCheck(ctx,mActy);
+//        mPresenter.getAllServants();
     }
 
     public void initStatusBar() {
@@ -363,14 +364,17 @@ public class ServantListFragment extends BaseFrag implements
                         showMenuLocDialog();
                         break;
                     case R.id.nsm_reload_database:
+                        //ctrl + alt + b直接跳到实现方法
                         mPresenter.reloadDatabase();
                         break;
                     case R.id.nsm_download_database_extra:
-                        mPresenter.downloadDatabaseExtra();
-                        break;
-                    case R.id.nsm_load_database_extra:
-                        //ctrl + alt + b直接跳到实现方法
-                        mPresenter.loadDatabaseExtra();
+                        //判断有无写入权限
+                        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                                ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(mActy, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},WRITE_DOWNLOAD );
+                        } else {
+                            mPresenter.downloadDatabaseExtra();
+                        }
                         break;
                     case R.id.nsm_fgotool:
                         mPresenter.fgotool();
@@ -525,7 +529,14 @@ public class ServantListFragment extends BaseFrag implements
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     init();
                 } else {
-                    ToastUtils.displayShortToast(ctx, "您拒绝了权限");
+                    ToastUtils.displayShortToast(ctx, "您拒绝了权限，部分功能无法正常工作");
+                }
+                break;
+            case WRITE_DOWNLOAD:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mPresenter.downloadDatabaseExtra();
+                } else {
+                    ToastUtils.displayShortToast(ctx, "您拒绝了权限，无法下载更新");
                 }
                 break;
         }

@@ -3,6 +3,7 @@ package org.phantancy.fgocalc.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -264,10 +265,10 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
                         if (s != null) {
                             BuffItem item = mList.get(Integer.parseInt(holder.etBuff.getTag().toString()));
                             if (item.isIfPercent()) {
-                                double value = s.toString().isEmpty() ? 0 : Double.valueOf(s.toString());
+                                double value = TextUtils.isEmpty(s.toString()) ? 0 : Double.valueOf(s.toString());
                                 mList.get(Integer.parseInt(holder.etBuff.getTag().toString())).setDefaultDouble(value);
                             }else{
-                                int value = s.toString().isEmpty() ? 0 : Integer.valueOf(s.toString());
+                                int value = TextUtils.isEmpty(s.toString()) ? 0 : Integer.valueOf(s.toString());
                                 mList.get(Integer.parseInt(holder.etBuff.getTag().toString())).setDefaultInt(value);
                             }
                         }

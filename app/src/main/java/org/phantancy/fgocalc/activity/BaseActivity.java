@@ -23,7 +23,7 @@ import com.spreada.utils.chinese.ZHConverter;
  * Created by PY on 2016/10/26.
  */
 public class BaseActivity extends AppCompatActivity implements View.OnClickListener{
-    protected Context mContext;
+    protected Context ctx;
     public String TAG = getClass().getName();
     public LinearLayout llStatusBar;
 
@@ -63,14 +63,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             int height = BaseUtils.getStatusBarHeight(context);
             llStatusBar.setPadding(0, height, 0, 0);
         }
-    }
-
-
-    /**
-     * 写这个方法不是为了装逼，而是为了方便设置颜色
-     * */
-    public int getColorName(int colorName){
-        return getResources().getColor(colorName);
     }
 
     //只是获取输入框的值

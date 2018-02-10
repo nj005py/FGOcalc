@@ -17,4 +17,5 @@ public class Constant {
 
     //buff
     public static final int SET_BUFF = 0;
+
 }

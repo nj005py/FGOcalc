@@ -56,7 +56,7 @@ public class FateGoActy extends BaseActivity implements View.OnClickListener {
 
         setContentView(R.layout.acty_fate_go);
         ButterKnife.bind(this);
-        mContext = this;
+        ctx = this;
         checkPerssmission();
     }
 
@@ -84,8 +84,8 @@ public class FateGoActy extends BaseActivity implements View.OnClickListener {
     }
 
     private void checkPerssmission() {
-        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, TAKE_PHOTO);
         } else {
             init();
@@ -124,7 +124,7 @@ public class FateGoActy extends BaseActivity implements View.OnClickListener {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     init();
                 } else {
-                    ToastUtils.displayShortToast(mContext, "您拒绝了权限");
+                    ToastUtils.displayShortToast(ctx, "您拒绝了权限");
                 }
                 break;
 
@@ -133,7 +133,7 @@ public class FateGoActy extends BaseActivity implements View.OnClickListener {
 
     private void stoneAnime(final View v,int a){
         v.setVisibility(View.VISIBLE);
-        Animation anim = AnimationUtils.loadAnimation(mContext,a);
+        Animation anim = AnimationUtils.loadAnimation(ctx,a);
         v.setAnimation(anim);
         anim.setAnimationListener(new Animation.AnimationListener() {
             @Override

@@ -28,11 +28,7 @@
 
         <item
             android:id="@+id/nsm_download_database_extra"
-            android:title="下载外置数据库"/>
-
-        <item
-            android:id="@+id/nsm_load_database_extra"
-            android:title="载入外置数据库"/>
+            android:title="更新数据库"/>
 
         <item
             android:id="@+id/nsm_fgotool"

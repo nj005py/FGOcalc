@@ -40,12 +40,12 @@ public class CatchActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_catch);
         ButterKnife.bind(this);
-        mContext = this;
+        ctx = this;
         init();
     }
 
     private void init() {
-        itemAdapter = new ItemAdapter(mContext);
+        itemAdapter = new ItemAdapter(ctx);
         acGvCatch.setAdapter(itemAdapter);
         doExtract();
         setListener();

@@ -9,8 +9,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -51,9 +49,7 @@
             </intent-filter>
         </activity>
         <activity android:name="org.phantancy.fgocalc.servant.ServantListMVPActy"/>
-        <activity android:name="org.phantancy.fgocalc.activity.MetaphysicsActy"/>
-        <activity android:name="org.phantancy.fgocalc.activity.ExtractActivity"/>
-        <activity android:name="org.phantancy.fgocalc.activity.MapActivity"/>
+        <activity android:name="org.phantancy.fgocalc.metaphysics.MetaphysicsActy"/>
         <activity android:name="org.phantancy.fgocalc.activity.CatchActivity"/>
         <activity android:name="org.phantancy.fgocalc.activity.FateGoActy"/>
         <activity android:name="org.phantancy.fgocalc.calc.CalcActy"
@@ -64,7 +60,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.phantancy.fgocalc.fileprovider"
+            android:authorities="org.phantancy.fgocalc.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -32,7 +32,7 @@ public class WebviewActy extends BaseActivity {
         try {
             setContentView(R.layout.acty_webview);//自己手动设置正确的布局
             ButterKnife.bind(this);
-            mContext = this;
+            ctx = this;
             init();
         } catch (Exception e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class WebviewActy extends BaseActivity {
             if (!TextUtils.isEmpty(url)) {
                 Uri uris = Uri.parse(url);
                 startActivity(new Intent(Intent.ACTION_VIEW, uris));
-                ToastUtils.displayShortToast(mContext, "系统组件缺失，帮您跳转外部浏览器");
+                ToastUtils.displayShortToast(ctx, "系统组件缺失，帮您跳转外部浏览器");
             }
         }
     }

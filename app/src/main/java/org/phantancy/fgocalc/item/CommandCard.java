@@ -87,6 +87,10 @@ public class CommandCard {
     private ConditionNp conNp;
     private ConditionStar conS;
 
+    public ConditionStar getConS() {
+        return conS;
+    }
+
     //atk构造函数
     public CommandCard(int cardPosition, ConditionAtk conAtk,ConditionTrump conT) {
         this.cardPosition = cardPosition;
@@ -337,6 +341,9 @@ public class CommandCard {
 
     private void getFirstCardBuffForNp(){
         firstCardType = conNp.getCardType1();
+        if (firstCardType.equals("np")) {
+            firstCardType = sItem.getTrump_color();
+        }
         switch (firstCardType) {
             case "b":
                 npFirstCardBuff = 0;
@@ -352,6 +359,9 @@ public class CommandCard {
 
     private void getFirstCardBuffForStar(){
         firstCardType = conS.getCardType1();
+        if (firstCardType.equals("np")) {
+            firstCardType = sItem.getTrump_color();
+        }
         switch (firstCardType) {
             case "b":
                 starFirstCardBuff = 0;
@@ -366,7 +376,9 @@ public class CommandCard {
     }
 
     private void timesForAll(){
-        switch (cardType) {
+        String cType = "";
+        cType = getCardColor(cardType,sItem);
+        switch (cType) {
             case "b":
                 atkTimes = 1.5;
                 npTimes = 0;
@@ -397,6 +409,7 @@ public class CommandCard {
                 cardBuff = 0;
                 na = ex_na;
                 hits = ex_hit;
+                break;
         }
     }
 

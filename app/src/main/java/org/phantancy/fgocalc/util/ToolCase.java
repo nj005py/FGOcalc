@@ -165,6 +165,16 @@ public class ToolCase {
         ToastUtils.displayShortToast(ctx, "结果已复制剪切板");
     }
 
+    public static void copy2Clipboard(Context ctx,String str,String hint){
+        //获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("fgocalc_txt", str);
+        // 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
+        ToastUtils.displayShortToast(ctx, hint);
+    }
+
     //获取指令卡列表
     public static List<Map<String, Object>> getCommandCards() {
 
@@ -250,5 +260,29 @@ public class ToolCase {
                 return 5;
         }
         return 0;
+    }
+
+    //获取阵营String
+    public static String getAttributeString(int attr){
+        //阵营 天地人星兽(0:天 1:地 2:人 3:星 4:兽)
+        String value = "";
+        switch (attr){
+            case 0:
+                value = "天";
+                break;
+            case 1:
+                value = "地";
+                break;
+            case 2:
+                value = "人";
+                break;
+            case 3:
+                value = "星";
+                break;
+            case 4:
+                value = "兽";
+                break;
+        }
+        return value;
     }
 }

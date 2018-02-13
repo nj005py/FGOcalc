@@ -45,7 +45,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
-import org.phantancy.fgocalc.metaphysics.MetaphysicsActy;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.ServantCardViewAdapter;
 import org.phantancy.fgocalc.base.BaseFrag;
@@ -54,6 +53,7 @@ import org.phantancy.fgocalc.dialog.MenulLocDialog;
 import org.phantancy.fgocalc.dialog.UpdateDialog;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.item_decoration.GridItemDecoration;
+import org.phantancy.fgocalc.metaphysics.MetaphysicsActy;
 import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
@@ -74,7 +74,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ServantListFragment extends BaseFrag implements
         ServantListContract.View,
-        View.OnClickListener{
+        View.OnClickListener {
 
     @BindView(R.id.fsl_ll_bar)
     LinearLayout fslLlBar;
@@ -130,15 +130,22 @@ public class ServantListFragment extends BaseFrag implements
     @BindView(R.id.fsl_ll_sidebar)
     LinearLayout fslLlSidebar;
     Unbinder unbinder1;
+    @BindView(R.id.fsl_tv_order)
+    TextView fslTvOrder;
+    @BindView(R.id.fsl_sp_order)
+    Spinner fslSpOrder;
+    Unbinder unbinder2;
     private ServantListContract.Presenter mPresenter;
     private final int READ_WRITE = 1;
     private final int WRITE_DOWNLOAD = 2;
     private ServantCardViewAdapter sAdapter;
     private String[] classType, starNum;//职阶 星
+    private String[] orderType;//排序方式
     private int[] starValue;//星(int)
+    private String[] orderTypeValue;//排序方式值
     private String keyWord, curClassType;
     private int curStarValue;
-    Bundle savedInstanceStateO;
+    private String curOrderTypeValue;
     private TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -185,24 +192,27 @@ public class ServantListFragment extends BaseFrag implements
         classType = getResources().getStringArray(R.array.classType);
         starNum = getResources().getStringArray(R.array.star);
         starValue = getResources().getIntArray(R.array.star_value);
+        orderType = getResources().getStringArray(R.array.order_type);
+        orderTypeValue = getResources().getStringArray(R.array.order_type_value);
         ToolCase.spInitSimple(ctx, classType, fslSpClasstype);
         ToolCase.spInitSimple(ctx, starNum, fslSpStar);
+        ToolCase.spInitSimple(ctx,orderType,fslSpOrder);
         //判断侧滑菜单
         boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(ctx, "locLeft", true);
         checkMenuLoc(locLeft);
         //设置列表展示方式
-        View v = getLayoutInflater(savedInstanceState).inflate(R.layout.item_servant_cardview,null);
-        CardView cv = (CardView)v.findViewById(R.id.isc_cv_servant);
-        cv.measure(0,0);
+        View v = getLayoutInflater(savedInstanceState).inflate(R.layout.item_servant_cardview, null);
+        CardView cv = (CardView) v.findViewById(R.id.isc_cv_servant);
+        cv.measure(0, 0);
         int width = cv.getMeasuredWidth();
         WindowManager wm = mActy.getWindowManager();
         int screenWidth = wm.getDefaultDisplay().getWidth();
-        int num = (int)Math.floor(screenWidth / width);
-        Log.d(TAG,"width:" + width + " screenWidth:" + screenWidth + " num:" + num);
-        StaggeredGridLayoutManager sgL = new StaggeredGridLayoutManager(num,StaggeredGridLayoutManager.VERTICAL);
-        GridLayoutManager gl = new GridLayoutManager(ctx,num);
+        int num = (int) Math.floor(screenWidth / width);
+        Log.d(TAG, "width:" + width + " screenWidth:" + screenWidth + " num:" + num);
+        StaggeredGridLayoutManager sgL = new StaggeredGridLayoutManager(num, StaggeredGridLayoutManager.VERTICAL);
+        GridLayoutManager gl = new GridLayoutManager(ctx, num);
         fslRvServant.setLayoutManager(gl);
-        fslRvServant.addItemDecoration(new GridItemDecoration(ctx,5));
+        fslRvServant.addItemDecoration(new GridItemDecoration(ctx, 5));
         //设置监听
         setListener();
         //检查权限
@@ -245,10 +255,10 @@ public class ServantListFragment extends BaseFrag implements
 
     public void init() {
 //        sAdapter = new ServantCardViewAdapter(ctx,mPresenter.getAllServants());
-        sAdapter = new ServantCardViewAdapter(null,ctx,fslTvCharacter,fslRlCharacter);
+        sAdapter = new ServantCardViewAdapter(null, ctx, fslTvCharacter, fslRlCharacter);
         fslRvServant.setAdapter(sAdapter);
         //检查app版本、数据库版本
-        mPresenter.simpleCheck(ctx,mActy);
+        mPresenter.simpleCheck(ctx, mActy);
 //        mPresenter.getAllServants();
     }
 
@@ -326,6 +336,18 @@ public class ServantListFragment extends BaseFrag implements
             }
         });
 
+        fslSpOrder.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                curOrderTypeValue = orderTypeValue[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                curOrderTypeValue = orderTypeValue[0];
+            }
+        });
+
         fslRgMethod.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -357,7 +379,7 @@ public class ServantListFragment extends BaseFrag implements
                         break;
                     case R.id.nsm_notice:
                         intent.setClass(ctx, WebviewActy.class);
-                        intent.putExtra("url","http://nj005py.gitee.io/fgocalc/");
+                        intent.putExtra("url", "http://nj005py.gitee.io/fgocalc/");
                         startActivity(intent);
                         break;
                     case R.id.nsm_menu_loc:
@@ -371,7 +393,7 @@ public class ServantListFragment extends BaseFrag implements
                         //判断有无写入权限
                         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                                 ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(mActy, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},WRITE_DOWNLOAD );
+                            ActivityCompat.requestPermissions(mActy, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_DOWNLOAD);
                         } else {
                             mPresenter.downloadDatabaseExtra();
                         }
@@ -384,6 +406,9 @@ public class ServantListFragment extends BaseFrag implements
                         break;
                     case R.id.nsm_feedback:
                         mPresenter.feedback();
+                        break;
+                    case R.id.nsm_share:
+                        ToolCase.copy2Clipboard(ctx,"FGOcalc，你的掌上FGO计算器APP：http://nj005py.gitee.io/fgocalc/","共享链接已复制到剪切板");
                         break;
                 }
                 fslDlMenu.closeDrawers();
@@ -403,10 +428,13 @@ public class ServantListFragment extends BaseFrag implements
                 mPresenter.searchServantsByKeyword(keyWord);
                 break;
             case R.id.fsl_btn_clear:
+                fslSpClasstype.setSelection(0);
+                fslSpStar.setSelection(0);
+                fslSpOrder.setSelection(0);
                 mPresenter.getAllServants();
                 break;
             case R.id.fsl_btn_sreen:
-                mPresenter.searchServantsByCondition(curClassType,curStarValue);
+                mPresenter.searchServantsByCondition(curClassType, curStarValue,curOrderTypeValue);
                 break;
             case R.id.fsl_tv_left:
                 fslDlMenu.openDrawer(fslLlSidebar);
@@ -497,11 +525,11 @@ public class ServantListFragment extends BaseFrag implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.d(TAG,"curVersion:" + curVersion);
-                    SharedPreferencesUtils.setParam(ctx,"ignoreVersion",curVersion);
-                }else{
-                    Log.d(TAG,"curVersion:1");
-                    SharedPreferencesUtils.setParam(ctx,"ignoreVersion","1");
+                    Log.d(TAG, "curVersion:" + curVersion);
+                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", curVersion);
+                } else {
+                    Log.d(TAG, "curVersion:1");
+                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", "1");
                 }
             }
         });
@@ -509,8 +537,8 @@ public class ServantListFragment extends BaseFrag implements
     }
 
     @Override
-    public void showCharacter(String content,int img) {
-        ToolCase.setViewValue(fslTvCharacter,content);
+    public void showCharacter(String content, int img) {
+        ToolCase.setViewValue(fslTvCharacter, content);
         fslIvCharacter.setImageResource(img);
         fslRlCharacter.setVisibility(View.VISIBLE);
         fslRlCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));

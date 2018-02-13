@@ -175,6 +175,8 @@ public class AtkPresenter implements AtkContract.Presenter {
                 //弓双子额外倍率固定600%
                 trumpTimes = trumpTimes + 6 * (1 - (hpLeft / hpTotal));
             }
+            c.setHpLeft(hpLeft);
+            c.setHpTotal(hpTotal);
             c.setTrumpTimes(trumpTimes);
         }else{
             //允许附加倍率吧
@@ -289,13 +291,21 @@ public class AtkPresenter implements AtkContract.Presenter {
 
     private void calcAtk(CommandCard c,ConditionAtk conAtk) {
         double attack = 0;
+        String hpStatus = "";
         //卡是宝具卡，条件不为null时计算宝具伤害
         if (c.cardType.equals("np") && c.conT != null) {
             ConditionTrump conT = c.conT;
-            attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
-                    * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
-                    (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
-                    * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
+            if (conT.getServantItem().getId() == 66 || conT.getServantItem().getId() == 131) {
+                hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft()).toString();
+            }
+            if (conT.getTrumpTimes() == 0) {
+                attack = 0;
+            }else{
+                attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
+                        * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
+                        (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
+                        * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
+            }
         }else{
             attack = c.atk * c.atkCor * (c.atkTimes * c.positionBuff * (1 + c.cardBuff) + c.firstCardBuff) *
                     c.classCor * c.weakCor * c.teamCor * c.randomCor * (1 + c.atkBuff + c.enemyDefence) *
@@ -307,6 +317,7 @@ public class AtkPresenter implements AtkContract.Presenter {
         if (result.length() < 1) {
             ServantItem sItem = conAtk.getServantItem();
             result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
+                    .append("总atk：").append(conAtk.getAtk()).append(hpStatus + "\n")//atk情况
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conAtk) + "\n")//buff
                     .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
@@ -316,6 +327,7 @@ public class AtkPresenter implements AtkContract.Presenter {
             if (c.cardPosition == 1) {
                 result = new StringBuilder().append(result)
                         .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
+                        .append("总atk：").append(conAtk.getAtk()).append(hpStatus + "\n")//atk情况
                         .append(getExtraBuffs(conAtk) + "\n")//buff
                         .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
                         .append("的伤害为").append(attackInt).toString();

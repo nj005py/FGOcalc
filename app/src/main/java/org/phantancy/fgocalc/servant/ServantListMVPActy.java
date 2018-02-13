@@ -71,7 +71,7 @@ public class ServantListMVPActy extends BaseActy{
             slFrag = ServantListFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),slFrag,R.id.aslm_fl_main);
         }
-        mPresenter = new ServantListPresenter(slFrag,ctx);
+        mPresenter = new ServantListPresenter(ctx,this,slFrag);
         slFrag.setPresenter(mPresenter);
     }
 

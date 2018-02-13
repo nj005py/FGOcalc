@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name = "classType">
+        <item>All</item>
         <item>Saber</item>
         <item>Archer</item>
         <item>Lancer</item>
@@ -12,19 +13,40 @@
         <item>Shielder</item>
         <item>Alterego</item>
         <item>Avenger</item>
-        <item>Beast</item>
         <item>MoonCancer</item>
         <item>Foreigner</item>
     </string-array>
 
     <string-array name = "star">
-        <item>无星</item>
+        <item>不限</item>
         <item>1星</item>
         <item>2星</item>
         <item>3星</item>
         <item>4星</item>
         <item>5星</item>
-        <item>不限</item>
+        <item>无星</item>
+    </string-array>
+
+    <string-array name="order_type">
+        <item>编号升序</item>
+        <item>编号降序</item>
+        <item>ATK升序(无系数)</item>
+        <item>ATK降序(无系数)</item>
+        <item>HP升序</item>
+        <item>HP降序</item>
+        <item>ATK升序(算系数)</item>
+        <item>ATK降序(算系数)</item>
+    </string-array>
+
+    <string-array name="order_type_value">
+        <item>id,asc</item>
+        <item>id,desc</item>
+        <item>default_atk,asc</item>
+        <item>default_atk,desc</item>
+        <item>default_hp,asc</item>
+        <item>default_hp,desc</item>
+        <item>default_atk,asc,multiplier</item>
+        <item>default_atk,desc,multiplier</item>
     </string-array>
 
     <integer-array name = "star_value">

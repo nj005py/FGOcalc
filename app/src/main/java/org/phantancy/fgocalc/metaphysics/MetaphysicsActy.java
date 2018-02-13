@@ -1,13 +1,8 @@
 package org.phantancy.fgocalc.metaphysics;
 
 import android.Manifest;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +11,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.AnimationSet;
@@ -25,6 +19,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -32,16 +27,12 @@ import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.BaseActivity;
-import org.phantancy.fgocalc.util.ImageUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
+import org.phantancy.fgocalc.util.ToolCase;
 import org.phantancy.fgocalc.view.VerticalProgressBar;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +45,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class MetaphysicsActy extends BaseActivity implements
         View.OnClickListener,
-        MetaphysicsContract.View{
+        MetaphysicsContract.View {
 
     @BindView(R.id.am_rb_believe)
     RadioButton amRbBelieve;
@@ -74,10 +65,6 @@ public class MetaphysicsActy extends BaseActivity implements
     VerticalProgressBar amPbEurope;
     @BindView(R.id.am_tv_africa)
     TextView amTvAfrica;
-    @BindView(R.id.am_btn_time)
-    Button amBtnTime;
-    @BindView(R.id.am_tv_time)
-    TextView amTvTime;
     @BindView(R.id.am_iv_character)
     ImageView amIvCharacter;
     @BindView(R.id.am_v_character)
@@ -88,6 +75,10 @@ public class MetaphysicsActy extends BaseActivity implements
     RelativeLayout amRlCharacter;
     @BindView(R.id.am_pb_africa)
     VerticalProgressBar amPbAfrica;
+    @BindView(R.id.status_bar)
+    LinearLayout statusBar;
+    @BindView(R.id.am_tv_result)
+    TextView amTvResult;
     private AnimationSet textAnimationSet;
     private static final int TAKE_PHOTO = 1;
     private Uri imageUri;
@@ -104,7 +95,7 @@ public class MetaphysicsActy extends BaseActivity implements
         setContentView(R.layout.acty_metaphysics);
         ButterKnife.bind(this);
         ctx = this;
-        mPresenter = new MetaphysicsPresenter(ctx,this);
+        mPresenter = new MetaphysicsPresenter(ctx, this);
         init();
     }
 
@@ -202,6 +193,11 @@ public class MetaphysicsActy extends BaseActivity implements
         amTvAfrica.setText("非气浓度: " + af);
         amPbEurope.setSecondaryProgress(euInt);
         amPbAfrica.setSecondaryProgress(afInt);
+    }
+
+    @Override
+    public void setResult(String result) {
+        ToolCase.setViewValue(amTvResult,result);
     }
 
     public void textAnimation(TextView textScore) {

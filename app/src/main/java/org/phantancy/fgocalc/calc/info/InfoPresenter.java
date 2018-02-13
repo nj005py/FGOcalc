@@ -9,6 +9,7 @@ import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.InfoCardsMVPItem;
 import org.phantancy.fgocalc.item.InfoItem;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class InfoPresenter implements InfoContract.Presenter {
         double star_occur_extra = item.getStar_occur_extra();
         int default_atk = item.getDefault_atk();
         int default_hp = item.getDefault_hp();
+        int attribute = item.getAttribute();
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(2);
         List<InfoCardsMVPItem> cardList = getCardsNum(busterNum,artNum,quickNum);
@@ -98,6 +100,7 @@ public class InfoPresenter implements InfoContract.Presenter {
         list.add(new InfoItem(new StringBuilder().append(ctx.getString(R.string.star_occur_extra) + "\n").append(nf.format(star_occur_extra)).toString(),Constant.TYPE_VALUE));
         list.add(new InfoItem(new StringBuilder().append(ctx.getString(R.string.default_hp) + "\n").append(default_hp).toString(),Constant.TYPE_VALUE));
         list.add(new InfoItem(new StringBuilder().append(ctx.getString(R.string.default_atk) + "\n").append(default_atk).toString(),Constant.TYPE_VALUE));
+        list.add(new InfoItem(new StringBuilder().append(ctx.getString(R.string.attribute) + "\n").append(ToolCase.getAttributeString(attribute)).toString(),Constant.TYPE_VALUE));
 //        list.add(new InfoItem(new StringBuilder().append(ctx.getString(R.string.) + "\n").append().toString(),Constant.TYPE_VALUE));
         return list;
     }

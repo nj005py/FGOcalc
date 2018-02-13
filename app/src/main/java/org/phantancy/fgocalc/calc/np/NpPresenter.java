@@ -61,7 +61,8 @@ public class NpPresenter implements NpContract.Presenter {
     public ConditionNp getCondition(String cardType1, String cardType2, String cardType3,
                                     boolean ifCr1, boolean ifCr2, boolean ifCr3,
                                     boolean ifok1, boolean ifok2, boolean ifok3,
-                                    double randomCor, ServantItem servantItem, BuffsItem buffsItem) {
+                                    double randomCor, ServantItem servantItem, BuffsItem buffsItem,
+                                    int enemyAmount) {
         if (buffsItem == null) {
             buffsItem = new BuffsItem();
         }
@@ -78,6 +79,7 @@ public class NpPresenter implements NpContract.Presenter {
         conNp.setRandomCor(randomCor);
         conNp.setServantItem(servantItem);
         conNp.setBuffsItem(buffsItem);
+        conNp.setEnemyAmount(enemyAmount);
         return conNp;
     }
 
@@ -104,8 +106,27 @@ public class NpPresenter implements NpContract.Presenter {
      * （1+NP Buff）×暴击补正×Overkill补正×敌补正
      */
     private void calcNp(CommandCard c,ConditionNp conNp){
-        double np = c.na * 100 * c.hits * (c.npTimes * c.npPositionBuff * (1 + c.cardBuff) + c.npFirstCardBuff) *
-                (1 + c.npBuff) * c.criticalCor * c.overkill * c.randomCor;
+        double np = 0;
+        if (c.cardType.equals("np") && conNp != null) {
+            ServantItem item = conNp.getServantItem();
+            double npTimes = 0;
+            switch (item.getTrump_color()) {
+                case "b":
+                    npTimes = 0;
+                    break;
+                case "a":
+                    npTimes = 3;
+                    break;
+                case "q":
+                    npTimes = 1;
+                    break;
+            }
+            np = item.getTrump_na() * 100 * item.getNp_hit() * (npTimes * (1 + c.cardBuff)) *
+                    (1 + c.npBuff)  * c.overkill * c.randomCor * conNp.getEnemyAmount();
+        }else{
+            np = c.na * 100 * c.hits * (c.npTimes * c.npPositionBuff * (1 + c.cardBuff) + c.npFirstCardBuff) *
+                    (1 + c.npBuff) * c.criticalCor * c.overkill * c.randomCor;
+        }
         int npInt = (int) Math.rint(np);
         if (c.cardType.equals("a") && npInt == 0) {
             npInt = 1;
@@ -113,34 +134,34 @@ public class NpPresenter implements NpContract.Presenter {
         if (result.length() < 1) {
             ServantItem sItem = conNp.getServantItem();
             result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
-                    .append(getConditions(conNp) + "\n")//条件
+                    .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人\n")//条件
                     .append(getExtraBuffs(conNp) + "\n")//buff
                     .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
                     .append(c.ifCritical == false ? "" : " 暴击")
                     .append(c.ifOverkill ==false ? "" : " overkill")
-                    .append("的np获取量为").append(npInt).toString();
+                    .append("的np获取量为").append(npInt).append("%").toString();
 //            result = c.cType + "卡在" + c.cPosition + " 号位的np获取量为" + npInt;
             overAllNp = npInt;
         } else {
             if (c.cardPosition == 1) {
                 result = new StringBuilder().append(result)
-                        .append(getConditions(conNp) + "\n")//条件
+                        .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人\n")//条件
                         .append(getExtraBuffs(conNp) + "\n")//buff
                         .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
-                        .append("的np获取量为").append(npInt).toString();
+                        .append("的np获取量为").append(npInt).append("%").toString();
                 overAllNp += npInt;
             }else{
                 result = new StringBuilder().append(result).append("\n")
                         .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
-                        .append("的np获取量为").append(npInt).toString();
+                        .append("的np获取量为").append(npInt).append("%").toString();
                 overAllNp += npInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overAllNp).append("\n===== FGOcalc分割线 =====\n").toString();
+                result = new StringBuilder().append(result).append("\n合计----->").append(overAllNp).append("%").append("\n== FGOcalc分割线 ==\n").toString();
                 overAllNp = 0;
             }
 //            result = result + "\n" + c.cType + "卡在" + c.cPosition + " 号位的np获取量为" + npInt;
@@ -152,11 +173,11 @@ public class NpPresenter implements NpContract.Presenter {
     private String getConditions(ConditionNp conNp){
         String a = "";
         if (conNp.getRandomCor() == getRan(Constant.TYPE_MIN)) {
-            a = "最小乱数";
+            a = "最小随机数";
         }else if (conNp.getRandomCor() == getRan(Constant.TYPE_MAX)) {
-            a = "最大乱数";
+            a = "最大随机数";
         }else if (conNp.getRandomCor() == getRan(Constant.TYPE_AVERAGE)) {
-            a = "平均乱数";
+            a = "平均随机数";
         }else{
             a = "随机乱数";
         }

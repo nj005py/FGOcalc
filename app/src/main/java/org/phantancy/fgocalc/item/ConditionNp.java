@@ -15,6 +15,15 @@ public class ConditionNp implements Serializable {
     private double randomCor = 0.8;//敌补正
     private ServantItem servantItem;
     private BuffsItem buffsItem;
+    private int enemyAmount;//宝具打几个敌人
+
+    public int getEnemyAmount() {
+        return enemyAmount;
+    }
+
+    public void setEnemyAmount(int enemyAmount) {
+        this.enemyAmount = enemyAmount;
+    }
 
     public int getAtk() {
         return atk;

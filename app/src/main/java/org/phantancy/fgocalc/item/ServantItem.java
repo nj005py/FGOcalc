@@ -3,18 +3,20 @@ package org.phantancy.fgocalc.item;
 
 import org.phantancy.fgocalc.R;
 
+import java.io.Serializable;
+
 /**
  * Created by PY on 2016/12/1.
  */
-public class ServantItem extends Item{
+public class ServantItem implements Serializable{
 
-    private int layoutId = R.layout.item_servant;
     private String name,
             nickname,
             class_type,
             trump_color,
             portrait;
-    private int id,star,
+    private int id,
+            star,
             arts_hit,
             buster_hit,
             quick_hit,
@@ -26,6 +28,8 @@ public class ServantItem extends Item{
             trump_upgraded,
             default_atk,
             default_hp;
+    private int attribute;//阵营 天地人星兽(0:天 1:地 2:人 3:星 4:兽)
+    private int np_hit;
     private double quick_na,
             arts_na,
             buster_na,
@@ -51,17 +55,20 @@ public class ServantItem extends Item{
             trump_lv4_before,
             trump_lv5_before;
 
-    public void setLayoutId(int id){
-        layoutId = id;
+    public int getNp_hit() {
+        return np_hit;
     }
 
-    @Override
-    public int getItemLayoutId() {
-        return layoutId;
+    public void setNp_hit(int np_hit) {
+        this.np_hit = np_hit;
     }
 
-    public int getLayoutId() {
-        return layoutId;
+    public int getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(int attribute) {
+        this.attribute = attribute;
     }
 
     public int getDefault_atk() {

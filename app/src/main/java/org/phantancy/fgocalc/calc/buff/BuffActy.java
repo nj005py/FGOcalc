@@ -57,10 +57,6 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     LinearLayout abLlMerlin;
     @BindView(R.id.ab_ll_fox)
     LinearLayout abLlFox;
-    @BindView(R.id.ab_sp_relationship)
-    Spinner abSpRelationship;
-    @BindView(R.id.ab_ll_relationship)
-    LinearLayout abLlRelationship;
     private BuffAdapter adapter;
     private List<BuffItem> list = new ArrayList<>();
     private BuffContract.Presenter mPresenter;
@@ -80,7 +76,6 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         //创建presenter
         mPresenter = new BuffPresenter(this, ctx);
         relationship = getResources().getStringArray(R.array.relationship);
-        ToolCase.spInitCustom(ctx,relationship,abSpRelationship,R.layout.item_content_spinner_l);
         initStatusBar();
         setListener();
         if (servantItem != null) {
@@ -145,21 +140,6 @@ public class BuffActy extends BaseActy implements BuffContract.View {
             @Override
             public void onClick(View v) {
                 adapter.foxBuffs(50);
-            }
-        });
-        abSpRelationship.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                curRelationship = relationship[position];
-                adapter.relationAtk(curRelationship,preRelationship);
-                preRelationship = curRelationship;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                curRelationship = relationship[0];
-                preRelationship = relationship[0];
-                adapter.relationAtk(curRelationship,preRelationship);
             }
         });
     }

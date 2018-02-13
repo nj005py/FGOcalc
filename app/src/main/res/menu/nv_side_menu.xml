@@ -39,6 +39,10 @@
             android:title="fgosimulator(素材规划，同样推荐)"/>
 
         <item
+            android:id="@+id/nsm_share"
+            android:title="分享"/>
+
+        <item
             android:id="@+id/nsm_feedback"
             android:title="反馈"/>
 

@@ -18,9 +18,10 @@
 
         <TextView
             style="@style/tv_common"
-            android:text="圣遗物检测可拍照计算欧/非气浓度,\n仅供娱乐。"
+            android:text="根据所在环境+一单模拟抽卡结果\n计算欧/非气浓度,仅供娱乐。"
             android:textColor="@color/colorWhite"/>
 
+        <!--提问-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
             <TextView
                 style="@style/tv_common"
                 android:layout_weight="1.0"
-                android:text="你相信玄学吗？"
+                android:text="你觉得你欧吗？"
                 android:textColor="@color/colorWhite"/>
 
             <RadioGroup
@@ -45,14 +46,14 @@
                 <RadioButton
                     android:id="@+id/am_rb_believe"
                     style="@style/rb_common"
-                    android:text="相信"/>
+                    android:checked="true"
+                    android:text="不觉得"/>
 
                 <RadioButton
                     android:id="@+id/am_rb_unbelieve"
                     style="@style/rb_common"
                     android:layout_marginLeft="10dp"
-                    android:text="不相信"
-                    android:checked="true"/>
+                    android:text="欧" />
 
             </RadioGroup>
 
@@ -87,6 +88,12 @@
                 android:textColor="@color/colorWhite"/>
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/am_tv_result"
+            style="@style/tv_common"
+            android:textColor="@color/colorWhite"
+            android:text=""/>
 
         <LinearLayout
             style="@style/ll_match_width_horizontal"
@@ -138,35 +145,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/tv_common"
-                android:text="抽卡玄学时间计算，仅供娱乐"
-                android:textColor="@color/colorWhite" />
-
-            <Button
-                android:id="@+id/am_btn_time"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/se_radius_blue"
-                android:text="欧非检测"
-                android:textColor="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/am_tv_time"
-                style="@style/tv_common"
-                android:textColor="@color/colorWhite"/>
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <!--人物-->
@@ -175,14 +153,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/status_bar"
-        android:gravity="top"
+        android:gravity="center"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/am_iv_character"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="331dp"
+            android:layout_height="404dp"
             android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/joan_alter_smile"/>
 
         <View

@@ -123,13 +123,15 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         //宝具倍率，双子需要特殊处理
         if (servantItem.getId() == 66 || servantItem.getId() == 131){
             if (servantItem.getId() == 66) {
-                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) * (1 - (hpLeft / hpTotal));
+                trumpTimes = trumpTimes + ((buffsItem.getExtraTimes() / 100) * (1 - ((double)hpLeft / (double) hpTotal)));
             }
             //131 a双子
             if (servantItem.getId() == 131) {
                 //弓双子额外倍率固定600%
-                trumpTimes = trumpTimes + 6 * (1 - (hpLeft / hpTotal));
+                trumpTimes = trumpTimes + (6 * (1 - ((double)hpLeft / (double) hpTotal)));
             }
+            c.setHpLeft(hpLeft);
+            c.setHpTotal(hpTotal);
             c.setTrumpTimes(trumpTimes);
         }else{
             //允许附加倍率吧
@@ -224,21 +226,32 @@ public class TrumpPresenter implements TrumpContract.Presenter {
 
     private void calcTrump(ConditionTrump conT){
         int overallAttack;
-        double attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
-                * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
-                (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
-                * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
+        double attack = 0;
+        if (conT.getTrumpTimes() == 0) {
+            attack = 0;
+        }else{
+            attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
+                    * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
+                    (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
+                    * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
+        }
         int attackInt = (int) Math.floor(attack);
         overallAttack = attackInt;
         String[] con = getConditions(conT);
+        String hpStatus = "";
+        if (conT.getServantItem().getId() == 66 || conT.getServantItem().getId() == 131) {
+            hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft()).toString();
+        }
         if (TextUtils.isEmpty(result)) {
             ServantItem sItem = conT.getServantItem();
             result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
+                    .append("总atk：").append(conT.getAtk()).append(hpStatus + "\n")//atk情况
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
         } else {
             result = new StringBuilder().append(result + "\n== FGOcalc分割线 ==\n")
+                    .append("总atk：").append(conT.getAtk()).append(hpStatus + "\n")//atk情况
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();

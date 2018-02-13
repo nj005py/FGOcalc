@@ -42,10 +42,6 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
             .bitmapConfig(Bitmap.Config.ARGB_8888)// default 设置图片的解码类型
             .handler(new Handler()) // default
             .build();
-    //test
-//    private LayoutHelper mLayoutHelper;
-//    private VirtualLayoutManager.LayoutParams mLayoutParams;
-//    private int mCount = 0;
 
     public InfoAdapter(List<InfoItem> mList,Context ctx) {
         this.mList = mList;

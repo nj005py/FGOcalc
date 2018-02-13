@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,7 +34,6 @@ import org.phantancy.fgocalc.item.ConditionAtk;
 import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
-import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.ArrayList;
@@ -132,7 +132,8 @@ public class AtkFrag extends BaseFrag implements
     CheckBox famCbUpgraded;
     @BindView(R.id.fam_sp_lv)
     Spinner famSpLv;
-    Unbinder unbinder2;
+    @BindView(R.id.fam_sv_result)
+    ScrollView famSvResult;
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
     private String[] cardValues = {"b", "a", "q", "np"};
@@ -189,12 +190,8 @@ public class AtkFrag extends BaseFrag implements
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         int height = BaseUtils.getNavigationHeight(getContext());
-//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) famLlCalc.getLayoutParams();
-//        lp.bottomMargin = height;
-//        famLlCalc.setLayoutParams(lp);
         Bundle data = getArguments();
         servantItem = (ServantItem) data.getSerializable("servantItem");
-//        buffsItem = (BuffsItem) data.getSerializable("buffsItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         if (servantItem != null) {
             setDefault();
@@ -253,6 +250,7 @@ public class AtkFrag extends BaseFrag implements
     private void setDefault() {
         ToolCase.setViewValue(famEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
         ToolCase.setViewValue(famEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp()).toString());
+        ToolCase.setViewValue(famEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp()).toString());
         //判断是否是alterego
         String classType = servantItem.getClass_type();
         if (classType.toLowerCase().equals("alterego")) {
@@ -499,7 +497,7 @@ public class AtkFrag extends BaseFrag implements
         switch (v.getId()) {
             case R.id.fam_btn_calc:
                 if (validateData()) {
-                    mPresenter.getReady(conAtk,conT);
+                    mPresenter.getReady(conAtk, conT);
                 }
                 break;
             case R.id.fam_btn_clean:
@@ -538,16 +536,22 @@ public class AtkFrag extends BaseFrag implements
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(famTvResult, result);
-        int offset = famTvResult.getLineCount() * famTvResult.getLineHeight();
-        if (offset > famTvResult.getHeight()) {
-            famTvResult.scrollTo(0, offset - famTvResult.getHeight());
-        }
+//        int offset = famTvResult.getLineCount() * famTvResult.getLineHeight();
+//        if (offset > famTvResult.getHeight()) {
+//            famTvResult.scrollTo(0, offset - famTvResult.getHeight());
+//        }
+        famSvResult.post(new Runnable() {
+            @Override
+            public void run() {
+                famSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     //检查数据
     private boolean validateData() {
         if (!ToolCase.notEmpty(famEtAtk)) {
-            setCharacter("ATK是必填项！Buff可以不填！\\n能帮上点忙吗？");
+            setCharacter("ATK是必填项！Buff可以不填！\n能帮上点忙吗？");
             return false;
         }
         atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));

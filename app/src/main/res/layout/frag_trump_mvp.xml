@@ -369,18 +369,30 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/ftm_tv_result"
+    <ScrollView
+        android:id="@+id/ftm_sv_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ftm_ll_input"
-        android:maxLines = "99"
-        android:paddingLeft="9dp"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:text="@string/about_calc_result"
-        android:textColor="@color/colorBlack"/>
+        android:layout_below="@+id/ftm_ll_input">
+
+        <LinearLayout
+            style="@style/ll_match_width_horizontal">
+
+            <TextView
+                android:id="@+id/ftm_tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="9dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:text="@string/about_calc_result"
+                android:textColor="@color/colorBlack"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <!--人物-->
     <RelativeLayout
@@ -388,7 +400,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="top"
+        android:gravity="center"
         android:visibility="gone">
 
         <ImageView
@@ -412,7 +424,7 @@
             android:layout_below="@+id/ftm_iv_character"
             android:padding="10dp"
             android:gravity="start"
-            android:text="ATK是必填项！Buff可以不填！\n能帮上点忙吗？"
+            android:text="ATK是必填项！"
             android:textColor="@color/colorWhite"/>
 
     </RelativeLayout>

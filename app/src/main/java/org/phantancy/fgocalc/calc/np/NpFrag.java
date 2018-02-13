@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class NpFrag extends BaseFrag implements
         NpContract.View,
-        View.OnClickListener{
+        View.OnClickListener {
     @BindView(R.id.fnm_btn_buff)
     Button fnmBtnBuff;
     @BindView(R.id.fnm_btn_clean)
@@ -94,14 +95,26 @@ public class NpFrag extends BaseFrag implements
     @BindView(R.id.fnm_rl_character)
     RelativeLayout fnmRlCharacter;
     Unbinder unbinder;
+    @BindView(R.id.fnm_sv_result)
+    ScrollView fnmSvResult;
+    @BindView(R.id.fnm_rb_enemy_one)
+    RadioButton fnmRbEnemyOne;
+    @BindView(R.id.fnm_rb_enemy_two)
+    RadioButton fnmRbEnemyTwo;
+    @BindView(R.id.fnm_rb_enemy_three)
+    RadioButton fnmRbEnemyThree;
+    @BindView(R.id.fnm_rg_enemy_amount)
+    RadioGroup fnmRgEnemyAmount;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
-    private String[] cardValues = {"b", "a", "q"};
+    private String[] cardValues = {"b", "a", "q", "np"};
     private String cardType1, cardType2, cardType3;
     private boolean ifok1 = false, ifok2 = false, ifok3 = false,
             ifCr1, ifCr2, ifCr3;
     private double random = 1.015;//平均敌补正
+    private int enemyAmount = 1;
     private ConditionNp conNp;
+    private String trumpColor;
 
     @NonNull
     private NpContract.Presenter mPresenter;
@@ -134,19 +147,20 @@ public class NpFrag extends BaseFrag implements
         Bundle data = getArguments();
         servantItem = (ServantItem) data.getSerializable("servantItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
+        trumpColor = servantItem.getTrump_color();
         //声明一个简单simpleAdapter
-        SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandCards(), R.layout.item_card_type,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandNPCards(trumpColor), R.layout.item_card_type,
                 new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
         fnmSpCard1.setAdapter(simpleAdapter);
         fnmSpCard2.setAdapter(simpleAdapter);
         fnmSpCard3.setAdapter(simpleAdapter);
         fnmTvResult.setMovementMethod(new ScrollingMovementMethod());
         setListener();
-        boolean ifLongniang = (Boolean) SharedPreferencesUtils.getParam(ctx, "ifLongniang", true);
-        if (ifLongniang) {
+        boolean firstTimeUse = (Boolean) SharedPreferencesUtils.getParam(ctx, "firstTimeUse", true);
+        if (firstTimeUse) {
             fnmRlCharacter.setVisibility(View.VISIBLE);
             fnmTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
-            SharedPreferencesUtils.setParam(ctx, "ifLongniang", false);
+            SharedPreferencesUtils.setParam(ctx, "firstTimeUse", false);
         }
     }
 
@@ -295,8 +309,25 @@ public class NpFrag extends BaseFrag implements
         fnmTvResult.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolCase.copy2Clipboard(ctx,fnmTvResult);
+                ToolCase.copy2Clipboard(ctx, fnmTvResult);
                 return false;
+            }
+        });
+
+        fnmRgEnemyAmount.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.fnm_rb_enemy_one:
+                        enemyAmount = 1;
+                        break;
+                    case R.id.fnm_rb_enemy_two:
+                        enemyAmount = 2;
+                        break;
+                    case R.id.fnm_rb_enemy_three:
+                        enemyAmount = 3;
+                        break;
+                }
             }
         });
     }
@@ -330,19 +361,25 @@ public class NpFrag extends BaseFrag implements
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(fnmTvResult, result);
-        int offset = fnmTvResult.getLineCount() * fnmTvResult.getLineHeight();
-        if(offset > fnmTvResult.getHeight()){
-            fnmTvResult.scrollTo(0,offset - fnmTvResult.getHeight());
-        }
+//        int offset = fnmTvResult.getLineCount() * fnmTvResult.getLineHeight();
+//        if (offset > fnmTvResult.getHeight()) {
+//            fnmTvResult.scrollTo(0, offset - fnmTvResult.getHeight());
+//        }
+        fnmSvResult.post(new Runnable() {
+            @Override
+            public void run() {
+                fnmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
-    private boolean validateData(){
+    private boolean validateData() {
         buffsItem = ((CalcActy) mActy).getBuffsItem();
-        conNp = mPresenter.getCondition(cardType1,cardType2,cardType3,
-                ifCr1,ifCr2,ifCr3,ifok1,ifok2,ifok3,
-                random,servantItem,buffsItem);
+        conNp = mPresenter.getCondition(cardType1, cardType2, cardType3,
+                ifCr1, ifCr2, ifCr3, ifok1, ifok2, ifok3,
+                random, servantItem, buffsItem,enemyAmount);
 
-        return  true;
+        return true;
     }
 
     @Override

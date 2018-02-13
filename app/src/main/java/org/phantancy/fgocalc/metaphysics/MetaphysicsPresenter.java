@@ -29,6 +29,7 @@ public class MetaphysicsPresenter implements MetaphysicsContract.Presenter {
     public MetaphysicsPresenter(Context ctx, MetaphysicsContract.View mView) {
         this.ctx = ctx;
         this.mView = mView;
+        mView.setPresenter(this);
     }
 
     @Override
@@ -68,31 +69,50 @@ public class MetaphysicsPresenter implements MetaphysicsContract.Presenter {
                  * */
                 //card 0 金从者 1 银从者 2 金礼装 3 银礼装
                 //star 0 r,1 sr,2 ssr
-                int ssrsNum  = 0;
-                int srsNum = 0;
-                int rNum = 0;
-                for (int i = 0;i < 10;i ++){
+                double ssrsNum  = 0;
+                double ssreNum = 0;
+                double srsNum = 0;
+                double sreNum = 0;
+                double rNum = 0;
+                for (int i = 0;i < 73;i ++){
                     int extract = (int) (Math.random() * 100 + 1);//抽卡
                     if (extract == 1) {
                         ssrsNum ++;
                     } else if (extract >= 2 && extract <= 5) {
-
+                        ssreNum ++;
                     } else if (extract >= 6 && extract <= 45) {
                         rNum ++;
                     } else if (extract >= 46 && extract <= 57) {
-
+                        sreNum ++;
                     }else if(extract >= 58 && extract <= 97){
                         rNum ++;
                     }else if(extract >= 98 && extract <= 100){
                         srsNum ++;
                     }
                 }
-                blackPercent = (blackPercent / 2) + (rNum * 0.05);
-                grayPercent = (grayPercent / 2) + (ssrsNum * 0.05) + (srsNum * 0.01);
+                double all = ssrsNum + ssreNum + srsNum + sreNum + rNum;
+                //3星卡比例
+                double rPercent = rNum / all;
+                //5星从者比例
+                double ssrsPercent = ssrsNum / all;
+                //5星礼装比例
+                double ssrePercent = ssreNum / all;
+                //4星从者比例
+                double srsPercent = srsNum / all;
+                //4星礼装比例
+                double srePercent = sreNum / all;
+                blackPercent = (blackPercent * 0.4) + (rPercent * 0.6);
+                grayPercent = (grayPercent * 0.4) + (ssrsPercent * 15 + srsPercent * 8 + ssrePercent * 3 + srePercent * 1);
+                double allpercent = blackPercent + grayPercent;
+                if (allpercent > 1) {
+                    blackPercent = blackPercent / allpercent;
+                    grayPercent = grayPercent / allpercent;
+                }
                 String black = nf.format(blackPercent);
                 String gray = nf.format(grayPercent);
                 mView.setResultProgress(gray,black,(int)( grayPercent * 100),(int) (blackPercent * 100));
-                check();
+                mView.setResult("5星从者:" + ssrsNum + "个 5星礼装：" + ssreNum + "张\n4星从者" + srsNum + "个 4星礼装：" + sreNum + "张");
+                check(ssrsNum,srsNum);
             }else{
                 mView.setCharacter("欧非ex，无法判断!",R.mipmap.joan_alter_dislike);
             }
@@ -102,16 +122,20 @@ public class MetaphysicsPresenter implements MetaphysicsContract.Presenter {
         }
     }
 
-    private void check() {
+    private void check(double ssrs,double srs) {
         if (blackPercent == -1) {
-            ToastUtils.displayShortToast(ctx, "请进行圣遗物检测");
+            ToastUtils.displayShortToast(ctx, "请进行点圣晶石进行检测");
         } else {
-            if (blackPercent >= 0.85) {
-                mView.setCharacter("非气浓度都高成这样了还要抽卡？\n难道你是受虐狂吗？",R.mipmap.joan_alter_dislike);
-            } else {
-                if (blackPercent < 0.1) {
-                    mView.setCharacter("欧气足的Master!\n快去迎接新Servant吧!",R.mipmap.joan_alter_smile);
-                }
+            if (blackPercent >= 0.8) {
+                mView.setCharacter("这运气也太差了吧？\n传说中的幸运E？",R.mipmap.joan_alter_dislike);
+            }else if (blackPercent >= 0.7) {
+                mView.setCharacter("这情况有些危险呀",R.mipmap.joan_alter_dislike);
+            }else if (grayPercent >= 0.8) {
+                mView.setCharacter("真是个欧气满满的Master!\n难道你幸运EX？！",R.mipmap.joan_alter_smile);
+            }else if (grayPercent >= 0.7) {
+                mView.setCharacter("欧气放出？！",R.mipmap.joan_alter_smile);
+            }else if (ssrs >= 1 || srs >= 5) {
+                mView.setCharacter("这结果还不错\n你不觉得吗？",R.mipmap.joan_alter_bored);
             }
         }
     }

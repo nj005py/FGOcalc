@@ -155,7 +155,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="4.0"
                 android:gravity="center"
-                android:text="敌补正"
+                android:text="随机数"
                 android:textColor="@color/colorWhite" />
 
             <RadioGroup
@@ -195,23 +195,79 @@
 
         </LinearLayout>
 
+        <!--宝具对敌数量-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.0"
+                android:gravity="center"
+                android:text="宝具打几个敌人"
+                android:textColor="@color/colorWhite" />
+
+            <RadioGroup
+                android:id="@+id/fnm_rg_enemy_amount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.0"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fnm_rb_enemy_one"
+                    style="@style/rb_np_charge"
+                    android:layout_weight="1.0"
+                    android:checked="true"
+                    android:text="1" />
+
+                <RadioButton
+                    android:id="@+id/fnm_rb_enemy_two"
+                    style="@style/rb_np_charge"
+                    android:layout_weight="1.0"
+                    android:text="2" />
+
+                <RadioButton
+                    android:id="@+id/fnm_rb_enemy_three"
+                    style="@style/rb_np_charge"
+                    android:layout_weight="1.0"
+                    android:text="3" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+
         <View
             style="@style/line_x"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/fnm_tv_result"
+    <ScrollView
+        android:id="@+id/fnm_sv_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/fnm_ll_input"
-        android:maxLines = "99"
-        android:paddingLeft="9dp"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false"
-        android:text="@string/about_calc_result"
-        android:textColor="@color/colorBlack"/>
+        android:layout_below="@+id/fnm_ll_input">
+
+        <LinearLayout
+            style="@style/ll_match_width_horizontal">
+
+            <TextView
+                android:id="@+id/fnm_tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLines = "99"
+                android:paddingLeft="9dp"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false"
+                android:text="@string/about_calc_result"
+                android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <!--人物-->
     <RelativeLayout
@@ -219,15 +275,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="top"
+        android:gravity="center"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/fnm_iv_character"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="410dp"
+            android:layout_centerHorizontal="true"
             android:scaleType="centerCrop"
-            android:src="@mipmap/longniang"/>
+            android:src="@mipmap/doctor"/>
 
         <View
             android:id="@+id/fnm_v_character"
@@ -243,7 +300,7 @@
             android:layout_below="@+id/fnm_iv_character"
             android:padding="10dp"
             android:gravity="start"
-            android:text="看不懂选项不要紧！把牌序选好，点计算！\n演唱会就要开始了！"
+            android:text="真没想到能在这里遇见你！\n好好探索这个计算器吧！"
             android:textColor="@color/colorWhite"/>
 
     </RelativeLayout>

@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.util.ToolCase;
 
 /**
  * Created by HATTER on 2017/8/8.
@@ -18,19 +23,24 @@ import org.phantancy.fgocalc.R;
 
 public class FeedbackDialog extends Dialog implements View.OnClickListener{
     private Context ctx;
-    private TextView tvEmail,tvBbs,tvB;
+    private TextView tvEmail,tvBbs,tvB,tvGithub,tvTieba,tvQQ;
 
     public FeedbackDialog(@NonNull Context context) {
         super(context,R.style.dialog);
         setContentView(R.layout.diag_feedback);
         ctx = context;
-
         tvEmail = (TextView)findViewById(R.id.df_tv_email);
         tvBbs = (TextView)findViewById(R.id.df_tv_bbs);
         tvB = (TextView)findViewById(R.id.df_tv_b);
+        tvGithub = findViewById(R.id.df_tv_github);
+        tvTieba = findViewById(R.id.df_tv_tieba);
+        tvQQ = findViewById(R.id.df_tv_qq);
         tvEmail.setOnClickListener(this);
         tvBbs.setOnClickListener(this);
         tvB.setOnClickListener(this);
+        tvGithub.setOnClickListener(this);
+        tvTieba.setOnClickListener(this);
+        tvQQ.setOnClickListener(this);
     }
 
     @Override
@@ -52,7 +62,7 @@ public class FeedbackDialog extends Dialog implements View.OnClickListener{
                 dismiss();
                 break;
             case R.id.df_tv_bbs:
-                url = Uri.parse("http://bbs.phantancy.org");
+                url = Uri.parse("http://bbs.ngacn.cc/read.php?tid=13304364");
                 intent.setData(url);
                 ctx.startActivity(intent);
                 dismiss();
@@ -62,6 +72,21 @@ public class FeedbackDialog extends Dialog implements View.OnClickListener{
                 intent.setData(url);
                 ctx.startActivity(intent);
                 dismiss();
+                break;
+            case R.id.df_tv_github:
+                url = Uri.parse("https://github.com/nj005py/FGOcalc/issues");
+                intent.setData(url);
+                ctx.startActivity(intent);
+                dismiss();
+                break;
+            case R.id.df_tv_tieba:
+                url = Uri.parse("https://tieba.baidu.com/p/5551126341");
+                intent.setData(url);
+                ctx.startActivity(intent);
+                dismiss();
+                break;
+            case R.id.df_tv_qq:
+                ToolCase.copy2Clipboard(ctx,"422969398","群号已复制剪贴板");
                 break;
         }
     }

@@ -22,7 +22,8 @@ public interface StarContract {
         ConditionStar getCondition(String cardType1, String cardType2, String cardType3,
                                    boolean ifCr1, boolean ifCr2, boolean ifCr3,
                                    boolean ifok1, boolean ifok2, boolean ifok3,
-                                   double randomCor, ServantItem servantItem, BuffsItem buffsItem);
+                                   double randomCor, ServantItem servantItem, BuffsItem buffsItem,
+                                   int enemyAmount);
         void getReady(ConditionStar conS);
     }
 }

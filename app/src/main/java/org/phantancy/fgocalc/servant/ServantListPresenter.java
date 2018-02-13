@@ -22,6 +22,9 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -89,6 +92,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
 
     public ServantListPresenter(@NonNull ServantListContract.View mView,Context ctx) {
         this.ctx = ctx;
+        this.mView = mView;
+        mView.setPresenter(this);
+    }
+
+    public ServantListPresenter(Context ctx, Activity acty, @NonNull ServantListContract.View mView) {
+        this.ctx = ctx;
+        this.acty = acty;
         this.mView = mView;
         mView.setPresenter(this);
     }
@@ -537,17 +547,66 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     }
 
     @Override
-    public void searchServantsByCondition(final String classType,final int star) {
+    public void searchServantsByCondition(final String classType,final int star,final String orderType) {
         try{
             if (notEmpty(classType)) {
                 dbManager.getDatabase();
                 Cursor cur;
-                if (star == 7) {
-                    //SELECT * FROM servants WHERE class_type = 'Saber' ORDER BY CAST(id AS SIGNED)
-                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(id AS SIGNED) ASC",
+                String[] order = orderType.split(",");
+                boolean ifAllClass = false;//是否职阶不限
+                boolean ifAllStar = false;//是否星数不限
+                boolean ifMultiplier = false;//是否需要计算系数
+                //判断职阶
+                if (classType.equals("All")) {
+                    ifAllClass = true;
+                }
+                //判断星数
+                if (star == 0) {
+                    ifAllStar = true;
+                }
+                //判断排序方式
+                if (order.length == 3) {
+                    ifMultiplier = true;
+                }
+                //判断使用哪种sql语句
+                if (ifAllClass && ifAllStar && ifMultiplier) {
+                    cur = dbManager.database.rawQuery("SELECT a.*,(a.default_atk * b.multiplier) new_atk " +
+                                    " FROM servants a" +
+                                    " LEFT JOIN class b ON a.class_type = b.class_type" +
+                                    " ORDER BY CAST( new_atk AS SIGNED)" + order[1],
+                            null);
+                }else if (ifAllClass && ifMultiplier) {
+                    cur = dbManager.database.rawQuery("SELECT a.*,(a.default_atk * b.multiplier) new_atk " +
+                                    " FROM servants a" +
+                                    " LEFT JOIN class b ON a.class_type = b.class_type" +
+                                    " WHERE a.star = ?" +
+                                    " ORDER BY CAST( new_atk AS SIGNED)" + order[1],
+                            new String[]{star + ""});
+                }else if (ifAllStar && ifMultiplier) {
+                    cur = dbManager.database.rawQuery("SELECT a.*,(a.default_atk * b.multiplier) new_atk " +
+                                    " FROM servants a" +
+                                    " LEFT JOIN class b ON a.class_type = b.class_type" +
+                                    " WHERE a.class_type = ?" +
+                                    " ORDER BY CAST( new_atk AS SIGNED)" + order[1],
                             new String[]{classType});
+                }else if (ifAllClass && ifAllStar) {
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants ORDER BY CAST(" + order[0] +" AS SIGNED)" + order[1],
+                            null);
+                }else if (ifMultiplier) {
+                    cur = dbManager.database.rawQuery("SELECT a.*,(a.default_atk * b.multiplier) new_atk " +
+                                    " FROM servants a" +
+                                    " LEFT JOIN class b ON a.class_type = b.class_type" +
+                                    " WHERE a.class_type = ? AND star = ?" +
+                                    " ORDER BY CAST( new_atk AS SIGNED)" + order[1],
+                            new String[]{classType,star + ""});
+                }else if (ifAllStar) {
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? ORDER BY CAST(" + order[0] +" AS SIGNED)" + order[1],
+                            new String[]{classType});
+                }else if (ifAllClass) {
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE star = ? ORDER BY CAST(" + order[0] +" AS SIGNED)" + order[1],
+                            new String[]{star + ""});
                 }else{
-                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(id AS SIGNED) ASC",
+                    cur = dbManager.database.rawQuery("SELECT * FROM servants WHERE class_type = ? AND star = ? ORDER BY CAST(" + order[0] + " AS SIGNED)" + order[1],
                             new String[]{classType, star + ""});
                 }
                 servantList = getServants(cur);
@@ -592,6 +651,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     @Override
     public void feedback() {
         FeedbackDialog d = new FeedbackDialog(ctx);
+        Window dialogWindow = d.getWindow();
+        WindowManager m = acty.getWindowManager();
+        Display dm = m.getDefaultDisplay(); // 获取屏幕宽、高度
+        WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
+//        p.height = (int) (dm.getHeight() * 0.8); // 高度设置为屏幕的0.6，根据实际情况调整
+        p.width = (int) (dm.getWidth() * 0.8); // 宽度设置为屏幕的0.65，根据实际情况调整
+        dialogWindow.setAttributes(p);
         d.show();
     }
 
@@ -656,6 +722,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 double trump_lv4_before = cur.getDouble(38);
                 double trump_lv5_before = cur.getDouble(39);
                 int trump_upgraded = cur.getInt(40);
+                int attribute = cur.getInt(41);
+                int np_hit = cur.getInt(42);
                 ServantItem servantItem = new ServantItem();
                 servantItem.setId(id);
                 servantItem.setName(name);
@@ -698,6 +766,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 servantItem.setTrump_lv4_before(trump_lv4_before);
                 servantItem.setTrump_lv5_before(trump_lv5_before);
                 servantItem.setTrump_upgraded(trump_upgraded);
+                servantItem.setAttribute(attribute);
+                servantItem.setNp_hit(np_hit);
                 cache.add(servantItem);
             }
             return cache;

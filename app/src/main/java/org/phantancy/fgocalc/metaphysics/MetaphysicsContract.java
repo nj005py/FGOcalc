@@ -14,6 +14,7 @@ public interface MetaphysicsContract {
     interface View extends BaseView<Presenter>{
         void setCharacter(String text,int imgRes);
         void setResultProgress(String eu,String af,int euInt,int afInt);
+        void setResult(String result);
     }
 
     interface Presenter extends BasePresenter{

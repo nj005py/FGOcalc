@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -113,9 +114,10 @@ public class TrumpFrag extends BaseFrag implements
     CheckBox ftmCbUpgraded;
     @BindView(R.id.ftm_rb_weak_b)
     RadioButton ftmRbWeakB;
-    Unbinder unbinder1;
     @BindView(R.id.ftm_sp_essence)
     Spinner ftmSpEssence;
+    @BindView(R.id.ftm_sv_result)
+    ScrollView ftmSvResult;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private int id;
@@ -200,7 +202,7 @@ public class TrumpFrag extends BaseFrag implements
             }
 //            ToolCase.spInitSimple(ctx, lv, ftmSpLv);
             ToolCase.spInitDeep(ctx, lvStr, ftmSpLv);
-            ToolCase.spInitDeep(ctx,essenceAtks,ftmSpEssence);
+            ToolCase.spInitDeep(ctx, essenceAtks, ftmSpEssence);
             curLv.add(servantItem.getTrump_lv1());
             curLv.add(servantItem.getTrump_lv2());
             curLv.add(servantItem.getTrump_lv3());
@@ -235,6 +237,7 @@ public class TrumpFrag extends BaseFrag implements
     private void setDefault() {
         ToolCase.setViewValue(ftmEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
         ToolCase.setViewValue(ftmEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp()).toString());
+        ToolCase.setViewValue(ftmEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp()).toString());
     }
 
     private void setListener() {
@@ -378,7 +381,7 @@ public class TrumpFrag extends BaseFrag implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
                 atk = atk - essenceAtk + essenceAtks[position];
-                ToolCase.setViewValue(ftmEtAtk,String.valueOf(atk));
+                ToolCase.setViewValue(ftmEtAtk, String.valueOf(atk));
                 essenceAtk = essenceAtks[position];
             }
 
@@ -440,10 +443,16 @@ public class TrumpFrag extends BaseFrag implements
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(ftmTvResult, result);
-        int offset = ftmTvResult.getLineCount() * ftmTvResult.getLineHeight();
-        if (offset > ftmTvResult.getHeight()) {
-            ftmTvResult.scrollTo(0, offset - ftmTvResult.getHeight());
-        }
+//        int offset = ftmTvResult.getLineCount() * ftmTvResult.getLineHeight();
+//        if (offset > ftmTvResult.getHeight()) {
+//            ftmTvResult.scrollTo(0, offset - ftmTvResult.getHeight());
+//        }
+        ftmSvResult.post(new Runnable() {
+            @Override
+            public void run() {
+                ftmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     private boolean validateData() {

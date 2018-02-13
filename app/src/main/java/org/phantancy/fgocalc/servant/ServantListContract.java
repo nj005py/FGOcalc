@@ -36,7 +36,7 @@ public interface ServantListContract {
         void unregisterReceiver(Context ctx);
         void getAllServants();
         void searchServantsByKeyword(String value);
-        void searchServantsByCondition(String classType,int star);
+        void searchServantsByCondition(String classType,int star,String orderTypeValue);
         String getVersion();
         void feedback();
     }

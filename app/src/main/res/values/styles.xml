@@ -93,6 +93,10 @@
         <item name="android:textColor">@drawable/se_textcolor</item>
     </style>
 
+    <style name="rb_np_charge" parent="rb_atk">
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="tv_common">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

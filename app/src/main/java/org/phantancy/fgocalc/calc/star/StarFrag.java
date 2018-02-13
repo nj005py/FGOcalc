@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -92,16 +93,28 @@ public class StarFrag extends BaseFrag implements
     @BindView(R.id.fsm_rl_character)
     RelativeLayout fsmRlCharacter;
     Unbinder unbinder;
+    @BindView(R.id.fsm_sv_result)
+    ScrollView fsmSvResult;
+    @BindView(R.id.fsm_rb_enemy_one)
+    RadioButton fsmRbEnemyOne;
+    @BindView(R.id.fsm_rb_enemy_two)
+    RadioButton fsmRbEnemyTwo;
+    @BindView(R.id.fsm_rb_enemy_three)
+    RadioButton fsmRbEnemyThree;
+    @BindView(R.id.fsm_rg_enemy_amount)
+    RadioGroup fsmRgEnemyAmount;
 
     private ServantItem servantItem;
     private BuffsItem buffsItem;
-    private String[] cardValues = {"b", "a", "q"};
+    private String[] cardValues = {"b", "a", "q", "np"};
     private String cardType1, cardType2, cardType3;
     private boolean ifok1 = false, ifok2 = false, ifok3 = false,
             ifCr1, ifCr2, ifCr3;
     private double random = 0.05;//平均敌补正
     private ConditionStar conS;
     private StarContract.Presenter mPresenter;
+    private int enemyAmount = 1;
+    private String trumpColor;
 
     public StarFrag() {
 
@@ -132,8 +145,9 @@ public class StarFrag extends BaseFrag implements
         Bundle data = getArguments();
         servantItem = (ServantItem) data.getSerializable("servantItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
+        trumpColor = servantItem.getTrump_color();
         //声明一个简单simpleAdapter
-        SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandCards(), R.layout.item_card_type,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandNPCards(trumpColor), R.layout.item_card_type,
                 new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
         fsmSpCard1.setAdapter(simpleAdapter);
         fsmSpCard2.setAdapter(simpleAdapter);
@@ -282,8 +296,25 @@ public class StarFrag extends BaseFrag implements
         fsmTvResult.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ToolCase.copy2Clipboard(ctx,fsmTvResult);
+                ToolCase.copy2Clipboard(ctx, fsmTvResult);
                 return false;
+            }
+        });
+
+        fsmRgEnemyAmount.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.fsm_rb_enemy_one:
+                        enemyAmount = 1;
+                        break;
+                    case R.id.fsm_rb_enemy_two:
+                        enemyAmount = 2;
+                        break;
+                    case R.id.fsm_rb_enemy_three:
+                        enemyAmount = 3;
+                        break;
+                }
             }
         });
     }
@@ -314,22 +345,28 @@ public class StarFrag extends BaseFrag implements
         }
     }
 
-    private boolean validateData(){
+    private boolean validateData() {
         buffsItem = ((CalcActy) mActy).getBuffsItem();
-        conS = mPresenter.getCondition(cardType1,cardType2,cardType3,
-                ifCr1,ifCr2,ifCr3,ifok1,ifok2,ifok3,
-                random,servantItem,buffsItem);
+        conS = mPresenter.getCondition(cardType1, cardType2, cardType3,
+                ifCr1, ifCr2, ifCr3, ifok1, ifok2, ifok3,
+                random, servantItem, buffsItem,enemyAmount);
 
-        return  true;
+        return true;
     }
 
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(fsmTvResult, result);
-        int offset = fsmTvResult.getLineCount() * fsmTvResult.getLineHeight();
-        if(offset > fsmTvResult.getHeight()){
-            fsmTvResult.scrollTo(0,offset - fsmTvResult.getHeight());
-        }
+//        int offset = fsmTvResult.getLineCount() * fsmTvResult.getLineHeight();
+//        if (offset > fsmTvResult.getHeight()) {
+//            fsmTvResult.scrollTo(0, offset - fsmTvResult.getHeight());
+//        }
+        fsmSvResult.post(new Runnable() {
+            @Override
+            public void run() {
+                fsmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
     }
 
     @Override

@@ -22,9 +22,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="16dp" />
 
-
-
-
+        <!--邮件 论坛 B站-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,6 +56,53 @@
                 android:textColor="@color/colorDeepBlue"/>
 
         </LinearLayout>
+
+        <!--github 贴吧 qq群-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/df_tv_github"
+                android:layout_width="100dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/se_lightblue2_deepblue"
+                android:text="github"
+                android:textColor="@color/colorWhite"/>
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/df_tv_tieba"
+                android:layout_width="100dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/se_white"
+                android:text="贴吧"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/df_tv_qq"
+                android:layout_width="100dp"
+                android:layout_weight="1.0"
+                android:background="@drawable/se_lightblue2_deepblue"
+                android:text="QQ群"
+                android:textColor="@color/colorWhite"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sh_r_bottom_lightblue"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

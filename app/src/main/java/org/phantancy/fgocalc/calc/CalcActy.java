@@ -121,8 +121,8 @@ public class CalcActy extends BaseActy {
         indicatorList.add("从者信息");
         indicatorList.add("伤害计算");
         indicatorList.add("NP充能计算");
-        indicatorList.add("宝具计算");
         indicatorList.add("打星计算");
+        indicatorList.add("宝具伤害计算");
         //检查fragment
         if (infoFrag == null) {
             infoFrag = new InfoFrag();
@@ -149,8 +149,8 @@ public class CalcActy extends BaseActy {
         fragList.add(infoFrag);
         fragList.add(atkFrag);
         fragList.add(npFrag);
-        fragList.add(trumpFrag);
         fragList.add(starFrag);
+        fragList.add(trumpFrag);
         //创建Presenter
         infoPresenter = new InfoPresenter(infoFrag,ctx);
         atkPresenter = new AtkPresenter(atkFrag,ctx);

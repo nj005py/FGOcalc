@@ -70,10 +70,11 @@ public class InfoPresenter implements InfoContract.Presenter {
         int default_atk = item.getDefault_atk();
         int default_hp = item.getDefault_hp();
         int attribute = item.getAttribute();
+        String pic = item.getPic();
         NumberFormat nf = NumberFormat.getPercentInstance();
         nf.setMinimumFractionDigits(2);
         List<InfoCardsMVPItem> cardList = getCardsNum(busterNum,artNum,quickNum);
-        list.add(new InfoItem(id,resId,Constant.TYPE_IMG));
+        list.add(new InfoItem(id,resId,pic,Constant.TYPE_IMG));
         list.add(new InfoItem(new StringBuilder().append("No.").append(id).append("\n").append(name).append("\n").append(star).append("星\n")
                 .append(nickname)
                 .toString(), Constant.TYPE_VALUE,3));

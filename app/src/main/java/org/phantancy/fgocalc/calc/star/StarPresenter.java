@@ -165,7 +165,7 @@ public class StarPresenter implements StarContract.Presenter {
             if (c.cardPosition == 4) {
                 result = new StringBuilder().append(result).append("\n合计---->可获得").append(overallMin).append("-")
                         .append(overallMax).append("颗星 ")
-                        .append("平均").append(df.format(overAllAverage)).append("颗星").append("\n== FGOcalc分割线 ==\n").toString();
+                        .append("平均").append(df.format(overAllAverage)).append("颗星").append(ctx.getString(R.string.fgocalc_divider)).toString();
                 overallMax = 0;
                 overallMin = 0;
                 overAllAverage = 0;

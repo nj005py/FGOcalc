@@ -14,6 +14,7 @@ public class InfoItem implements Serializable {
     private List<InfoCardsMVPItem> cardsList;
     private int type;
     private int column;
+    private String pic;//数据库里的Base64字符串
 
     public InfoItem(int portrait, String info, List<InfoCardsMVPItem> cardsList, int type) {
         this.portrait = portrait;
@@ -22,10 +23,11 @@ public class InfoItem implements Serializable {
         this.type = type;
     }
 
-    public InfoItem(int id,int portrait, int type) {
+    public InfoItem(int id,int portrait,String pic, int type) {
         this.id = id;
         this.portrait = portrait;
         this.type = type;
+        this.pic = pic;
     }
 
     public InfoItem(String info, int type) {
@@ -90,5 +92,13 @@ public class InfoItem implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

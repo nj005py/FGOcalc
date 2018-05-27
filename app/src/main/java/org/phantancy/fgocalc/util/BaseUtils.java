@@ -4,8 +4,16 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import org.phantancy.fgocalc.common.Constant;
+import org.phantancy.fgocalc.item.UpdateItem;
 
 /**
  * Created by PY on 2017/7/19.
@@ -92,5 +100,57 @@ public class BaseUtils {
             }
         }
         return false;
+    }
+
+    //通过html获取版本号
+    public static void getVersionByHtml(final Handler handler){
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        final String checkUrl = "http://nj005py.gitee.io/fgocalc/version";
+                        try {
+                            UpdateItem item = new UpdateItem();
+                            //从一个URL加载一个Document对象。
+                            Document doc = Jsoup.connect(checkUrl).get();
+                            Elements version = doc.select("li.version");
+                            Elements url = doc.select("li.url");
+                            Elements content = doc.select("li.content");
+                            item.setVersion(version.text());
+                            item.setUrl(url.text());
+                            item.setContent(content.text());
+                            Message msg = new Message();
+                            msg.obj = item;
+                            msg.what = Constant.CHECK_APP_VERSION;
+                            handler.sendMessage(msg);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).start();
+    }
+
+    //通过卡色获取html样式的卡色String
+    public static String getCardTypeWithColour(String cardType){
+        String vaule = "";
+        switch (cardType) {
+            case "b":
+                vaule = new StringBuilder().append("<font color='#AF0301'>b卡在</font>").toString();
+                break;
+            case "a":
+                vaule = new StringBuilder().append("<font color='#3F51B5'>a卡在</font>").toString();
+                break;
+            case "q":
+                vaule = new StringBuilder().append("<font color='#16580B'>q卡在</font>").toString();
+                break;
+            case "ex":
+                vaule = new StringBuilder().append("<font color='black'>ex卡在</font>").toString();
+                break;
+            case "np":
+                vaule = new StringBuilder().append("<font color='#E4B222'>宝具卡在</font>").toString();
+                break;
+        }
+        return vaule;
     }
 }

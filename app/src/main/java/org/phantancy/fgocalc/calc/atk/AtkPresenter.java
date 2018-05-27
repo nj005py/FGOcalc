@@ -2,8 +2,10 @@ package org.phantancy.fgocalc.calc.atk;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
@@ -12,6 +14,7 @@ import org.phantancy.fgocalc.item.CommandCard;
 import org.phantancy.fgocalc.item.ConditionAtk;
 import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.util.BaseUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -128,7 +131,7 @@ public class AtkPresenter implements AtkContract.Presenter {
         buster_buff = servantItem.getBuster_buff();
         quick_buff = servantItem.getQuick_buff();
         atk_buff = servantItem.getAtk_buff();
-        special_buff = servantItem.getSpecial_buff();
+//        special_buff = servantItem.getSpecial_buff();
         critical_buff = servantItem.getCritical_buff();
         solid_atk = servantItem.getSolid_buff();
         c.setAtk(atk);
@@ -148,8 +151,15 @@ public class AtkPresenter implements AtkContract.Presenter {
         c.setSolidBuff(buffsItem.getSolidAtk() + solid_atk);
         c.setTrumpPowerBuff(buffsItem.getTrumpUp() / 100);
         c.setAtkBuff(buffsItem.getAtkUp() / 100 + atk_buff);
-        c.setSpecialBuff(buffsItem.getSpecialUp() / 100 + special_buff);
-        c.setEnemyDefence(buffsItem.getEnemyDefence() / 100);
+        c.setSpecialBuff(buffsItem.getSpecialUp() / 100);
+        //如果减防高于100%当100%计算
+        double enemyDefence = 0;
+        if ((buffsItem.getEnemyDefence() / 100) > 1) {
+            enemyDefence = 1;
+        }else{
+            enemyDefence = buffsItem.getEnemyDefence() / 100;
+        }
+        c.setEnemyDefence(enemyDefence);
         c.setTrumpDown(buffsItem.getTrumpDown() / 100);
         switch (trumpColor) {
             case "b":
@@ -286,7 +296,8 @@ public class AtkPresenter implements AtkContract.Presenter {
         calcAtk(c2,conAtk);
         calcAtk(c3,conAtk);
         calcAtk(c4,conAtk);
-        mView.setResult(result);
+//        mView.setResult(result);
+        mView.setResult(Html.fromHtml(result));
     }
 
     private void calcAtk(CommandCard c,ConditionAtk conAtk) {
@@ -316,30 +327,47 @@ public class AtkPresenter implements AtkContract.Presenter {
         String[] con = getConditions(conAtk);
         if (result.length() < 1) {
             ServantItem sItem = conAtk.getServantItem();
-            result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
-                    .append("总atk：").append(conAtk.getAtk()).append(hpStatus + "\n")//atk情况
-                    .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
-                    .append(getExtraBuffs(conAtk) + "\n")//buff
-                    .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
-                    .append("的伤害为").append(attackInt).toString();
+            result = new StringBuilder()
+                    .append(sItem.getName() + " " + sItem.getClass_type() + "<br>" + "总atk：")//名称
+                    .append(conAtk.getAtk())
+                    .append(hpStatus + "<br>"
+                            + con[0] + ","
+                            + con[1] + ","
+                            + con[2] + "<br>"
+                            + getExtraBuffs(conAtk) + "<br>")//atk情况
+                    .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                    .append(c.cardPosition)
+                    .append("号位")
+                    .append(c.ifCritical == false ? "" : "暴击")
+                    .append("的伤害为")
+                    .append(attackInt).toString();
             overallAttack = attackInt;
         } else {
             if (c.cardPosition == 1) {
-                result = new StringBuilder().append(result)
-                        .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
-                        .append("总atk：").append(conAtk.getAtk()).append(hpStatus + "\n")//atk情况
-                        .append(getExtraBuffs(conAtk) + "\n")//buff
-                        .append(c.cardType).append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
-                        .append("的伤害为").append(attackInt).toString();
+                result = new StringBuilder()
+                        .append(result)
+                        .append(con[0])
+                        .append("," + con[1]).append("," + con[2] + "<br>")//条件
+                        .append("总atk：")
+                        .append(conAtk.getAtk()).append(hpStatus + "<br>")//atk情况
+                        .append(getExtraBuffs(conAtk) + "<br>")//buff
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                        .append(c.cardPosition)
+                        .append("号位")
+                        .append(c.ifCritical == false ? "" : "暴击")
+                        .append("的伤害为")
+                        .append(attackInt).toString();
                 overallAttack += attackInt;
             }else{
-                result = new StringBuilder().append(result).append("\n").append(c.cardType)
-                        .append("卡在").append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
+                result = new StringBuilder().append(result).append("<br>")
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                        .append(c.cardPosition).append("号位").append(c.ifCritical == false ? "" : "暴击")
                         .append("的伤害为").append(attackInt).toString();
                 overallAttack += attackInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overallAttack).append("\n== FGOcalc分割线 ==\n").toString();
+                result = new StringBuilder().append(result).append("<br>合计----->").append(overallAttack)
+                        .append("<p>" + ctx.getString(R.string.fgocalc_divider) + "<p>").toString();
                 overallAttack = 0;
             }
         }

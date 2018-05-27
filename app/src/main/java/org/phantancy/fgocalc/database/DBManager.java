@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
@@ -126,5 +127,12 @@ public class DBManager {
         }catch (Exception e){
 
         }
+    }
+
+    public void saveImage(int id,String img){
+        ContentValues cv=new ContentValues();
+        cv.put("pic", img);//图片转为二进制
+        database.update("servants", cv,"id = ?",new String[]{id + ""});
+        database.close();
     }
 }

@@ -1,8 +1,10 @@
 package org.phantancy.fgocalc.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +25,14 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.calc.CalcActy;
+import org.phantancy.fgocalc.database.DBManager;
+import org.phantancy.fgocalc.dialog.TalkDialog;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.ToolCase;
 
@@ -37,6 +45,7 @@ import java.util.List;
 public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardViewAdapter.ViewHolder>{
     private List<ServantItem> mList;
     private Context ctx;
+    private Activity acty;
     private TextView tvTip;
     private RelativeLayout rlTip;
     DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -81,6 +90,14 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
         this.rlTip = rlTip;
     }
 
+    public ServantCardViewAdapter(List<ServantItem> mList, Context ctx, TextView tvTip, RelativeLayout rlTip,Activity acty) {
+        this.mList = mList;
+        this.ctx = ctx;
+        this.tvTip = tvTip;
+        this.rlTip = rlTip;
+        this.acty = acty;
+    }
+
     public void setItems(List<ServantItem> list){
         if (list != null && mList != null) {
             mList.clear();
@@ -101,12 +118,20 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ServantItem item = mList.get(position);
-        int resId = ctx.getResources().getIdentifier("image" + item.getId(),"mipmap",ctx.getPackageName());
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final ServantItem item = mList.get(position);
+        final int resId = ctx.getResources().getIdentifier("image" + item.getId(),"mipmap",ctx.getPackageName());
         if (resId != 0) {
             holder.iv.setImageResource(resId);
-        }else{
+        }
+        else if (!TextUtils.isEmpty(item.getPic())) {
+            //如果数据库里有图则从数据库里读图
+            //将Base64串转化为位图
+            Bitmap bmp = ToolCase.base642Bitmap(item.getPic());
+            holder.iv.setImageBitmap(bmp);
+        }
+        else{
+            //否则从网络获取图片
             String num = "";
             if (item.getId() > 0 && item.getId() < 10) {
                 num = new StringBuilder().append("00").append(item.getId()).toString();
@@ -117,7 +142,29 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
             }
             //从fgowiki获取头像
             String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(num).append(".jpg").toString();
-            ImageLoader.getInstance().displayImage(url,holder.iv,options);
+//            ImageLoader.getInstance().displayImage(url,holder.iv,options);
+            ImageLoader.getInstance().loadImage(url,new SimpleImageLoadingListener(){
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    super.onLoadingFailed(imageUri, view, failReason);
+                    holder.iv.setImageDrawable(ContextCompat.getDrawable(ctx,R.mipmap.loading));
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    super.onLoadingComplete(imageUri, view, loadedImage);
+                    String img = ToolCase.bitmap2Base64(loadedImage);
+                    holder.iv.setImageBitmap(loadedImage);
+                    try {
+                        DBManager db = new DBManager(ctx);
+                        db.getDatabase();
+                        db.saveImage(item.getId(),img);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
 
 //        holder.tvId.setText("No." + item.getId());
@@ -159,6 +206,16 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                 }
             }
         });
+        if (resId != 0) {
+            holder.cv.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    TalkDialog d = new TalkDialog(acty,resId);
+                    d.showPopupWindow(holder.cv);
+                    return false;
+                }
+            });
+        }
     }
 
     @Override

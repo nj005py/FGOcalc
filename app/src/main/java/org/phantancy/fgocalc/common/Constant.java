@@ -18,4 +18,6 @@ public class Constant {
     //buff
     public static final int SET_BUFF = 0;
 
+    //handler
+    public static final int CHECK_APP_VERSION = 666;
 }

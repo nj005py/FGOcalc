@@ -54,6 +54,15 @@ public class ServantItem implements Serializable{
             trump_lv3_before,
             trump_lv4_before,
             trump_lv5_before;
+    private String pic;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
     public int getNp_hit() {
         return np_hit;

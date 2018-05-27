@@ -255,7 +255,7 @@ public class ServantListFragment extends BaseFrag implements
 
     public void init() {
 //        sAdapter = new ServantCardViewAdapter(ctx,mPresenter.getAllServants());
-        sAdapter = new ServantCardViewAdapter(null, ctx, fslTvCharacter, fslRlCharacter);
+        sAdapter = new ServantCardViewAdapter(null, ctx, fslTvCharacter, fslRlCharacter,mActy);
         fslRvServant.setAdapter(sAdapter);
         //检查app版本、数据库版本
         mPresenter.simpleCheck(ctx, mActy);

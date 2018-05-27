@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.InfoCardsMVPItem;
 import org.phantancy.fgocalc.item.InfoItem;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.List;
 
@@ -90,6 +92,11 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
                 case Constant.TYPE_IMG:
                     if (item.getPortrait() != 0) {
                         holder.ivInfo.setImageResource(item.getPortrait());
+                    }else if (!TextUtils.isEmpty(item.getPic())) {
+                        //如果数据库里有图则从数据库里读图
+                        //将Base64串转化为位图
+                        Bitmap bmp = ToolCase.base642Bitmap(item.getPic());
+                        holder.ivInfo.setImageBitmap(bmp);
                     }else{
                         String num = "";
                         if (item.getId() > 0 && item.getId() < 10) {

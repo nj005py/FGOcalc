@@ -3,6 +3,7 @@ package org.phantancy.fgocalc.calc.atk;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.ToolCase;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -534,18 +536,28 @@ public class AtkFrag extends BaseFrag implements
     }
 
     @Override
-    public void setResult(String result) {
-        ToolCase.setViewValue(famTvResult, result);
+    public void setResult(Object result) {
+        if (result instanceof String){
+            ToolCase.setViewValue(famTvResult, (String) result);
 //        int offset = famTvResult.getLineCount() * famTvResult.getLineHeight();
 //        if (offset > famTvResult.getHeight()) {
 //            famTvResult.scrollTo(0, offset - famTvResult.getHeight());
 //        }
-        famSvResult.post(new Runnable() {
-            @Override
-            public void run() {
-                famSvResult.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });
+            famSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    famSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }else if (result instanceof Spanned) {
+            famTvResult.setText((Spanned)result,TextView.BufferType.SPANNABLE);
+            famSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    famSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }
     }
 
     //检查数据

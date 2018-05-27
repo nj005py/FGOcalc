@@ -27,15 +27,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.phantancy.fgocalc.R;
 
+import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.UrlConstant;
 import org.phantancy.fgocalc.database.DBManager;
 import org.phantancy.fgocalc.dialog.FeedbackDialog;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.item.UpdateItem;
+import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.JsonUtils;
 import org.phantancy.fgocalc.util.OKhttpManager;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
@@ -47,6 +54,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -86,6 +94,35 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     private boolean isUpdateDatabase = false;//是否是更新数据库
     private final int SHOW_SERVANTS = 1;
     private final int SHOW_EXCEPTION = 2;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case Constant.CHECK_APP_VERSION:
+                    UpdateItem item = (UpdateItem) msg.obj;
+                    if (item != null) {
+                        curVersion = item.getVersion();
+                        downloadUrl = item.getUrl();
+                        update = item.getContent();
+                        if (!TextUtils.isEmpty(curVersion) && !preVersion.equals(curVersion)) {
+                            //判断当前版本是否是忽略版本
+                            ignoreVersion = (String)SharedPreferencesUtils.getParam(ctx,"ignoreVersion","1");
+                            Log.d(TAG,"curVersion:" + curVersion + "ignoreVersion:" + ignoreVersion);
+                            if (!ignoreVersion.equals(curVersion)) {
+                                //比较版本号
+                                if (ToolCase.compareAppVersion(preVersion,curVersion)) {
+                                    //升级弹框
+                                    mView.showUpdateDiag(update,downloadUrl,curVersion);
+                                    Log.d(TAG, "有更新,更新地址->" + downloadUrl);
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    };
 
     @NonNull
     private final ServantListContract.View mView;
@@ -127,7 +164,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
 //            isReceiverRegister = true;
             //下载配置文件
 //            downloadConfig();
-            checkUpdateByApi();
+//            checkUpdateByApi();
+            BaseUtils.getVersionByHtml(handler);
         }
         //判断数据库有无更新
         if (checkDatabase(ctx)) {
@@ -245,76 +283,42 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         downloadManager.enqueue(request);
     }
 
-    //检测app版本更新，目前使用，现通过api
-    private void checkUpdateByApi(){
-        OKhttpManager.getAsync(UrlConstant.CHECK_UPDATE, new OKhttpManager.DataCallBack() {
-            @Override
-            public void requestFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void requestSuccess(String result) {
-                try {
-                    UpdateItem item = JsonUtils.getUpdateItem(result);
-                    if (item != null) {
-                        curVersion = item.getVersion();
-                        update = item.getUpdate();
-                        downloadUrl = item.getPath();
-                        if (!TextUtils.isEmpty(curVersion) && !preVersion.equals(curVersion)) {
-                            //判断当前版本是否是忽略版本
-                            ignoreVersion = (String)SharedPreferencesUtils.getParam(ctx,"ignoreVersion","1");
-                            Log.d(TAG,"curVersion:" + curVersion + "ignoreVersion:" + ignoreVersion);
-                            if (!ignoreVersion.equals(curVersion)) {
-                                boolean showUpdate = false;
-                                //判断版本号大小
-                                String curVer[] = curVersion.split("\\.");
-                                String preVer[] = preVersion.split("\\.");
-                                //版本号分4段比较，第4段表示状态
-                                if (curVer[0].compareTo(preVer[0]) == 1) {
-                                    showUpdate = true;
-                                }else{
-                                    if (Integer.valueOf(curVer[1]) > Integer.valueOf(preVer[1])) {
-                                        showUpdate = true;
-                                    }else{
-                                        if (Integer.valueOf(curVer[2]) > Integer.valueOf(preVer[2])) {
-                                            showUpdate = true;
-                                        }
-                                    }
-                                }
-                                if (curVer.length == 4) {
-                                    //前3个数字编号无法看出谁更大时，比较英文版本号
-                                    /**
-                                     *base 基础版
-                                     * alpha 内测版
-                                     * beta 公测版
-                                     * explorer 探索版，不一定有
-                                     * rc 基本成型版
-                                     * release 正式版
-                                     */
-                                    //无第4版本号直接提示更新
-                                    if(preVer.length < 4){
-                                        showUpdate = true;
-                                    }else{
-                                        if (ToolCase.get4thVersion(curVer[3]) > ToolCase.get4thVersion(preVer[3])) {
-                                            showUpdate = true;
-                                        }
-                                    }
-                                }
-                                if (showUpdate) {
-                                    //升级弹框
-                                    mView.showUpdateDiag(update,downloadUrl,curVersion);
-                                    Log.d(TAG, "有更新,更新地址->" + downloadUrl);
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    //检测app版本更新，通过api，也弃了
+//    private void checkUpdateByApi(){
+//        OKhttpManager.getAsync(UrlConstant.CHECK_UPDATE, new OKhttpManager.DataCallBack() {
+//            @Override
+//            public void requestFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void requestSuccess(String result) {
+//                try {
+//                    UpdateItem item = JsonUtils.getUpdateItem(result);
+//                    if (item != null) {
+//                        curVersion = item.getVersion();
+//                        update = item.getUpdate();
+//                        downloadUrl = item.getPath();
+//                        if (!TextUtils.isEmpty(curVersion) && !preVersion.equals(curVersion)) {
+//                            //判断当前版本是否是忽略版本
+//                            ignoreVersion = (String)SharedPreferencesUtils.getParam(ctx,"ignoreVersion","1");
+//                            Log.d(TAG,"curVersion:" + curVersion + "ignoreVersion:" + ignoreVersion);
+//                            if (!ignoreVersion.equals(curVersion)) {
+//                                //比较版本号
+//                                if (ToolCase.compareAppVersion(preVersion,curVersion)) {
+//                                    //升级弹框
+//                                    mView.showUpdateDiag(update,downloadUrl,curVersion);
+//                                    Log.d(TAG, "有更新,更新地址->" + downloadUrl);
+//                                }
+//                            }
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     //检查app版本更新，弃用，原解析xml方法
     public boolean checkUpdate() {
@@ -491,6 +495,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             Cursor cur;
             cur = dbManager.database.rawQuery("SELECT * FROM servants", null);
             servantList = getServants(cur);
+            createJson();
             if (sItem == null) {
                 //实装末端servant
                 sItem = new ServantItem();
@@ -724,6 +729,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 int trump_upgraded = cur.getInt(40);
                 int attribute = cur.getInt(41);
                 int np_hit = cur.getInt(42);
+                String pic = cur.getString(43);
                 ServantItem servantItem = new ServantItem();
                 servantItem.setId(id);
                 servantItem.setName(name);
@@ -768,6 +774,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 servantItem.setTrump_upgraded(trump_upgraded);
                 servantItem.setAttribute(attribute);
                 servantItem.setNp_hit(np_hit);
+                servantItem.setPic(pic);
                 cache.add(servantItem);
             }
             return cache;
@@ -776,5 +783,29 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         }
     }
 
+    //生成servant json数组，为web版创造数据源
+    private void createJson(){
+        JSONArray ja = new JSONArray();
+        Gson gson = new Gson();
+        for (int i = 0;i < servantList.size();i ++){
+            String result = gson.toJson(servantList.get(i));
+            try {
+                JSONObject jo = new JSONObject(result);
+                ja.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //写入文件
+        try {
+            String sdCardDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_json.txt";
+            File saveFile = new File(sdCardDir);
+            FileOutputStream outStream = new FileOutputStream(saveFile);
+            outStream.write(ja.toString().getBytes());
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

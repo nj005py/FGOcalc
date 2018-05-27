@@ -14,7 +14,7 @@ import org.phantancy.fgocalc.item.ServantItem;
 public interface AtkContract {
 
     interface View extends BaseView<AtkContract.Presenter>{
-        void setResult(String result);
+        void setResult(Object result);
         void setCharacter(String str);
     }
 

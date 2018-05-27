@@ -161,7 +161,7 @@ public class NpPresenter implements NpContract.Presenter {
                 overAllNp += npInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overAllNp).append("%").append("\n== FGOcalc分割线 ==\n").toString();
+                result = new StringBuilder().append(result).append("\n合计----->").append(overAllNp).append("%").append(ctx.getString(R.string.fgocalc_divider)).toString();
                 overAllNp = 0;
             }
 //            result = result + "\n" + c.cType + "卡在" + c.cPosition + " 号位的np获取量为" + npInt;

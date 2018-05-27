@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class UpdateItem implements Serializable {
     private String version;
-    private String path;
-    private String update;
+    private String url;
+    private String content;
 
     public String getVersion() {
         return version;
@@ -19,19 +19,19 @@ public class UpdateItem implements Serializable {
         this.version = version;
     }
 
-    public String getPath() {
-        return path;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getUpdate() {
-        return update;
+    public String getContent() {
+        return content;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    public void setContent(String content) {
+        this.content = content;
     }
 }

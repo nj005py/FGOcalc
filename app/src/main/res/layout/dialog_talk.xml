@@ -1,0 +1,35 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/dt_iv_triangle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:background="@mipmap/triangle"
+        android:visibility="gone"/>
+
+    <TextView
+        style="@style/tv_common"
+        android:id="@+id/dt_tv_talk"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="70dp"
+        android:layout_below="@+id/dt_iv_triangle"
+        android:gravity="center_vertical"
+        android:background="@mipmap/chat_bg"
+        android:text="Master ! 何事？"
+        android:textColor="@color/colorWhite"/>
+
+    <ImageView
+        android:id="@+id/dt_iv_portrait"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/image1"/>
+
+</RelativeLayout>

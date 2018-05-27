@@ -28,9 +28,6 @@
             android:name="com.amap.api.v2.apikey"
             android:value="e3bdf0f988fbbab4ed131fbc08181198" />
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="31289302ccafb98d34ad986ca0418aa5075f77fb" />
 
         <meta-data android:value="5a61306b8f4a9d420400090e" android:name="UMENG_APPKEY"/>
         <meta-data android:value="Umeng" android:name="UMENG_CHANNEL"/>

@@ -72,7 +72,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                 buster_buff,
                 quick_buff,
                 atk_buff,
-                special_buff,
+//                special_buff,
                 critical_buff;
         ConditionTrump c = new ConditionTrump();
         if (buffsItem == null) {
@@ -83,7 +83,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         buster_buff = servantItem.getBuster_buff();
         quick_buff = servantItem.getQuick_buff();
         atk_buff = servantItem.getAtk_buff();
-        special_buff = servantItem.getSpecial_buff();
+//        special_buff = servantItem.getSpecial_buff();
         critical_buff = servantItem.getCritical_buff();
         solid_atk = servantItem.getSolid_buff();
         c.setAtk(atk);
@@ -103,8 +103,15 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         c.setSolidBuff(buffsItem.getSolidAtk() + solid_atk);
         c.setTrumpPowerBuff(buffsItem.getTrumpUp() / 100);
         c.setAtkBuff(buffsItem.getAtkUp() / 100 + atk_buff);
-        c.setSpecialBuff(buffsItem.getSpecialUp() / 100 + special_buff);
-        c.setEnemyDefence(buffsItem.getEnemyDefence() / 100);
+        c.setSpecialBuff(buffsItem.getSpecialUp() / 100);
+        //如果减防高于100%当100%计算
+        double enemyDefence = 0;
+        if ((buffsItem.getEnemyDefence() / 100) > 1) {
+            enemyDefence = 1;
+        }else{
+            enemyDefence = buffsItem.getEnemyDefence() / 100;
+        }
+        c.setEnemyDefence(enemyDefence);
         c.setTrumpDown(buffsItem.getTrumpDown() / 100);
         switch (trumpColor) {
             case "b":
@@ -250,7 +257,8 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
         } else {
-            result = new StringBuilder().append(result + "\n== FGOcalc分割线 ==\n")
+            result = new StringBuilder().append(result)
+                    .append(ctx.getString(R.string.fgocalc_divider))
                     .append("总atk：").append(conT.getAtk()).append(hpStatus + "\n")//atk情况
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff

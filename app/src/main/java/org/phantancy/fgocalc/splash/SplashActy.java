@@ -12,9 +12,6 @@ import org.phantancy.fgocalc.R;
 
 import org.phantancy.fgocalc.servant.ServantListMVPActy;
 
-import io.fabric.sdk.android.Fabric;
-import com.crashlytics.android.Crashlytics;
-
 /**
  * Created by HATTER on 2017/11/8.
  * https://developer.android.com/training/system-ui/navigation.html#behind
@@ -26,7 +23,6 @@ public class SplashActy extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.acty_splash);
         ctx = this;
         hideBottomUIMenu();
@@ -37,7 +33,7 @@ public class SplashActy extends Activity {
                 startActivity(new Intent(ctx, ServantListMVPActy.class));
                 finish();
             }
-        },1000);
+        },100);
     }
 
     /**

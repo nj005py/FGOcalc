@@ -8,8 +8,8 @@ android {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 13
-        versionName "1.5.4.alpha"
+        versionCode 14
+        versionName "1.5.5"
         // Enabling multidex support.
         multiDexEnabled true
     }
@@ -88,10 +88,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.android.support:multidex:1.0.2'
     //友盟
-    implementation 'com.umeng.sdk:common:latest.integration'
-    implementation 'com.umeng.analytics:analytics:latest.integration'
     api project(':push')
     implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
     //html解析
     implementation 'org.jsoup:jsoup:1.11.3'
+    implementation files('libs/umeng-analytics-7.5.3.jar')
+    implementation files('libs/umeng-common-1.5.3.jar')
 }

@@ -119,26 +119,26 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final ServantItem item = mList.get(position);
-        final int resId = ctx.getResources().getIdentifier("image" + item.getId(),"mipmap",ctx.getPackageName());
+        ServantItem item = mList.get(position);
+        int resId = ctx.getResources().getIdentifier("image" + item.getId(),"mipmap",ctx.getPackageName());
+        final int id = item.getId();
+        String pic = item.getPic();
         if (resId != 0) {
             holder.iv.setImageResource(resId);
-        }
-        else if (!TextUtils.isEmpty(item.getPic())) {
+        } else if (!TextUtils.isEmpty(pic)) {
             //如果数据库里有图则从数据库里读图
             //将Base64串转化为位图
-            Bitmap bmp = ToolCase.base642Bitmap(item.getPic());
+            Bitmap bmp = ToolCase.base642Bitmap(pic);
             holder.iv.setImageBitmap(bmp);
-        }
-        else{
+        } else{
             //否则从网络获取图片
             String num = "";
-            if (item.getId() > 0 && item.getId() < 10) {
-                num = new StringBuilder().append("00").append(item.getId()).toString();
-            }else if (item.getId() >= 10 && item.getId() < 100) {
-                num = new StringBuilder().append("0").append(item.getId()).toString();
+            if (id > 0 && id < 10) {
+                num = new StringBuilder().append("00").append(id).toString();
+            }else if (id >= 10 && id < 100) {
+                num = new StringBuilder().append("0").append(id).toString();
             }else{
-                num = new StringBuilder().append(item.getId()).toString();
+                num = new StringBuilder().append(id).toString();
             }
             //从fgowiki获取头像
             String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(num).append(".jpg").toString();
@@ -159,7 +159,7 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                     try {
                         DBManager db = new DBManager(ctx);
                         db.getDatabase();
-                        db.saveImage(item.getId(),img);
+                        db.saveImage(id,img);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -206,16 +206,16 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                 }
             }
         });
-        if (resId != 0) {
-            holder.cv.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    TalkDialog d = new TalkDialog(acty,resId);
-                    d.showPopupWindow(holder.cv);
-                    return false;
-                }
-            });
-        }
+//        if (resId != 0) {
+//            holder.cv.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    TalkDialog d = new TalkDialog(acty,resId);
+//                    d.showPopupWindow(holder.cv);
+//                    return false;
+//                }
+//            });
+//        }
     }
 
     @Override

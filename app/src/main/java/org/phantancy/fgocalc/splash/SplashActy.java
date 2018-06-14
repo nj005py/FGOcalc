@@ -26,14 +26,8 @@ public class SplashActy extends Activity {
         setContentView(R.layout.acty_splash);
         ctx = this;
         hideBottomUIMenu();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(ctx, ServantListMVPActy.class));
-                finish();
-            }
-        },100);
+        startActivity(new Intent(ctx, ServantListMVPActy.class));
+        finish();
     }
 
     /**

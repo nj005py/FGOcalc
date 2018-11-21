@@ -14,7 +14,8 @@ public class ServantItem implements Serializable{
             nickname,
             class_type,
             trump_color,
-            portrait;
+            portrait,
+            traits;
     private int id,
             star,
             arts_hit,
@@ -55,6 +56,24 @@ public class ServantItem implements Serializable{
             trump_lv4_before,
             trump_lv5_before;
     private String pic;
+    private String alignments;//属性
+    private String np_classification;//宝具分类
+
+    public String getNp_classification() {
+        return np_classification;
+    }
+
+    public void setNp_classification(String np_classification) {
+        this.np_classification = np_classification;
+    }
+
+    public String getAlignments() {
+        return alignments;
+    }
+
+    public void setAlignments(String alignments) {
+        this.alignments = alignments;
+    }
 
     public String getPic() {
         return pic;
@@ -414,5 +433,13 @@ public class ServantItem implements Serializable{
 
     public void setPortrait(String portrait) {
         this.portrait = portrait;
+    }
+
+    public String getTraits() {
+        return traits;
+    }
+
+    public void setTraits(String traits) {
+        this.traits = traits;
     }
 }

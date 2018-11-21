@@ -18,6 +18,7 @@
 
         <TextView
             style="@style/tv_common"
+            android:layout_marginTop="30dp"
             android:text="根据所在环境+一单模拟抽卡结果\n计算欧/非气浓度,仅供娱乐。"
             android:textColor="@color/colorWhite"/>
 
@@ -76,15 +77,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_weight="1.0"
-                android:src="@mipmap/guda_tip"/>
+                android:src="@drawable/guda_tip"/>
 
             <Button
-                android:id="@+id/am_btn_screen"
+                android:id="@+id/am_btn_stone"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="100dp"
                 android:layout_marginLeft="50dp"
-                android:background="@mipmap/stone"
+                android:background="@drawable/stone"
+                android:textColor="@color/colorWhite"/>
+
+            <Button
+                android:id="@+id/am_btn_ticket"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="100dp"
+                android:layout_toRightOf="@+id/am_btn_stone"
+                android:background="@drawable/summon_ticket"
                 android:textColor="@color/colorWhite"/>
 
         </RelativeLayout>
@@ -162,7 +172,7 @@
             android:layout_height="404dp"
             android:scaleType="centerCrop"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/joan_alter_smile"/>
+            android:src="@drawable/joan_alter_smile"/>
 
         <View
             android:id="@+id/am_v_character"

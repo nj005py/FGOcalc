@@ -8,8 +8,18 @@ import java.io.Serializable;
 
 public class UpdateItem implements Serializable {
     private String version;
+    private int versionCode;
     private String url;
     private String content;
+    private String checkUrl;
+
+    public int getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(int versionCode) {
+        this.versionCode = versionCode;
+    }
 
     public String getVersion() {
         return version;
@@ -33,5 +43,13 @@ public class UpdateItem implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCheckUrl() {
+        return checkUrl;
+    }
+
+    public void setCheckUrl(String checkUrl) {
+        this.checkUrl = checkUrl;
     }
 }

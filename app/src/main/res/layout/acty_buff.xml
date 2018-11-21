@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"
-        android:background="@drawable/se_gradient_blue_deepblue">
+        android:background="@drawable/se_radius_gray">
 
 
         <Button
@@ -20,22 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="@drawable/se_gradient_blue_deepblue"
-            android:text="完成设置︾"
+            android:background="@drawable/se_gray_dark"
+            android:text="完成设置"
             android:textSize="14dp"
             android:textColor="@color/colorWhite"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/colorGolden"/>
+            android:background="@color/colorSilver"/>
 
         <Button
             android:id="@+id/ab_btn_clean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:background="@drawable/se_gradient_blue_deepblue"
+            android:background="@drawable/se_gray_dark"
             android:text="清空buff"
             android:textSize="14dp"
             android:textColor="@color/colorWhite"/>
@@ -64,16 +64,12 @@
                 android:background="@drawable/se_l_white">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/image37"/>
+                    style="@style/iv_buff_shortcut"
+                    android:src="@drawable/image37"/>
 
                 <TextView
-                    style="@style/tv_common"
-                    android:layout_width="wrap_content"
-                    android:text="我30无法无天\n加攻、暴击、固伤\n精彩！！！"
-                    android:textColor="@color/colorWhite"/>
+                    style="@style/tv_buff_shortcut"
+                    android:text="30无法无天\n加攻、暴击、固伤\n精彩！！！" />
 
             </LinearLayout>
 
@@ -87,16 +83,12 @@
                 android:background="@drawable/se_l_white">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/image150"/>
+                    style="@style/iv_buff_shortcut"
+                    android:src="@drawable/image150"/>
 
                 <TextView
-                    style="@style/tv_common"
-                    android:layout_width="wrap_content"
-                    android:text="我30为所欲为\n加攻、红魔放、暴击\n打他丫的！！！"
-                    android:textColor="@color/colorWhite"/>
+                    style="@style/tv_buff_shortcut"
+                    android:text="30为所欲为\n加攻、红魔放、暴击\n打他丫的！！！"/>
 
             </LinearLayout>
 
@@ -116,23 +108,32 @@
                 android:background="@drawable/se_l_white">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/image62"/>
+                    style="@style/iv_buff_shortcut"
+                    android:src="@drawable/image62"/>
 
                 <TextView
-                    style="@style/tv_common"
-                    android:layout_width="wrap_content"
-                    android:text="我30狐作妃为\n蓝魔放\n咪咕！咪咕！"
-                    android:textColor="@color/colorWhite"/>
+                    style="@style/tv_buff_shortcut"
+                    android:text="30狐作妃为\n蓝魔放\n咪咕！咪咕！"/>
 
             </LinearLayout>
 
-            <View
+            <LinearLayout
+                android:id="@+id/ab_ll_scathach"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.0"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="horizontal"
+                android:background="@drawable/se_l_white">
+
+                <ImageView
+                    style="@style/iv_buff_shortcut"
+                    android:src="@drawable/image215"/>
+
+                <TextView
+                    style="@style/tv_buff_shortcut"
+                    android:text="30斯无忌惮\n绿魔放、绿卡暴击、减防\n谁在喊bba,cba?！"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

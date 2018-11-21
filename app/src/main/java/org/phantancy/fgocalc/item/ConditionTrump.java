@@ -11,6 +11,7 @@ public class ConditionTrump implements Serializable {
     private int hpTotal = 0,hpLeft = 0;
     //环境类型的参数例如选卡、是否暴击、职阶相性、阵营相性、乱数补正
     private String trumpColor;
+    private String npLv;//宝具等级
     private int weakType = 1;//职阶相性类型
     private double teamCor = 1.0, //阵营相性
             randomCor = 0.9,//乱数补正
@@ -32,6 +33,14 @@ public class ConditionTrump implements Serializable {
 
     private ServantItem servantItem;
     private BuffsItem buffsItem;
+
+    public String getNpLv() {
+        return npLv;
+    }
+
+    public void setNpLv(String npLv) {
+        this.npLv = npLv;
+    }
 
     public double getTrumpDown() {
         return trumpDown;

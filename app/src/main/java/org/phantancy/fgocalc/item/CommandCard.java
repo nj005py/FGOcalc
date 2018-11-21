@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.item;
 
+import android.text.TextUtils;
+
 /**
  * Created by HATTER on 2017/11/6.
  * 把被动buff，外加的buff，各种条件整合，创建一张指令卡
@@ -126,7 +128,8 @@ public class CommandCard {
             getFirstCardBuffForAtk();
             timesForAll();
             classCorForAtk();
-            criticalCorForAll();
+            criticalCorForAll();//暴击范用情况
+            criticalByCardColor();//暴击色卡暴击情况
             exRewardForAtk();
             weakCorForAtk();
             getSolidAtkForAtk();
@@ -305,18 +308,29 @@ public class CommandCard {
         switch (cardType) {
             case "b":
                 hits = sItem.getBuster_hit();
-                cardBuff = buster_buff + bItem.getBusterUp() / 100;
+//                cardBuff = buster_buff + bItem.getBusterUp() / 100;
+                cardBuff = 0;
                 break;
             case "a":
                 hits = sItem.getArts_hit();
-                cardBuff = arts_buff + bItem.getArtsUp() / 100;
+//                cardBuff = arts_buff + bItem.getArtsUp() / 100;
+                cardBuff = 0;
                 break;
             case "q":
                 hits = sItem.getQuick_hit();
-                cardBuff = quick_buff + bItem.getQuickUp() / 100;
+                cardBuff = quick_buff + (bItem.getQuickUp() / 100);
                 break;
             case "ex":
                 hits = sItem.getEx_hit();
+                cardBuff = 0;
+                break;
+            case "np":
+                hits = sItem.getNp_hit();
+                if (sItem.getTrump_color().equals("q")) {
+                    cardBuff = quick_buff + (bItem.getQuickUp() / 100);
+                }else{
+                    cardBuff = 0;
+                }
                 break;
         }
     }
@@ -461,6 +475,7 @@ public class CommandCard {
         }
     }
 
+    //暴击威力范用情况
     private void criticalCorForAll(){
         if (ifCritical) {
             criticalCor = 2.0;
@@ -471,6 +486,15 @@ public class CommandCard {
             criticalCor = 1;
             criticalBuff = 0;
             starCriticalCor = 0;
+        }
+    }
+
+    //色卡暴击特殊情况
+    private void criticalByCardColor(){
+        if (!TextUtils.isEmpty(cardType)) {
+            if (cardType.equals("q")) {
+                criticalBuff = criticalBuff + (bItem.getCriticalQuick() / 100);
+            }
         }
     }
 

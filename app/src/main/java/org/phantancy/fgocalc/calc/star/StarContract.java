@@ -13,7 +13,7 @@ import org.phantancy.fgocalc.item.ServantItem;
 public interface StarContract {
 
     interface View extends BaseView<Presenter>{
-        void setResult(String result);
+        void setResult(Object result);
     }
 
     interface Presenter extends BasePresenter{

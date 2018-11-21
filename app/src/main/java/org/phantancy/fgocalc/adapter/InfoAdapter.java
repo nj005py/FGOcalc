@@ -11,14 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.InfoCardsMVPItem;
 import org.phantancy.fgocalc.item.InfoItem;
+import org.phantancy.fgocalc.util.GlideApp;
 import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.List;
@@ -31,19 +28,6 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     private List<InfoItem> mList;
     private InfoCardsMVPAdapter adapter;
     private Context ctx;
-    DisplayImageOptions options = new DisplayImageOptions.Builder()
-            .showImageOnLoading(R.mipmap.loading)// 设置图片下载期间显示的图片
-            .showImageForEmptyUri(R.mipmap.loading)// 设置图片Uri为空或是错误的时候显示的图片
-            .showImageOnFail(R.mipmap.loading)// 设置图片加载或解码过程中发生错误显示的图片
-            .resetViewBeforeLoading(false) // default 设置图片在加载前是否重置、复位
-            .delayBeforeLoading(1000) // 下载前的延迟时间
-            .cacheInMemory(false)// default  设置下载的图片是否缓存在内存中
-            .cacheOnDisk(false)// default  设置下载的图片是否缓存在SD卡中
-            .considerExifParams(false)// default
-            .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)// default 设置图片以如何的编码方式显示
-            .bitmapConfig(Bitmap.Config.ARGB_8888)// default 设置图片的解码类型
-            .handler(new Handler()) // default
-            .build();
 
     public InfoAdapter(List<InfoItem> mList,Context ctx) {
         this.mList = mList;
@@ -67,12 +51,14 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivInfo;
         TextView tvInfo;
+        TextView tvInfoTitle;
         RecyclerView rvInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivInfo = (ImageView)itemView.findViewById(R.id.ii_iv_info);
             tvInfo = (TextView)itemView.findViewById(R.id.ii_tv_info);
+            tvInfoTitle = (TextView)itemView.findViewById(R.id.ii_tv_info_title);
             rvInfo = (RecyclerView)itemView.findViewById(R.id.ii_rv_card);
         }
     }
@@ -88,15 +74,23 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (mList != null) {
             InfoItem item = mList.get(position);
+            ImageView ivInfo = holder.ivInfo;
+            TextView tvInfo = holder.tvInfo;
+            TextView tvInfoTitle = holder.tvInfoTitle;
+            RecyclerView rvInfo = holder.rvInfo;
             switch (item.getType()) {
                 case Constant.TYPE_IMG:
+                    int resId = item.getPortrait();
                     if (item.getPortrait() != 0) {
-                        holder.ivInfo.setImageResource(item.getPortrait());
+                        GlideApp.with(ctx)
+                                .load(resId)
+                                .placeholder(R.drawable.loading)
+                                .into(ivInfo);
                     }else if (!TextUtils.isEmpty(item.getPic())) {
                         //如果数据库里有图则从数据库里读图
                         //将Base64串转化为位图
                         Bitmap bmp = ToolCase.base642Bitmap(item.getPic());
-                        holder.ivInfo.setImageBitmap(bmp);
+                        ivInfo.setImageBitmap(bmp);
                     }else{
                         String num = "";
                         if (item.getId() > 0 && item.getId() < 10) {
@@ -108,13 +102,33 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
                         }
                         //从fgowiki获取头像
                         String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(num).append(".jpg").toString();
-                        ImageLoader.getInstance().displayImage(url,holder.ivInfo,options);
+                        GlideApp.with(ctx)
+                                .load(url)
+                                .placeholder(R.drawable.loading)
+                                .into(ivInfo);
                     }
-                    holder.ivInfo.setVisibility(View.VISIBLE);
+                    ivInfo.setVisibility(View.VISIBLE);
+                    tvInfo.setVisibility(View.GONE);
+                    tvInfoTitle.setVisibility(View.GONE);
+                    rvInfo.setVisibility(View.GONE);
                     break;
                 case Constant.TYPE_VALUE:
-                    holder.tvInfo.setText(item.getInfo());
-                    holder.tvInfo.setVisibility(View.VISIBLE);
+                    String txt = item.getInfo();
+                    String[] arr = txt.split(">");
+                    if (arr.length > 1) {
+                        ivInfo.setVisibility(View.GONE);
+                        tvInfo.setVisibility(View.VISIBLE);
+                        tvInfoTitle.setVisibility(View.VISIBLE);
+                        rvInfo.setVisibility(View.GONE);
+                        tvInfoTitle.setText(arr[0]);
+                        tvInfo.setText(arr[1]);
+                    }else{
+                        ivInfo.setVisibility(View.GONE);
+                        tvInfo.setVisibility(View.VISIBLE);
+                        tvInfoTitle.setVisibility(View.GONE);
+                        rvInfo.setVisibility(View.GONE);
+                        tvInfo.setText(txt);
+                    }
                     break;
                 case Constant.TYPE_LIST:
                     List<InfoCardsMVPItem> iList = item.getCardsList();
@@ -122,9 +136,12 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
                         adapter = new InfoCardsMVPAdapter(iList);
                         LinearLayoutManager ll = new LinearLayoutManager(ctx);
                         ll.setOrientation(LinearLayoutManager.HORIZONTAL);
-                        holder.rvInfo.setLayoutManager(ll);
-                        holder.rvInfo.setAdapter(adapter);
-                        holder.rvInfo.setVisibility(View.VISIBLE);
+                        rvInfo.setLayoutManager(ll);
+                        rvInfo.setAdapter(adapter);
+                        ivInfo.setVisibility(View.GONE);
+                        tvInfo.setVisibility(View.GONE);
+                        tvInfoTitle.setVisibility(View.GONE);
+                        rvInfo.setVisibility(View.VISIBLE);
                     }
                     break;
             }

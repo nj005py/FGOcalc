@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="true"
-        android:src="@mipmap/image2"/>
+        android:src="@drawable/loading"/>
 
     <ImageView
         android:id="@+id/afgo_iv_stone_shoot"
@@ -25,7 +25,7 @@
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:src="@mipmap/stone"/>
+        android:src="@drawable/stone"/>
 
     <ImageView
         android:id="@+id/afgo_iv_stone_shoot2"
@@ -33,7 +33,7 @@
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:src="@mipmap/stone"/>
+        android:src="@drawable/stone"/>
 
     <ImageView
         android:id="@+id/afgo_iv_stone_shoot3"
@@ -41,7 +41,7 @@
         android:layout_height="50dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        android:src="@mipmap/stone"/>
+        android:src="@drawable/stone"/>
 
     <ImageView
         android:id="@+id/afgo_iv_stone"
@@ -50,6 +50,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        android:src="@mipmap/stone"/>
+        android:src="@drawable/stone"/>
 
 </RelativeLayout>

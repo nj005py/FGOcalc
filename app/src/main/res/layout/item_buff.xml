@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/ib_iv_buff"
         style="@style/iv_trump"
-        android:src="@mipmap/buster_up"/>
+        android:src="@drawable/buster_up"/>
 
-    <EditText
+    <org.phantancy.fgocalc.view.ClearEditText
         android:id="@+id/ib_et_buff"
         style="@style/et_trump"
         android:background="@android:color/transparent"

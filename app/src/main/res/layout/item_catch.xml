@@ -11,13 +11,13 @@
         android:layout_height="130dp"
         android:scaleType="centerCrop"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/servant_golden"/>
+        android:src="@drawable/servant_golden"/>
 
     <ImageView
         android:id="@+id/ic_iv_star"
         android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/star_ssr"/>
+        android:src="@drawable/star_ssr"/>
 
 </org.phantancy.fgocalc.itemview.CatchItemView>

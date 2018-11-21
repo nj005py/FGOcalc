@@ -14,12 +14,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sh_r_top_lightblue"
+            android:background="@drawable/sh_r_top_white"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:gravity="center_horizontal"
             android:text="反馈"
-            android:textColor="@color/colorWhite"
+            android:textColor="@color/colorBlack"
             android:textSize="16dp" />
 
         <!--邮件 论坛 B站-->
@@ -27,68 +27,54 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_email"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
                 android:background="@drawable/se_gray"
-                android:text="用邮件"/>
+                android:text="用邮件"
+                android:visibility="gone"/>
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_bbs"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="去论坛"
+                android:background="@drawable/se_gray_dark"
+                android:text="去nga反馈（作者偶尔去看）"
                 android:textColor="@color/colorWhite"/>
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_b"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
                 android:background="@drawable/se_white"
-                android:text="去B站"
+                android:text="去B站反馈（作者经常逛B站）"
                 android:textColor="@color/colorDeepBlue"/>
-
-        </LinearLayout>
-
-        <!--github 贴吧 qq群-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_github"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="github"
+                android:background="@drawable/se_gray_dark"
+                android:text="去github反馈（可以看到源码）"
                 android:textColor="@color/colorWhite"/>
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_tieba"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
                 android:background="@drawable/se_white"
-                android:text="贴吧"
+                android:text="去贴吧反馈（作者还算经常看贴吧）"
                 android:textColor="@color/colorBlack"/>
 
             <TextView
                 style="@style/tv_common"
                 android:id="@+id/df_tv_qq"
-                android:layout_width="100dp"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="QQ群"
+                android:background="@drawable/se_gray_dark"
+                android:text="去QQ群反馈（水笔群）"
                 android:textColor="@color/colorWhite"/>
 
         </LinearLayout>

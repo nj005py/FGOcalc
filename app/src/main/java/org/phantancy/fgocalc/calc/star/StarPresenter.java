@@ -1,7 +1,9 @@
 package org.phantancy.fgocalc.calc.star;
 
 import android.content.Context;
+import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
@@ -9,6 +11,7 @@ import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.CommandCard;
 import org.phantancy.fgocalc.item.ConditionStar;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.util.BaseUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -96,7 +99,7 @@ public class StarPresenter implements StarContract.Presenter {
         calcStar(c2,conS);
         calcStar(c3,conS);
         calcStar(c4,conS);
-        mView.setResult(result);
+        mView.setResult(Html.fromHtml(result));
     }
 
     //指令卡 [星星发生率+卡牌补正×(1+卡牌Buff)+首位加成+星星发生率Buff+暴击补正-敌方星星发生Buff-敌补正]×Overkill乘算补正+Overkill加算补正
@@ -123,6 +126,11 @@ public class StarPresenter implements StarContract.Presenter {
             starOccur = (c.starOccur + c.cardStarCor * (1 + c.cardBuff) + c.starFirstCardBuff + c.starOccurBuff - c.enemyStarBuff - c.randomCor)
                     * c.starOverkillMuti + c.starOverkillPlus;
         }
+        //星掉率300%是极限，超过就当是300%
+        if (3 < starOccur) {
+            starOccur = 3;
+        }
+        Log.d("star card buff ",c.cardBuff + "");
         DecimalFormat df = new DecimalFormat("#0.00");
         String[] starInfo = getStarNum(starOccur,c);
         double max = Double.valueOf(starInfo[1]);
@@ -130,10 +138,10 @@ public class StarPresenter implements StarContract.Presenter {
         double average = Double.valueOf(starInfo[3]);
         if (result.length() < 1) {
             ServantItem sItem = conS.getServantItem();
-            result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
-                    .append(getConditions(conS) + " 宝具打击" + conS.getEnemyAmount() + "个敌人\n")//条件
-                    .append(getExtraBuffs(conS) + "\n")//buff
-                    .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+            result = new StringBuilder().append(sItem.getName() + " " + sItem.getClass_type() + "<br>")
+                    .append(getConditions(conS) + " 宝具打击" + conS.getEnemyAmount() + "个敌人<br>")//条件
+                    .append(getExtraBuffs(conS) + "<br>")//buff
+                    .append(BaseUtils.getCardTypeWithColour(c.cardType)).append("卡在").append(c.cardPosition).append("号位")
                     .append(c.ifCritical == false ? "" : " 暴击")
                     .append(c.ifOverkill ==false ? "" : " overkill")
                     .append(starInfo[0]).toString();
@@ -143,9 +151,9 @@ public class StarPresenter implements StarContract.Presenter {
         }else{
             if (c.cardPosition == 1) {
                 result = new StringBuilder().append(result)
-                        .append(getConditions(conS) + " 宝具打击" + conS.getEnemyAmount() + "个敌人\n")//条件
-                        .append(getExtraBuffs(conS) + "\n")//buff
-                        .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+                        .append(getConditions(conS) + " 宝具打击" + conS.getEnemyAmount() + "个敌人<br>")//条件
+                        .append(getExtraBuffs(conS) + "<br>")//buff
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType)).append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
                         .append(starInfo[0]).toString();
@@ -153,8 +161,8 @@ public class StarPresenter implements StarContract.Presenter {
                 overallMin += min;
                 overAllAverage += average;
             }else{
-                result = new StringBuilder().append(result).append("\n")
-                        .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+                result = new StringBuilder().append(result + "<br>")
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType)).append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
                         .append(starInfo[0]).toString();
@@ -163,9 +171,11 @@ public class StarPresenter implements StarContract.Presenter {
                 overAllAverage += average;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计---->可获得").append(overallMin).append("-")
+                result = new StringBuilder().append(result).append("<br>合计---->可获得")
+                        .append(overallMin).append("-")
                         .append(overallMax).append("颗星 ")
-                        .append("平均").append(df.format(overAllAverage)).append("颗星").append(ctx.getString(R.string.fgocalc_divider)).toString();
+                        .append("平均").append(df.format(overAllAverage)).append("颗星")
+                        .append("<p>" + ctx.getString(R.string.fgocalc_divider) + "<p>").toString();
                 overallMax = 0;
                 overallMin = 0;
                 overAllAverage = 0;
@@ -240,7 +250,7 @@ public class StarPresenter implements StarContract.Presenter {
             hits = c.hits;
         }
         if (starOccur > 0) {
-            if (starOccur > 0 && starOccur < 1) {
+            if (starOccur > 0 && starOccur <= 1) {
                 max = String.valueOf(hits);
                 min = "0";
                 average = df.format(starOccur * hits);
@@ -263,6 +273,13 @@ public class StarPresenter implements StarContract.Presenter {
                 result[3] = average;
             }
         }else{
+            result[0] = "可获得0颗星";
+            result[1] = "0";
+            result[2] = "0";
+            result[3] = "0";
+        }
+        //非空判断
+        if (result == null) {
             result[0] = "可获得0颗星";
             result[1] = "0";
             result[2] = "0";

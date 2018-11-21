@@ -2,15 +2,14 @@ package org.phantancy.fgocalc.calc.info;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.InfoAdapter;
@@ -18,14 +17,15 @@ import org.phantancy.fgocalc.base.BaseFrag;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.item.InfoItem;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.TipItem;
+import org.phantancy.fgocalc.util.BaseUtils;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by HATTER on 2017/11/4.
@@ -39,6 +39,8 @@ public class InfoFrag extends BaseFrag implements InfoContract.View {
     @BindView(R.id.fim_btn_more)
     Button fimBtnMore;
     Unbinder unbinder1;
+    @BindView(R.id.fim_btn_newwiki)
+    Button fimBtnNewwiki;
     private ServantItem servantItem;
     private InfoContract.Presenter mPresenter;
     private List<InfoItem> infoList;
@@ -49,7 +51,7 @@ public class InfoFrag extends BaseFrag implements InfoContract.View {
 
     @Override
     public void setPresenter(InfoContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Nullable
@@ -95,10 +97,37 @@ public class InfoFrag extends BaseFrag implements InfoContract.View {
             fimBtnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String url = new StringBuilder().append("http://fgowiki.com/guide/petdetail/").append(id).toString();
-                    Intent i = new Intent(ctx, WebviewActy.class);
-                    i.putExtra("url",url);
-                    startActivity(i);
+                    if (BaseUtils.isNetworkAvailable(ctx)) {
+                        String url = new StringBuilder()
+                                .append("http://fgowiki.com/guide/petdetail/")
+                                .append(id)
+                                .append("?p=wap")
+                                .toString();
+                        Intent i = new Intent(ctx, WebviewActy.class);
+                        i.putExtra("url", url);
+                        startActivity(i);
+                    } else {
+                        TipItem tItem = new TipItem(R.drawable.altria_alter_b, "未检测到网络连接", true);
+                        ToolCase.showTip(ctx, tItem);
+                    }
+                }
+            });
+
+            fimBtnNewwiki.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (BaseUtils.isNetworkAvailable(ctx)) {
+                        String url = new StringBuilder()
+                                .append("https://fgo.umowang.com/servant/")
+                                .append(id)
+                                .toString();
+                        Intent i = new Intent(ctx, WebviewActy.class);
+                        i.putExtra("url", url);
+                        startActivity(i);
+                    } else {
+                        TipItem tItem = new TipItem(R.drawable.altria_alter_b, "未检测到网络连接", true);
+                        ToolCase.showTip(ctx, tItem);
+                    }
                 }
             });
         }
@@ -107,7 +136,6 @@ public class InfoFrag extends BaseFrag implements InfoContract.View {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 
     @Override

@@ -58,13 +58,13 @@ public class InfoCardsMVPAdapter extends RecyclerView.Adapter<InfoCardsMVPAdapte
             String type = item.getType();
             switch (type) {
                 case "b":
-                    holder.ivCard.setImageResource(R.mipmap.buster);
+                    holder.ivCard.setImageResource(R.drawable.buster);
                     break;
                 case "a":
-                    holder.ivCard.setImageResource(R.mipmap.arts);
+                    holder.ivCard.setImageResource(R.drawable.arts);
                     break;
                 case "q":
-                    holder.ivCard.setImageResource(R.mipmap.quick);
+                    holder.ivCard.setImageResource(R.drawable.quick);
                     break;
             }
         }

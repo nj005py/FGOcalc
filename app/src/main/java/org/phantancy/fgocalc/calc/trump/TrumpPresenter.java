@@ -65,7 +65,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
     @Override
     public ConditionTrump getConditionTrump(int atk, int hpTotal, int hpLeft, String trumpColor,
                                   int weakType, double teamCor, double randomCor, double trumpTimes,
-                                  ServantItem servantItem, BuffsItem buffsItem) {
+                                  ServantItem servantItem, BuffsItem buffsItem,String npLv) {
         String class_type;
         int solid_atk;
         double arts_buff,
@@ -94,6 +94,7 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         c.setRandomCor(randomCor);
         c.setServantItem(servantItem);
         c.setBuffsItem(buffsItem);
+        c.setNpLv(npLv);
         //无宝具特攻也要写1，不能为0
         if (buffsItem.getTrumpSpecialUp() == 0) {
             c.setTrumpBuff(1);
@@ -128,19 +129,19 @@ public class TrumpPresenter implements TrumpContract.Presenter {
                 break;
         }
         //宝具倍率，双子需要特殊处理
-        if (servantItem.getId() == 66 || servantItem.getId() == 131){
-            if (servantItem.getId() == 66) {
-                trumpTimes = trumpTimes + ((buffsItem.getExtraTimes() / 100) * (1 - ((double)hpLeft / (double) hpTotal)));
-            }
-            //131 a双子
-            if (servantItem.getId() == 131) {
-                //弓双子额外倍率固定600%
-                trumpTimes = trumpTimes + (6 * (1 - ((double)hpLeft / (double) hpTotal)));
-            }
+        int id = servantItem.getId();
+        if (id == 66) {
+            trumpTimes = trumpTimes + ((buffsItem.getExtraTimes() / 100) * (1 - ((double)hpLeft / (double)hpTotal)));
             c.setHpLeft(hpLeft);
             c.setHpTotal(hpTotal);
             c.setTrumpTimes(trumpTimes);
-        }else{
+        }else if (id == 131) {
+            //弓双子额外倍率固定600%
+            trumpTimes = trumpTimes + (6 * (1 - ((double)hpLeft / (double) hpTotal)));
+            c.setHpLeft(hpLeft);
+            c.setHpTotal(hpTotal);
+            c.setTrumpTimes(trumpTimes);
+        }else {
             //允许附加倍率吧
             if (buffsItem.getExtraTimes() != 0) {
                 trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) ;
@@ -247,19 +248,23 @@ public class TrumpPresenter implements TrumpContract.Presenter {
         String[] con = getConditions(conT);
         String hpStatus = "";
         if (conT.getServantItem().getId() == 66 || conT.getServantItem().getId() == 131) {
-            hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft()).toString();
+            hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft() + "\n").toString();
         }
         if (TextUtils.isEmpty(result)) {
             ServantItem sItem = conT.getServantItem();
             result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
-                    .append("总atk：").append(conT.getAtk()).append(hpStatus + "\n")//atk情况
+                    .append("总atk：").append(conT.getAtk())
+                    .append(" " + conT.getNpLv() + "\n")
+                    .append(hpStatus)
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();
         } else {
             result = new StringBuilder().append(result)
                     .append(ctx.getString(R.string.fgocalc_divider))
-                    .append("总atk：").append(conT.getAtk()).append(hpStatus + "\n")//atk情况
+                    .append("总atk：").append(conT.getAtk())
+                    .append(" " + conT.getNpLv() + "\n")
+                    .append(hpStatus)
                     .append(con[0]).append("," + con[1]).append("," + con[2] + "\n")//条件
                     .append(getExtraBuffs(conT) + "\n")//buff
                     .append("宝具伤害----->").append(overallAttack).toString();

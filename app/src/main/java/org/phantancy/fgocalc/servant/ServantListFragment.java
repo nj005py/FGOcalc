@@ -16,10 +16,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -29,29 +30,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.WebviewActy;
+import org.phantancy.fgocalc.adapter.FilterAdapter;
 import org.phantancy.fgocalc.adapter.ServantCardViewAdapter;
 import org.phantancy.fgocalc.base.BaseFrag;
 import org.phantancy.fgocalc.dialog.AboutDialog;
 import org.phantancy.fgocalc.dialog.MenulLocDialog;
 import org.phantancy.fgocalc.dialog.UpdateDialog;
+import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.TipItem;
+import org.phantancy.fgocalc.item.UpdateItem;
 import org.phantancy.fgocalc.item_decoration.GridItemDecoration;
 import org.phantancy.fgocalc.metaphysics.MetaphysicsActy;
 import org.phantancy.fgocalc.util.BaseUtils;
@@ -65,8 +68,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by HATTER on 2017/11/1.
@@ -82,8 +83,8 @@ public class ServantListFragment extends BaseFrag implements
     TextView fslTvLeft;
     @BindView(R.id.fsl_rb_search)
     RadioButton fslRbSearch;
-    @BindView(R.id.fsl_rb_screen)
-    RadioButton fslRbScreen;
+    @BindView(R.id.fsl_rb_filter)
+    RadioButton fslRbFilter;
     @BindView(R.id.fsl_rg_method)
     RadioGroup fslRgMethod;
     @BindView(R.id.fsl_tv_right)
@@ -94,58 +95,33 @@ public class ServantListFragment extends BaseFrag implements
     LinearLayout fslLlSearch;
     @BindView(R.id.fsl_ll_area_search)
     LinearLayout fslLlAreaSearch;
-    @BindView(R.id.fsl_tv_classtype)
-    TextView fslTvClasstype;
-    @BindView(R.id.fsl_sp_classtype)
-    Spinner fslSpClasstype;
-    @BindView(R.id.fsl_tv_star)
-    TextView fslTvStar;
-    @BindView(R.id.fsl_sp_star)
-    Spinner fslSpStar;
+    @BindView(R.id.fsl_rv_filter)
+    RecyclerView fslRvFilter;
     @BindView(R.id.fsl_btn_sreen)
     Button fslBtnSreen;
     @BindView(R.id.fsl_btn_clear)
     Button fslBtnClear;
-    @BindView(R.id.fsl_ll_area_screen)
-    LinearLayout fslLlAreaScreen;
+    @BindView(R.id.fsl_ll_area_filter)
+    LinearLayout fslLlAreaFilter;
     @BindView(R.id.fsl_rv_servant)
     RecyclerView fslRvServant;
-    @BindView(R.id.fsl_iv_character)
-    ImageView fslIvCharacter;
-    @BindView(R.id.fsl_v_character)
-    View fslVCharacter;
-    @BindView(R.id.fsl_tv_character)
-    TextView fslTvCharacter;
-    @BindView(R.id.fsl_rl_character)
-    RelativeLayout fslRlCharacter;
     @BindView(R.id.fsl_fl_main)
     FrameLayout fslFlMain;
+    @BindView(R.id.fsl_ll_side_statusbar)
+    LinearLayout fslLlSideStatusbar;
     @BindView(R.id.fsl_nv_menu)
     NavigationView fslNvMenu;
+    @BindView(R.id.fsl_ll_sidebar)
+    LinearLayout fslLlSidebar;
     @BindView(R.id.fsl_dl_menu)
     DrawerLayout fslDlMenu;
     Unbinder unbinder;
-    @BindView(R.id.fsl_ll_side_statusbar)
-    LinearLayout fslLlSideStatusbar;
-    @BindView(R.id.fsl_ll_sidebar)
-    LinearLayout fslLlSidebar;
-    Unbinder unbinder1;
-    @BindView(R.id.fsl_tv_order)
-    TextView fslTvOrder;
-    @BindView(R.id.fsl_sp_order)
-    Spinner fslSpOrder;
-    Unbinder unbinder2;
     private ServantListContract.Presenter mPresenter;
     private final int READ_WRITE = 1;
     private final int WRITE_DOWNLOAD = 2;
     private ServantCardViewAdapter sAdapter;
-    private String[] classType, starNum;//职阶 星
-    private String[] orderType;//排序方式
-    private int[] starValue;//星(int)
-    private String[] orderTypeValue;//排序方式值
-    private String keyWord, curClassType;
-    private int curStarValue;
-    private String curOrderTypeValue;
+    private FilterAdapter fAdapter;
+    private String keyWord;
     private TextWatcher searchWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -188,31 +164,28 @@ public class ServantListFragment extends BaseFrag implements
         super.onActivityCreated(savedInstanceState);
         //初始化界面、状态栏
         initStatusBar();
-        //获取数组，设置搜索栏
-        classType = getResources().getStringArray(R.array.classType);
-        starNum = getResources().getStringArray(R.array.star);
-        starValue = getResources().getIntArray(R.array.star_value);
-        orderType = getResources().getStringArray(R.array.order_type);
-        orderTypeValue = getResources().getStringArray(R.array.order_type_value);
-        ToolCase.spInitSimple(ctx, classType, fslSpClasstype);
-        ToolCase.spInitSimple(ctx, starNum, fslSpStar);
-        ToolCase.spInitSimple(ctx,orderType,fslSpOrder);
         //判断侧滑菜单
         boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(ctx, "locLeft", true);
         checkMenuLoc(locLeft);
-        //设置列表展示方式
-        View v = getLayoutInflater(savedInstanceState).inflate(R.layout.item_servant_cardview, null);
+        //设置从者列表
+        View v = getLayoutInflater().inflate(R.layout.item_servant_cardview, null);
         CardView cv = (CardView) v.findViewById(R.id.isc_cv_servant);
         cv.measure(0, 0);
         int width = cv.getMeasuredWidth();
-        WindowManager wm = mActy.getWindowManager();
-        int screenWidth = wm.getDefaultDisplay().getWidth();
+        DisplayMetrics dm = new DisplayMetrics();
+        mActy.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
         int num = (int) Math.floor(screenWidth / width);
-        Log.d(TAG, "width:" + width + " screenWidth:" + screenWidth + " num:" + num);
-        StaggeredGridLayoutManager sgL = new StaggeredGridLayoutManager(num, StaggeredGridLayoutManager.VERTICAL);
-        GridLayoutManager gl = new GridLayoutManager(ctx, num);
-        fslRvServant.setLayoutManager(gl);
-        fslRvServant.addItemDecoration(new GridItemDecoration(ctx, 5));
+        int widthSpace = (int) ((screenWidth - (width * num)) / (num * 2));
+        GridLayoutManager lm = new GridLayoutManager(ctx, num);
+        fslRvServant.setLayoutManager(lm);
+        fslRvServant.addItemDecoration(new GridItemDecoration(ctx, widthSpace, 5));
+        //设置筛选列表
+        fAdapter = new FilterAdapter(ctx,mPresenter.getFilterItems());
+        LinearLayoutManager lmFilter = new LinearLayoutManager(ctx);
+        lmFilter.setOrientation(LinearLayoutManager.HORIZONTAL);
+        fslRvFilter.setAdapter(fAdapter);
+        fslRvFilter.setLayoutManager(lmFilter);
         //设置监听
         setListener();
         //检查权限
@@ -225,9 +198,21 @@ public class ServantListFragment extends BaseFrag implements
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -245,17 +230,23 @@ public class ServantListFragment extends BaseFrag implements
     public void onDetach() {
         super.onDetach();
         fslEtSearch.removeTextChangedListener(searchWatcher);
-        unbinder.unbind();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(DatabaseEvent e) {
+        if (e.ifReload) {
+            mPresenter.reloadDatabase();
+        }
     }
 
     @Override
     public void setPresenter(ServantListContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     public void init() {
 //        sAdapter = new ServantCardViewAdapter(ctx,mPresenter.getAllServants());
-        sAdapter = new ServantCardViewAdapter(null, ctx, fslTvCharacter, fslRlCharacter,mActy);
+        sAdapter = new ServantCardViewAdapter(null, ctx, mActy);
         fslRvServant.setAdapter(sAdapter);
         //检查app版本、数据库版本
         mPresenter.simpleCheck(ctx, mActy);
@@ -294,7 +285,6 @@ public class ServantListFragment extends BaseFrag implements
         fslLlSearch.setOnClickListener(this);
         fslBtnClear.setOnClickListener(this);
         fslBtnSreen.setOnClickListener(this);
-        fslRlCharacter.setOnClickListener(this);
         fslEtSearch.addTextChangedListener(searchWatcher);
         fslEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -312,41 +302,6 @@ public class ServantListFragment extends BaseFrag implements
                 return false;
             }
         });
-        fslSpClasstype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                curClassType = classType[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                curClassType = classType[0];
-            }
-        });
-
-        fslSpStar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                curStarValue = starValue[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                curStarValue = starValue[0];
-            }
-        });
-
-        fslSpOrder.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                curOrderTypeValue = orderTypeValue[i];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                curOrderTypeValue = orderTypeValue[0];
-            }
-        });
 
         fslRgMethod.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -354,12 +309,12 @@ public class ServantListFragment extends BaseFrag implements
                 switch (checkedId) {
                     case R.id.fsl_rb_search:
                         fslLlAreaSearch.setVisibility(View.VISIBLE);
-                        fslLlAreaScreen.setVisibility(View.GONE);
+                        fslLlAreaFilter.setVisibility(View.GONE);
                         mPresenter.getAllServants();
                         break;
-                    case R.id.fsl_rb_screen:
+                    case R.id.fsl_rb_filter:
                         fslLlAreaSearch.setVisibility(View.GONE);
-                        fslLlAreaScreen.setVisibility(View.VISIBLE);
+                        fslLlAreaFilter.setVisibility(View.VISIBLE);
                         mPresenter.getAllServants();
                         break;
                 }
@@ -373,14 +328,36 @@ public class ServantListFragment extends BaseFrag implements
                     case R.id.nsm_about:
                         showAboutDialog();
                         break;
+                    case R.id.nsm_follow:
+                        mPresenter.follow();
+                        break;
                     case R.id.nsm_metaphysics:
                         intent.setClass(ctx, MetaphysicsActy.class);
                         startActivity(intent);
                         break;
                     case R.id.nsm_notice:
-                        intent.setClass(ctx, WebviewActy.class);
-                        intent.putExtra("url", "http://nj005py.gitee.io/fgocalc/");
-                        startActivity(intent);
+                        if (BaseUtils.isNetworkAvailable(ctx)) {
+                            intent.setClass(ctx, WebviewActy.class);
+                            intent.putExtra("url", "https://nj005py.github.io/FGOcalc_web/data/html/guide");
+                            startActivity(intent);
+                        } else {
+                            TipItem tItem = new TipItem();
+                            tItem.setHasTip(true);
+                            tItem.setImgId(R.drawable.altria_alter_b);
+                            tItem.setTip("未检测到网络连接");
+                            ToolCase.showTip(ctx, tItem);
+                        }
+                        break;
+                    case R.id.nsm_check_update:
+                        if (BaseUtils.isNetworkAvailable(ctx)) {
+                            mPresenter.checkAppUpdate(true);
+                        } else {
+                            TipItem tItem = new TipItem();
+                            tItem.setHasTip(true);
+                            tItem.setImgId(R.drawable.altria_alter_b);
+                            tItem.setTip("未检测到网络连接");
+                            ToolCase.showTip(ctx, tItem);
+                        }
                         break;
                     case R.id.nsm_menu_loc:
                         showMenuLocDialog();
@@ -395,7 +372,15 @@ public class ServantListFragment extends BaseFrag implements
                                 ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(mActy, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_DOWNLOAD);
                         } else {
-                            mPresenter.downloadDatabaseExtra();
+                            if (BaseUtils.isNetworkAvailable(ctx)) {
+                                mPresenter.downloadDatabaseExtra();
+                            } else {
+                                TipItem tItem = new TipItem();
+                                tItem.setHasTip(true);
+                                tItem.setImgId(R.drawable.altria_alter_b);
+                                tItem.setTip("未检测到网络连接");
+                                ToolCase.showTip(ctx, tItem);
+                            }
                         }
                         break;
                     case R.id.nsm_fgotool:
@@ -404,11 +389,14 @@ public class ServantListFragment extends BaseFrag implements
                     case R.id.nsm_fgosimulator:
                         mPresenter.fgosimulator();
                         break;
+                    case R.id.nsm_qq:
+                        mPresenter.qq();
+                        break;
                     case R.id.nsm_feedback:
                         mPresenter.feedback();
                         break;
                     case R.id.nsm_share:
-                        ToolCase.copy2Clipboard(ctx,"FGOcalc，你的掌上FGO计算器APP：http://nj005py.gitee.io/fgocalc/","共享链接已复制到剪切板");
+                        ToolCase.copy2Clipboard(ctx, "FGOcalc，你的掌上FGO计算器APP：https://nj005py.github.io/FGOcalc_web/data/html/guide", "共享链接已复制到剪切板");
                         break;
                 }
                 fslDlMenu.closeDrawers();
@@ -420,21 +408,16 @@ public class ServantListFragment extends BaseFrag implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fsl_rl_character:
-                fslRlCharacter.setVisibility(View.GONE);
-                break;
             case R.id.fsl_ll_search:
                 keyWord = ToolCase.getViewValue(fslEtSearch);
                 mPresenter.searchServantsByKeyword(keyWord);
                 break;
             case R.id.fsl_btn_clear:
-                fslSpClasstype.setSelection(0);
-                fslSpStar.setSelection(0);
-                fslSpOrder.setSelection(0);
+                fAdapter.clearFilter();
                 mPresenter.getAllServants();
                 break;
             case R.id.fsl_btn_sreen:
-                mPresenter.searchServantsByCondition(curClassType, curStarValue,curOrderTypeValue);
+                mPresenter.searchServantsByCondition(fAdapter.getItems());
                 break;
             case R.id.fsl_tv_left:
                 fslDlMenu.openDrawer(fslLlSidebar);
@@ -498,25 +481,31 @@ public class ServantListFragment extends BaseFrag implements
 
     @Override
     public void showAboutDialog() {
+        //设置dialogue尺寸
+        DisplayMetrics metrics = new DisplayMetrics();
+        mActy.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
         AboutDialog ad = new AboutDialog(ctx);
+        ad.getWindow().setLayout((int) (width * 0.9), (int) (height * 0.8));
         StringBuilder sb = new StringBuilder();
-        sb.append(getString(R.string.app_about)).append("\n\n当前版本").append(mPresenter.getVersion());
-        ad.setAbout(sb.toString());
+        sb.append(mPresenter.getVersion());
+        ad.setVersion(sb.toString());
         ad.show();
     }
 
     @Override
-    public void showUpdateDiag(String update, final String downloadUrl, final String curVersion) {
+    public void showUpdateDiag(final UpdateItem updateItem) {
         final UpdateDialog up = new UpdateDialog(ctx);
-        if (ToolCase.notEmpty(update)) {
-            up.setUpdate(update);
+        if (updateItem != null) {
+            up.setUpdate(updateItem);
         }
         up.setDownloadListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction("android.intent.action.VIEW");
-                Uri content_url = Uri.parse(downloadUrl);
+                Uri content_url = Uri.parse(updateItem.getUrl());
                 intent.setData(content_url);
                 startActivity(intent);
             }
@@ -525,23 +514,13 @@ public class ServantListFragment extends BaseFrag implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Log.d(TAG, "curVersion:" + curVersion);
-                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", curVersion);
+                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", updateItem.getVersionCode());
                 } else {
-                    Log.d(TAG, "curVersion:1");
-                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", "1");
+                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", 0);
                 }
             }
         });
         up.show();
-    }
-
-    @Override
-    public void showCharacter(String content, int img) {
-        ToolCase.setViewValue(fslTvCharacter, content);
-        fslIvCharacter.setImageResource(img);
-        fslRlCharacter.setVisibility(View.VISIBLE);
-        fslRlCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
     }
 
     @Override
@@ -562,7 +541,15 @@ public class ServantListFragment extends BaseFrag implements
                 break;
             case WRITE_DOWNLOAD:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mPresenter.downloadDatabaseExtra();
+                    if (BaseUtils.isNetworkAvailable(ctx)) {
+                        mPresenter.downloadDatabaseExtra();
+                    } else {
+                        TipItem tItem = new TipItem();
+                        tItem.setHasTip(true);
+                        tItem.setImgId(R.drawable.altria_alter_b);
+                        tItem.setTip("未检测到网络连接");
+                        ToolCase.showTip(ctx, tItem);
+                    }
                 } else {
                     ToastUtils.displayShortToast(ctx, "您拒绝了权限，无法下载更新");
                 }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorDeepBlue"
+        android:background="@color/colorGrayHard"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -24,44 +24,29 @@
 
             <Button
                 android:id="@+id/fsm_btn_buff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="Buff设置︽"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="Buff设置"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
             <Button
                 android:id="@+id/fsm_btn_clean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="清理结果"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="清理结果"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
 
             <Button
                 android:id="@+id/fsm_btn_calc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="计算"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="计算"/>
 
         </LinearLayout>
 
@@ -70,28 +55,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorL">
+            android:background="@color/colorGrayHard">
 
             <Spinner
                 android:id="@+id/fsm_sp_card1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fsm_sp_card2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fsm_sp_card3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
         </LinearLayout>
 
@@ -287,7 +263,7 @@
             android:layout_height="410dp"
             android:scaleType="centerCrop"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/doctor"/>
+            android:src="@drawable/doctor"/>
 
         <View
             android:id="@+id/fsm_v_character"

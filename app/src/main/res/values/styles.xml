@@ -1,19 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
     <style name="AppTheme" parent="BaseAppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorShineBlue</item>
-        <item name="colorPrimaryDark">@color/colorShineBlue</item>
+        <item name="colorPrimary">@color/colorGrayHard</item>
+        <item name="colorPrimaryDark">@color/colorGrayHard</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:listDivider">@drawable/divider_colorful</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="SplashTheme" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
     <style name="TransTheme" parent="AppTheme">
@@ -89,7 +89,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@drawable/se_rb_gray_blue_noradius</item>
+        <item name="android:background">@drawable/se_rb_gray_grayhard_noradius</item>
         <item name="android:textColor">@drawable/se_textcolor</item>
     </style>
 
@@ -100,11 +100,10 @@
     <style name="tv_common">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">10dp</item>
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">@color/colorBlack</item>
     </style>
 
     <style name="tv_percent">
@@ -112,6 +111,26 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">2.0</item>
         <item name="android:text">%</item>
+    </style>
+
+    <style name="tv_screen">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/colorGrayHard</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/colorWhiteGray</item>
+    </style>
+
+    <style name="tv_buff_shortcut">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">@color/colorWhiteGray</item>
     </style>
 
     <style name="cb_np">
@@ -123,7 +142,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@drawable/se_rb_gray_blue_noradius</item>
+        <item name="android:background">@drawable/se_rb_gray_grayhard_noradius</item>
         <item name="android:textColor">@drawable/se_textcolor</item>
     </style>
 
@@ -133,7 +152,11 @@
         <item name="android:layout_height">30dp</item>
     </style>
 
-
+    <style name="iv_buff_shortcut">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 
     <style name="dialog" parent="@android:style/Theme.Dialog">
         //Dialog的windowFrame框为无
@@ -160,6 +183,30 @@
         <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
         <item name="android:minHeight">20dp</item>
         <item name="android:maxHeight">20dp</item>
+    </style>
+
+    <style name="sp_command_card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:background">@color/colorGrayHard</item>
+    </style>
+
+    <style name="sp_screen">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="btn_calc">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:background">@drawable/se_gray_dark</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 </resources>

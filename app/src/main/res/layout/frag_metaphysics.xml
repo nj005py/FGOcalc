@@ -161,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@mipmap/joan_alter_smile"/>
+            android:src="@drawable/joan_alter_smile"/>
 
         <View
             android:id="@+id/fm_v_character"

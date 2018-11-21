@@ -11,7 +11,7 @@
         android:id="@+id/fsl_fl_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorWhite">
+        android:background="@color/colorGrayWiki">
 
         <!--root-->
         <RelativeLayout
@@ -22,6 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -29,13 +30,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@color/colorShineBlue"/>
+                    android:background="@color/colorGrayHard"/>
 
                 <!--title_bar-->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/gradient_blue_deep2light">
+                    android:background="@color/colorGrayHard">
 
                     <!--android:text="←_←"-->
                     <TextView
@@ -63,7 +64,7 @@
                             android:checked="true"/>
 
                         <RadioButton
-                            android:id="@+id/fsl_rb_screen"
+                            android:id="@+id/fsl_rb_filter"
                             style="@style/rb_common"
                             android:layout_marginLeft="10dp"
                             android:text="筛选"/>
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:orientation="horizontal"
-                    android:background="@color/colorWhite">
+                    android:background="@color/colorGrayWiki">
 
                     <org.phantancy.fgocalc.view.ClearEditText
                         android:id="@+id/fsl_et_search"
@@ -110,103 +111,49 @@
                         android:background="@drawable/se_search">
 
                         <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/search"/>
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/search"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    style="@style/line_x"/>
-
                 <LinearLayout
-                    android:id="@+id/fsl_ll_area_screen"
+                    android:id="@+id/fsl_ll_area_filter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:background="@color/colorWhite">
 
-                    <!--筛选-->
-                    <LinearLayout
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/fsl_rv_filter"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@color/colorWhite">
-
-                        <TextView
-                            android:id="@+id/fsl_tv_classtype"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:gravity="center"
-                            android:text="阶职"/>
-
-                        <Spinner
-                            android:id="@+id/fsl_sp_classtype"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_weight="1.0"/>
-
-                        <TextView
-                            android:id="@+id/fsl_tv_star"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.5"
-                            android:gravity="center"
-                            android:text="星数"/>
-
-                        <Spinner
-                            android:id="@+id/fsl_sp_star"
-                            android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:layout_weight="1.0"/>
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content"/>
 
                     <View
                         style="@style/line_x"/>
 
-                    <!--筛选键-->
+                    <!--按钮-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center"
-                        android:background="@color/colorWhite">
+                        android:gravity="center">
 
-                        <!--左边-->
+                        <!--按钮-->
                         <LinearLayout
                             style="@style/ll_match_width_horizontal"
-                            android:layout_weight="1.0">
-
-                            <TextView
-                                android:id="@+id/fsl_tv_order"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="4.0"
-                                android:gravity="center"
-                                android:text="排序"/>
-
-                            <Spinner
-                                android:id="@+id/fsl_sp_order"
-                                android:layout_width="match_parent"
-                                android:layout_height="45dp"
-                                android:layout_weight="1.0"/>
-
-                        </LinearLayout>
-
-                        <!--右边-->
-                        <LinearLayout
-                            style="@style/ll_match_width_horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:layout_weight="1.0">
 
                             <Button
                                 android:id="@+id/fsl_btn_sreen"
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
-                                android:background="@drawable/se_radius_blue"
+                                android:background="@drawable/se_radius_gray"
                                 android:text="筛选"
                                 android:textSize="14dp"
                                 android:textColor="@color/colorWhite"/>
@@ -216,7 +163,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="30dp"
                                 android:layout_marginLeft="5dp"
-                                android:background="@drawable/se_radius_blue"
+                                android:background="@drawable/se_radius_gray"
                                 android:text="清除筛选"
                                 android:textSize="14dp"
                                 android:textColor="@color/colorWhite"/>
@@ -229,50 +176,16 @@
                         style="@style/line_x"/>
 
                 </LinearLayout>
+                <!--筛选选项-->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fsl_rv_servant"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     android:visibility="visible"/>
 
             </LinearLayout>
-
-            <!--tips-->
-            <RelativeLayout
-                android:id="@+id/fsl_rl_character"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/fsl_iv_character"
-                    android:layout_width="331dp"
-                    android:layout_height="404dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/altria_alter_a"/>
-
-                <View
-                    android:id="@+id/fsl_v_character"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_below="@+id/fsl_iv_character"
-                    android:background="@mipmap/chat_bg"/>
-
-                <TextView
-                    android:id="@+id/fsl_tv_character"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_below="@+id/fsl_iv_character"
-                    android:padding="10dp"
-                    android:gravity="start"
-                    android:text="@string/database_upgrade_done"
-                    android:textColor="@color/colorWhite"/>
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -292,7 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorDeepBlue"/>
+            android:background="@color/colorGrayHard"/>
 
         <!--app:insetForeground="@android:color/transparent"
         这句话非常重要，没有这句话就会显示一个状态栏等高的色块遮挡，处理5.0及以上系统-->

@@ -1,30 +1,46 @@
 package org.phantancy.fgocalc.util;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.dialog.LoadingDialog;
+import org.phantancy.fgocalc.dialog.TipDialog;
+import org.phantancy.fgocalc.item.OptionItem;
+import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.TipItem;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.google.gson.Gson;
 import com.spreada.utils.chinese.ZHConverter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,6 +134,45 @@ public class ToolCase {
         }
     }
 
+    //设置沉浸式状态栏
+    public static void setStatusBar(LinearLayout llStatusBar,int statusColor, Activity acty,boolean ifStatus,boolean ifNavigation){
+        llStatusBar = (LinearLayout)acty.findViewById(R.id.status_bar);
+        if (Build.VERSION.SDK_INT == 19) {
+            if (ifStatus) {
+                acty.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                int height = BaseUtils.getStatusBarHeight(acty);
+                if (0 != statusColor) {
+                    llStatusBar.setBackgroundColor(statusColor);
+                }
+                llStatusBar.setPadding(0, height, 0, 0);
+            }
+            if (ifNavigation) {
+                acty.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            }
+        }
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
+            Window window = acty.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            if (ifStatus) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                if (0 != statusColor) {
+                    window.setStatusBarColor(statusColor);
+                }else{
+                    window.setStatusBarColor(Color.TRANSPARENT);//calculateStatusColor(Color.WHITE, (int) alphaValue)
+                }
+//                int height = BaseUtils.getStatusBarHeight(acty);
+//                llStatusBar.setPadding(0, height, 0, 0);
+            }
+            if (ifNavigation) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            window.setNavigationBarColor(Color.TRANSPARENT);
+            }
+        }
+    }
+
     //繁体转简体
     public static String tc2sc(@NonNull String str) {
         ZHConverter converter = ZHConverter.getInstance(ZHConverter.SIMPLIFIED);
@@ -146,8 +201,8 @@ public class ToolCase {
 
     //spinner绑定数据源,deep样式
     public static void spInitDeep(Context context,String[] str,Spinner sp){
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_deep,str);
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_deep);
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_light,str);
+        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_light);
         sp.setAdapter(spAdapter);
     }
 
@@ -156,8 +211,8 @@ public class ToolCase {
         for(int i = 0;i < inte.length;i ++){
             str[i] = String.valueOf(inte[i]);
         }
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_deep,str);
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_deep);
+        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_light,str);
+        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_light);
         sp.setAdapter(spAdapter);
     }
 
@@ -187,6 +242,21 @@ public class ToolCase {
         ToastUtils.displayShortToast(ctx, hint);
     }
 
+    public static void copy2ClipboardCharacter(Context ctx,String str,String hint){
+        //获取剪贴板管理器：
+        ClipboardManager cm = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+        // 创建普通字符型ClipData
+        ClipData mClipData = ClipData.newPlainText("fgocalc_txt", str);
+        // 将ClipData内容放到系统剪贴板里。
+        cm.setPrimaryClip(mClipData);
+        TipItem tItem = new TipItem();
+        tItem.setHasTip(true);
+        tItem.setHasOption(true);
+        tItem.setImgId(R.drawable.altria_a);
+        tItem.setTip(hint);
+        ToolCase.showTip(ctx,tItem);
+    }
+
     //获取指令卡列表
     public static List<Map<String, Object>> getCommandCards() {
 
@@ -195,17 +265,17 @@ public class ToolCase {
         //每个Map结构为一条数据，key与Adapter中定义的String数组中定义的一一对应。
 
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("img", R.mipmap.buster);
+        map.put("img", R.drawable.buster);
         map.put("name", "Buster");
         list.add(map);
 
         HashMap<String, Object> map2 = new HashMap<String, Object>();
-        map2.put("img", R.mipmap.arts);
+        map2.put("img", R.drawable.arts);
         map2.put("name", "Arts");
         list.add(map2);
 
         HashMap<String, Object> map3 = new HashMap<String, Object>();
-        map3.put("img", R.mipmap.quick);
+        map3.put("img", R.drawable.quick);
         map3.put("name", "Quick");
         list.add(map3);
 
@@ -220,30 +290,30 @@ public class ToolCase {
         //每个Map结构为一条数据，key与Adapter中定义的String数组中定义的一一对应。
 
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("img", R.mipmap.buster);
+        map.put("img", R.drawable.buster);
         map.put("name", "Buster");
         list.add(map);
 
         HashMap<String, Object> map2 = new HashMap<String, Object>();
-        map2.put("img", R.mipmap.arts);
+        map2.put("img", R.drawable.arts);
         map2.put("name", "Arts");
         list.add(map2);
 
         HashMap<String, Object> map3 = new HashMap<String, Object>();
-        map3.put("img", R.mipmap.quick);
+        map3.put("img", R.drawable.quick);
         map3.put("name", "Quick");
         list.add(map3);
 
         int color = 0;
         switch (npColor) {
             case "b":
-                color = R.mipmap.np_b;
+                color = R.drawable.np_b;
                 break;
             case "a":
-                color = R.mipmap.np_a;
+                color = R.drawable.np_a;
                 break;
             case "q":
-                color = R.mipmap.np_q;
+                color = R.drawable.np_q;
                 break;
         }
 
@@ -256,62 +326,30 @@ public class ToolCase {
     }
 
     //app版本大小比较
-    public static boolean compareAppVersion(String preVersion,String curVersion){
-        Log.d(TAG,"preVersion is " + preVersion + " curVersion is " + curVersion);
+    public static boolean compareAppVersion(String netVersion,String localVersion){
+        System.out.println("preVersion is " + netVersion + " curVersion is " + localVersion);
         //判断版本号大小
-        String curVer[] = curVersion.split("\\.");
-        String preVer[] = preVersion.split("\\.");
-        //版本号分4段比较，第4段表示状态
-        //v1.5.3.release vs 1.5.4.base
+        String localVer[] = localVersion.split("\\.");
+        String netVer[] = netVersion.split("\\.");
         //1号位
-        int curVerHead = 0;
-        int preVerHead = 0;
-        if (curVer[0].contains("v")) {
-            curVerHead = Integer.parseInt(curVer[0].charAt(1) + "");
-        }else{
-            curVerHead = Integer.parseInt(curVer[0]);
-        }
-        if (preVer[0].contains("v")) {
-            preVerHead = Integer.parseInt(preVer[0].charAt(1) + "");
-        }else{
-            preVerHead = Integer.parseInt(preVer[0]);
-        }
+        int loc1 = Integer.valueOf(localVer[0]);
+        int loc2 = Integer.valueOf(localVer[1]);
+        int loc3 = Integer.valueOf(localVer[2]);
+        int net1 = Integer.valueOf(netVer[0]);
+        int net2 = Integer.valueOf(netVer[1]);
+        int net3 = Integer.valueOf(netVer[2]);
         //比较1号
-        if (curVerHead < preVerHead) {
-            Log.d(TAG,"preVersion pos1 is larger!");
+        if (net1 < loc1) {
             return false;
             //比较2号位
-        }else if (Integer.parseInt(curVer[1]) < Integer.parseInt(preVer[1])) {
-            Log.d(TAG,"preVersion pos2 is larger!");
+        }else if (net2 < loc2) {
             return false;
             //比较3号
-        }else if (Integer.valueOf(curVer[2]) < Integer.valueOf(preVer[2])) {
-            Log.d(TAG,"preVersion pos3 is larger!");
+        }else if (net3 < loc3) {
             return false;
             //比较4号位（英文版本号）
-        }else if (curVer.length == 4) {
-            //前3个数字编号无法看出谁更大时，比较英文版本号
-            /**
-             *base 基础版
-             * alpha 内测版
-             * beta 公测版
-             * explorer 探索版，不一定有
-             * rc 基本成型版
-             * release 正式版
-             */
-            if(preVer.length < 4){
-                Log.d(TAG,"preVersion has no pos4");
-                return false;
-            }else if (ToolCase.get4thVersion(curVer[3]) < ToolCase.get4thVersion(preVer[3])) {
-                Log.d(TAG,"preVersion pos4 is larger!");
-                return false;
-            }else{
-                Log.d(TAG,"Alright,update!");
-                return true;
-            }
         }else{
-            Log.d(TAG,"need not update!");
-            return false;
+            return true;
         }
     }
 
@@ -381,23 +419,6 @@ public class ToolCase {
         return new byte[0];
     }
 
-    DisplayImageOptions options = new DisplayImageOptions.Builder()
-            .showImageOnLoading(R.mipmap.loading)// 设置图片在下载期间显示的图片
-                .showImageForEmptyUri(R.mipmap.loading)// 设置图片Uri为空或是错误的时候显示的图片
-                .showImageOnFail(R.mipmap.loading) // 设置图片加载/解码过程中错误时候显示的图片
-                .cacheInMemory(true)// 设置下载的图片是否缓存在内存中
-                .cacheOnDisc(true)// 设置下载的图片是否缓存在SD卡中
-                .considerExifParams(true) // 是否考虑JPEG图像EXIF参数（旋转，翻转）
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)// 设置图片以如何的编码方式显示
-                .bitmapConfig(Bitmap.Config.RGB_565)// 设置图片的解码类型//
-    // .delayBeforeLoading(int delayInMillis)//int
-    // delayInMillis为你设置的下载前的延迟时间
-    // 设置图片加入缓存前，对bitmap进行设置
-    // .preProcessor(BitmapProcessor preProcessor)
-                .resetViewBeforeLoading(true)// 设置图片在下载前是否重置，复位
-                .displayer(new RoundedBitmapDisplayer(20))// 是否设置为圆角，弧度为多少
-            .displayer(new FadeInBitmapDisplayer(100))// 是否图片加载好后渐入的动画时间
-            .build();// 构建完成
 
     public static String bitmap2Base64(Bitmap bitmap) {
 
@@ -433,4 +454,54 @@ public class ToolCase {
         byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
+
+    //生成servant json数组，为web版创造数据源
+    public static void createJson(List<ServantItem> servantList){
+        JSONArray ja = new JSONArray();
+        Gson gson = new Gson();
+        for (int i = 0;i < servantList.size();i ++){
+            String result = gson.toJson(servantList.get(i));
+            try {
+                JSONObject jo = new JSONObject(result);
+                ja.put(i,jo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        //写入文件
+        try {
+            String sdCardDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/fgocalc_json.txt";
+            File saveFile = new File(sdCardDir);
+            FileOutputStream outStream = new FileOutputStream(saveFile);
+            outStream.write(ja.toString().getBytes());
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //跳转到浏览器打开web
+    public static int openBrowser(Context ctx,String url){
+        if (!TextUtils.isEmpty(url) && ctx != null){
+            if (BaseUtils.isNetworkAvailable(ctx)) {
+                Uri uri = Uri.parse(url);
+                Intent i = new Intent();
+                i.setAction("android.intent.action.VIEW");
+                i.setData(uri);
+                ctx.startActivity(i);
+                return 0;//ok
+            }else{
+                return 1;//net error
+            }
+        }
+        return 2;//unknown error
+    }
+
+    public static void showTip(Context ctx,TipItem item){
+        if (ctx != null && item != null) {
+            TipDialog d = new TipDialog(ctx,item);
+            d.show();
+        }
+    }
+
 }

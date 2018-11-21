@@ -9,7 +9,7 @@
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="20dp"
-        android:background="@mipmap/triangle"
+        android:background="@drawable/triangle"
         android:visibility="gone"/>
 
     <TextView
@@ -20,7 +20,7 @@
         android:paddingLeft="70dp"
         android:layout_below="@+id/dt_iv_triangle"
         android:gravity="center_vertical"
-        android:background="@mipmap/chat_bg"
+        android:background="@drawable/chat_bg"
         android:text="Master ! 何事？"
         android:textColor="@color/colorWhite"/>
 
@@ -30,6 +30,6 @@
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:src="@mipmap/image1"/>
+        android:src="@drawable/loading"/>
 
 </RelativeLayout>

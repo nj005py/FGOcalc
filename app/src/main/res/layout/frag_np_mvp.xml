@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorDeepBlue">
+        android:background="@color/colorGrayHard">
 
         <!--buff设置开关-->
         <LinearLayout
@@ -21,44 +21,29 @@
 
             <Button
                 android:id="@+id/fnm_btn_buff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="Buff设置︽"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="Buff设置"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
             <Button
                 android:id="@+id/fnm_btn_clean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="清理结果"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="清理结果"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
 
             <Button
                 android:id="@+id/fnm_btn_calc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="计算"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="计算"/>
 
         </LinearLayout>
 
@@ -67,28 +52,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorL">
+            android:background="@color/colorGrayHard">
 
             <Spinner
                 android:id="@+id/fnm_sp_card1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fnm_sp_card2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fnm_sp_card3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                style="@style/sp_command_card"/>
 
         </LinearLayout>
 
@@ -268,41 +244,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!--人物-->
-    <RelativeLayout
-        android:id="@+id/fnm_rl_character"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/fnm_iv_character"
-            android:layout_width="300dp"
-            android:layout_height="410dp"
-            android:layout_centerHorizontal="true"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/doctor"/>
-
-        <View
-            android:id="@+id/fnm_v_character"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/fnm_iv_character"
-            android:background="@mipmap/chat_bg"/>
-
-        <TextView
-            android:id="@+id/fnm_tv_character"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/fnm_iv_character"
-            android:padding="10dp"
-            android:gravity="start"
-            android:text="真没想到能在这里遇见你！\n好好探索这个计算器吧！"
-            android:textColor="@color/colorWhite"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

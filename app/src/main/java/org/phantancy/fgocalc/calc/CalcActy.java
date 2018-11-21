@@ -82,6 +82,13 @@ public class CalcActy extends BaseActy {
         super.onDestroy();
     }
 
+    @Override
+    public void finish(){
+        super.finish();
+//        overridePendingTransition(0, R.anim.push_bottom_out);
+        overridePendingTransition(0, R.anim.zoom_out);
+    }
+
     public void initStatusBar() {
         int height = BaseUtils.getStatusBarHeight(ctx);
         statusBar.setPadding(0, height, 0, 0);
@@ -107,7 +114,7 @@ public class CalcActy extends BaseActy {
         acTlTabtop.setTabTextColors(ContextCompat.getColor(this, R.color.colorGray),
                 ContextCompat.getColor(this, R.color.colorWhite));
         //游标的颜色
-        acTlTabtop.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorGolden));
+        acTlTabtop.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorSilver));
         ViewCompat.setElevation(acTlTabtop, 10);
         acTlTabtop.setupWithViewPager(acVpPager);
     }

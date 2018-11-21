@@ -38,13 +38,13 @@ public class CardsItemView extends RelativeLayout implements ItemView{
             String type = cItem.getType();
             switch (type) {
                 case "b":
-                    ivCards.setImageResource(R.mipmap.buster);
+                    ivCards.setImageResource(R.drawable.buster);
                     break;
                 case "a":
-                    ivCards.setImageResource(R.mipmap.arts);
+                    ivCards.setImageResource(R.drawable.arts);
                     break;
                 case "q":
-                    ivCards.setImageResource(R.mipmap.quick);
+                    ivCards.setImageResource(R.drawable.quick);
                     break;
             }
         }

@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.calc.np;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.Html;
 import android.text.TextUtils;
 
 import org.phantancy.fgocalc.R;
@@ -10,6 +11,7 @@ import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.CommandCard;
 import org.phantancy.fgocalc.item.ConditionNp;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.util.BaseUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -93,7 +95,7 @@ public class NpPresenter implements NpContract.Presenter {
         calcNp(c2,conNp);
         calcNp(c3,conNp);
         calcNp(c4,conNp);
-        mView.setResult(result);
+        mView.setResult(Html.fromHtml(result));
     }
 
     @Override
@@ -133,10 +135,11 @@ public class NpPresenter implements NpContract.Presenter {
         }
         if (result.length() < 1) {
             ServantItem sItem = conNp.getServantItem();
-            result = new StringBuilder().append(sItem.getName()).append(" " + sItem.getClass_type() + "\n")//从者名称+职阶
-                    .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人\n")//条件
-                    .append(getExtraBuffs(conNp) + "\n")//buff
-                    .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+            result = new StringBuilder().append(sItem.getName() + " " + sItem.getClass_type() + "<br>")
+                    .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人<br>")//条件
+                    .append(getExtraBuffs(conNp) + "<br>")//buff
+                    .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                    .append("卡在").append(c.cardPosition).append("号位")
                     .append(c.ifCritical == false ? "" : " 暴击")
                     .append(c.ifOverkill ==false ? "" : " overkill")
                     .append("的np获取量为").append(npInt).append("%").toString();
@@ -145,27 +148,30 @@ public class NpPresenter implements NpContract.Presenter {
         } else {
             if (c.cardPosition == 1) {
                 result = new StringBuilder().append(result)
-                        .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人\n")//条件
-                        .append(getExtraBuffs(conNp) + "\n")//buff
-                        .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+                        .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人<br>")//条件
+                        .append(getExtraBuffs(conNp) + "<br>")//buff
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                        .append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
                         .append("的np获取量为").append(npInt).append("%").toString();
                 overAllNp += npInt;
             }else{
-                result = new StringBuilder().append(result).append("\n")
-                        .append(c.cardType).append("卡在").append(c.cardPosition).append("号位")
+                result = new StringBuilder().append(result + "<br>")
+                        .append(BaseUtils.getCardTypeWithColour(c.cardType))
+                        .append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
                         .append("的np获取量为").append(npInt).append("%").toString();
                 overAllNp += npInt;
             }
             if (c.cardPosition == 4) {
-                result = new StringBuilder().append(result).append("\n合计----->").append(overAllNp).append("%").append(ctx.getString(R.string.fgocalc_divider)).toString();
+                result = new StringBuilder().append(result).append("<br>合计----->")
+                        .append(overAllNp)
+                        .append("%")
+                        .append("<p>" + ctx.getString(R.string.fgocalc_divider) + "<p>").toString();
                 overAllNp = 0;
             }
-//            result = result + "\n" + c.cType + "卡在" + c.cPosition + " 号位的np获取量为" + npInt;
-//            overAllNp += npInt;
         }
     }
 

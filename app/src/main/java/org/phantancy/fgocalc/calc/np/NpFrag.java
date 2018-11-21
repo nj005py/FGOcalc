@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +40,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 /**
  * Created by HATTER on 2017/11/7.
  */
@@ -86,14 +85,6 @@ public class NpFrag extends BaseFrag implements
     LinearLayout fnmLlInput;
     @BindView(R.id.fnm_tv_result)
     TextView fnmTvResult;
-    @BindView(R.id.fnm_iv_character)
-    ImageView fnmIvCharacter;
-    @BindView(R.id.fnm_v_character)
-    View fnmVCharacter;
-    @BindView(R.id.fnm_tv_character)
-    TextView fnmTvCharacter;
-    @BindView(R.id.fnm_rl_character)
-    RelativeLayout fnmRlCharacter;
     Unbinder unbinder;
     @BindView(R.id.fnm_sv_result)
     ScrollView fnmSvResult;
@@ -128,7 +119,7 @@ public class NpFrag extends BaseFrag implements
 
     @Override
     public void setPresenter(NpContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Nullable
@@ -157,11 +148,6 @@ public class NpFrag extends BaseFrag implements
         fnmTvResult.setMovementMethod(new ScrollingMovementMethod());
         setListener();
         boolean firstTimeUse = (Boolean) SharedPreferencesUtils.getParam(ctx, "firstTimeUse", true);
-        if (firstTimeUse) {
-            fnmRlCharacter.setVisibility(View.VISIBLE);
-            fnmTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
-            SharedPreferencesUtils.setParam(ctx, "firstTimeUse", false);
-        }
     }
 
     @Override
@@ -184,7 +170,6 @@ public class NpFrag extends BaseFrag implements
         fnmBtnBuff.setOnClickListener(this);
         fnmBtnCalc.setOnClickListener(this);
         fnmBtnClean.setOnClickListener(this);
-        fnmRlCharacter.setOnClickListener(this);
 
         fnmSpCard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -352,25 +337,29 @@ public class NpFrag extends BaseFrag implements
                 mPresenter.clean();
                 fnmTvResult.setText(getResources().getString(R.string.about_calc_result));
                 break;
-            case R.id.fnm_rl_character:
-                fnmRlCharacter.setVisibility(View.GONE);
-                break;
         }
     }
 
     @Override
-    public void setResult(String result) {
-        ToolCase.setViewValue(fnmTvResult, result);
-//        int offset = fnmTvResult.getLineCount() * fnmTvResult.getLineHeight();
-//        if (offset > fnmTvResult.getHeight()) {
-//            fnmTvResult.scrollTo(0, offset - fnmTvResult.getHeight());
-//        }
-        fnmSvResult.post(new Runnable() {
-            @Override
-            public void run() {
-                fnmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });
+    public void setResult(Object result) {
+        if (result instanceof String) {
+            ToolCase.setViewValue(fnmTvResult, (String)result);
+            fnmSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    fnmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }else if (result instanceof Spanned) {
+            fnmTvResult.setText((Spanned)result,TextView.BufferType.SPANNABLE);
+            fnmSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    fnmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }
+
     }
 
     private boolean validateData() {

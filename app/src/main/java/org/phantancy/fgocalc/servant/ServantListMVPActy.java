@@ -61,7 +61,7 @@ public class ServantListMVPActy extends BaseActy{
 
     private void init(){
         MobclickAgent.setScenarioType(getApplicationContext(), MobclickAgent.EScenarioType. E_UM_NORMAL);
-        MobclickAgent.setSessionContinueMillis(1000);
+        MobclickAgent.setSessionContinueMillis(10000);
         initFragment();
     }
 

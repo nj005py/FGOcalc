@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite">
 
     <LinearLayout
@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorDeepBlue"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:background="@color/colorGrayHard"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,44 +21,29 @@
 
             <Button
                 android:id="@+id/ftm_btn_buff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="Buff设置︽"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="Buff设置"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
             <Button
                 android:id="@+id/ftm_btn_clean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="清理结果"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="清理结果"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
 
             <Button
                 android:id="@+id/ftm_btn_calc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="计算"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="计算"/>
 
         </LinearLayout>
 
@@ -67,7 +51,7 @@
         <LinearLayout
             style="@style/ll_match_width_horizontal"
             android:gravity="start|center_vertical"
-            android:background="@color/colorL">
+            android:background="@color/colorGrayHard">
 
             <TextView
                 style="@style/tv_common"
@@ -78,9 +62,9 @@
             <!--宝具卡色-->
             <ImageView
                 android:id="@+id/ftm_iv_color"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/buster"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/buster"/>
 
             <CheckBox
                 android:id="@+id/ftm_cb_upgraded"
@@ -89,128 +73,6 @@
                 android:text="切换旧倍率"
                 android:textColor="@color/colorWhite"
                 android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <!--atk-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                style="@style/tv_common"
-                android:layout_weight="1.3"
-                android:text="ATK"
-                android:textColor="@color/colorWhite"/>
-
-            <EditText
-                android:id="@+id/ftm_et_atk"
-                style="@style/et_common"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:background="@color/colorDeepBlue"
-                android:inputType="number"
-                android:hint="ATK"
-                android:textColor="@color/colorWhite"/>
-
-            <TextView
-                style="@style/tv_common"
-                android:layout_weight="1.2"
-                android:text="礼装ATK"
-                android:textColor="@color/colorWhite" />
-
-            <Spinner
-                android:id="@+id/ftm_sp_essence"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown" />
-
-        </LinearLayout>
-
-        <!--hp-->
-        <LinearLayout
-            style="@style/ll_match_width_vertical"
-            android:id="@+id/ftm_ll_hp"
-            android:visibility="gone">
-
-            <!--总hp-->
-            <LinearLayout
-                style="@style/ll_match_width_horizontal"
-                android:padding="2dp">
-
-                <TextView
-                    style="@style/tv_common"
-                    android:layout_weight="5.0"
-                    android:text="总HP"
-                    android:textColor="@color/colorWhite"/>
-
-                <EditText
-                    android:id="@+id/ftm_et_hp_total"
-                    android:layout_weight="1.0"
-                    style="@style/et_common"
-                    android:background="@color/colorDeepBlue"
-                    android:inputType="number"
-                    android:textColor="@color/colorWhite"
-                    android:hint="总HP"/>
-
-            </LinearLayout>
-
-            <!--剩余hp-->
-            <LinearLayout
-                style="@style/ll_match_width_horizontal"
-                android:padding="2dp">
-
-                <TextView
-                    style="@style/tv_common"
-                    android:layout_weight="5.0"
-                    android:text="剩余HP"
-                    android:textColor="@color/colorWhite"/>
-
-                <EditText
-                    android:id="@+id/ftm_et_hp_left"
-                    android:layout_weight="1.0"
-                    style="@style/et_common"
-                    android:background="@color/colorDeepBlue"
-                    android:inputType="number"
-                    android:textColor="@color/colorWhite"
-                    android:hint="剩余HP"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!--宝具lv-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
-            <TextView
-                style="@style/tv_common"
-                android:layout_weight="4.0"
-                android:text="宝具lv"
-                android:textColor="@color/colorWhite"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:background="@color/colorDeepBlue">
-
-                <Spinner
-                    android:id="@+id/ftm_sp_lv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -364,6 +226,149 @@
 
         </LinearLayout>
 
+        <!--宝具lv-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp">
+
+            <TextView
+                style="@style/tv_common"
+                android:layout_weight="4.0"
+                android:text="宝具lv"
+                android:textColor="@color/colorWhite"/>
+
+            <LinearLayout
+                style="@style/ll_match_width_horizontal"
+                android:layout_weight="1.0"
+                android:gravity="center_vertical">
+
+                <Spinner
+                    android:id="@+id/ftm_sp_lv"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/colorGrayHard"/>
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="1.2"
+                    android:text="芙芙ATK"
+                    android:textColor="@color/colorWhite"/>
+
+                <Spinner
+                    android:id="@+id/ftm_sp_fufu"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/colorGrayHard"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--atk-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/tv_common"
+                android:layout_weight="4.0"
+                android:text="ATK"
+                android:textColor="@color/colorWhite"/>
+
+            <LinearLayout
+                style="@style/ll_match_width_horizontal"
+                android:layout_weight="1.0"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/ftm_et_atk"
+                    style="@style/et_common"
+                    android:layout_height="35dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/colorWhiteGray"
+                    android:inputType="number"
+                    android:hint="ATK"
+                    android:textColor="@color/colorBlack"/>
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="1.2"
+                    android:text="礼装ATK"
+                    android:textColor="@color/colorWhite" />
+
+                <Spinner
+                    android:id="@+id/ftm_sp_essence"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1.0"
+                    android:spinnerMode="dropdown"
+                    android:background="@color/colorGrayHard"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--hp-->
+        <LinearLayout
+            style="@style/ll_match_width_vertical"
+            android:id="@+id/ftm_ll_hp"
+            android:visibility="visible"
+            android:gravity="center_vertical">
+
+            <!--总hp-->
+            <LinearLayout
+                style="@style/ll_match_width_horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/tv_common"
+                    android:layout_weight="4.0"
+                    android:text="总HP"
+                    android:textColor="@color/colorWhite"/>
+
+                <!--剩余hp-->
+                <LinearLayout
+                    style="@style/ll_match_width_horizontal"
+                    android:layout_weight="1.0"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        style="@style/et_common"
+                        android:id="@+id/ftm_et_hp_total"
+                        android:layout_height="35dp"
+                        android:layout_weight="1.0"
+                        android:background="@color/colorWhiteGray"
+                        android:inputType="number"
+                        android:textColor="@color/colorBlack"
+                        android:hint="总HP"/>
+
+                    <TextView
+                        style="@style/tv_common"
+                        android:layout_weight="1.2"
+                        android:text="剩余HP"
+                        android:textColor="@color/colorWhite"/>
+
+                    <EditText
+                        style="@style/et_common"
+                        android:id="@+id/ftm_et_hp_left"
+                        android:layout_height="35dp"
+                        android:layout_weight="1.0"
+                        android:background="@color/colorWhiteGray"
+                        android:inputType="number"
+                        android:textColor="@color/colorBlack"
+                        android:hint="剩余HP"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <View
             style="@style/line_x"/>
 
@@ -371,10 +376,12 @@
 
     <ScrollView
         android:id="@+id/ftm_sv_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ftm_ll_input">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ftm_ll_input"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             style="@style/ll_match_width_horizontal">
@@ -388,7 +395,6 @@
                 android:fadeScrollbars="false"
                 android:text="@string/about_calc_result"
                 android:textColor="@color/colorBlack"/>
-
 
         </LinearLayout>
 
@@ -408,14 +414,14 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/lily"/>
+            android:src="@drawable/lily"/>
 
         <View
             android:id="@+id/ftm_v_character"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/ftm_iv_character"
-            android:background="@mipmap/chat_bg"/>
+            android:background="@drawable/chat_bg"/>
 
         <TextView
             android:id="@+id/ftm_tv_character"
@@ -429,4 +435,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

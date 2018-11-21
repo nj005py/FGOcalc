@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorDeepBlue"
+        android:background="@color/colorGrayHard"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
@@ -24,43 +24,28 @@
 
             <Button
                 android:id="@+id/fam_btn_buff"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="Buff设置︽"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="Buff设置"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
             <Button
                 android:id="@+id/fam_btn_clean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="清理结果"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="清理结果"/>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorGolden"/>
+                android:background="@color/colorSilver"/>
 
             <Button
                 android:id="@+id/fam_btn_calc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:background="@drawable/se_lightblue2_deepblue"
-                android:text="计算"
-                android:textSize="14dp"
-                android:textColor="@color/colorWhite"/>
+                style="@style/btn_calc"
+                android:text="计算"/>
 
         </LinearLayout>
 
@@ -68,7 +53,7 @@
         <LinearLayout
             style="@style/ll_match_width_horizontal"
             android:gravity="start|center_vertical"
-            android:background="@color/colorL">
+            android:background="@color/colorGrayHard">
 
             <TextView
                 style="@style/tv_common"
@@ -79,9 +64,9 @@
             <!--宝具卡色-->
             <ImageView
                 android:id="@+id/fam_iv_color"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@mipmap/buster"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/buster"/>
 
             <CheckBox
                 android:id="@+id/fam_cb_upgraded"
@@ -98,28 +83,195 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorL">
+            android:background="@color/colorGrayHard">
 
             <Spinner
                 android:id="@+id/fam_sp_card1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown" />
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fam_sp_card2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:spinnerMode="dropdown" />
+                style="@style/sp_command_card"/>
 
             <Spinner
                 android:id="@+id/fam_sp_card3"
+                style="@style/sp_command_card"/>
+
+        </LinearLayout>
+
+        <!--critical-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/fam_cb_cr1"
+                style="@style/cb_np"
+                android:layout_weight="1.0"
+                android:text="暴击"/>
+
+            <CheckBox
+                android:id="@+id/fam_cb_cr2"
+                style="@style/cb_np"
+                android:layout_weight="1.0"
+                android:text="暴击"/>
+
+            <CheckBox
+                android:id="@+id/fam_cb_cr3"
+                style="@style/cb_np"
+                android:layout_weight="1.0"
+                android:text="暴击"/>
+
+        </LinearLayout>
+
+        <!--阶职相性-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.0"
+                android:gravity="center"
+                android:text="职阶相性"
+                android:textColor="@color/colorWhite"/>
+
+            <RadioGroup
+                android:id="@+id/fam_rg_weak"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:spinnerMode="dropdown"/>
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fam_rb_normal"
+                    style="@style/rb_atk"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="白值"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_weak"
+                    style="@style/rb_atk"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="克制"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_weak_b"
+                    style="@style/rb_atk"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="克制狂"
+                    android:visibility="gone"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_weakened"
+                    style="@style/rb_atk"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1.0"
+                    android:text="被克"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <!--阵营相性-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.0"
+                android:gravity="center"
+                android:text="阵营相性"
+                android:textColor="@color/colorWhite"/>
+
+            <RadioGroup
+                android:id="@+id/fam_rg_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fam_rb_tnormal"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="无克制"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_tweak"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="克制"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_tweakened"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="被克"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <!--乱数补正-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4.0"
+                android:gravity="center"
+                android:text="乱数补正"
+                android:textColor="@color/colorWhite"/>
+
+            <RadioGroup
+                android:id="@+id/fam_rg_random"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/fam_rb_random_min"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="最小" />
+
+                <RadioButton
+                    android:id="@+id/fam_rb_random_max"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="最大"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_random_average"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="平均"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/fam_rb_random"
+                    style="@style/rb_atk"
+                    android:layout_weight="1.0"
+                    android:text="随机"
+                    android:visibility="gone"/>
+
+            </RadioGroup>
 
         </LinearLayout>
 
@@ -141,7 +293,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/colorDeepBlue"
+                android:background="@color/colorGrayHard"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
@@ -151,13 +303,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="2dp">
+                    android:gravity="center_vertical">
 
                     <TextView
                         style="@style/tv_common"
                         android:layout_weight="4.0"
-                        android:paddingLeft="10dp"
-                        android:gravity="start"
                         android:text="宝具lv"
                         android:textColor="@color/colorWhite"/>
 
@@ -165,14 +315,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:background="@color/colorDeepBlue">
+                        android:gravity="center_vertical">
 
                         <Spinner
                             android:id="@+id/fam_sp_lv"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="35dp"
+                            android:layout_weight="1.0"
+                            android:background="@color/colorGrayHard"/>
+
+                        <TextView
+                            style="@style/tv_common"
+                            android:layout_weight="1.2"
+                            android:text="芙芙ATK"
+                            android:textColor="@color/colorWhite" />
+
+                        <Spinner
+                            android:id="@+id/fam_sp_fufu"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_weight="1.0"
+                            android:layout_marginRight="2dp"
+                            android:background="@color/colorGrayHard"
+                            android:spinnerMode="dropdown" />
 
                     </LinearLayout>
 
@@ -182,39 +347,48 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/textView"
                         style="@style/tv_common"
-                        android:layout_weight="1.3"
+                        android:layout_weight="4.0"
                         android:text="ATK"
                         android:textColor="@color/colorWhite" />
 
-                    <EditText
-                        style="@style/et_common"
-                        android:id="@+id/fam_et_atk"
-                        android:layout_weight="1.0"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:background="@color/colorDeepBlue"
-                        android:inputType="number"
-                        android:hint="ATK"
-                        android:textColor="@color/colorWhite"/>
-
-                    <TextView
-                        style="@style/tv_common"
-                        android:layout_weight="1.2"
-                        android:text="礼装ATK"
-                        android:textColor="@color/colorWhite" />
-
-                    <Spinner
-                        android:id="@+id/fam_sp_essence"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.0"
-                        android:spinnerMode="dropdown" />
+                        android:gravity="center_vertical">
+
+                        <EditText
+                            style="@style/et_common"
+                            android:id="@+id/fam_et_atk"
+                            android:layout_weight="1.0"
+                            android:layout_height="35dp"
+                            android:background="@color/colorWhiteGray"
+                            android:inputType="number"
+                            android:hint="ATK"
+                            android:textColor="@color/colorBlack"/>
+
+                        <TextView
+                            style="@style/tv_common"
+                            android:layout_weight="1.2"
+                            android:text="礼装ATK"
+                            android:textColor="@color/colorWhite" />
+
+                        <Spinner
+                            android:id="@+id/fam_sp_essence"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_weight="1.0"
+                            android:layout_marginRight="2dp"
+                            android:background="@color/colorGrayHard"
+                            android:spinnerMode="dropdown" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -222,227 +396,55 @@
                 <LinearLayout
                     style="@style/ll_match_width_vertical"
                     android:id="@+id/fam_ll_hp"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:gravity="center_vertical">
 
-                    <!--总hp-->
+                    <!--hp-->
                     <LinearLayout
-                        style="@style/ll_match_width_horizontal"
-                        android:padding="2dp">
+                        style="@style/ll_match_width_horizontal">
 
                         <TextView
                             style="@style/tv_common"
-                            android:layout_weight="5.0"
+                            android:layout_weight="4.0"
                             android:text="总HP"
                             android:textColor="@color/colorWhite"/>
 
-                        <EditText
-                            android:id="@+id/fam_et_hp_total"
+                        <LinearLayout
+                            style="@style/ll_match_width_horizontal"
                             android:layout_weight="1.0"
-                            style="@style/et_common"
-                            android:background="@color/colorDeepBlue"
-                            android:inputType="number"
-                            android:textColor="@color/colorWhite"
-                            android:hint="总HP"/>
+                            android:gravity="center_vertical">
+
+                            <EditText
+                                style="@style/et_common"
+                                android:id="@+id/fam_et_hp_total"
+                                android:layout_weight="1.0"
+                                android:layout_height="35dp"
+                                android:background="@color/colorWhiteGray"
+                                android:inputType="number"
+                                android:textColor="@color/colorBlack"
+                                android:hint="总HP"/>
+
+                            <TextView
+                                style="@style/tv_common"
+                                android:layout_weight="1.2"
+                                android:text="剩余HP"
+                                android:textColor="@color/colorWhite"/>
+
+                            <EditText
+                                style="@style/et_common"
+                                android:id="@+id/fam_et_hp_left"
+                                android:layout_weight="1.0"
+                                android:layout_height="35dp"
+                                android:layout_marginRight="2dp"
+                                android:background="@color/colorWhiteGray"
+                                android:inputType="number"
+                                android:textColor="@color/colorBlack"
+                                android:hint="剩余HP"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <!--剩余hp-->
-                    <LinearLayout
-                        style="@style/ll_match_width_horizontal"
-                        android:padding="2dp">
-
-                        <TextView
-                            style="@style/tv_common"
-                            android:layout_weight="5.0"
-                            android:text="剩余HP"
-                            android:textColor="@color/colorWhite"/>
-
-                        <EditText
-                            android:id="@+id/fam_et_hp_left"
-                            android:layout_weight="1.0"
-                            style="@style/et_common"
-                            android:background="@color/colorDeepBlue"
-                            android:inputType="number"
-                            android:textColor="@color/colorWhite"
-                            android:hint="剩余HP"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!--critical-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <CheckBox
-                        android:id="@+id/fam_cb_cr1"
-                        style="@style/cb_np"
-                        android:layout_weight="1.0"
-                        android:text="暴击"/>
-
-                    <CheckBox
-                        android:id="@+id/fam_cb_cr2"
-                        style="@style/cb_np"
-                        android:layout_weight="1.0"
-                        android:text="暴击"/>
-
-                    <CheckBox
-                        android:id="@+id/fam_cb_cr3"
-                        style="@style/cb_np"
-                        android:layout_weight="1.0"
-                        android:text="暴击"/>
-
-                </LinearLayout>
-
-                <!--阶职相性-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4.0"
-                        android:gravity="center"
-                        android:text="职阶相性"
-                        android:textColor="@color/colorWhite"/>
-
-                    <RadioGroup
-                        android:id="@+id/fam_rg_weak"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.0"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_normal"
-                            style="@style/rb_atk"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1.0"
-                            android:text="白值"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_weak"
-                            style="@style/rb_atk"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1.0"
-                            android:text="克制"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_weak_b"
-                            style="@style/rb_atk"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1.0"
-                            android:text="克制狂"
-                            android:visibility="gone"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_weakened"
-                            style="@style/rb_atk"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1.0"
-                            android:text="被克"/>
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-                <!--阵营相性-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4.0"
-                        android:gravity="center"
-                        android:text="阵营相性"
-                        android:textColor="@color/colorWhite"/>
-
-                    <RadioGroup
-                        android:id="@+id/fam_rg_team"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.0"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_tnormal"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="无克制"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_tweak"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="克制"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_tweakened"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="被克"/>
-
-                    </RadioGroup>
-
-                </LinearLayout>
-
-                <!--乱数补正-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4.0"
-                        android:gravity="center"
-                        android:text="乱数补正"
-                        android:textColor="@color/colorWhite"/>
-
-                    <RadioGroup
-                        android:id="@+id/fam_rg_random"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.0"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_random_min"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="最小" />
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_random_max"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="最大"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_random_average"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="平均"
-                            android:checked="true"/>
-
-                        <RadioButton
-                            android:id="@+id/fam_rb_random"
-                            style="@style/rb_atk"
-                            android:layout_weight="1.0"
-                            android:text="随机"
-                            android:visibility="gone"/>
-
-                    </RadioGroup>
 
                 </LinearLayout>
 
@@ -480,14 +482,14 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/lily"/>
+            android:src="@drawable/lily"/>
 
         <View
             android:id="@+id/fam_v_character"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/fam_iv_character"
-            android:background="@mipmap/chat_bg"/>
+            android:background="@drawable/chat_bg"/>
 
         <TextView
             android:id="@+id/fam_tv_character"

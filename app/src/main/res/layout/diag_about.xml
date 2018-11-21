@@ -15,24 +15,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sh_r_top_lightblue"
+            android:background="@drawable/sh_r_top_white"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:gravity="center"
             android:text="关于"
-            android:textColor="@color/colorWhite"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/da_tv_about"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/app_about"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorGrayHard"
             android:textSize="16dp" />
 
         <LinearLayout
@@ -42,17 +30,39 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="10dp"
-                android:src="@mipmap/phantancy" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/phantancy" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@mipmap/image999" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/image999" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/da_tv_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:fontFamily="monospace"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"/>
+
+        <WebView
+            android:id="@+id/da_wv_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"/>
+
 
     </LinearLayout>
 

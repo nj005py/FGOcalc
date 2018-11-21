@@ -25,7 +25,8 @@ public class SplashActy extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acty_splash);
         ctx = this;
-        hideBottomUIMenu();
+        //不隐藏虚拟按键了，直接去主界面吧
+//        hideBottomUIMenu();
         startActivity(new Intent(ctx, ServantListMVPActy.class));
         finish();
     }

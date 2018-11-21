@@ -90,7 +90,7 @@ public class TalkDialog extends PopupWindow {
          // 获取锚点View在屏幕上的左上角坐标位置
         anchorView.getLocationOnScreen(anchorLoc);
         final int anchorHeight = anchorView.getHeight();
-        // 获取屏幕的高宽
+        // 获取屏幕的高宽Not a good idea
         final int screenHeight = mContext.getWindowManager().getDefaultDisplay().getHeight();
         final int screenWidth = mContext.getWindowManager().getDefaultDisplay().getWidth();
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sh_radius_white">
+    android:background="@drawable/sh_radius_white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,43 +13,35 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/sh_r_top_lightblue"
+            android:background="@drawable/sh_r_top_white"
+            android:gravity="center_horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:gravity="center_horizontal"
-            android:text="发现了新版本！！"
-            android:textColor="@color/colorWhite"
+            android:text="发现了新版本！"
+            android:textColor="@color/colorGrayHard"
             android:textSize="16dp" />
 
-        <TextView
+        <WebView
+            android:id="@+id/du_wv_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="建议升级最新版fgocalc，获得数据库更新以及计算器优化！"
-            android:textColor="@color/colorBlack"
-            android:textSize="16dp" />
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/du_tv_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="更新内容"
-            android:textColor="@color/colorBlack"
-            android:textSize="16dp" />
+            android:layout_marginRight="10dp"/>
 
         <CheckBox
             android:id="@+id/du_cb_ignore"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="忽略本次更新"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack"
+            android:textSize="14dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,19 +50,19 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/tv_common"
                 android:id="@+id/du_tv_cancel"
+                style="@style/tv_common"
                 android:layout_weight="1.0"
                 android:background="@drawable/se_gray"
-                android:text="取消"/>
+                android:text="取消" />
 
             <TextView
-                style="@style/tv_common"
                 android:id="@+id/du_tv_download"
+                style="@style/tv_common"
                 android:layout_weight="1.0"
-                android:background="@drawable/se_blue_deepblue"
+                android:background="@drawable/se_gray_dark"
                 android:text="下载"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite" />
 
         </LinearLayout>
 

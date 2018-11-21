@@ -22,7 +22,16 @@ public class BuffsItem implements Serializable {
             npUp = 0,//np获取量
             starUp = 0,//掉星率
             extraTimes = 0,//附加倍率
-            trumpDown = 0;
+            trumpDown = 0,//宝具威力下降
+            criticalQuick = 0;//绿卡暴击提升
+
+    public double getCriticalQuick() {
+        return criticalQuick;
+    }
+
+    public void setCriticalQuick(double criticalQuick) {
+        this.criticalQuick = criticalQuick;
+    }
 
     private int solidAtk = 0;//固定伤害
 

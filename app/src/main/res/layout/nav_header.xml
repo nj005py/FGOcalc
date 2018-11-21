@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:background="@color/colorDeepBlue">
+    android:background="@color/colorGrayHard">
 
     <LinearLayout
         style="@style/ll_match_width_vertical"
@@ -12,14 +12,14 @@
 
         <ImageView
             android:id="@+id/nh_iv_app"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/logo_guda"/>
 
         <TextView
             style="@style/tv_common"
             android:layout_below="@+id/nh_iv_app"
-            android:text="FGO计算器(fgocalc)\n实验性功能菜单"
+            android:text="FGOcalc"
             android:textColor="@color/colorWhite"/>
 
     </LinearLayout>

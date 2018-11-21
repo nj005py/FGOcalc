@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@color/colorL">
+    android:background="@color/colorGrayHard">
 
     <ImageView
         android:id="@+id/ict_iv_card"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/arts"/>
+        android:src="@drawable/arts"/>
 
     <TextView
         android:id="@+id/ict_tv_card"

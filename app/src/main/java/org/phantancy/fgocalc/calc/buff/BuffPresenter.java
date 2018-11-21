@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.calc.buff;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import org.phantancy.fgocalc.R;
 
@@ -9,6 +10,7 @@ import org.phantancy.fgocalc.item.BuffItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ServantItem;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -50,11 +52,14 @@ public class BuffPresenter implements BuffContract.Presenter {
             BuffItem item = new BuffItem();
             Class cls = bItem.getClass();
             String[] buff = buffs[i].split(",");
-            int resId = ctx.getResources().getIdentifier(buff[0],"mipmap",ctx.getPackageName());
+            int resId = resId = getResIdByName(buff[0]);
+            if (0 == resId) {
+                resId = ctx.getResources().getIdentifier(buff[0],"mipmap",ctx.getPackageName());
+            }
             String hint = buff[1];
             item.setImg(resId);
             item.setHint(hint);
-            item.setBuffName(buff[0]);
+            item.setBuffName(buff[3]);//buff名还是根据方法名来好，图片可能共用
             // 选择要包裹的代码块，然后按下ctrl + alt + t ，快速生成try catch等
             try {
                 if (buff[2].equals("d")) {
@@ -121,5 +126,21 @@ public class BuffPresenter implements BuffContract.Presenter {
             }
         }
         return list;
+    }
+
+    private int getResIdByName(String name) {
+        if (TextUtils.isEmpty(name)) {
+            return 0;
+        } else {
+            try {
+                Class c = R.drawable.class;
+                Field field = c.getField(name);
+                int resId = field.getInt(null);
+                return resId;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }
     }
 }

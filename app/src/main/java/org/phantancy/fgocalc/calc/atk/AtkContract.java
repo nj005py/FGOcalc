@@ -23,10 +23,10 @@ public interface AtkContract {
         ConditionAtk getCondition(int atk,String cardType1,String cardType2,String cardType3,boolean ifEx,
                                   boolean ifCr1,boolean ifCr2,boolean ifCr3,int weakType,
                                   double teamCor,double randomCor,ServantItem servantItem,
-                                  BuffsItem buffsItem);
+                                  BuffsItem buffsItem,String npLv);
         ConditionTrump getConditionTrump(int atk, int hpTotal, int hpLeft, String trumpColor,
                                          int weakType, double teamCor, double randomCor, double trumpTimes,
-                                         ServantItem servantItem, BuffsItem buffsItem);
+                                         ServantItem servantItem, BuffsItem buffsItem,String npLv);
         void getReady(ConditionAtk conAtk,ConditionTrump conT);
         void clean();
     }

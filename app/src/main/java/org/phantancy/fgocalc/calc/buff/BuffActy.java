@@ -12,11 +12,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.BuffAdapter;
@@ -25,15 +23,12 @@ import org.phantancy.fgocalc.item.BuffItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
-import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by HATTER on 2017/11/6.
@@ -57,6 +52,8 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     LinearLayout abLlMerlin;
     @BindView(R.id.ab_ll_fox)
     LinearLayout abLlFox;
+    @BindView(R.id.ab_ll_scathach)
+    LinearLayout abLlScathach;
     private BuffAdapter adapter;
     private List<BuffItem> list = new ArrayList<>();
     private BuffContract.Presenter mPresenter;
@@ -89,7 +86,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
 
     @Override
     public void setPresenter(BuffContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     public void initStatusBar() {
@@ -140,6 +137,12 @@ public class BuffActy extends BaseActy implements BuffContract.View {
             @Override
             public void onClick(View v) {
                 adapter.foxBuffs(50);
+            }
+        });
+        abLlScathach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.scathachBuffs(50,100,30);
             }
         });
     }

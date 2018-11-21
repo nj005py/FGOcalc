@@ -49,6 +49,34 @@
         <item>default_atk,desc,multiplier</item>
     </string-array>
 
+    <string-array name="np_classification">
+        <item>不限</item>
+        <item>单体</item>
+        <item>全体</item>
+        <item>辅助</item>
+    </string-array>
+
+    <string-array name="np_classification_value">
+        <item>none</item>
+        <item>one</item>
+        <item>all</item>
+        <item>support</item>
+    </string-array>
+
+    <string-array name="np_color">
+        <item>不限</item>
+        <item>Arts</item>
+        <item>Buster</item>
+        <item>Quick</item>
+    </string-array>
+
+    <string-array name="np_color_value">
+        <item>none</item>
+        <item>a</item>
+        <item>b</item>
+        <item>q</item>
+    </string-array>
+
     <integer-array name = "star_value">
         <item>0</item>
         <item>1</item>
@@ -57,6 +85,24 @@
         <item>4</item>
         <item>5</item>
         <item>7</item>
+    </integer-array>
+
+    <string-array name = "attribute">
+        <item>不限</item>
+        <item>天</item>
+        <item>地</item>
+        <item>人</item>
+        <item>星</item>
+        <item>兽</item>
+    </string-array>
+
+    <integer-array name = "attribute_value">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </integer-array>
 
     <integer-array name = "trump_lv">
@@ -76,6 +122,13 @@
         <item>1000</item>
         <item>2000</item>
         <item>2400</item>
+    </integer-array>
+
+    <integer-array name="fufu_atk">
+        <item>0</item>
+        <item>990</item>
+        <item>1000</item>
+        <item>2000</item>
     </integer-array>
 
     <string-array name = "relationship">
@@ -117,8 +170,31 @@
         <item>star_up,掉星率,d,StarUp</item>
         <item>image66,附加倍率,d,ExtraTimes</item>
         <item>trump_down,降宝具威力,d,TrumpDown</item>
+        <item>quick_up,绿卡暴击,d,CriticalQuick</item>
     </string-array>
     private double enemyDefence = 0,//敌方防御
     specialDefence = 0,//敌方特攻防御
     solidDefence = 0,//敌方固定防御
+
+    <string-array name="traits">
+        <item>不限</item>
+        <item>骑乘</item>
+        <item>人型</item>
+        <item>从者（被EA克制）</item>
+        <item>天/地从者</item>
+        <item>半从者</item>
+        <item>龙</item>
+        <item>亚瑟</item>
+        <item>Saber脸</item>
+        <item>王</item>
+        <item>罗马</item>
+        <item>所爱之人</item>
+        <item>神性</item>
+        <item>从者（不被EA克制）</item>
+        <item>希腊神话系男性</item>
+        <item>拟似从者</item>
+        <item>魔性</item>
+        <item>猛兽</item>
+        <item>超巨大</item>
+    </string-array>
 </resources>

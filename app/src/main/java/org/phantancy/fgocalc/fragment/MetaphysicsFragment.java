@@ -152,14 +152,14 @@ public class MetaphysicsFragment extends BaseFragment {
                     } else {
                         if (blackPercent >= 0.85) {
                             fmRlCharacter.setVisibility(View.VISIBLE);
-                            fmIvCharacter.setImageResource(R.mipmap.joan_alter_dislike);
+                            fmIvCharacter.setImageResource(R.drawable.joan_alter_dislike);
                             fmTvCharacter.setText("非气浓度都高成这样了还要抽卡？\n难道你是受虐狂吗？");
                             fmTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx,R.anim.push_left_in));
                             fmTvTime.setText("不换换圣遗物吗？");
                         }else{
                             if(blackPercent < 0.1){
                                 fmRlCharacter.setVisibility(View.VISIBLE);
-                                fmIvCharacter.setImageResource(R.mipmap.joan_alter_smile);
+                                fmIvCharacter.setImageResource(R.drawable.joan_alter_smile);
                                 fmTvCharacter.setText("欧气足的Master!\n快去迎接新Servant吧!");
                                 fmTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx,R.anim.push_left_in));
 //                                textAnimation(fmTvCharacter);

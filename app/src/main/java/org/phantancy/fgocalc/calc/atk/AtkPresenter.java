@@ -67,7 +67,7 @@ public class AtkPresenter implements AtkContract.Presenter {
     public ConditionAtk getCondition(int atk, String cardType1, String cardType2, String cardType3,
                                      boolean ifEx, boolean ifCr1, boolean ifCr2, boolean ifCr3,
                                      int weakType, double teamCor, double randomCor,
-                                     ServantItem servantItem, BuffsItem buffsItem) {
+                                     ServantItem servantItem, BuffsItem buffsItem,String npLv) {
         boolean ifsameColor;
         double busterChain = 0;
         //同色比较，增加宝具卡的颜色判断
@@ -107,13 +107,14 @@ public class AtkPresenter implements AtkContract.Presenter {
         conAtk.setBusterChain(busterChain);
         conAtk.setBuffsItem(buffsItem);
         conAtk.setServantItem(servantItem);
+        conAtk.setNpLv(npLv);
         return conAtk;
     }
 
     @Override
     public ConditionTrump getConditionTrump(int atk, int hpTotal, int hpLeft, String trumpColor,
                                             int weakType, double teamCor, double randomCor, double trumpTimes,
-                                            ServantItem servantItem, BuffsItem buffsItem) {
+                                            ServantItem servantItem, BuffsItem buffsItem,String npLv) {
         String class_type;
         int solid_atk;
         double arts_buff,
@@ -142,6 +143,7 @@ public class AtkPresenter implements AtkContract.Presenter {
         c.setRandomCor(randomCor);
         c.setServantItem(servantItem);
         c.setBuffsItem(buffsItem);
+        c.setNpLv(npLv);
         //无宝具特攻也要写1，不能为0
         if (buffsItem.getTrumpSpecialUp() == 0) {
             c.setTrumpBuff(1);
@@ -178,12 +180,12 @@ public class AtkPresenter implements AtkContract.Presenter {
         //宝具倍率，双子需要特殊处理
         if (servantItem.getId() == 66 || servantItem.getId() == 131){
             if (servantItem.getId() == 66) {
-                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) * (1 - (hpLeft / hpTotal));
+                trumpTimes = trumpTimes + (buffsItem.getExtraTimes() / 100) * (1 - ((double)hpLeft / (double)hpTotal));
             }
             //131 a双子
             if (servantItem.getId() == 131) {
                 //弓双子额外倍率固定600%
-                trumpTimes = trumpTimes + 6 * (1 - (hpLeft / hpTotal));
+                trumpTimes = trumpTimes + 6 * (1 - ((double)hpLeft / (double)hpTotal));
             }
             c.setHpLeft(hpLeft);
             c.setHpTotal(hpTotal);
@@ -303,23 +305,34 @@ public class AtkPresenter implements AtkContract.Presenter {
     private void calcAtk(CommandCard c,ConditionAtk conAtk) {
         double attack = 0;
         String hpStatus = "";
+        String npLv = " " + conAtk.getNpLv() + "<br>";
+        //减防上限是100%，超过就当是100%
+        double enemyDefence = 0;
         //卡是宝具卡，条件不为null时计算宝具伤害
         if (c.cardType.equals("np") && c.conT != null) {
             ConditionTrump conT = c.conT;
+            enemyDefence = conT.getEnemyDefence();
+            if (1 < enemyDefence) {
+                enemyDefence = 1;
+            }
             if (conT.getServantItem().getId() == 66 || conT.getServantItem().getId() == 131) {
-                hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft()).toString();
+                hpStatus = new StringBuilder().append(" 总hp："+ conT.getHpTotal() + " 剩余hp：" + conT.getHpLeft() + "<br>").toString();
             }
             if (conT.getTrumpTimes() == 0) {
                 attack = 0;
             }else{
                 attack = conT.getAtk() * conT.getAtkCor() * (conT.getTrumpTimes() * conT.getCardTimes() * (1 + conT.getCardBuff()))
                         * conT.getClassCor() * conT.getWeakCor() * conT.getTeamCor() * conT.getRandomCor() *
-                        (1 + conT.getAtkBuff() + conT.getEnemyDefence()) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
+                        (1 + conT.getAtkBuff() + enemyDefence) * (1 + conT.getSpecialBuff() - conT.getSpecialDefence() + conT.getTrumpPowerBuff() - conT.getTrumpDown())
                         * conT.getTrumpBuff() + (conT.getSolidBuff() - conT.getSolidDefence());
             }
         }else{
+            enemyDefence = c.enemyDefence;
+            if (1 < enemyDefence) {
+                enemyDefence = 1;
+            }
             attack = c.atk * c.atkCor * (c.atkTimes * c.positionBuff * (1 + c.cardBuff) + c.firstCardBuff) *
-                    c.classCor * c.weakCor * c.teamCor * c.randomCor * (1 + c.atkBuff + c.enemyDefence) *
+                    c.classCor * c.weakCor * c.teamCor * c.randomCor * (1 + c.atkBuff + enemyDefence) *
                     (1 + c.specialBuff - c.specialDefence + c.criticalBuff) * c.criticalCor * c.exReward
                     + (c.solidBuff - c.solidDefence) + c.atk * c.busterChain;
         }
@@ -330,7 +343,8 @@ public class AtkPresenter implements AtkContract.Presenter {
             result = new StringBuilder()
                     .append(sItem.getName() + " " + sItem.getClass_type() + "<br>" + "总atk：")//名称
                     .append(conAtk.getAtk())
-                    .append(hpStatus + "<br>"
+                    .append(npLv)
+                    .append(hpStatus
                             + con[0] + ","
                             + con[1] + ","
                             + con[2] + "<br>"
@@ -349,7 +363,9 @@ public class AtkPresenter implements AtkContract.Presenter {
                         .append(con[0])
                         .append("," + con[1]).append("," + con[2] + "<br>")//条件
                         .append("总atk：")
-                        .append(conAtk.getAtk()).append(hpStatus + "<br>")//atk情况
+                        .append(conAtk.getAtk())
+                        .append(npLv)
+                        .append(hpStatus)//atk情况
                         .append(getExtraBuffs(conAtk) + "<br>")//buff
                         .append(BaseUtils.getCardTypeWithColour(c.cardType))
                         .append(c.cardPosition)

@@ -19,6 +19,15 @@ public class ConditionAtk implements Serializable {
             randomCor = 0.9;//乱数补正
     private ServantItem servantItem;
     private BuffsItem buffsItem;
+    private String npLv;
+
+    public String getNpLv() {
+        return npLv;
+    }
+
+    public void setNpLv(String npLv) {
+        this.npLv = npLv;
+    }
 
     public int getAtk() {
         return atk;

@@ -31,8 +31,8 @@ public class CatchActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.ac_tv_times)
     TextView acTvTimes;
     private ItemAdapter itemAdapter;
-    private int[] card = {R.mipmap.servant_golden, R.mipmap.servant_silver, R.mipmap.essence_golden, R.mipmap.essence_silver};
-    private int[] star = {R.mipmap.star_r, R.mipmap.star_sr, R.mipmap.star_ssr};
+    private int[] card = {R.drawable.servant_golden, R.drawable.servant_silver, R.drawable.essence_golden, R.drawable.essence_silver};
+    private int[] star = {R.drawable.star_r, R.drawable.star_sr, R.drawable.star_ssr};
     private int count = 1;
 
     @Override

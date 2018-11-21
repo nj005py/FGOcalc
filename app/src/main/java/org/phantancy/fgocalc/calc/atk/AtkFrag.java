@@ -36,7 +36,6 @@ import org.phantancy.fgocalc.item.ConditionTrump;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.ToolCase;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by HATTER on 2017/11/6.
@@ -136,6 +134,8 @@ public class AtkFrag extends BaseFrag implements
     Spinner famSpLv;
     @BindView(R.id.fam_sv_result)
     ScrollView famSvResult;
+    @BindView(R.id.fam_sp_fufu)
+    Spinner famSpFufu;
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
     private String[] cardValues = {"b", "a", "q", "np"};
@@ -148,8 +148,11 @@ public class AtkFrag extends BaseFrag implements
             randomCor = 1.0;//平均乱数补正
     private double trumpTimes;
     private int essenceAtk = 0;//礼装atk
+    private int fufuAtk = 1000;//芙芙atk
+    private String npLv = "一宝";//宝具等级
     private int[] essenceAtks;
     private int[] lv;
+    private int[] fufuAtks;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private ConditionAtk conAtk;
@@ -175,7 +178,7 @@ public class AtkFrag extends BaseFrag implements
 
     @Override
     public void setPresenter(AtkContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Nullable
@@ -202,11 +205,14 @@ public class AtkFrag extends BaseFrag implements
             SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandNPCards(trumpColor), R.layout.item_card_type,
                     new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
             essenceAtks = getResources().getIntArray(R.array.essence_atk);
+            fufuAtks = getResources().getIntArray(R.array.fufu_atk);
             famSpCard1.setAdapter(simpleAdapter);
             famSpCard2.setAdapter(simpleAdapter);
             famSpCard3.setAdapter(simpleAdapter);
             famTvResult.setMovementMethod(new ScrollingMovementMethod());
             ToolCase.spInitDeep(ctx, essenceAtks, famSpEssence);
+            ToolCase.spInitDeep(ctx, fufuAtks, famSpFufu);
+            famSpFufu.setSelection(2);
             id = servantItem.getId();
             isUpgraded = servantItem.getTrump_upgraded() == 1 ? true : false;
             lv = getResources().getIntArray(R.array.trump_lv);
@@ -425,6 +431,21 @@ public class AtkFrag extends BaseFrag implements
             }
         });
 
+        famSpFufu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
+                atk = atk - fufuAtk + fufuAtks[position];
+                ToolCase.setViewValue(famEtAtk,String.valueOf(atk));
+                fufuAtk = fufuAtks[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         famCbUpgraded.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -442,6 +463,7 @@ public class AtkFrag extends BaseFrag implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (servantItem != null) {
+                    npLv = lvStr[position];
                     switch (position) {
                         case 0:
                             curPos = 0;
@@ -524,33 +546,29 @@ public class AtkFrag extends BaseFrag implements
     private void showTrumpColor() {
         switch (trumpColor) {
             case "b":
-                famIvColor.setImageResource(R.mipmap.buster);
+                famIvColor.setImageResource(R.drawable.buster);
                 break;
             case "a":
-                famIvColor.setImageResource(R.mipmap.arts);
+                famIvColor.setImageResource(R.drawable.arts);
                 break;
             case "q":
-                famIvColor.setImageResource(R.mipmap.quick);
+                famIvColor.setImageResource(R.drawable.quick);
                 break;
         }
     }
 
     @Override
     public void setResult(Object result) {
-        if (result instanceof String){
+        if (result instanceof String) {
             ToolCase.setViewValue(famTvResult, (String) result);
-//        int offset = famTvResult.getLineCount() * famTvResult.getLineHeight();
-//        if (offset > famTvResult.getHeight()) {
-//            famTvResult.scrollTo(0, offset - famTvResult.getHeight());
-//        }
             famSvResult.post(new Runnable() {
                 @Override
                 public void run() {
                     famSvResult.fullScroll(ScrollView.FOCUS_DOWN);
                 }
             });
-        }else if (result instanceof Spanned) {
-            famTvResult.setText((Spanned)result,TextView.BufferType.SPANNABLE);
+        } else if (result instanceof Spanned) {
+            famTvResult.setText((Spanned) result, TextView.BufferType.SPANNABLE);
             famSvResult.post(new Runnable() {
                 @Override
                 public void run() {
@@ -569,7 +587,7 @@ public class AtkFrag extends BaseFrag implements
         atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         conAtk = mPresenter.getCondition(atk, cardType1, cardType2, cardType3,
-                ifEx, ifCr1, ifCr2, ifCr3, weakType, teamCor, randomCor, servantItem, buffsItem);
+                ifEx, ifCr1, ifCr2, ifCr3, weakType, teamCor, randomCor, servantItem, buffsItem,npLv);
         //双子特殊处理倍率
         if (id == 66 || id == 131) {
             hpTotal = ToolCase.getViewInt(famEtHpTotal);
@@ -594,7 +612,7 @@ public class AtkFrag extends BaseFrag implements
             }
         }
         conT = mPresenter.getConditionTrump(atk, hpTotal, hpLeft, trumpColor, weakType,
-                teamCor, randomCor, trumpTimes, servantItem, buffsItem);
+                teamCor, randomCor, trumpTimes, servantItem, buffsItem,npLv);
         return true;
     }
 
@@ -621,8 +639,4 @@ public class AtkFrag extends BaseFrag implements
         famTvCharacter.setText(str);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }

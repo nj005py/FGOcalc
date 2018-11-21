@@ -102,6 +102,26 @@ public class BaseUtils {
         return false;
     }
 
+    //网络是否可用
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) {
+        } else {
+            //如果仅仅是用来判断网络连接
+            //则可以使用 cm.getActiveNetworkInfo().isAvailable();
+            NetworkInfo[] info = cm.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     //通过html获取版本号
     public static void getVersionByHtml(final Handler handler){
         new Thread(
@@ -119,6 +139,7 @@ public class BaseUtils {
                             item.setVersion(version.text());
                             item.setUrl(url.text());
                             item.setContent(content.text());
+                            item.setCheckUrl(checkUrl);
                             Message msg = new Message();
                             msg.obj = item;
                             msg.what = Constant.CHECK_APP_VERSION;
@@ -136,19 +157,19 @@ public class BaseUtils {
         String vaule = "";
         switch (cardType) {
             case "b":
-                vaule = new StringBuilder().append("<font color='#AF0301'>b卡在</font>").toString();
+                vaule = new StringBuilder().append("<font color='#AF0301'>b卡</font>在").toString();
                 break;
             case "a":
-                vaule = new StringBuilder().append("<font color='#3F51B5'>a卡在</font>").toString();
+                vaule = new StringBuilder().append("<font color='#3F51B5'>a卡</font>在").toString();
                 break;
             case "q":
-                vaule = new StringBuilder().append("<font color='#16580B'>q卡在</font>").toString();
+                vaule = new StringBuilder().append("<font color='#16580B'>q卡</font>在").toString();
                 break;
             case "ex":
-                vaule = new StringBuilder().append("<font color='black'>ex卡在</font>").toString();
+                vaule = new StringBuilder().append("<font color='black'>ex卡</font>在").toString();
                 break;
             case "np":
-                vaule = new StringBuilder().append("<font color='#E4B222'>宝具卡在</font>").toString();
+                vaule = new StringBuilder().append("<font color='#E4B222'>宝具卡</font>在").toString();
                 break;
         }
         return vaule;

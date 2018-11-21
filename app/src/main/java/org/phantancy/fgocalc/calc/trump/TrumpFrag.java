@@ -43,7 +43,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by HATTER on 2017/11/7.
@@ -118,6 +117,8 @@ public class TrumpFrag extends BaseFrag implements
     Spinner ftmSpEssence;
     @BindView(R.id.ftm_sv_result)
     ScrollView ftmSvResult;
+    @BindView(R.id.ftm_sp_fufu)
+    Spinner ftmSpFufu;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private int id;
@@ -129,9 +130,12 @@ public class TrumpFrag extends BaseFrag implements
     private double teamCor = 1.0, //阵营相性
             randomCor = 1.0,//乱数补正
             trumpTimes = 0;//宝具倍率
+    private String npLv = "一宝";//宝具等级
     private int[] lv;
     private int essenceAtk = 0;//礼装atk
+    private int fufuAtk = 1000;//芙芙atk
     private int[] essenceAtks;
+    private int[] fufuAtks;
     private String[] lvStr;
     private boolean isUpgraded,//是否有宝具本
             isPreTimes;//是否是旧倍率
@@ -152,7 +156,7 @@ public class TrumpFrag extends BaseFrag implements
 
     @Override
     public void setPresenter(TrumpContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Nullable
@@ -174,6 +178,7 @@ public class TrumpFrag extends BaseFrag implements
         lv = getResources().getIntArray(R.array.trump_lv);
         lvStr = getResources().getStringArray(R.array.trump_lv_str);
         essenceAtks = getResources().getIntArray(R.array.essence_atk);
+        fufuAtks = getResources().getIntArray(R.array.fufu_atk);
         if (servantItem != null) {
             setDefault();
             id = servantItem.getId();
@@ -203,6 +208,8 @@ public class TrumpFrag extends BaseFrag implements
 //            ToolCase.spInitSimple(ctx, lv, ftmSpLv);
             ToolCase.spInitDeep(ctx, lvStr, ftmSpLv);
             ToolCase.spInitDeep(ctx, essenceAtks, ftmSpEssence);
+            ToolCase.spInitDeep(ctx, fufuAtks, ftmSpFufu);
+            ftmSpFufu.setSelection(2);
             curLv.add(servantItem.getTrump_lv1());
             curLv.add(servantItem.getTrump_lv2());
             curLv.add(servantItem.getTrump_lv3());
@@ -262,6 +269,7 @@ public class TrumpFrag extends BaseFrag implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (servantItem != null) {
+                    npLv = lvStr[position];
                     switch (position) {
                         case 0:
                             curPos = 0;
@@ -390,6 +398,21 @@ public class TrumpFrag extends BaseFrag implements
 
             }
         });
+
+        ftmSpFufu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
+                atk = atk - fufuAtk + fufuAtks[position];
+                ToolCase.setViewValue(ftmEtAtk,String.valueOf(atk));
+                fufuAtk = fufuAtks[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -429,13 +452,13 @@ public class TrumpFrag extends BaseFrag implements
     private void showTrumpColor() {
         switch (trumpColor) {
             case "b":
-                ftmIvColor.setImageResource(R.mipmap.buster);
+                ftmIvColor.setImageResource(R.drawable.buster);
                 break;
             case "a":
-                ftmIvColor.setImageResource(R.mipmap.arts);
+                ftmIvColor.setImageResource(R.drawable.arts);
                 break;
             case "q":
-                ftmIvColor.setImageResource(R.mipmap.quick);
+                ftmIvColor.setImageResource(R.drawable.quick);
                 break;
         }
     }
@@ -443,10 +466,6 @@ public class TrumpFrag extends BaseFrag implements
     @Override
     public void setResult(String result) {
         ToolCase.setViewValue(ftmTvResult, result);
-//        int offset = ftmTvResult.getLineCount() * ftmTvResult.getLineHeight();
-//        if (offset > ftmTvResult.getHeight()) {
-//            ftmTvResult.scrollTo(0, offset - ftmTvResult.getHeight());
-//        }
         ftmSvResult.post(new Runnable() {
             @Override
             public void run() {
@@ -488,7 +507,7 @@ public class TrumpFrag extends BaseFrag implements
             }
         }
         conT = mPresenter.getConditionTrump(atk, hpTotal, hpLeft, trumpColor, weakType,
-                teamCor, randomCor, trumpTimes, servantItem, buffsItem);
+                teamCor, randomCor, trumpTimes, servantItem, buffsItem,npLv);
 
         return true;
     }

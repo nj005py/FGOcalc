@@ -3,6 +3,7 @@ package org.phantancy.fgocalc.calc.star;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
@@ -126,7 +126,7 @@ public class StarFrag extends BaseFrag implements
 
     @Override
     public void setPresenter(StarContract.Presenter presenter) {
-        mPresenter = checkNotNull(presenter);
+        mPresenter = presenter;
     }
 
     @Nullable
@@ -355,18 +355,25 @@ public class StarFrag extends BaseFrag implements
     }
 
     @Override
-    public void setResult(String result) {
-        ToolCase.setViewValue(fsmTvResult, result);
-//        int offset = fsmTvResult.getLineCount() * fsmTvResult.getLineHeight();
-//        if (offset > fsmTvResult.getHeight()) {
-//            fsmTvResult.scrollTo(0, offset - fsmTvResult.getHeight());
-//        }
-        fsmSvResult.post(new Runnable() {
-            @Override
-            public void run() {
-                fsmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
-            }
-        });
+    public void setResult(Object result) {
+        if (result instanceof String) {
+            ToolCase.setViewValue(fsmTvResult, (String)result);
+            fsmSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    fsmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }else if (result instanceof Spanned) {
+            fsmTvResult.setText((Spanned)result,TextView.BufferType.SPANNABLE);
+            fsmSvResult.post(new Runnable() {
+                @Override
+                public void run() {
+                    fsmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
+                }
+            });
+        }
+
     }
 
     @Override

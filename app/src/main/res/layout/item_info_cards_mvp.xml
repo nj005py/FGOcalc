@@ -9,6 +9,6 @@
         android:id="@+id/iicm_iv_cards"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/buster"/>
+        android:src="@drawable/buster"/>
 
 </LinearLayout>

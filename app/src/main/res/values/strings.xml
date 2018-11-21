@@ -28,9 +28,11 @@
     <string name="solid_buff">固定伤害</string>
     <string name="star_occur">掉星率</string>
     <string name="star_occur_extra">额外掉星率</string>
-    <string name="default_atk">满级atk+990</string>
-    <string name="default_hp">满级hp+990</string>
+    <string name="default_atk">满级atk+1000</string>
+    <string name="default_hp">满级hp+1000</string>
     <string name="attribute">阵营</string>
-    <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+990，默认hp为满级hp+990。3蓝的20%np，3绿的10星都自己加加。</string>
+    <string name="traits">特性</string>
+    <string name="alignments">属性</string>
+    <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+1000，默认hp为满级hp+1000。3蓝的20%np，3绿的10星都自己加加。</string>
     <string name="fgocalc_divider">\n\n==== FGOcalc ====\n\n</string>
 </resources>

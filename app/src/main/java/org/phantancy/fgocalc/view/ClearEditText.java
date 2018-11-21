@@ -37,10 +37,10 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         // getCompoundDrawables() Returns drawables for the left(0), top(1), right(2) and bottom(3)
         mClearDrawable = getCompoundDrawables()[2]; // 获取drawableRight
         if (mClearDrawable == null) {
-            // 如果为空，即没有设置drawableRight，则使用R.mipmap.close这张图片
-            mClearDrawable = getResources().getDrawable(R.mipmap.close);
+            // 如果为空，即没有设置drawableRight，则使用R.drawable.close这张图片
+            mClearDrawable = getResources().getDrawable(R.drawable.close);
         }
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth() - 20, mClearDrawable.getIntrinsicHeight() - 20);
+        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth() / 3, mClearDrawable.getIntrinsicHeight() / 3);
         setOnFocusChangeListener(this);
         addTextChangedListener(this);
         // 默认隐藏图标

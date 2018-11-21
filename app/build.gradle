@@ -1,24 +1,24 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.2'
     defaultConfig {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 14
-        versionName "1.5.5"
+        targetSdkVersion 26
+        versionCode 27
+        versionName "1.7.0"
         // Enabling multidex support.
-        multiDexEnabled true
+        multiDexEnabled false
+        resConfigs "zh"
     }
 
     buildTypes {
         release {
-//            zipAlignEnabled true
-//            shrinkResources true
-            minifyEnabled false
+            zipAlignEnabled true
+            shrinkResources false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,7 +31,7 @@ android {
     productFlavors {
     }
     lintOptions {
-        disable 'LongLogTag'
+//        disable 'LongLogTag'
     }
 
     signingConfigs {
@@ -75,23 +75,25 @@ dependencies {
     // App's dependencies, including test
     api fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'junit:junit:4.12'
-    implementation 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    implementation files('libs/ZHConverter.jar')
-    implementation 'com.android.support:appcompat-v7:27.0.1'
-    implementation 'com.android.support:cardview-v7:27.0.1'
-    implementation 'com.android.support:design:27.0.1'
+    api 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    api files('libs/ZHConverter.jar')
+    api 'com.android.support:appcompat-v7:28.0.0-rc01'
+    api 'com.android.support:cardview-v7:28.0.0-rc01'
+    api 'com.android.support:design:28.0.0-rc01'
     //google.common等东西在里面
-    implementation 'com.google.guava:guava:18.0'
-    implementation files('libs/universal-image-loader-1.9.5.jar')
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.android.support:multidex:1.0.2'
+    //    api 'com.google.guava:guava:18.0'
+    api 'com.google.code.gson:gson:2.8.2'
+//    api 'com.android.support:multidex:1.0.2'
     //友盟
     api project(':push')
-    implementation files('libs/utdid4all-1.1.5.3_proguard.jar')
+    api files('libs/utdid4all-1.1.5.3_proguard.jar')
     //html解析
-    implementation 'org.jsoup:jsoup:1.11.3'
-    implementation files('libs/umeng-analytics-7.5.3.jar')
-    implementation files('libs/umeng-common-1.5.3.jar')
+    api 'org.jsoup:jsoup:1.11.3'
+    api files('libs/umeng-analytics-7.5.3.jar')
+    api files('libs/umeng-common-1.5.3.jar')
+    api 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    api 'org.greenrobot:eventbus:3.1.1'
 }

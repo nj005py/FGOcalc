@@ -11,12 +11,21 @@
             android:title="关于"/>
 
         <item
+            android:id="@+id/nsm_follow"
+            android:title="关注作者"/>
+
+
+        <item
             android:id="@+id/nsm_menu_loc"
             android:title="菜单位置"/>
 
         <item
             android:id="@+id/nsm_metaphysics"
             android:title="欧非检测仪"/>
+
+        <item
+            android:id="@+id/nsm_check_update"
+            android:title="检测App更新"/>
 
         <item
             android:id="@+id/nsm_notice"
@@ -37,6 +46,10 @@
         <item
             android:id="@+id/nsm_fgosimulator"
             android:title="fgosimulator(素材规划，同样推荐)"/>
+
+        <item
+            android:id="@+id/nsm_qq"
+            android:title="入群"/>
 
         <item
             android:id="@+id/nsm_share"

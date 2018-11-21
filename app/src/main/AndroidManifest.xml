@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
@@ -54,6 +53,7 @@
         <activity android:name="org.phantancy.fgocalc.calc.buff.BuffActy"
             android:theme="@style/TransTheme"/>
         <activity android:name="org.phantancy.fgocalc.activity.WebviewActy"/>
+        <activity android:name=".activity.CompassActy"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

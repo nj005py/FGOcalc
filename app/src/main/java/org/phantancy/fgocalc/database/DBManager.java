@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.common.App;
 import org.phantancy.fgocalc.util.ToastUtils;
 
 import java.io.File;
@@ -27,28 +28,37 @@ public class DBManager {
     public static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/"
             + PACKAGE_NAME;  //在手机里存放数据库的位置
-
-    public SQLiteDatabase database;
     private Context ctx;
+    public SQLiteDatabase database;
 
-    public DBManager(Context context) {
-        this.ctx = context;
-        Log.d(TAG,"DB_PATH->" + DB_PATH);
+    //私有构造函数
+    private DBManager(){
+        ctx = App.getAppContext();
+    }
+
+    //私有静态内部类
+    private static class DBManagerHolder{
+        private static final DBManager instance = new DBManager();
+    }
+
+    //获取实例方法
+    public static DBManager getInstance(){
+        return DBManagerHolder.instance;
     }
 
     public void getDatabase(){
-        database = openDatabase();
+        this.database = openDatabase();
     }
 
     public void getDatabaseExtra(){
-        database = openDatabaseExtra();
+        this.database = openDatabaseExtra();
     }
 
     public SQLiteDatabase openDatabase() {
         String dbfile = DB_PATH + "/" + DB_NAME;
         try {
             if (!(new File(dbfile).exists())) {//判断数据库文件是否存在，若不存在则执行导入，否则直接打开数据库
-                InputStream is = this.ctx.getResources().openRawResource(
+                InputStream is = ctx.getResources().openRawResource(
                         R.raw.servants); //欲导入的数据库
                 FileOutputStream fos = new FileOutputStream(dbfile);
                 byte[] buffer = new byte[BUFFER_SIZE];

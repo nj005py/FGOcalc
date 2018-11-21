@@ -16,6 +16,7 @@ import org.phantancy.fgocalc.R;
 
 import org.phantancy.fgocalc.item.BuffItem;
 import org.phantancy.fgocalc.util.ToolCase;
+import org.phantancy.fgocalc.view.ClearEditText;
 
 import java.util.List;
 
@@ -64,75 +65,65 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
 
     public void kongmingBuffs(double atkBuff,double criticalBuff,int solidBuff){
         if (mList != null) {
-//            mList.get(0).setDefaultDouble(30);
-//            notifyDataSetChanged();
-//
             for (int i = 0;i < mList.size();i ++){
                 //加攻
-                if (mList.get(i).getBuffName().equals("atk_up")) {
+                if (mList.get(i).getBuffName().equals("AtkUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + atkBuff;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
                 //加暴击
-                if (mList.get(i).getBuffName().equals("critical_up")) {
+                if (mList.get(i).getBuffName().equals("CriticalUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + criticalBuff;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
                 //加固定伤害
-                if (mList.get(i).getBuffName().equals("wake_up")) {
+                if (mList.get(i).getBuffName().equals("SolidAtk")) {
                     //取数据
                     int data = mList.get(i).getDefaultInt() + solidBuff;
                     //用数据
                     mList.get(i).setDefaultInt(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
             }
+            notifyDataSetChanged();
         }
     }
 
     public void merlinBuffs(double atkBuff,double criticalBuff,double busterUp){
         if (mList != null) {
-//            mList.get(0).setDefaultDouble(30);
-//            notifyDataSetChanged();
-//
             for (int i = 0;i < mList.size();i ++){
                 //加攻
-                if (mList.get(i).getBuffName().equals("atk_up")) {
+                if (mList.get(i).getBuffName().equals("AtkUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + atkBuff;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
                 //加暴击
-                if (mList.get(i).getBuffName().equals("critical_up")) {
+                if (mList.get(i).getBuffName().equals("CriticalUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + criticalBuff;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
                 //红魔放
-                if (mList.get(i).getBuffName().equals("buster_up")) {
+                if (mList.get(i).getBuffName().equals("BusterUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + busterUp;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
             }
+            notifyDataSetChanged();
         }
     }
 
@@ -140,95 +131,60 @@ public class BuffAdapter extends RecyclerView.Adapter<BuffAdapter.ViewHolder> {
         if (mList != null) {
             for (int i = 0;i < mList.size();i ++){
                 //蓝魔放
-                if (mList.get(i).getBuffName().equals("arts_up")) {
+                if (mList.get(i).getBuffName().equals("ArtsUp")) {
                     //取数据
                     double data = mList.get(i).getDefaultDouble() + artsUp;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
                 }
             }
+            notifyDataSetChanged();
         }
     }
 
-    public void relationAtk(String cur,String pre){
-        double atkUp = 0;
-        double atkDown = 0;
-        switch (cur) {
-            case "小于0":
-            case "":
-                atkUp = 0;
-                break;
-            case "5":
-                atkUp = 20;
-                break;
-            case "6":
-                atkUp = 40;
-                break;
-            case "7":
-                atkUp = 60;
-                break;
-            case "8":
-                atkUp = 75;
-                break;
-            case "9":
-                atkUp = 90;
-                break;
-            case "10":
-                atkUp = 100;
-                break;
-
-        }
-        switch (pre) {
-            case "小于0":
-            case "":
-                atkDown = 0;
-                break;
-            case "5":
-                atkDown = 20;
-                break;
-            case "6":
-                atkDown = 40;
-                break;
-            case "7":
-                atkDown = 60;
-                break;
-            case "8":
-                atkDown = 75;
-                break;
-            case "9":
-                atkDown = 90;
-                break;
-            case "10":
-                atkDown = 100;
-                break;
-
-        }
+    public void scathachBuffs(double quickUp,double criticalQuick,double defenceDown) {
         if (mList != null) {
             for (int i = 0;i < mList.size();i ++){
-                if (mList.get(i).getBuffName().equals("atk_up")) {
+                //绿魔放
+                if (mList.get(i).getBuffName().equals("QuickUp")) {
                     //取数据
-                    double data = mList.get(i).getDefaultDouble() + atkUp - atkDown;
+                    double data = mList.get(i).getDefaultDouble() + quickUp;
                     //用数据
                     mList.get(i).setDefaultDouble(data);
                     //填数据
-                    notifyDataSetChanged();
+                }
+                //绿卡暴击
+                if (mList.get(i).getBuffName().equals("CriticalQuick")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + criticalQuick;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
+                }
+                //减防
+                if (mList.get(i).getBuffName().equals("EnemyDefence")) {
+                    //取数据
+                    double data = mList.get(i).getDefaultDouble() + defenceDown;
+                    //用数据
+                    mList.get(i).setDefaultDouble(data);
+                    //填数据
                 }
             }
+            notifyDataSetChanged();
         }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView ivBuff;
         TextView tvPercent;
-        EditText etBuff;
+        ClearEditText etBuff;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ivBuff = (ImageView)itemView.findViewById(R.id.ib_iv_buff);
-            tvPercent = (TextView)itemView.findViewById(R.id.ib_tv_percent);
-            etBuff = (EditText)itemView.findViewById(R.id.ib_et_buff);
+            ivBuff = itemView.findViewById(R.id.ib_iv_buff);
+            tvPercent = itemView.findViewById(R.id.ib_tv_percent);
+            etBuff = itemView.findViewById(R.id.ib_et_buff);
         }
     }
 

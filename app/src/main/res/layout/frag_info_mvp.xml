@@ -1,19 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <Button
-        android:id="@+id/fim_btn_more"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/se_lightblue2_deepblue"
-        android:text="更多信息，切到fgowiki"
-        android:textSize="14dp"
-        android:textColor="@color/colorWhite"/>
+    <LinearLayout
+        style="@style/ll_match_width_horizontal">
+
+        <Button
+            android:id="@+id/fim_btn_more"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_gray_dark"
+            android:textAllCaps="false"
+            android:text="去旧fgowiki"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"/>
+
+        <Button
+            android:id="@+id/fim_btn_newwiki"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_gray_dark"
+            android:textAllCaps="false"
+            android:text="去新fgowiki"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fim_rv_info"

@@ -22,7 +22,7 @@ public interface TrumpContract {
         void getReady(ConditionTrump conTrump);
         ConditionTrump getConditionTrump(int atk,int hpTotal,int hpLeft,String trumpColor,
                                 int weakType,double teamCor,double randomCor,double trumpTimes,
-                               ServantItem servantItem,BuffsItem buffsItem);
+                               ServantItem servantItem,BuffsItem buffsItem,String npLv);
         void clear();
     }
 }

@@ -5,7 +5,9 @@ import android.content.Context;
 
 import org.phantancy.fgocalc.base.BasePresenter;
 import org.phantancy.fgocalc.base.BaseView;
+import org.phantancy.fgocalc.item.FilterItem;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.UpdateItem;
 
 import java.util.List;
 
@@ -16,15 +18,13 @@ import java.util.List;
 public interface ServantListContract {
 
     interface View extends BaseView<Presenter> {
-        void showCharacter(String content,int img);
         void showMenuLocDialog();
         void showAboutDialog();
-        void showUpdateDiag(String update,String downloadUrl,String curVersion);
+        void showUpdateDiag(UpdateItem updateItem);
         void setServantList(List<ServantItem> list);
     }
 
     interface Presenter extends BasePresenter{
-        void setMethod(int method);
         void checkMenuLoc(boolean locLeft);
         void fgotool();
         void fgosimulator();
@@ -36,9 +36,13 @@ public interface ServantListContract {
         void unregisterReceiver(Context ctx);
         void getAllServants();
         void searchServantsByKeyword(String value);
-        void searchServantsByCondition(String classType,int star,String orderTypeValue);
+        void searchServantsByCondition(List<FilterItem> filterItems);
         String getVersion();
         void feedback();
+        void follow();
+        void qq();
+        List<FilterItem> getFilterItems();
+        void checkAppUpdate(boolean isManual);
     }
 
 }

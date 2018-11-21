@@ -3,8 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <bitmap android:src="@mipmap/get_merlin"
-            android:gravity="fill"/>
+        <color android:color="@color/colorGray"/>
     </item>
+
+    <item>
+        <scale android:drawable="@drawable/splash"
+            android:scaleGravity="center"/>
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/splash"/>
+    </item>
+
 
 </layer-list>

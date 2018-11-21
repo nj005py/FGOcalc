@@ -19,5 +19,6 @@ public interface MetaphysicsContract {
 
     interface Presenter extends BasePresenter{
         void pic2Result(Uri imageUri);
+        void angle2Result(float angle);
     }
 }

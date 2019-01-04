@@ -197,4 +197,34 @@
         <item>猛兽</item>
         <item>超巨大</item>
     </string-array>
+
+    <string-array name = "classTypeNpCharge">
+        <item>Saber</item>
+        <item>Archer</item>
+        <item>Lancer</item>
+        <item>Rider</item>
+        <item>Caster</item>
+        <item>Assassin</item>
+        <item>Berserker</item>
+        <item>Ruler</item>
+        <item>Avenger</item>
+        <item>Alterego</item>
+        <item>MoonCancer</item>
+        <item>Foreigner</item>
+    </string-array>
+
+    <array name="classTypeNpChargeValue">
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.1</item>
+        <item>1.2</item>
+        <item>0.9</item>
+        <item>0.8</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+    </array>
 </resources>

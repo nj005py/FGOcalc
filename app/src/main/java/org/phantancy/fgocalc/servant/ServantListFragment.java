@@ -164,9 +164,11 @@ public class ServantListFragment extends BaseFrag implements
         super.onActivityCreated(savedInstanceState);
         //初始化界面、状态栏
         initStatusBar();
+
         //判断侧滑菜单
         boolean locLeft = (Boolean) SharedPreferencesUtils.getParam(ctx, "locLeft", true);
         checkMenuLoc(locLeft);
+
         //设置从者列表
         View v = getLayoutInflater().inflate(R.layout.item_servant_cardview, null);
         CardView cv = (CardView) v.findViewById(R.id.isc_cv_servant);
@@ -180,14 +182,17 @@ public class ServantListFragment extends BaseFrag implements
         GridLayoutManager lm = new GridLayoutManager(ctx, num);
         fslRvServant.setLayoutManager(lm);
         fslRvServant.addItemDecoration(new GridItemDecoration(ctx, widthSpace, 5));
+
         //设置筛选列表
         fAdapter = new FilterAdapter(ctx,mPresenter.getFilterItems());
         LinearLayoutManager lmFilter = new LinearLayoutManager(ctx);
         lmFilter.setOrientation(LinearLayoutManager.HORIZONTAL);
         fslRvFilter.setAdapter(fAdapter);
         fslRvFilter.setLayoutManager(lmFilter);
+
         //设置监听
         setListener();
+
         //检查权限
         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -514,9 +519,9 @@ public class ServantListFragment extends BaseFrag implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", updateItem.getVersionCode());
+                    SharedPreferencesUtils.setParam(ctx, "ignVersion", updateItem.getVersionCode());
                 } else {
-                    SharedPreferencesUtils.setParam(ctx, "ignoreVersion", 0);
+                    SharedPreferencesUtils.setParam(ctx, "ignVersion", 0);
                 }
             }
         });

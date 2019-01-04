@@ -17,12 +17,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.BuffAdapter;
 import org.phantancy.fgocalc.base.BaseActy;
 import org.phantancy.fgocalc.item.BuffItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.TipItem;
 import org.phantancy.fgocalc.util.BaseUtils;
+import org.phantancy.fgocalc.util.ToolCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,8 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     LinearLayout abLlFox;
     @BindView(R.id.ab_ll_scathach)
     LinearLayout abLlScathach;
+    @BindView(R.id.ab_btn_fgowiki)
+    Button abBtnFgowiki;
     private BuffAdapter adapter;
     private List<BuffItem> list = new ArrayList<>();
     private BuffContract.Presenter mPresenter;
@@ -62,6 +67,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
     private String[] relationship;//羁绊
     private String curRelationship = "";
     private String preRelationship = "";
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         initStatusBar();
         setListener();
         if (servantItem != null) {
+            id = servantItem.getId();
             list = mPresenter.getBuffList(servantItem, buffsItem);
             adapter = new BuffAdapter(list, ctx);
             GridLayoutManager gl = new GridLayoutManager(ctx, 3);
@@ -142,7 +149,24 @@ public class BuffActy extends BaseActy implements BuffContract.View {
         abLlScathach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.scathachBuffs(50,100,30);
+                adapter.scathachBuffs(50, 100, 30);
+            }
+        });
+        abBtnFgowiki.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (BaseUtils.isNetworkAvailable(ctx)) {
+                    String url = new StringBuilder()
+                            .append("https://fgo.umowang.com/servant/")
+                            .append(id)
+                            .toString();
+                    Intent i = new Intent(ctx, WebviewActy.class);
+                    i.putExtra("url", url);
+                    startActivity(i);
+                } else {
+                    TipItem tItem = new TipItem(R.drawable.altria_alter_b, "未检测到网络连接", true);
+                    ToolCase.showTip(ctx, tItem);
+                }
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -256,9 +257,9 @@ public class AtkFrag extends BaseFrag implements
 
     //默认hp atk
     private void setDefault() {
-        ToolCase.setViewValue(famEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
-        ToolCase.setViewValue(famEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp()).toString());
-        ToolCase.setViewValue(famEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp()).toString());
+        ToolCase.setViewValue(famEtAtk, new StringBuilder().append(servantItem.getDefault_atk() + 1000).toString());
+        ToolCase.setViewValue(famEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp() + 1000).toString());
+        ToolCase.setViewValue(famEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp() + 1000).toString());
         //判断是否是alterego
         String classType = servantItem.getClass_type();
         if (classType.toLowerCase().equals("alterego")) {
@@ -419,10 +420,15 @@ public class AtkFrag extends BaseFrag implements
         famSpEssence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
-                atk = atk - essenceAtk + essenceAtks[position];
-                ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
-                essenceAtk = essenceAtks[position];
+                String atkStr = ToolCase.getViewValue(famEtAtk);
+                if (!TextUtils.isEmpty(atkStr)) {
+                    atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
+                    atk = atk - essenceAtk + essenceAtks[position];
+                    ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
+                    essenceAtk = essenceAtks[position];
+                }else {
+                    ToolCase.setViewValue(famEtAtk, "0");
+                }
             }
 
             @Override
@@ -434,10 +440,15 @@ public class AtkFrag extends BaseFrag implements
         famSpFufu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
-                atk = atk - fufuAtk + fufuAtks[position];
-                ToolCase.setViewValue(famEtAtk,String.valueOf(atk));
-                fufuAtk = fufuAtks[position];
+                String atkStr = ToolCase.getViewValue(famEtAtk);
+                if (!TextUtils.isEmpty(atkStr)) {
+                    atk = Integer.valueOf(atkStr);
+                    atk = atk - fufuAtk + fufuAtks[position];
+                    ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
+                    fufuAtk = fufuAtks[position];
+                } else {
+                    ToolCase.setViewValue(famEtAtk, "0");
+                }
             }
 
             @Override

@@ -134,40 +134,54 @@
                 android:text="随机数"
                 android:textColor="@color/colorWhite" />
 
-            <RadioGroup
-                android:id="@+id/fnm_rg_ran"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/fnm_rb_low"
-                    style="@style/rb_atk"
-                    android:layout_weight="1.0"
-                    android:text="最小" />
+                <RadioGroup
 
-                <RadioButton
-                    android:id="@+id/fnm_rb_high"
-                    style="@style/rb_atk"
+                    android:id="@+id/fnm_rg_ran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1.0"
-                    android:text="最大" />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/fnm_rb_middle"
-                    style="@style/rb_atk"
-                    android:layout_weight="1.0"
-                    android:checked="true"
-                    android:text="平均" />
+                    <RadioButton
+                        android:id="@+id/fnm_rb_low"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="最小" />
 
-                <RadioButton
-                    android:id="@+id/fnm_rb_ran"
-                    style="@style/rb_atk"
-                    android:layout_weight="1.0"
-                    android:text="随机"
+                    <RadioButton
+                        android:id="@+id/fnm_rb_high"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="最大" />
+
+                    <RadioButton
+                        android:id="@+id/fnm_rb_middle"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:checked="true"
+                        android:text="平均" />
+
+                    <RadioButton
+                        android:id="@+id/fnm_rb_class"
+                        style="@style/rb_atk"
+                        android:layout_weight="1.0"
+                        android:text="精确"/>
+
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/fnm_sp_class"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@color/colorGrayHard"
                     android:visibility="gone"/>
-
-            </RadioGroup>
+            </LinearLayout>
 
         </LinearLayout>
 

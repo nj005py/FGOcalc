@@ -18,12 +18,14 @@
             android:textAllCaps="false"
             android:text="去旧fgowiki"
             android:textSize="14dp"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:visibility="gone"/>
 
         <View
             android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/fim_btn_newwiki"

@@ -31,6 +31,22 @@
             android:background="@color/colorSilver"/>
 
         <Button
+            android:id="@+id/ab_btn_fgowiki"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/se_gray_dark"
+            android:textAllCaps="false"
+            android:text="查wiki"
+            android:textSize="14dp"
+            android:textColor="@color/colorWhite"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorSilver"/>
+
+        <Button
             android:id="@+id/ab_btn_clean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

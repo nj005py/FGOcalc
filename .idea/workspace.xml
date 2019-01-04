@@ -1,507 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AndroidLayouts">
-    <shared>
-      <config>
-        <devices>
-          <device id="pixel" />
-        </devices>
-        <target>android-28</target>
-      </config>
-    </shared>
-  </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dfb0b25b-b6bd-41ee-a02e-e0ad604d1518" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/cast.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CompassActy.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/FilterAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/OptionAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/LoadingDialog.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/TipDialog.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/event/DatabaseEvent.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/FilterItem.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/OptionItem.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/TipItem.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/MyAppGlideModule.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ServantLayoutManager.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CompassView.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/OptionDecoration.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/zoom_in.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/zoom_out.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/altria_a.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/altria_alter_a.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/altria_alter_b.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/altria_x_a.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/arts.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/arts_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/atk_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/buster.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/buster_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/chat_bg.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/close.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/critical_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/defence_down.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/doctor.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ef_summon_shield_tmp00.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/essence_golden.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/essence_silver.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fufu01.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fufu02.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fufu03.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fufu04.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fufu_anim.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/get_merlin.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gradient_blue_grayhard.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gradient_deepblue.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/guda.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/guda_tip.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1000.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1001.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1005.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image183.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image184.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image185.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image186.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image187.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image188.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image212.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image213.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image214.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image215.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image216.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image217.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image218.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image219.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image220.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image221.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image222.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image223.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image224.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image225.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image91.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image92.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/joan_alter_bored.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/joan_alter_dislike.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/joan_alter_smile.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/lily.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_icon.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logo_guda.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_a.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_b.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_q.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/option_bg.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/option_bg_dark.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/phantancy.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/quick.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/quick_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_bluegrayhard_gray.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_gray_dark.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_option_bg.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_radius_gray.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_grayhard_noradius.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/search.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/servant_golden.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/servant_silver.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_back.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_forward.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_r_top_white.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_gray_dark.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_gray_hard.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_drop_down_normal.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/slt_floating_btn.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/special_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/splash.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_r.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_sr.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_ssr.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/star_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/stone.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/summon_ticket.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/triangle.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/trump_down.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/trump_special_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/trump_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/wake_up.webp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_compass.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/diag_loading.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_tip.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_light.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_filter.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_option.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/FGOcalc.iml" afterPath="$PROJECT_DIR$/FGOcalc.iml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/libs/universal-image-loader-1.9.5.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/database.xml" afterPath="$PROJECT_DIR$/app/src/main/assets/database.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CatchActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CatchActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoCardsMVPAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoCardsMVPAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/CalcActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/CalcActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/database/DBManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/database/DBManager.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/AboutDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/AboutDialog.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/TalkDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/TalkDialog.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/UpdateDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/UpdateDialog.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MetaphysicsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MetaphysicsFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffsItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffsItem.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionAtk.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionAtk.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionTrump.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionTrump.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ServantItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ServantItem.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/UpdateItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/UpdateItem.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/GridItemDecoration.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/GridItemDecoration.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CardsItemView.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CardsItemView.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListContract.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListMVPActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListMVPActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListPresenter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/splash/SplashActy.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/splash/SplashActy.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ActivityUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ActivityUtils.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/BaseUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/BaseUtils.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/OKhttpManager.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ToolCase.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ToolCase.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ClearEditText.java" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ClearEditText.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_blue_noradius.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_blue_noradius.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_toggle_btn.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_normal.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_normal.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_pressed.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_pressed.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash_background.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/splash_background.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_extract.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_extract.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_fate_go.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_fate_go.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_about.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/diag_about.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_feedback.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/diag_feedback.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_update.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/diag_update.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_talk.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_talk.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_atk_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_atk_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_info.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_metaphysics.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_metaphysics.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_np_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_np_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_servant_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_servant_list.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_star_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_star_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_trump_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_trump_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_buff.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_buff.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_card_type.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_card_type.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_catch.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_catch.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_deep.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_deep.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_info.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards_mvp.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards_mvp.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant_cardview.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_servant_cardview.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/status_bar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/status_bar.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/nv_side_menu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/nv_side_menu.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/altria_alter_a.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/altria_alter_b.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/arts.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/arts_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/atk_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/buster.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/buster_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/chat_bg.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/close.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/critical_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/defence_down.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/doctor.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/essence_golden.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/essence_silver.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/get_merlin.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/guda.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/guda_tip.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image1.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image10.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image10.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image100.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image100.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image101.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image101.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image102.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image102.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image103.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image103.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image104.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image104.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image105.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image105.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image106.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image106.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image107.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image107.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image108.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image108.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image109.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image109.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image11.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image11.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image110.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image110.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image111.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image111.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image112.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image112.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image113.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image113.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image114.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image114.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image115.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image115.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image116.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image116.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image117.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image117.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image118.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image118.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image119.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image119.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image12.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image12.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image120.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image120.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image121.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image121.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image122.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image122.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image123.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image123.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image124.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image124.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image125.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image125.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image126.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image126.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image127.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image127.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image128.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image128.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image129.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image129.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image13.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image13.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image130.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image130.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image131.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image131.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image132.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image132.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image133.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image133.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image134.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image134.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image135.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image135.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image136.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image136.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image137.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image137.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image138.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image138.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image139.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image139.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image14.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image14.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image140.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image140.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image141.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image141.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image142.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image142.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image143.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image143.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image144.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image144.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image145.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image145.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image146.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image146.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image147.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image147.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image148.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image148.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image149.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image149.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image15.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image15.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image150.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image150.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image151.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image151.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image152.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image152.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image153.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image153.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image154.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image154.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image155.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image155.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image156.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image156.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image157.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image157.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image158.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image158.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image159.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image159.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image16.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image16.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image160.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image160.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image161.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image161.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image162.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image162.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image163.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image163.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image164.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image164.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image165.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image165.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image166.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image166.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image167.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image167.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image168.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image168.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image169.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image169.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image17.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image17.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image170.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image170.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image171.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image171.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image172.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image172.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image173.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image173.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image174.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image174.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image175.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image175.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image176.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image176.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image177.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image177.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image178.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image178.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image179.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image179.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image18.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image18.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image180.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image180.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image181.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image181.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image182.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image182.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image189.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image189.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image19.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image19.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image190.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image190.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image191.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image191.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image192.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image192.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image193.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image193.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image194.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image194.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image195.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image195.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image196.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image196.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image197.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image197.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image198.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image198.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image199.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image199.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image2.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image2.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image20.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image20.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image200.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image200.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image201.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image201.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image202.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image202.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image203.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image203.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image204.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image204.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image205.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image205.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image206.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image206.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image207.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image207.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image208.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image208.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image209.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image209.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image21.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image21.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image210.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image210.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image211.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image211.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image22.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image22.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image23.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image23.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image24.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image24.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image25.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image25.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image26.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image26.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image27.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image27.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image28.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image28.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image29.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image29.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image3.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image3.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image30.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image30.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image31.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image31.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image32.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image32.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image33.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image33.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image34.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image34.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image35.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image35.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image36.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image36.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image37.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image37.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image38.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image38.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image39.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image39.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image4.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image4.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image40.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image40.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image41.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image41.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image42.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image42.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image43.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image43.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image44.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image44.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image45.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image45.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image46.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image46.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image47.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image47.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image48.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image48.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image49.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image49.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image5.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image5.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image50.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image50.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image51.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image51.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image52.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image52.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image53.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image53.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image54.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image54.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image55.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image55.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image56.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image56.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image57.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image57.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image58.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image58.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image59.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image59.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image6.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image6.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image60.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image60.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image61.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image61.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image62.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image62.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image63.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image63.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image64.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image64.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image65.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image65.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image66.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image66.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image67.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image67.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image68.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image68.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image69.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image69.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image7.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image7.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image70.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image70.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image71.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image71.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image72.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image72.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image73.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image73.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image74.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image74.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image75.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image75.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image76.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image76.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image77.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image77.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image78.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image78.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image79.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image79.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image8.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image8.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image80.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image80.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image81.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image81.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image82.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image82.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image83.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image83.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image84.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image84.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image85.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image85.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image86.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image86.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image87.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image87.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image88.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image88.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image89.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image89.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image9.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image9.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image90.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image90.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image93.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image93.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image94.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image94.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image95.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image95.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image96.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image96.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image97.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image97.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image98.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image98.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image99.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image99.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image999.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image999.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/image9999.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ios7_switch_off.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ios7_switch_on.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/joan_alter_bored.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/joan_alter_dislike.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/joan_alter_smile.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/loading.webp" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/np_a.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/np_b.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/np_q.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/np_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/phantancy.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/quick.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/quick_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/servant_golden.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/servant_silver.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/special_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/star_r.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/star_sr.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/star_ssr.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/star_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/triangle.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/trump_down.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/trump_special_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/trump_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/wake_up.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/get_merlin.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/lily.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/search.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/stone.webp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" afterPath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/push/build.gradle" afterPath="$PROJECT_DIR$/push/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/push/push.iml" afterPath="$PROJECT_DIR$/push/push.iml" />
+    <list default="true" id="e4212179-841a-4e62-ad97-1a5f599cd141" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/guda_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image226.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image227.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image228.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image229.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image230.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image231.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image232.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image233.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ticket2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FGOcalc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FGOcalc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/cast.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/cast.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/database.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/database.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/UrlConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/UrlConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_np_mvp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_np_mvp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_servant.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant_cardview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_servant_cardview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -523,145 +62,17 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CompassActy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CompassActy.java">
+    <leaf>
+      <file leaf-file-name="database.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/database.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="685">
-              <caret line="63" column="25" lean-forward="false" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
-              <folding>
-                <element signature="e#1702#1966#0" expanded="true" />
-                <element signature="e#1965#1966#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="102">
+              <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaphysicsActy.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="acty_metaphysics.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="22" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaphysicsContract.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MetaphysicsPresenter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="acty_compass.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_compass.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="202" column="17" lean-forward="false" selection-start-line="202" selection-start-column="17" selection-end-line="202" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompassView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CompassView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1443">
-              <caret line="283" column="82" lean-forward="false" selection-start-line="283" selection-start-column="82" selection-end-line="283" selection-end-column="82" />
-              <folding>
-                <element signature="method#drawCompassDegreeScale#0;class#CompassView#0" expanded="false" />
-                <element signature="method#drawCompassCircum#0;class#CompassView#0" expanded="false" />
-                <element signature="method#drawCompassOutSide#0;class#CompassView#0" expanded="false" />
-                <element signature="method#drawText#0;class#CompassView#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="loading_icon.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/loading_icon.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="layoutResourceFile" />
-        <option value="Class" />
-        <option value="resourceFile" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>onDes</find>
-      <find>screen</find>
-      <find>np</find>
-      <find>getNp_hit</find>
-      <find>setM</find>
-      <find>ignoreVersion</find>
-      <find>ignVersion</find>
-      <find>Drawable.cla</find>
-    </findStrings>
-  </component>
-  <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="F:\AndroidLab\keystore\fgocalc.jks" />
-    <option name="KEY_ALIAS" value="fgocalc" />
-    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -3638,9 +3049,6 @@
         </entry>
       </map>
     </option>
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
     <option name="projectSyncType">
       <map>
         <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
@@ -3650,57 +3058,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/frag_star_mvp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_grayhard_noradius.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/nv_side_menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/UpdateDialog.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/sh_r_top_white.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/diag_update.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/diag_about.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffsItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/TipItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/diag_feedback.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/frag_atk_mvp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/frag_trump_mvp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/assets/cast.html" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_simple_spinner.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_filter.xml" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/assets/database.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/sh_back.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/sh_forward.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/slt_floating_btn.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CompassView.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CompassActy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/acty_compass.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -3711,21 +3069,13 @@
     <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -3736,163 +3086,20 @@
             <path>
               <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="activity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="calc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="calc" type="462c0819:PsiDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="metaphysics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fgocalc" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="servant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="fgocalc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="fgocalc" type="462c0819:PsiDirectoryNode" />
-              <item name="activity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="fgocalc" type="462c0819:PsiDirectoryNode" />
-              <item name="metaphysics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FGOcalc" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FGOcalc" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="fgocalc" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="E:/AndroidSDK/sdk" />
-    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ChaosCompass-master" />
-    <property name="device.picker.selection" value="5JP0217C04001798" />
-    <property name="sync.plugin.last.upgrade.timestamp" value="1534574853405" />
-    <property name="android.profiler.active" value="true" />
-    <property name="android.project.structure.last.selected" value="push" />
-    <property name="android.project.structure.proportion" value="0.15" />
-    <property name="ExportApk.ApkPath" value="F:\project\fgocalc\apk" />
-    <property name="ExportApk.Flavors" value="" />
-    <property name="ExportApk.BuildType" value="release" />
-    <property name="ExportApk.SignV1" value="true" />
-    <property name="ExportApk.SignV2" value="true" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="F:\AndroidLab\FGOcalc\app\src\main\res\drawable" />
-      <recent name="F:\AndroidLab\FGOcalc\app\src\main\res\mipmap-mdpi" />
-      <recent name="F:\AndroidLab\FGOcalc\app\src\main\res\mipmap-hdpi" />
-      <recent name="F:\AndroidLab\FGOcalc\app\src\main\res\mipmap-xxxhdpi" />
-      <recent name="F:\AndroidLab\FGOcalc\app\src\main\res\mipmap-xxhdpi" />
-    </key>
+    <property name="sync.plugin.last.upgrade.timestamp" value="1546595051944" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -3908,8 +3115,6 @@
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" />
@@ -3919,22 +3124,23 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
-      <envs />
       <patterns />
       <method>
+        <option name="Make" enabled="false" />
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="app" />
       <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -3971,34 +3177,16 @@
       </Native>
       <Profilers>
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
@@ -4009,615 +3197,81 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
       <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" />
-      <envs />
       <properties />
       <listeners />
     </configuration>
-    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+    <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="FGOcalc" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <module name="FGOcalc" />
-      <envs />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <envs />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-    </configuration>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="dfb0b25b-b6bd-41ee-a02e-e0ad604d1518" name="Default" comment="" />
-      <created>1534508738667</created>
+      <changelist id="e4212179-841a-4e62-ad97-1a5f599cd141" name="Default" comment="" />
+      <created>1546594495604</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1534508738667</updated>
+      <updated>1546594495604</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.64849836" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42" sideWeight="0.5042644" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Flutter Outline" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41935483" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Build" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29850745" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15831557" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Flutter Inspector" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Flutter Outline" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info id="Capture Tool" />
+      <window_info id="Designer" />
+      <window_info anchor="bottom" id="Build" visible="true" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info id="Image Layers" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="bottom" id="Flutter Performance" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info id="Captures" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="right" id="Flutter Inspector" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java</url>
-          <line>100</line>
-          <properties />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="11" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/frag_atk_mvp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1518">
-          <caret line="66" column="16" lean-forward="false" selection-start-line="66" selection-start-column="16" selection-end-line="67" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/frag_trump_mvp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1610">
-          <caret line="70" column="44" lean-forward="false" selection-start-line="70" selection-start-column="44" selection-end-line="70" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/frag_info.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/arrays.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4485">
-          <caret line="195" column="23" lean-forward="false" selection-start-line="195" selection-start-column="23" selection-end-line="195" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/cast.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2737">
-          <caret line="119" column="28" lean-forward="false" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/AndroidSDK/sdk/sources/android-28/android/os/AsyncTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4924">
-          <caret line="179" column="22" lean-forward="false" selection-start-line="179" selection-start-column="22" selection-end-line="179" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/org/phantancy/fgocalc/util/GlideApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1551">
-          <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/org/phantancy/fgocalc/util/GlideRequests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-493">
-          <caret line="118" column="32" lean-forward="false" selection-start-line="118" selection-start-column="32" selection-end-line="118" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="173" column="29" lean-forward="false" selection-start-line="173" selection-start-column="29" selection-end-line="173" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarFrag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="334" column="0" lean-forward="false" selection-start-line="334" selection-start-column="0" selection-end-line="334" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_light.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="708">
-          <caret line="130" column="25" lean-forward="false" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/FilterAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1633">
-          <caret line="89" column="31" lean-forward="false" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_simple_spinner.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_filter.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="31" lean-forward="false" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="201" lean-forward="false" selection-start-line="1" selection-start-column="201" selection-end-line="1" selection-end-column="201" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ToolCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3220">
-          <caret line="185" column="60" lean-forward="false" selection-start-line="185" selection-start-column="60" selection-end-line="185" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_servant_list_mvp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="80" column="17" lean-forward="false" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListMVPActy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="47" column="43" lean-forward="false" selection-start-line="47" selection-start-column="43" selection-end-line="47" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseActy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="55" column="56" lean-forward="false" selection-start-line="55" selection-start-column="56" selection-end-line="55" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7314">
-          <caret line="335" column="65" lean-forward="false" selection-start-line="335" selection-start-column="65" selection-end-line="335" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11339">
-          <caret line="495" column="43" lean-forward="false" selection-start-line="495" selection-start-column="43" selection-end-line="495" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/database.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="22" lean-forward="false" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="34" column="27" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="122" column="44" lean-forward="false" selection-start-line="122" selection-start-column="44" selection-end-line="122" selection-end-column="44" />
-          <folding>
-            <element signature="e#5174#5175#0" expanded="false" />
-            <element signature="e#5211#5212#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/sh_forward.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="12" column="34" lean-forward="false" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/sh_back.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="29" column="58" lean-forward="false" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/slt_floating_btn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="50" lean-forward="false" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/status_bar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="106" column="40" lean-forward="false" selection-start-line="106" selection-start-column="40" selection-end-line="110" selection-end-column="69" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ef_summon_shield_tmp00.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/guda_tip.webp">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="73" column="54" lean-forward="false" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
-          <folding>
-            <element signature="e#4438#4847#0" expanded="false" />
-            <element signature="e#4585#4816#0" expanded="false" />
-            <element signature="e#4815#4816#0" expanded="false" />
-            <element signature="e#4846#4847#0" expanded="false" />
-            <element signature="e#4966#5116#0" expanded="false" />
-            <element signature="e#5115#5116#0" expanded="false" />
-            <element signature="e#5160#5313#0" expanded="false" />
-            <element signature="e#5312#5313#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/loading_icon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CompassView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1443">
-          <caret line="283" column="82" lean-forward="false" selection-start-line="283" selection-start-column="82" selection-end-line="283" selection-end-column="82" />
-          <folding>
-            <element signature="method#drawCompassDegreeScale#0;class#CompassView#0" expanded="false" />
-            <element signature="method#drawCompassCircum#0;class#CompassView#0" expanded="false" />
-            <element signature="method#drawCompassOutSide#0;class#CompassView#0" expanded="false" />
-            <element signature="method#drawText#0;class#CompassView#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="202" column="17" lean-forward="false" selection-start-line="202" selection-start-column="17" selection-end-line="202" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CompassActy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="685">
-          <caret line="63" column="25" lean-forward="false" selection-start-line="63" selection-start-column="25" selection-end-line="63" selection-end-column="25" />
-          <folding>
-            <element signature="e#1702#1966#0" expanded="true" />
-            <element signature="e#1965#1966#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_compass.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="40" lean-forward="false" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="22" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="102">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
         </state>
       </provider>
     </entry>

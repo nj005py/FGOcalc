@@ -179,6 +179,7 @@ public class TrumpFrag extends BaseFrag implements
         lvStr = getResources().getStringArray(R.array.trump_lv_str);
         essenceAtks = getResources().getIntArray(R.array.essence_atk);
         fufuAtks = getResources().getIntArray(R.array.fufu_atk);
+
         if (servantItem != null) {
             setDefault();
             id = servantItem.getId();
@@ -210,6 +211,7 @@ public class TrumpFrag extends BaseFrag implements
             ToolCase.spInitDeep(ctx, essenceAtks, ftmSpEssence);
             ToolCase.spInitDeep(ctx, fufuAtks, ftmSpFufu);
             ftmSpFufu.setSelection(2);
+
             curLv.add(servantItem.getTrump_lv1());
             curLv.add(servantItem.getTrump_lv2());
             curLv.add(servantItem.getTrump_lv3());
@@ -242,9 +244,9 @@ public class TrumpFrag extends BaseFrag implements
 
     //默认hp atk
     private void setDefault() {
-        ToolCase.setViewValue(ftmEtAtk, new StringBuilder().append(servantItem.getDefault_atk()).toString());
-        ToolCase.setViewValue(ftmEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp()).toString());
-        ToolCase.setViewValue(ftmEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp()).toString());
+        ToolCase.setViewValue(ftmEtAtk, new StringBuilder().append(servantItem.getDefault_atk() + 1000).toString());
+        ToolCase.setViewValue(ftmEtHpTotal, new StringBuilder().append(servantItem.getDefault_hp() + 1000).toString());
+        ToolCase.setViewValue(ftmEtHpLeft, new StringBuilder().append(servantItem.getDefault_hp() + 1000).toString());
     }
 
     private void setListener() {
@@ -387,10 +389,15 @@ public class TrumpFrag extends BaseFrag implements
         ftmSpEssence.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
-                atk = atk - essenceAtk + essenceAtks[position];
-                ToolCase.setViewValue(ftmEtAtk, String.valueOf(atk));
-                essenceAtk = essenceAtks[position];
+                String atkStr = ToolCase.getViewValue(ftmEtAtk);
+                if (!TextUtils.isEmpty(atkStr)) {
+                    atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
+                    atk = atk - essenceAtk + essenceAtks[position];
+                    ToolCase.setViewValue(ftmEtAtk, String.valueOf(atk));
+                    essenceAtk = essenceAtks[position];
+                }else {
+                    ToolCase.setViewValue(ftmEtAtk, "0");
+                }
             }
 
             @Override
@@ -402,10 +409,15 @@ public class TrumpFrag extends BaseFrag implements
         ftmSpFufu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                atk = Integer.valueOf(ToolCase.getViewValue(ftmEtAtk));
-                atk = atk - fufuAtk + fufuAtks[position];
-                ToolCase.setViewValue(ftmEtAtk,String.valueOf(atk));
-                fufuAtk = fufuAtks[position];
+                String atkStr = ToolCase.getViewValue(ftmEtAtk);
+                if (!TextUtils.isEmpty(atkStr)) {
+                    atk = Integer.valueOf(atkStr);
+                    atk = atk - fufuAtk + fufuAtks[position];
+                    ToolCase.setViewValue(ftmEtAtk, String.valueOf(atk));
+                    fufuAtk = fufuAtks[position];
+                } else {
+                    ToolCase.setViewValue(ftmEtAtk, "0");
+                }
             }
 
             @Override

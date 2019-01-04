@@ -43,11 +43,11 @@
             android:textColor="@color/colorBlack"/>
 
         <TextView
-            android:id="@+id/is_tv_star"
+            android:id="@+id/is_tv_atk_hp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="5星"
+            android:text="atk"
             android:textSize="14dp"
             android:textColor="@color/colorBlack"/>
 

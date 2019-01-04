@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
+import org.phantancy.fgocalc.common.UrlConstant;
 import org.phantancy.fgocalc.item.InfoCardsMVPItem;
 import org.phantancy.fgocalc.item.InfoItem;
 import org.phantancy.fgocalc.util.GlideApp;
@@ -28,6 +29,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     private List<InfoItem> mList;
     private InfoCardsMVPAdapter adapter;
     private Context ctx;
+    private String avatarUrl = UrlConstant.AVATAR_URL;
 
     public InfoAdapter(List<InfoItem> mList,Context ctx) {
         this.mList = mList;
@@ -101,7 +103,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
                             num = new StringBuilder().append(item.getId()).toString();
                         }
                         //从fgowiki获取头像
-                        String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(num).append(".jpg").toString();
+                        String url = new StringBuilder().append(avatarUrl).append(num).append(".jpg").toString();
                         GlideApp.with(ctx)
                                 .load(url)
                                 .placeholder(R.drawable.loading)

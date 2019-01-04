@@ -9,16 +9,13 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -40,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by HATTER on 2017/11/7.
  */
@@ -77,8 +75,6 @@ public class NpFrag extends BaseFrag implements
     RadioButton fnmRbHigh;
     @BindView(R.id.fnm_rb_middle)
     RadioButton fnmRbMiddle;
-    @BindView(R.id.fnm_rb_ran)
-    RadioButton fnmRbRan;
     @BindView(R.id.fnm_rg_ran)
     RadioGroup fnmRgRan;
     @BindView(R.id.fnm_ll_input)
@@ -96,6 +92,10 @@ public class NpFrag extends BaseFrag implements
     RadioButton fnmRbEnemyThree;
     @BindView(R.id.fnm_rg_enemy_amount)
     RadioGroup fnmRgEnemyAmount;
+    @BindView(R.id.fnm_rb_class)
+    RadioButton fnmRbClass;
+    @BindView(R.id.fnm_sp_class)
+    Spinner fnmSpClass;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private String[] cardValues = {"b", "a", "q", "np"};
@@ -106,6 +106,11 @@ public class NpFrag extends BaseFrag implements
     private int enemyAmount = 1;
     private ConditionNp conNp;
     private String trumpColor;
+
+    //职阶
+    private String[] classes = {"Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Avenger","Alterego","MoonCancer","Foreigner"};
+    //职阶np系数
+    private double[] classCoefficients = {1.0,1.0,1.0,1.1,1.2,0.9,0.8,1.0,1.0,1.0,1.0,1.0};
 
     @NonNull
     private NpContract.Presenter mPresenter;
@@ -135,17 +140,24 @@ public class NpFrag extends BaseFrag implements
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         Bundle data = getArguments();
+
         servantItem = (ServantItem) data.getSerializable("servantItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         trumpColor = servantItem.getTrump_color();
+
         //声明一个简单simpleAdapter
         SimpleAdapter simpleAdapter = new SimpleAdapter(ctx, ToolCase.getCommandNPCards(trumpColor), R.layout.item_card_type,
                 new String[]{"img", "name"}, new int[]{R.id.ict_iv_card, R.id.ict_tv_card});
+
         fnmSpCard1.setAdapter(simpleAdapter);
         fnmSpCard2.setAdapter(simpleAdapter);
         fnmSpCard3.setAdapter(simpleAdapter);
         fnmTvResult.setMovementMethod(new ScrollingMovementMethod());
+
+        ToolCase.spInitDeep(ctx,classes,fnmSpClass);
+
         setListener();
         boolean firstTimeUse = (Boolean) SharedPreferencesUtils.getParam(ctx, "firstTimeUse", true);
     }
@@ -277,17 +289,33 @@ public class NpFrag extends BaseFrag implements
                 switch (checkedId) {
                     case R.id.fnm_rb_low:
                         random = mPresenter.getRan(Constant.TYPE_MIN);
+                        fnmSpClass.setVisibility(View.GONE);
                         break;
                     case R.id.fnm_rb_high:
                         random = mPresenter.getRan(Constant.TYPE_MAX);
+                        fnmSpClass.setVisibility(View.GONE);
                         break;
                     case R.id.fnm_rb_middle:
                         random = mPresenter.getRan(Constant.TYPE_AVERAGE);
+                        fnmSpClass.setVisibility(View.GONE);
                         break;
-                    case R.id.fnm_rb_ran:
-                        random = mPresenter.getRan(Constant.TYPE_RANDOM);
+                    case R.id.fnm_rb_class:
+                        random = 1.0;
+                        fnmSpClass.setVisibility(View.VISIBLE);
                         break;
                 }
+            }
+        });
+
+        fnmSpClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                random = classCoefficients[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                random = 1.0;
             }
         });
 
@@ -343,15 +371,15 @@ public class NpFrag extends BaseFrag implements
     @Override
     public void setResult(Object result) {
         if (result instanceof String) {
-            ToolCase.setViewValue(fnmTvResult, (String)result);
+            ToolCase.setViewValue(fnmTvResult, (String) result);
             fnmSvResult.post(new Runnable() {
                 @Override
                 public void run() {
                     fnmSvResult.fullScroll(ScrollView.FOCUS_DOWN);
                 }
             });
-        }else if (result instanceof Spanned) {
-            fnmTvResult.setText((Spanned)result,TextView.BufferType.SPANNABLE);
+        } else if (result instanceof Spanned) {
+            fnmTvResult.setText((Spanned) result, TextView.BufferType.SPANNABLE);
             fnmSvResult.post(new Runnable() {
                 @Override
                 public void run() {
@@ -366,7 +394,7 @@ public class NpFrag extends BaseFrag implements
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         conNp = mPresenter.getCondition(cardType1, cardType2, cardType3,
                 ifCr1, ifCr2, ifCr3, ifok1, ifok2, ifok3,
-                random, servantItem, buffsItem,enemyAmount);
+                random, servantItem, buffsItem, enemyAmount);
 
         return true;
     }

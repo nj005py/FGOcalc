@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -33,6 +34,7 @@ import com.bumptech.glide.request.transition.Transition;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.calc.CalcActy;
+import org.phantancy.fgocalc.common.UrlConstant;
 import org.phantancy.fgocalc.database.DBManager;
 import org.phantancy.fgocalc.dialog.TalkDialog;
 import org.phantancy.fgocalc.item.OptionItem;
@@ -61,10 +63,11 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
     private Activity acty;
     //    private LruCache<Integer, Drawable> imgCache;
     private Drawable defaultDrawable;
+    private String avatarUrl = UrlConstant.AVATAR_URL;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv;
-        TextView tvName, tvId, tvIdBg, tvNpClassification,tvNpClassificationBg;
+        TextView tvName, tvId, tvIdBg, tvNpClassification,tvNpClassificationBg,tvAtkHp;
         CardView cv;
         ImageView ivNpColor;
 
@@ -78,6 +81,7 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
             ivNpColor = itemView.findViewById(R.id.isc_iv_np_color);
             tvNpClassification = itemView.findViewById(R.id.isc_tv_np_classification);
             tvNpClassificationBg = itemView.findViewById(R.id.isc_tv_np_classification_bg);
+            tvAtkHp = itemView.findViewById(R.id.isc_tv_atk_hp);
         }
     }
 
@@ -141,6 +145,7 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
         ImageView ivNpColor = holder.ivNpColor;
         TextView tvNpClassification = holder.tvNpClassification;
         TextView tvNpClassificationBg = holder.tvNpClassificationBg;
+        TextView tvAtkHp = holder.tvAtkHp;
 
         final int id = item.getId();
         final int pos = position;
@@ -153,6 +158,13 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                 .toString();
         String npTypeCode = item.getNp_classification();
         String npClassification = "";
+        String atkHp = new StringBuilder()
+                .append("<font color='#E21918'>atk:")
+                .append(item.getDefault_atk())
+                .append("</font><br><font color='#7BAF44'>hp:")
+                .append(item.getDefault_hp())
+                .append("</font>")
+                .toString();
         if (!TextUtils.isEmpty(npTypeCode)) {
             switch (npTypeCode) {
                 case "one":
@@ -165,6 +177,9 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                     npClassification = "辅助";
                     break;
             }
+        }
+        if (!TextUtils.isEmpty(atkHp)) {
+            tvAtkHp.setText(Html.fromHtml(atkHp), TextView.BufferType.SPANNABLE);
         }
         //头像资源id
 //        int resId = ctx.getResources().getIdentifier("image" + item.getId(), "drawable", ctx.getPackageName());
@@ -198,7 +213,7 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                     strNum = new StringBuilder().append(id).toString();
                 }
                 //从fgowiki获取头像
-                String url = new StringBuilder().append("http://file.fgowiki.fgowiki.com/fgo/head/").append(strNum).append(".jpg").toString();
+                String url = new StringBuilder().append(avatarUrl).append(strNum).append(".jpg").toString();
                 GetNetImage getNetImage = new GetNetImage(ctx, id, ivAvatar, url);
                 getNetImage.execute();
             }

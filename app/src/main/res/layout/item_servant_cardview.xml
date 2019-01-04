@@ -11,7 +11,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/relativeLayout"
         android:layout_width="80dp"
-        android:layout_height="125dp">
+        android:layout_height="135dp">
 
         <ImageView
             android:id="@+id/isc_iv_portrait"
@@ -79,17 +79,33 @@
         <TextView
             android:id="@+id/isc_tv_name"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start"
+            android:textColor="@color/colorBlack"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="12dp"
+            android:text="阿尔托莉雅·潘德拉贡(ALter)"
+            app:layout_constraintTop_toBottomOf="@+id/isc_iv_portrait"
+            app:layout_constraintLeft_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="parent"/>
+
+
+        <TextView
+            android:id="@+id/isc_tv_atk_hp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
             android:fontFamily="sans-serif-condensed"
             android:gravity="start"
             android:textColor="@color/colorBlack"
             android:maxLines="2"
             android:ellipsize="end"
             android:textSize="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/isc_iv_portrait"
+            android:text="atk:0\nhp:0"
+            app:layout_constraintTop_toBottomOf="@+id/isc_tv_name"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"/>
-        <!--android:text="阿尔托莉雅·潘德拉贡(ALter)"-->
 
     </android.support.constraint.ConstraintLayout>
 

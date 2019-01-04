@@ -15,6 +15,7 @@ import org.phantancy.fgocalc.util.BaseUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 
 /**
  * Created by HATTER on 2017/11/7.
@@ -26,7 +27,7 @@ public class NpPresenter implements NpContract.Presenter {
     @NonNull
     private Context ctx;
     private String result = "";
-    private int overAllNp;
+    private double overAllNp;
 
     public NpPresenter(@NonNull NpContract.View mView, @NonNull Context ctx) {
         this.mView = mView;
@@ -129,45 +130,55 @@ public class NpPresenter implements NpContract.Presenter {
             np = c.na * 100 * c.hits * (c.npTimes * c.npPositionBuff * (1 + c.cardBuff) + c.npFirstCardBuff) *
                     (1 + c.npBuff) * c.criticalCor * c.overkill * c.randomCor;
         }
-        int npInt = (int) Math.rint(np);
-        if (c.cardType.equals("a") && npInt == 0) {
-            npInt = 1;
+        DecimalFormat df = new DecimalFormat("##0.00");
+  
+        if (c.cardType.equals("a") && np == 0) {
+            np = 1;
         }
         if (result.length() < 1) {
             ServantItem sItem = conNp.getServantItem();
-            result = new StringBuilder().append(sItem.getName() + " " + sItem.getClass_type() + "<br>")
+            result = new StringBuilder()
+                    .append(sItem.getName() + " " + sItem.getClass_type() + "<br>")
                     .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人<br>")//条件
                     .append(getExtraBuffs(conNp) + "<br>")//buff
                     .append(BaseUtils.getCardTypeWithColour(c.cardType))
-                    .append("卡在").append(c.cardPosition).append("号位")
+                    .append("卡在")
+                    .append(c.cardPosition)
+                    .append("号位")
                     .append(c.ifCritical == false ? "" : " 暴击")
                     .append(c.ifOverkill ==false ? "" : " overkill")
-                    .append("的np获取量为").append(npInt).append("%").toString();
+                    .append("的np获取量为")
+                    .append(df.format(np))
+                    .append("%")
+                    .toString();
 //            result = c.cType + "卡在" + c.cPosition + " 号位的np获取量为" + npInt;
-            overAllNp = npInt;
+            overAllNp = np;
         } else {
             if (c.cardPosition == 1) {
-                result = new StringBuilder().append(result)
+                result = new StringBuilder()
+                        .append(result)
                         .append(getConditions(conNp) + " 宝具打击" + conNp.getEnemyAmount() + "个敌人<br>")//条件
                         .append(getExtraBuffs(conNp) + "<br>")//buff
                         .append(BaseUtils.getCardTypeWithColour(c.cardType))
                         .append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
-                        .append("的np获取量为").append(npInt).append("%").toString();
-                overAllNp += npInt;
+                        .append("的np获取量为")
+                        .append(df.format(np)).append("%").toString();
+                overAllNp += np;
             }else{
                 result = new StringBuilder().append(result + "<br>")
                         .append(BaseUtils.getCardTypeWithColour(c.cardType))
                         .append("卡在").append(c.cardPosition).append("号位")
                         .append(c.ifCritical == false ? "" : " 暴击")
                         .append(c.ifOverkill ==false ? "" : " overkill")
-                        .append("的np获取量为").append(npInt).append("%").toString();
-                overAllNp += npInt;
+                        .append("的np获取量为")
+                        .append(df.format(np)).append("%").toString();
+                overAllNp += np;
             }
             if (c.cardPosition == 4) {
                 result = new StringBuilder().append(result).append("<br>合计----->")
-                        .append(overAllNp)
+                        .append(df.format(overAllNp))
                         .append("%")
                         .append("<p>" + ctx.getString(R.string.fgocalc_divider) + "<p>").toString();
                 overAllNp = 0;

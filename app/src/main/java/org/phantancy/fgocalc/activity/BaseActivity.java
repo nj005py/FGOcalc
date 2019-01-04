@@ -58,7 +58,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            window.setNavigationBarColor(Color.TRANSPARENT);
             window.setStatusBarColor(Color.TRANSPARENT);//calculateStatusColor(Color.WHITE, (int) alphaValue)
             int height = BaseUtils.getStatusBarHeight(context);
             llStatusBar.setPadding(0, height, 0, 0);

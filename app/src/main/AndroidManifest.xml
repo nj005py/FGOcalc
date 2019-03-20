@@ -46,7 +46,6 @@
         </activity>
         <activity android:name="org.phantancy.fgocalc.servant.ServantListMVPActy"/>
         <activity android:name="org.phantancy.fgocalc.metaphysics.MetaphysicsActy"/>
-        <activity android:name="org.phantancy.fgocalc.activity.CatchActivity"/>
         <activity android:name="org.phantancy.fgocalc.activity.FateGoActy"/>
         <activity android:name="org.phantancy.fgocalc.calc.CalcActy"
             android:theme="@style/TransTheme"/>
@@ -54,6 +53,7 @@
             android:theme="@style/TransTheme"/>
         <activity android:name="org.phantancy.fgocalc.activity.WebviewActy"/>
         <activity android:name=".activity.CompassActy"/>
+        <activity android:name=".activity.PartyActy"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

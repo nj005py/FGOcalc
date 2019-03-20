@@ -36,6 +36,14 @@
         <item>HP降序</item>
         <item>ATK升序(算系数)</item>
         <item>ATK降序(算系数)</item>
+        <item>蓝卡NP率升序</item>
+        <item>蓝卡NP率降序</item>
+        <item>绿卡NP率升序</item>
+        <item>绿卡NP率降序</item>
+        <item>蓝卡NP获取升序</item>
+        <item>蓝卡NP获取降序</item>
+        <item>绿卡NP获取升序</item>
+        <item>绿卡NP获取降序</item>
     </string-array>
 
     <string-array name="order_type_value">
@@ -45,8 +53,16 @@
         <item>default_atk,desc</item>
         <item>default_hp,asc</item>
         <item>default_hp,desc</item>
-        <item>default_atk,asc,multiplier</item>
-        <item>default_atk,desc,multiplier</item>
+        <item>default_atk,asc,multi_atk</item>
+        <item>default_atk,desc,multi_atk</item>
+        <item>arts_na,asc</item>
+        <item>arts_na,desc</item>
+        <item>quick_na,asc</item>
+        <item>quick_na,desc</item>
+        <item>arts_na,asc,multi_arts</item>
+        <item>arts_na,desc,multi_arts</item>
+        <item>quick_na,asc,multi_quick</item>
+        <item>quick_na,desc,multi_quick</item>
     </string-array>
 
     <string-array name="np_classification">

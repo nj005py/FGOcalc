@@ -1,0 +1,16 @@
+{
+  "hasTip":"true",
+  "tip":"FGOcalc 数据管理系统作者",
+  "imgName":"altria_a",
+  "hasOption":"true",
+  "options":[
+    {
+      "option":"去Bilibili关注TA",
+      "url":"http://space.bilibili.com/3967375/#/"
+    },
+    {
+      "option":"查看TA的作品",
+      "url":"http://cia7.com"
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 package org.phantancy.fgocalc.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -60,7 +59,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.ItemViewHo
             if (item != null) {
                 TextView tvOption = holder.tvOption;
                 //设置选项
-                ToolCase.setViewValue(tvOption,item.getContent());
+                ToolCase.setViewValue(tvOption,item.getOption());
                 //如果有链接需要打开，走下面流程
                 final String url = item.getUrl();
                 tvOption.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +71,7 @@ public class OptionAdapter extends RecyclerView.Adapter<OptionAdapter.ItemViewHo
                             EventBus.getDefault().post(new DatabaseEvent(true));
                             d.dismiss();
                         }else{
+//                            ctx.startActivity(new Intent(ctx,WebviewActy.class).putExtra("url",url));
                             int error = ToolCase.openBrowser(ctx,url);
                             switch (error) {
                                 case 1:

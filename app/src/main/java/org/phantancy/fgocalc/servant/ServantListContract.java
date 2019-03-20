@@ -40,6 +40,7 @@ public interface ServantListContract {
         String getVersion();
         void feedback();
         void follow();
+        void goParty();
         void qq();
         List<FilterItem> getFilterItems();
         void checkAppUpdate(boolean isManual);

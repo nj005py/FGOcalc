@@ -14,6 +14,10 @@
             android:id="@+id/nsm_follow"
             android:title="关注作者"/>
 
+        <item
+            android:id="@+id/nsm_party"
+            android:title="编队"/>
+
 
         <item
             android:id="@+id/nsm_menu_loc"

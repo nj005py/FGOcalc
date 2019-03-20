@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
@@ -8,13 +8,14 @@
     <!--输入-->
     <LinearLayout
         android:id="@+id/fam_ll_input"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/colorGrayHard"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fam_sv_result"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <!--buff设置开关-->
         <LinearLayout
@@ -55,26 +56,38 @@
             android:gravity="start|center_vertical"
             android:background="@color/colorGrayHard">
 
-            <TextView
-                style="@style/tv_common"
-                android:layout_width="wrap_content"
-                android:text="宝具卡色"
-                android:textColor="@color/colorWhite"/>
-
-            <!--宝具卡色-->
-            <ImageView
-                android:id="@+id/fam_iv_color"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/buster"/>
-
             <CheckBox
                 android:id="@+id/fam_cb_upgraded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="切换旧倍率"
-                android:textColor="@color/colorWhite"
-                android:visibility="gone"/>
+                android:text="旧倍率"
+                android:textColor="@drawable/se_txt_white_gray"
+                android:enabled="false"/>
+
+            <TextView
+                style="@style/tv_common"
+                android:id="@+id/fam_tv_lv"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="lv"
+                android:textColor="@color/colorWhite"/>
+
+            <com.xw.repo.BubbleSeekBar
+                android:id="@+id/fam_sb_lv_svt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bsb_section_count="10"
+                app:bsb_track_color="@color/colorBgGray"
+                app:bsb_bubble_text_color="@color/colorWhite"
+                app:bsb_second_track_color="@color/colorShineBlue"
+                app:bsb_section_text_position="below_section_mark"
+                app:bsb_show_section_mark="true"
+                app:bsb_show_section_text="true"
+                app:bsb_show_thumb_text="true"
+                app:bsb_touch_to_seek="true"
+                android:max="100"
+                app:bsb_min="1"
+                android:progress="80"/>
 
         </LinearLayout>
 
@@ -279,10 +292,12 @@
 
     <ScrollView
         android:id="@+id/fam_sv_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/fam_ll_input">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/fam_ll_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <!--root-->
         <LinearLayout
@@ -293,10 +308,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@color/colorGrayHard"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+                android:background="@color/colorGrayHard">
 
                 <!--宝具lv-->
                 <LinearLayout
@@ -468,39 +480,4 @@
 
     </ScrollView>
 
-    <!--人物-->
-    <RelativeLayout
-        android:id="@+id/fam_rl_character"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/fam_iv_character"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/lily"/>
-
-        <View
-            android:id="@+id/fam_v_character"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/fam_iv_character"
-            android:background="@drawable/chat_bg"/>
-
-        <TextView
-            android:id="@+id/fam_tv_character"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/fam_iv_character"
-            android:padding="10dp"
-            android:gravity="start"
-            android:text="ATK是必填项！"
-            android:textColor="@color/colorWhite"/>
-
-    </RelativeLayout>
-
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

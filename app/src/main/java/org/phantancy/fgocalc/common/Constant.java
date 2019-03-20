@@ -1,5 +1,10 @@
 package org.phantancy.fgocalc.common;
 
+import org.phantancy.fgocalc.item.ServantItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by HATTER on 2017/11/4.
  */
@@ -20,4 +25,5 @@ public class Constant {
 
     //handler
     public static final int CHECK_APP_VERSION = 666;
+
 }

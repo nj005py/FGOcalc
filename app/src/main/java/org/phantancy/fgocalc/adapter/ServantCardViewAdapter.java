@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spannable;
@@ -18,25 +17,20 @@ import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.calc.CalcActy;
 import org.phantancy.fgocalc.common.UrlConstant;
 import org.phantancy.fgocalc.database.DBManager;
-import org.phantancy.fgocalc.dialog.TalkDialog;
 import org.phantancy.fgocalc.item.OptionItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.item.TipItem;
@@ -45,12 +39,8 @@ import org.phantancy.fgocalc.util.ToolCase;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import static anet.channel.util.Utils.context;
 
 /**
  * Created by HATTER on 2017/10/27.
@@ -67,21 +57,23 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv;
-        TextView tvName, tvId, tvIdBg, tvNpClassification,tvNpClassificationBg,tvAtkHp;
-        CardView cv;
+        TextView tvId, tvIdBg, tvNpClassification,tvNpClassificationBg;
+        TextView tvAtk;
+        TextView tvHp;
+        ConstraintLayout cv;
         ImageView ivNpColor;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cv = itemView.findViewById(R.id.isc_cv_servant);
+            cv = itemView.findViewById(R.id.isc_cl_card);
             iv = itemView.findViewById(R.id.isc_iv_portrait);
-            tvName = itemView.findViewById(R.id.isc_tv_name);
             tvId = itemView.findViewById(R.id.isc_tv_id);
             tvIdBg = itemView.findViewById(R.id.isc_tv_id_bg);
             ivNpColor = itemView.findViewById(R.id.isc_iv_np_color);
             tvNpClassification = itemView.findViewById(R.id.isc_tv_np_classification);
             tvNpClassificationBg = itemView.findViewById(R.id.isc_tv_np_classification_bg);
-            tvAtkHp = itemView.findViewById(R.id.isc_tv_atk_hp);
+            tvAtk = itemView.findViewById(R.id.isc_tv_atk);
+            tvHp = itemView.findViewById(R.id.isc_tv_hp);
         }
     }
 
@@ -138,14 +130,14 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         ServantItem item = mList.get(position);
-        TextView tvName = holder.tvName;
         TextView tvId = holder.tvId;
         TextView tvBg = holder.tvIdBg;
-        ImageView ivAvatar = holder.iv;
+        final ImageView ivAvatar = holder.iv;
         ImageView ivNpColor = holder.ivNpColor;
         TextView tvNpClassification = holder.tvNpClassification;
         TextView tvNpClassificationBg = holder.tvNpClassificationBg;
-        TextView tvAtkHp = holder.tvAtkHp;
+        TextView tvAtk = holder.tvAtk;
+        TextView tvHp = holder.tvHp;
 
         final int id = item.getId();
         final int pos = position;
@@ -156,15 +148,23 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                 .append("No.")
                 .append(id)
                 .toString();
+
         String npTypeCode = item.getNp_classification();
+
         String npClassification = "";
-        String atkHp = new StringBuilder()
-                .append("<font color='#E21918'>atk:")
+
+        String atk = new StringBuilder()
+                .append("<font color='#e53935'>atk:")
                 .append(item.getDefault_atk())
-                .append("</font><br><font color='#7BAF44'>hp:")
+                .append("</font>")
+                .toString();
+
+        String hp = new StringBuilder()
+                .append("<font color='#4CAF50'>hp:")
                 .append(item.getDefault_hp())
                 .append("</font>")
                 .toString();
+
         if (!TextUtils.isEmpty(npTypeCode)) {
             switch (npTypeCode) {
                 case "one":
@@ -178,8 +178,9 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                     break;
             }
         }
-        if (!TextUtils.isEmpty(atkHp)) {
-            tvAtkHp.setText(Html.fromHtml(atkHp), TextView.BufferType.SPANNABLE);
+        if (!TextUtils.isEmpty(atk) && !TextUtils.isEmpty(hp)) {
+            tvAtk.setText(Html.fromHtml(atk), TextView.BufferType.SPANNABLE);
+            tvHp.setText(Html.fromHtml(hp), TextView.BufferType.SPANNABLE);
         }
         //头像资源id
 //        int resId = ctx.getResources().getIdentifier("image" + item.getId(), "drawable", ctx.getPackageName());
@@ -192,31 +193,27 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
         if (resId != 0) {
             GlideApp.with(ctx)
                     .load(resId)
-                    .dontAnimate()
                     .placeholder(defaultDrawable)
                     .into(ivAvatar);
         } else {
             ivAvatar.setImageDrawable(defaultDrawable);
-            if (!TextUtils.isEmpty(pic)) {
-                //如果数据库里有图则从数据库里读图
-                //将Base64串转化为位图
-                GetDatabasePic getDatabasePic = new GetDatabasePic(pic, ivAvatar);
-                getDatabasePic.execute();
-            } else {
-                //否则从网络获取图片
-                String strNum = "";
-                if (id > 0 && id < 10) {
-                    strNum = new StringBuilder().append("00").append(id).toString();
-                } else if (id >= 10 && id < 100) {
-                    strNum = new StringBuilder().append("0").append(id).toString();
-                } else {
-                    strNum = new StringBuilder().append(id).toString();
-                }
-                //从fgowiki获取头像
-                String url = new StringBuilder().append(avatarUrl).append(strNum).append(".jpg").toString();
-                GetNetImage getNetImage = new GetNetImage(ctx, id, ivAvatar, url);
-                getNetImage.execute();
-            }
+            //否则从网络获取图片
+            String strNum = String.format("%03d",id);
+            //从fgowiki获取头像
+            String url = new StringBuilder().append(avatarUrl).append(strNum).append(".jpg").toString();
+            GlideApp.with(ctx)
+                    .load(url)
+                    .placeholder(defaultDrawable)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(ivAvatar);
+//            if (!TextUtils.isEmpty(pic)) {
+//                //如果数据库里有图则从数据库里读图
+//                //将Base64串转化为位图
+//                GetDatabasePic getDatabasePic = new GetDatabasePic(pic, ivAvatar);
+//                getDatabasePic.execute();
+//            } else {
+//
+//            }
         }
         //设置宝具卡色
         if (TextUtils.isEmpty(npColor)) {
@@ -244,8 +241,6 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                     break;
             }
         }
-        //设置名称
-        tvName.setText(item.getName());
         //设置编号
         SpannableStringBuilder builder = new SpannableStringBuilder(all);
         ForegroundColorSpan goldenSpan = new ForegroundColorSpan(ContextCompat.getColor(ctx, R.color.colorGolden));
@@ -283,46 +278,25 @@ public class ServantCardViewAdapter extends RecyclerView.Adapter<ServantCardView
                 if (999 > item.getId()) {
                     Intent sIntent = new Intent(ctx, CalcActy.class);
                     sIntent.putExtra("servants", item);
-                    ctx.startActivity(sIntent);
-//                    acty.overridePendingTransition(R.anim.push_half_in, 0);
+                    ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(acty,(View)ivAvatar,"avatar");
+                    ctx.startActivity(sIntent,actyOptions.toBundle());
                     acty.overridePendingTransition(R.anim.zoom_in, 0);
                 } else {
-                    TipItem tItem = new TipItem();
-                    List<OptionItem> list = new ArrayList<>();
-                    tItem.setHasTip(true);
-                    tItem.setHasOption(true);
-                    tItem.setImgId(R.drawable.altria_alter_a);
                     switch (id) {
                         case 999:
-                            tItem.setTip("想了解更多请到百度type-moon吧");
-                            list.clear();
-                            list.add(new OptionItem("去看看", "https://tieba.baidu.com/f?kw=type-moon"));
-                            tItem.setOptionList(list);
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_tm_magazine_group.json");
                             break;
                         case 1000:
-                            tItem.setTip("想了解更多请到百度type-moon吧问问空谕是什么");
-                            list.clear();
-                            list.add(new OptionItem("去看看", "https://tieba.baidu.com/f?kw=type-moon"));
-                            tItem.setOptionList(list);
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_phantancy.json");
                             break;
                         case 1001:
-                            tItem.setImgId(R.drawable.altria_x_a);
-                            tItem.setTip("帮忙解包的全能大佬，建议关注他的自制游戏FGO Extra,Fate Souls,Fate 血源……");
-                            list.clear();
-                            list.add(new OptionItem("去Bilibili关注TA", "https://space.bilibili.com/7252176/#/"));
-                            list.add(new OptionItem("查看TA的作品", "http://cia7.com"));
-                            tItem.setOptionList(list);
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_silver.json");
+                            break;
+                        case 1004:
+                            ToolCase.showTip(ctx, "tip_strawberry_g.json");
                             break;
                         case 1005:
-                            tItem.setImgId(R.drawable.altria_a);
-                            tItem.setTip("FGOcalc Android版、Web版的作者，为吧刊组挖了不少坑");
-                            list.clear();
-                            list.add(new OptionItem("去Bilibili关注TA", "https://space.bilibili.com/532252/#/"));
-                            tItem.setOptionList(list);
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_blue.json");
                             break;
                     }
                 }

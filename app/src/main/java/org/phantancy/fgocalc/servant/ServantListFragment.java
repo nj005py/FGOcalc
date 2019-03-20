@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -44,6 +45,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.activity.PartyActy;
 import org.phantancy.fgocalc.activity.WebviewActy;
 import org.phantancy.fgocalc.adapter.FilterAdapter;
 import org.phantancy.fgocalc.adapter.ServantCardViewAdapter;
@@ -171,7 +173,7 @@ public class ServantListFragment extends BaseFrag implements
 
         //设置从者列表
         View v = getLayoutInflater().inflate(R.layout.item_servant_cardview, null);
-        CardView cv = (CardView) v.findViewById(R.id.isc_cv_servant);
+        ConstraintLayout cv = (ConstraintLayout) v.findViewById(R.id.isc_cl_card);
         cv.measure(0, 0);
         int width = cv.getMeasuredWidth();
         DisplayMetrics dm = new DisplayMetrics();
@@ -301,6 +303,9 @@ public class ServantListFragment extends BaseFrag implements
                                     mActy.getCurrentFocus().getWindowToken(),
                                     InputMethodManager.HIDE_NOT_ALWAYS);
                     keyWord = ToolCase.etValue(fslEtSearch);
+                    //过滤中英文逗号
+                    keyWord = keyWord.replace(",","");
+                    keyWord = keyWord.replace("，","");
                     mPresenter.searchServantsByKeyword(keyWord);
                     return true;
                 }
@@ -336,6 +341,9 @@ public class ServantListFragment extends BaseFrag implements
                     case R.id.nsm_follow:
                         mPresenter.follow();
                         break;
+                    case R.id.nsm_party:
+                        mPresenter.goParty();
+                        break;
                     case R.id.nsm_metaphysics:
                         intent.setClass(ctx, MetaphysicsActy.class);
                         startActivity(intent);
@@ -346,22 +354,14 @@ public class ServantListFragment extends BaseFrag implements
                             intent.putExtra("url", "https://nj005py.github.io/FGOcalc_web/data/html/guide");
                             startActivity(intent);
                         } else {
-                            TipItem tItem = new TipItem();
-                            tItem.setHasTip(true);
-                            tItem.setImgId(R.drawable.altria_alter_b);
-                            tItem.setTip("未检测到网络连接");
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_no_network.json");
                         }
                         break;
                     case R.id.nsm_check_update:
                         if (BaseUtils.isNetworkAvailable(ctx)) {
                             mPresenter.checkAppUpdate(true);
                         } else {
-                            TipItem tItem = new TipItem();
-                            tItem.setHasTip(true);
-                            tItem.setImgId(R.drawable.altria_alter_b);
-                            tItem.setTip("未检测到网络连接");
-                            ToolCase.showTip(ctx, tItem);
+                            ToolCase.showTip(ctx, "tip_no_network.json");
                         }
                         break;
                     case R.id.nsm_menu_loc:
@@ -380,11 +380,7 @@ public class ServantListFragment extends BaseFrag implements
                             if (BaseUtils.isNetworkAvailable(ctx)) {
                                 mPresenter.downloadDatabaseExtra();
                             } else {
-                                TipItem tItem = new TipItem();
-                                tItem.setHasTip(true);
-                                tItem.setImgId(R.drawable.altria_alter_b);
-                                tItem.setTip("未检测到网络连接");
-                                ToolCase.showTip(ctx, tItem);
+                                ToolCase.showTip(ctx, "tip_no_network.json");
                             }
                         }
                         break;
@@ -415,6 +411,9 @@ public class ServantListFragment extends BaseFrag implements
         switch (v.getId()) {
             case R.id.fsl_ll_search:
                 keyWord = ToolCase.getViewValue(fslEtSearch);
+                //过滤中英文逗号
+                keyWord = keyWord.replace(",","");
+                keyWord = keyWord.replace("，","");
                 mPresenter.searchServantsByKeyword(keyWord);
                 break;
             case R.id.fsl_btn_clear:
@@ -549,11 +548,7 @@ public class ServantListFragment extends BaseFrag implements
                     if (BaseUtils.isNetworkAvailable(ctx)) {
                         mPresenter.downloadDatabaseExtra();
                     } else {
-                        TipItem tItem = new TipItem();
-                        tItem.setHasTip(true);
-                        tItem.setImgId(R.drawable.altria_alter_b);
-                        tItem.setTip("未检测到网络连接");
-                        ToolCase.showTip(ctx, tItem);
+                        ToolCase.showTip(ctx, "tip_no_network.json");
                     }
                 } else {
                     ToastUtils.displayShortToast(ctx, "您拒绝了权限，无法下载更新");

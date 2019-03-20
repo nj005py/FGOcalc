@@ -1,0 +1,20 @@
+{
+  "hasTip":"true",
+  "tip":"数据异常，如果能用就继续用。\n如果没数据了，请检查权限后去侧滑菜单点击重载数据库！",
+  "imgName":"altria_alter_b",
+  "hasOption":"true",
+  "options":[
+    {
+      "option":"还能用",
+      "url":"null"
+    },
+    {
+      "option":"我自己去重载数据库",
+      "url":"null"
+    },
+    {
+      "option":"Saber，帮我重载数据库T_T",
+      "url":"reload_db"
+    }
+  ]
+}

@@ -33,6 +33,6 @@
     <string name="attribute">阵营</string>
     <string name="traits">特性</string>
     <string name="alignments">属性</string>
-    <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+1000，默认hp为满级hp+1000。3蓝的20%np，3绿的10星都自己加加。</string>
+    <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+1000，默认hp为满级hp+1000。3蓝的20%np，3绿的10星不参与计算。从者被动属性自动带入计算。np的平均补正不是标准的1.0，比1.0略高，标准是1.0。</string>
     <string name="fgocalc_divider">\n\n==== FGOcalc ====\n\n</string>
 </resources>

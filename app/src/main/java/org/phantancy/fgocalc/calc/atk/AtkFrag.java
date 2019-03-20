@@ -16,25 +16,30 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.base.BaseFrag;
 import org.phantancy.fgocalc.calc.CalcActy;
 import org.phantancy.fgocalc.calc.buff.BuffActy;
 import org.phantancy.fgocalc.common.Constant;
+import org.phantancy.fgocalc.item.AtkHpItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ConditionAtk;
 import org.phantancy.fgocalc.item.ConditionTrump;
+import org.phantancy.fgocalc.item.CurveItem;
+import org.phantancy.fgocalc.item.OptionItem;
 import org.phantancy.fgocalc.item.ServantItem;
+import org.phantancy.fgocalc.item.TipItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.ToolCase;
 
@@ -61,8 +66,12 @@ public class AtkFrag extends BaseFrag implements
     Button famBtnClean;
     @BindView(R.id.fam_btn_calc)
     Button famBtnCalc;
-    @BindView(R.id.fam_et_atk)
-    EditText famEtAtk;
+    @BindView(R.id.fam_cb_upgraded)
+    CheckBox famCbUpgraded;
+    @BindView(R.id.fam_tv_lv)
+    TextView famTvLv;
+    @BindView(R.id.fam_sb_lv_svt)
+    BubbleSeekBar famSbLvSvt;
     @BindView(R.id.fam_sp_card1)
     Spinner famSpCard1;
     @BindView(R.id.fam_sp_card2)
@@ -79,6 +88,8 @@ public class AtkFrag extends BaseFrag implements
     RadioButton famRbNormal;
     @BindView(R.id.fam_rb_weak)
     RadioButton famRbWeak;
+    @BindView(R.id.fam_rb_weak_b)
+    RadioButton famRbWeakB;
     @BindView(R.id.fam_rb_weakened)
     RadioButton famRbWeakened;
     @BindView(R.id.fam_rg_weak)
@@ -101,24 +112,16 @@ public class AtkFrag extends BaseFrag implements
     RadioButton famRbRandom;
     @BindView(R.id.fam_rg_random)
     RadioGroup famRgRandom;
-    @BindView(R.id.fam_tv_result)
-    TextView famTvResult;
     @BindView(R.id.fam_ll_input)
     LinearLayout famLlInput;
-    @BindView(R.id.fam_iv_character)
-    ImageView famIvCharacter;
-    @BindView(R.id.fam_v_character)
-    View famVCharacter;
-    @BindView(R.id.fam_tv_character)
-    TextView famTvCharacter;
-    @BindView(R.id.fam_rl_character)
-    RelativeLayout famRlCharacter;
-    Unbinder unbinder;
+    @BindView(R.id.fam_sp_lv)
+    Spinner famSpLv;
+    @BindView(R.id.fam_sp_fufu)
+    Spinner famSpFufu;
     @BindView(R.id.textView)
     TextView textView;
-    @BindView(R.id.fam_rb_weak_b)
-    RadioButton famRbWeakB;
-    Unbinder unbinder1;
+    @BindView(R.id.fam_et_atk)
+    EditText famEtAtk;
     @BindView(R.id.fam_sp_essence)
     Spinner famSpEssence;
     @BindView(R.id.fam_et_hp_total)
@@ -127,16 +130,13 @@ public class AtkFrag extends BaseFrag implements
     EditText famEtHpLeft;
     @BindView(R.id.fam_ll_hp)
     LinearLayout famLlHp;
-    @BindView(R.id.fam_iv_color)
-    ImageView famIvColor;
-    @BindView(R.id.fam_cb_upgraded)
-    CheckBox famCbUpgraded;
-    @BindView(R.id.fam_sp_lv)
-    Spinner famSpLv;
+    @BindView(R.id.fam_tv_result)
+    TextView famTvResult;
     @BindView(R.id.fam_sv_result)
     ScrollView famSvResult;
-    @BindView(R.id.fam_sp_fufu)
-    Spinner famSpFufu;
+
+    Unbinder unbinder;
+
     private AtkContract.Presenter mPresenter;
     private int atk = 0;
     private String[] cardValues = {"b", "a", "q", "np"};
@@ -167,6 +167,8 @@ public class AtkFrag extends BaseFrag implements
     private int curPos = 0;
     private List<Double> curLv = new ArrayList<>();
     private List<Double> preLv = new ArrayList<>();
+
+    private List<CurveItem> curveList = null;
 
 
     //require empty public constructor
@@ -199,6 +201,7 @@ public class AtkFrag extends BaseFrag implements
         Bundle data = getArguments();
         servantItem = (ServantItem) data.getSerializable("servantItem");
         buffsItem = ((CalcActy) mActy).getBuffsItem();
+
         if (servantItem != null) {
             setDefault();
             trumpColor = servantItem.getTrump_color();
@@ -210,6 +213,7 @@ public class AtkFrag extends BaseFrag implements
             famSpCard1.setAdapter(simpleAdapter);
             famSpCard2.setAdapter(simpleAdapter);
             famSpCard3.setAdapter(simpleAdapter);
+
             famTvResult.setMovementMethod(new ScrollingMovementMethod());
             ToolCase.spInitDeep(ctx, essenceAtks, famSpEssence);
             ToolCase.spInitDeep(ctx, fufuAtks, famSpFufu);
@@ -218,13 +222,19 @@ public class AtkFrag extends BaseFrag implements
             isUpgraded = servantItem.getTrump_upgraded() == 1 ? true : false;
             lv = getResources().getIntArray(R.array.trump_lv);
             lvStr = getResources().getStringArray(R.array.trump_lv_str);
+
+            //有无宝具本
             if (isUpgraded) {
-                famCbUpgraded.setVisibility(View.VISIBLE);
+                famCbUpgraded.setEnabled(true);
             } else {
-                famCbUpgraded.setVisibility(View.GONE);
+                famCbUpgraded.setEnabled(false);
             }
-            showTrumpColor();
+
             ToolCase.spInitDeep(ctx, lvStr, famSpLv);
+
+            famSbLvSvt.setProgress(servantItem.getReward_lv());
+            ToolCase.setViewValue(famTvLv, "当前lv: ");
+
             //id66，131为双子需要显血
             if (id == 66 || id == 131) {
                 famLlHp.setVisibility(View.VISIBLE);
@@ -250,6 +260,11 @@ public class AtkFrag extends BaseFrag implements
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
@@ -270,7 +285,6 @@ public class AtkFrag extends BaseFrag implements
     private void setListener() {
         famBtnCalc.setOnClickListener(this);
         famBtnClean.setOnClickListener(this);
-        famRlCharacter.setOnClickListener(this);
         //buff设置开关
         famBtnBuff.setOnClickListener(this);
         //1-3号卡选卡
@@ -426,7 +440,7 @@ public class AtkFrag extends BaseFrag implements
                     atk = atk - essenceAtk + essenceAtks[position];
                     ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
                     essenceAtk = essenceAtks[position];
-                }else {
+                } else {
                     ToolCase.setViewValue(famEtAtk, "0");
                 }
             }
@@ -525,6 +539,35 @@ public class AtkFrag extends BaseFrag implements
 
             }
         });
+
+        famSbLvSvt.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
+            @Override
+            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+
+            }
+
+            @Override
+            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+                Log.d(TAG,"getProgressOnActionUp");
+                curveList = ((CalcActy) mActy).getCurveList();
+                AtkHpItem ahItem = mPresenter.getAtkHpByLv(servantItem,progress,curveList);
+                if (ahItem != null) {
+                    atk = ahItem.getAtk() + essenceAtk + fufuAtk;
+                    hpTotal = ahItem.getHp();
+                    ToolCase.setViewValue(famEtAtk, String.valueOf(atk));
+                    ToolCase.setViewValue(famEtHpTotal,String.valueOf(hpTotal));
+                } else {
+                    ToolCase.setViewValue(famEtAtk, "0");
+                    ToolCase.setViewValue(famEtHpTotal, "0");
+                }
+            }
+
+            @Override
+            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+                Log.d(TAG,"getProgressOnFinally");
+
+            }
+        });
     }
 
     @Override
@@ -547,26 +590,9 @@ public class AtkFrag extends BaseFrag implements
                 startActivityForResult(i, Constant.SET_BUFF);
                 mActy.overridePendingTransition(R.anim.push_half_in, 0);
                 break;
-            case R.id.fam_rl_character:
-                famRlCharacter.setVisibility(View.GONE);
-                break;
         }
     }
 
-    //卡色Buff倍率
-    private void showTrumpColor() {
-        switch (trumpColor) {
-            case "b":
-                famIvColor.setImageResource(R.drawable.buster);
-                break;
-            case "a":
-                famIvColor.setImageResource(R.drawable.arts);
-                break;
-            case "q":
-                famIvColor.setImageResource(R.drawable.quick);
-                break;
-        }
-    }
 
     @Override
     public void setResult(Object result) {
@@ -598,7 +624,7 @@ public class AtkFrag extends BaseFrag implements
         atk = Integer.valueOf(ToolCase.getViewValue(famEtAtk));
         buffsItem = ((CalcActy) mActy).getBuffsItem();
         conAtk = mPresenter.getCondition(atk, cardType1, cardType2, cardType3,
-                ifEx, ifCr1, ifCr2, ifCr3, weakType, teamCor, randomCor, servantItem, buffsItem,npLv);
+                ifEx, ifCr1, ifCr2, ifCr3, weakType, teamCor, randomCor, servantItem, buffsItem, npLv);
         //双子特殊处理倍率
         if (id == 66 || id == 131) {
             hpTotal = ToolCase.getViewInt(famEtHpTotal);
@@ -623,7 +649,7 @@ public class AtkFrag extends BaseFrag implements
             }
         }
         conT = mPresenter.getConditionTrump(atk, hpTotal, hpLeft, trumpColor, weakType,
-                teamCor, randomCor, trumpTimes, servantItem, buffsItem,npLv);
+                teamCor, randomCor, trumpTimes, servantItem, buffsItem, npLv);
         return true;
     }
 
@@ -645,9 +671,7 @@ public class AtkFrag extends BaseFrag implements
 
     @Override
     public void setCharacter(String str) {
-        famRlCharacter.setVisibility(View.VISIBLE);
-        famTvCharacter.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.push_left_in));
-        famTvCharacter.setText(str);
+        ToolCase.showTip(ctx, "tip_atk_necessary.json");
     }
 
 }

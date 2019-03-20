@@ -1,6 +1,8 @@
 package org.phantancy.fgocalc.calc;
 
+import android.database.Cursor;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -27,7 +30,9 @@ import org.phantancy.fgocalc.calc.star.StarFrag;
 import org.phantancy.fgocalc.calc.star.StarPresenter;
 import org.phantancy.fgocalc.calc.trump.TrumpFrag;
 import org.phantancy.fgocalc.calc.trump.TrumpPresenter;
+import org.phantancy.fgocalc.database.DBManager;
 import org.phantancy.fgocalc.item.BuffsItem;
+import org.phantancy.fgocalc.item.CurveItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 
@@ -65,6 +70,8 @@ public class CalcActy extends BaseActy {
     private TrumpPresenter trumpPresenter;
     private StarPresenter starPresenter;
 
+    private List<CurveItem> curveList = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +80,20 @@ public class CalcActy extends BaseActy {
         //状态栏
         initStatusBar();
         servantItem = (ServantItem) getIntent().getSerializableExtra("servants");
+        CurvesTask curvesTask = new CurvesTask(servantItem);
+        curvesTask.execute();
+
         initContent();
         initTab();
+
+        postponeEnterTransition();
+        acVpPager.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            public boolean onPreDraw() {
+                acVpPager.getViewTreeObserver().removeOnPreDrawListener(this);
+                startPostponedEnterTransition();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -127,9 +146,9 @@ public class CalcActy extends BaseActy {
         indicatorList = new ArrayList<>();
         indicatorList.add("从者信息");
         indicatorList.add("伤害计算");
-        indicatorList.add("NP充能计算");
-        indicatorList.add("打星计算");
-        indicatorList.add("宝具伤害计算");
+        indicatorList.add("宝具伤害");
+        indicatorList.add("NP充能");
+        indicatorList.add("打星");
         //检查fragment
         if (infoFrag == null) {
             infoFrag = new InfoFrag();
@@ -155,9 +174,9 @@ public class CalcActy extends BaseActy {
         fragList = new ArrayList<>();
         fragList.add(infoFrag);
         fragList.add(atkFrag);
+        fragList.add(trumpFrag);
         fragList.add(npFrag);
         fragList.add(starFrag);
-        fragList.add(trumpFrag);
         //创建Presenter
         infoPresenter = new InfoPresenter(infoFrag,ctx);
         atkPresenter = new AtkPresenter(atkFrag,ctx);
@@ -175,6 +194,10 @@ public class CalcActy extends BaseActy {
 
     public void setBuffsItem(BuffsItem buffsItem) {
         this.buffsItem = buffsItem;
+    }
+
+    public List<CurveItem> getCurveList() {
+        return curveList;
     }
 
     class ContentPagerAdapter extends FragmentPagerAdapter {
@@ -196,6 +219,49 @@ public class CalcActy extends BaseActy {
         @Override
         public CharSequence getPageTitle(int position) {
             return indicatorList.get(position);
+        }
+    }
+
+    private class CurvesTask extends AsyncTask<Void,Void,List<CurveItem>> {
+
+        private ServantItem sItem;
+
+        public CurvesTask(ServantItem sItem) {
+            this.sItem = sItem;
+        }
+
+        @Override
+        protected void onPostExecute(List<CurveItem> curveItems) {
+            super.onPostExecute(curveItems);
+            if (curveItems != null) {
+                curveList = curveItems;
+            }
+        }
+
+        @Override
+        protected List<CurveItem> doInBackground(Void... voids) {
+            Cursor cur = null;
+            int id = sItem.getId();
+            ArrayList<CurveItem> list = new ArrayList<>();
+            try {
+                if (id > 0) {
+                    DBManager.getInstance().getDatabase();
+                    cur = DBManager.getInstance().database.rawQuery("SELECT c.curve FROM servants a LEFT JOIN svtExp C ON a.exp_type=c.type WHERE a.id = ? ORDER BY CAST(c.lv as int)",
+                            new String[]{id + ""});
+                    while (cur.moveToNext()) {
+                        CurveItem cItem = new CurveItem();
+                        cItem.setCurve(cur.getInt(0));
+                        list.add(cItem);
+                    }
+                }
+            } catch (Exception e) {
+            } finally {
+                if (cur != null) {
+                    cur.close();
+                }
+                DBManager.getInstance().closeDatabase();
+            }
+            return list;
         }
     }
 }

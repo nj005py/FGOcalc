@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -24,11 +23,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.phantancy.fgocalc.R;
 
+import org.phantancy.fgocalc.activity.PartyActy;
 import org.phantancy.fgocalc.database.DBManager;
 import org.phantancy.fgocalc.dialog.FeedbackDialog;
 import org.phantancy.fgocalc.dialog.LoadingDialog;
@@ -41,13 +43,8 @@ import org.phantancy.fgocalc.util.BaseUtils;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToolCase;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +58,8 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     private Context ctx;
     private Activity acty;
     private final String TAG = getClass().getSimpleName();
-    private int curDbVersion;
-    private int preDbVersion;
+    private int curDbVersion;//当前版本号
+    private int cacheDbVersion;//缓存版本号
     private String databaseExtraUrl = "https://gitee.com/nj005py/fgocalc/raw/master/servants.db";
     private int locVersion;
     private int netVersion;//当前最新app版本号
@@ -75,6 +72,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     private ServantItem pItem;//空谕
     private ServantItem sliverItem;//遗忘的银灵
     private ServantItem blueItem;//纯蓝魔法使
+    private ServantItem strawberryItem;//黄昏现白骨
     private boolean isReceiverRegister = false;
     private boolean isExtra = false;//是否加载外置数据库
     private boolean isReload = false;//是否重载数据库
@@ -104,11 +102,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                                 } else {
                                     if (isManual) {
                                         isManual = false;
-                                        TipItem tItem = new TipItem();
-                                        tItem.setHasTip(true);
-                                        tItem.setImgId(R.drawable.altria_alter_a);
-                                        tItem.setTip("App版本已是最新，无需更新！");
-                                        ToolCase.showTip(ctx, tItem);
+                                        ToolCase.showTip(ctx, "tip_app_already_lastest.json");
                                     }
                                 }
                             }
@@ -145,18 +139,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
     public void simpleCheck(Context ctx, Activity acty) {
         this.ctx = ctx;
         this.acty = acty;
-        preDbVersion = (int) SharedPreferencesUtils.getParam(ctx, "dbVersion", 1);
+        cacheDbVersion = (int) SharedPreferencesUtils.getParam(ctx, "dbVersion", 1);
         checkAppUpdate(false);//是否人工检测更新？否
         //判断本地数据库有无更新
         if (checkDatabase(ctx)) {
             File dbFile = new File(DBManager.DB_PATH + "/" + DBManager.DB_NAME);
             dbFile.delete();
-            TipItem tItem = new TipItem();
-            tItem.setHasTip(true);
-            tItem.setHasOption(false);
-            tItem.setImgId(R.drawable.altria_alter_a);
-            tItem.setTip(ctx.getResources().getString(R.string.database_upgrade_done));
-            ToolCase.showTip(ctx, tItem);
+            ToolCase.showTip(ctx, "tip_database_update_success.json");
         }
         //实装末端servant
         //吧刊组
@@ -177,12 +166,19 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         sliverItem.setName("遗忘的银灵");
         sliverItem.setClass_type("Creator");
         sliverItem.setStar(6);
+        //黄昏现白骨
+        strawberryItem = new ServantItem();
+        strawberryItem.setId(1004);
+        strawberryItem.setName("黄昏现白骨");
+        strawberryItem.setClass_type("Creator");
+        strawberryItem.setStar(6);
         //纯蓝魔法使
         blueItem = new ServantItem();
         blueItem.setId(1005);
         blueItem.setName("纯蓝魔法使");
         blueItem.setClass_type("Creator");
         blueItem.setStar(6);
+
 //        dbManager = DBManager.getInstance();
         getAllServants();
     }
@@ -251,66 +247,35 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 //将下载任务加入下载队列，否则不会进行下载
                 downloadManager.enqueue(request);
             } else {
-                TipItem tItem = new TipItem();
-                tItem.setHasTip(true);
-                tItem.setTip("数据库版本已是最新，无需更新！");
-                tItem.setImgId(R.drawable.altria_alter_a);
-                ToolCase.showTip(ctx, tItem);
+                ToolCase.showTip(ctx, "tip_database_already_lastest.json");
             }
         } else {
-            TipItem tItem = new TipItem();
-            tItem.setHasTip(true);
-            tItem.setTip("数据库版本已是最新，无需更新！");
-            tItem.setImgId(R.drawable.altria_alter_a);
-            ToolCase.showTip(ctx, tItem);
+            ToolCase.showTip(ctx, "tip_database_already_lastest.json");
         }
     }
 
     //检查数据库版本
     public boolean checkDatabase(Context ctx) {
-        InputStream in = null;
+        //获取配置文件
+        String json = ToolCase.loadJsonFromAsset(ctx,"database.json");
+        //json解析
         try {
-            in = ctx.getResources()
-                    .getAssets().open("database.xml");
-        } catch (IOException e) {
-            throw new SQLiteException("database.xml is not exist");
-        }
-        XmlPullParserFactory factory;
-        try {
-            factory = XmlPullParserFactory.newInstance();
-            factory.setNamespaceAware(true);
-            XmlPullParser xpp = factory.newPullParser();
-            xpp.setInput(in, "UTF-8");
-            int evtType = xpp.getEventType();
-            String dbName = "";
-            // 一直循环，直到文档结束
-            while (evtType != XmlPullParser.END_DOCUMENT) {
-                switch (evtType) {
-                    case XmlPullParser.START_TAG:
-                        String tag = xpp.getName();
-                        if (tag.equals("dbname")) {
-                            dbName = xpp.getAttributeValue(0);
-                        } else if (tag.equals("version")) {
-                            curDbVersion = Integer.valueOf(xpp.getAttributeValue(0));
-                        }
-                        break;
-                    case XmlPullParser.END_TAG:
-                        break;
-                    default:
-                        break;
-                }
-                //获得下一个节点的信息
-                evtType = xpp.next();
-            }
-            if (preDbVersion != curDbVersion) {
+            JSONObject jo = new JSONObject(json);
+            //获取当前版本号
+            curDbVersion = jo.optInt("version",0);
+            //与缓存版本号对比
+            if (cacheDbVersion != curDbVersion) {
                 SharedPreferencesUtils.setParam(ctx, "dbVersion", curDbVersion);
+                //需要更新
                 return true;
             }
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return false;
     }
+
+
 
     //获取app的版本号
     @Override
@@ -358,11 +323,13 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                         Element eUrl = doc.getElementById("url");
                         Element eCon = doc.getElementById("content");
                         Element eDb = doc.getElementById("db");
+
                         item.setVersion(eVer.text());
                         item.setVersionCode(Integer.valueOf(eVerCode.text()));
                         item.setUrl(eUrl.text());
                         item.setContent(eCon.text());
                         item.setCheckUrl(checkUrl);
+
                         SharedPreferencesUtils.setParam(ctx, "remoteDb", eDb.text());
                         Message msg = new Message();
                         msg.what = CHECK_APP_UPDATE;
@@ -390,6 +357,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         String[] npClassificationValue = ctx.getResources().getStringArray(R.array.np_classification_value);
         String[] npColor = ctx.getResources().getStringArray(R.array.np_color);
         String[] npColorValue = ctx.getResources().getStringArray(R.array.np_color_value);
+
         List<FilterItem> list = new ArrayList<>();
         list.add(new FilterItem("职阶",classType,classType));
         list.add(new FilterItem("星数",starNum,starValue,1));
@@ -398,6 +366,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
         list.add(new FilterItem("特性",traits,traits));
         list.add(new FilterItem("宝具卡色",npColor,npColorValue));
         list.add(new FilterItem("宝具类型",npClassification,npClassificationValue));
+
         return list;
     }
 
@@ -472,16 +441,16 @@ public class ServantListPresenter implements ServantListContract.Presenter {
 
     @Override
     public void follow() {
-        TipItem tItem = new TipItem();
-        List<OptionItem> list = new ArrayList<>();
-        tItem.setHasTip(true);
-        tItem.setHasOption(true);
-        tItem.setImgId(R.drawable.altria_a);
-        tItem.setTip("FGOcalc Android版、Web版的作者。求关注、硬币、收藏……");
-        list.clear();
-        list.add(new OptionItem("去Bilibili关注TA","https://space.bilibili.com/532252/#/"));
-        tItem.setOptionList(list);
-        ToolCase.showTip(ctx,tItem);
+        ToolCase.showTip(ctx,"tip_blue.json");
+    }
+
+    @Override
+    public void goParty() {
+        Intent i = new Intent(ctx,PartyActy.class);
+        if (servantList != null) {
+            i.putExtra("servants",(Serializable) servantList);
+        }
+        acty.startActivity(i);
     }
 
     @Override
@@ -491,7 +460,6 @@ public class ServantListPresenter implements ServantListContract.Presenter {
 
     public ArrayList<ServantItem> getServants(Cursor cur) {
         if (cur != null) {
-            int NUM_SERVANT = cur.getCount();
             ArrayList<ServantItem> cache = new ArrayList<>();
             while (cur.moveToNext()) {
                 int id = cur.getInt(0);
@@ -541,6 +509,11 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 String traits = cur.getString(44);
                 String alignments = cur.getString(45);
                 String np_classification = cur.getString(46);//宝具分类
+                int base_atk = cur.getInt(47);
+                int base_hp = cur.getInt(48);
+                int reward_lv = cur.getInt(49);
+                int exp_type = cur.getInt(50);
+
                 ServantItem servantItem = new ServantItem();
                 servantItem.setId(id);
                 servantItem.setName(name);
@@ -589,6 +562,11 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 servantItem.setTraits(traits);
                 servantItem.setAlignments(alignments);
                 servantItem.setNp_classification(np_classification);
+                servantItem.setAtk_base(base_atk);
+                servantItem.setHp_base(base_hp);
+                servantItem.setReward_lv(reward_lv);
+                servantItem.setExp_type(exp_type);
+
                 cache.add(servantItem);
             }
             return cache;
@@ -618,42 +596,19 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             }
             if (DB_ERROR == 0) {
                 if (isExtra) {
-                    TipItem tItem = new TipItem();
-                    tItem.setHasTip(true);
-                    tItem.setHasOption(false);
-                    tItem.setImgId(R.drawable.altria_alter_a);
-                    tItem.setTip(ctx.getResources().getString(R.string.database_upgrade_done));
-                    ToolCase.showTip(ctx, tItem);
+                    ToolCase.showTip(ctx, "tip_database_update_success.json");
                 }
                 if (isReload) {
-                    TipItem tItem = new TipItem();
-                    tItem.setHasTip(true);
-                    tItem.setHasOption(false);
-                    tItem.setImgId(R.drawable.altria_alter_a);
-                    tItem.setTip(ctx.getResources().getString(R.string.database_reload_done));
-                    ToolCase.showTip(ctx, tItem);
+                    ToolCase.showTip(ctx, "tip_database_reload_success.json");
                 }
             }else{
                 TipItem tItem = new TipItem();
                 servantItems = null;
                 if (DB_ERROR == 1) {
-                    tItem.setHasTip(true);
-                    tItem.setHasOption(false);
-                    tItem.setImgId(R.drawable.altria_alter_b);
-                    tItem.setTip(ctx.getString(R.string.permission_error));
-                    ToolCase.showTip(ctx, tItem);
+                    ToolCase.showTip(ctx, "tip_database_permission_deny.json");
                 }
                 if (DB_ERROR == 2) {
-                    List<OptionItem> list = new ArrayList<>();
-                    list.add(new OptionItem("还能用", null));
-                    list.add(new OptionItem("我自己去重载数据库", null));
-                    list.add(new OptionItem("Saber，帮我重载数据库T_T", "reload_db"));
-                    tItem.setHasTip(true);
-                    tItem.setHasOption(true);
-                    tItem.setImgId(R.drawable.altria_alter_b);
-                    tItem.setTip(ctx.getString(R.string.database_error));
-                    tItem.setOptionList(list);
-                    ToolCase.showTip(ctx, tItem);
+                    ToolCase.showTip(ctx, "tip_database_exception.json");
                 }
                 DB_ERROR = 0;
             }
@@ -665,6 +620,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
 
         @Override
         protected List<ServantItem> doInBackground(Void... voids) {
+            //没有备份的情况下，重新查询
             Cursor cur = null;
             try {
                 //打开数据库
@@ -698,6 +654,14 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     sliverItem.setClass_type("Creator");
                     sliverItem.setStar(6);
                 }
+                //黄昏现白骨
+                if (strawberryItem == null) {
+                    strawberryItem = new ServantItem();
+                    strawberryItem.setId(1004);
+                    strawberryItem.setName("黄昏现白骨");
+                    strawberryItem.setClass_type("Creator");
+                    strawberryItem.setStar(6);
+                }
                 //纯蓝魔法使
                 if (blueItem == null) {
                     blueItem = new ServantItem();
@@ -709,6 +673,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 servantList.add(sItem);
                 servantList.add(pItem);
                 servantList.add(sliverItem);
+                servantList.add(strawberryItem);
                 servantList.add(blueItem);
             } catch (SecurityException e) {
                 DB_ERROR = 1;
@@ -746,16 +711,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 loadingDialog.stopAnim();
             }
             if (DB_ERROR == 2) {
-                TipItem tItem = new TipItem();
-                List<OptionItem> list = new ArrayList<>();
-                list.add(new OptionItem("还能用", null));
-                list.add(new OptionItem("我自己去重载数据库", null));
-                list.add(new OptionItem("Saber，帮我重载数据库T_T", "reload_db"));
-                tItem.setHasTip(true);
-                tItem.setHasOption(true);
-                tItem.setImgId(R.drawable.altria_alter_b);
-                tItem.setTip(ctx.getString(R.string.database_error));
-                ToolCase.showTip(ctx, tItem);
+                ToolCase.showTip(ctx, "tip_database_exception.json");
                 DB_ERROR = 0;
             }
             mView.setServantList(servantItems);
@@ -768,7 +724,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
             try {
                 if (notEmpty(value)) {
                     DBManager.getInstance().getDatabase();
-                    keyWord = ToolCase.tc2sc(value);
+                    keyWord = ToolCase.tc2sc(value);//繁体转简体
                     cur = DBManager.getInstance().database.rawQuery("SELECT * FROM servants WHERE name LIKE ? OR nickname LIKE ? ORDER BY CAST(id AS SIGNED) ASC",
                             new String[]{"%" + value + "%", "%" + value + "%"});
                     servantList = getServants(cur);
@@ -832,16 +788,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                 loadingDialog.stopAnim();
             }
             if (DB_ERROR == 2) {
-                TipItem tItem = new TipItem();
-                List<OptionItem> list = new ArrayList<>();
-                list.add(new OptionItem("还能用", null));
-                list.add(new OptionItem("我自己去重载数据库", null));
-                list.add(new OptionItem("Saber，帮我重载数据库T_T", "reload_db"));
-                tItem.setHasTip(true);
-                tItem.setHasOption(true);
-                tItem.setImgId(R.drawable.altria_alter_b);
-                tItem.setTip(ctx.getString(R.string.database_error));
-                ToolCase.showTip(ctx, tItem);
+                ToolCase.showTip(ctx, "tip_database_exception.json");
                 DB_ERROR = 0;
             }
             mView.setServantList(servantItems);
@@ -858,7 +805,9 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     boolean ifAllClass = false;//是否职阶不限
                     boolean ifAllStar = false;//是否星数不限
                     boolean ifAllAttribute = false;//是否阵营不限
-                    boolean ifMultiplier = false;//是否需要计算系数
+                    boolean ifMultiAtk = false;//是否需要计算系数
+                    boolean ifMultiNpcArts = false;//是否需要蓝卡np获取
+                    boolean ifMultiNpcQuick = false;//是否需要绿卡np获取
                     boolean ifAllTraits = false;//是否特性不限
                     boolean ifAllNpColor = false;//是否宝具卡色不限
                     boolean ifAllNpClassification = false;//是否宝具类型不限
@@ -880,7 +829,17 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //判断排序方式
                     if (order.length == 3) {
-                        ifMultiplier = true;
+                        switch (order[2]) {
+                            case "multi_atk":
+                                ifMultiAtk = true;
+                                break;
+                            case "multi_arts":
+                                ifMultiNpcArts = true;
+                                break;
+                            case "multi_quick":
+                                ifMultiNpcQuick = true;
+                                break;
+                        }
                     }
                     //判断宝具卡色
                     if (npColor.equals("none")) {
@@ -894,10 +853,18 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     String sql = "";
                     String sqlValue[];
                     List<String> listValue = new ArrayList<>();
-                    if (ifMultiplier) {
+                    if (ifMultiAtk) {
                         sql = "SELECT a.*,(a.default_atk * b.multiplier) new_atk " +
                                 " FROM servants a" +
                                 " LEFT JOIN class b ON a.class_type = b.class_type" +
+                                " WHERE 1 = 1";
+                    } else if (ifMultiNpcArts) {
+                        sql = "SELECT a.*,(a.arts_hit * a.arts_na) new_npc " +
+                                " FROM servants a" +
+                                " WHERE 1 = 1";
+                    } else if (ifMultiNpcQuick) {
+                        sql = "SELECT a.*,(a.quick_hit * a.quick_na) new_npc " +
+                                " FROM servants a" +
                                 " WHERE 1 = 1";
                     } else {
                         sql = "SELECT * " +
@@ -906,7 +873,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //职阶
                     if (!ifAllClass) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.class_type = ?";
                         } else {
                             sql += " AND class_type = ?";
@@ -915,7 +882,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //星数
                     if (!ifAllStar) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.star = ?";
                         } else {
                             sql += " AND star = ?";
@@ -924,7 +891,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //阵营
                     if (!ifAllAttribute) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.attribute = ?";
                         } else {
                             sql += " AND attribute = ?";
@@ -933,7 +900,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //特性
                     if (!ifAllTraits) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.traits LIKE ?";
                         } else {
                             sql += " AND traits LIKE ?";
@@ -942,7 +909,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //宝具卡色
                     if (!ifAllNpColor) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.np_color = ?";
                         } else {
                             sql += " AND np_color = ?";
@@ -951,7 +918,7 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                     }
                     //宝具类型
                     if (!ifAllNpClassification) {
-                        if (ifMultiplier) {
+                        if (ifMultiAtk) {
                             sql += " AND a.np_classification = ?";
                         } else {
                             sql += " AND np_classification = ?";
@@ -968,9 +935,11 @@ public class ServantListPresenter implements ServantListContract.Presenter {
                         }
                     }
                     //收官排序
-                    if (ifMultiplier) {
+                    if (ifMultiAtk) {
                         sql += " ORDER BY CAST( new_atk AS SIGNED)" + order[1];
-                    } else {
+                    }else if (ifMultiNpcArts || ifMultiNpcQuick) {
+                        sql += " ORDER BY CAST( new_npc AS SIGNED)" + order[1];
+                    }else {
                         sql += " ORDER BY CAST(" + order[0] + " AS SIGNED)" + order[1];
                     }
                     //使用sql

@@ -40,8 +40,8 @@
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Appliction
 -keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
+-keep public class * extends android.option.BroadcastReceiver
+-keep public class * extends android.option.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
@@ -61,7 +61,7 @@
 # 保留枚举类不被混淆
 -keepclassmembers enum * {    public static **[] values();    public static ** valueOf(java.lang.String);}
 # 保留我们自定义控件（继承自View）不被混淆
--keep public class * extends android.view.View{    *** get*();    void set*(***);    public <init>(android.content.Context);    public <init>(android.content.Context, android.util.AttributeSet);    public <init>(android.content.Context, android.util.AttributeSet, int);}
+-keep public class * extends android.view.View{    *** get*();    void set*(***);    public <init>(android.option.Context);    public <init>(android.option.Context, android.util.AttributeSet);    public <init>(android.option.Context, android.util.AttributeSet, int);}
 # 保留Parcelable序列化类不被混淆
 -keep class * implements android.os.Parcelable {    public static final android.os.Parcelable$Creator *;}
 # 保留Serializable序列化的类不被混淆

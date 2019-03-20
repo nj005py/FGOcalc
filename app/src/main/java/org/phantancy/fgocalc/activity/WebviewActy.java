@@ -68,11 +68,7 @@ public class WebviewActy extends BaseActivity {
     private void init() {
         boolean webViewFirstTime = (Boolean) SharedPreferencesUtils.getParam(ctx,"webViewFirstTime",true);
         if (webViewFirstTime) {
-            TipItem tItem = new TipItem();
-            tItem.setHasTip(true);
-            tItem.setImgId(R.drawable.altria_x_a);
-            tItem.setTip("下拉刷新首页！前进、后退见蓝色按钮！返回键关闭当前界面！");
-            ToolCase.showTip(ctx, tItem);
+            ToolCase.showTip(ctx, "tip_webview_intro.json");
             SharedPreferencesUtils.setParam(ctx,"webViewFirstTime",false);
         }
         url = getIntent().getStringExtra("url");

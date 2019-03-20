@@ -5,6 +5,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -14,7 +15,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -29,19 +29,22 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.phantancy.fgocalc.R;
-import org.phantancy.fgocalc.dialog.LoadingDialog;
 import org.phantancy.fgocalc.dialog.TipDialog;
-import org.phantancy.fgocalc.item.OptionItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.item.TipItem;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.spreada.utils.chinese.ZHConverter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -229,7 +232,7 @@ public class ToolCase {
         ClipData mClipData = ClipData.newPlainText("fgocalc_result", tv.getText());
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
-        ToastUtils.displayShortToast(ctx, "结果已复制剪切板");
+        ToastUtils.displayShortToast(ctx,"结果已复制剪切板");
     }
 
     public static void copy2Clipboard(Context ctx,String str,String hint){
@@ -249,12 +252,8 @@ public class ToolCase {
         ClipData mClipData = ClipData.newPlainText("fgocalc_txt", str);
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
-        TipItem tItem = new TipItem();
-        tItem.setHasTip(true);
-        tItem.setHasOption(true);
-        tItem.setImgId(R.drawable.altria_a);
-        tItem.setTip(hint);
-        ToolCase.showTip(ctx,tItem);
+        //提示
+        showTip(ctx,"tip_clipboard_normal.json",hint);
     }
 
     //获取指令卡列表
@@ -497,10 +496,83 @@ public class ToolCase {
         return 2;//unknown error
     }
 
-    public static void showTip(Context ctx,TipItem item){
-        if (ctx != null && item != null) {
+    public static void showTip(Context ctx,String jsonName) {
+        if (ctx != null) {
+            //获取json
+            String json = loadJsonFromAsset(ctx,jsonName);
+
+            //解析json
+            Gson gson = new Gson();
+            Type type = new TypeToken <TipItem>(){}.getType();
+            TipItem item = gson.fromJson(json,type);
+
+            //展示
             TipDialog d = new TipDialog(ctx,item);
             d.show();
+        }
+    }
+
+    public static void showTip(Context ctx,String jsonName,String hint) {
+        if (ctx != null && !TextUtils.isEmpty(hint)) {
+            //获取json
+            String json = loadJsonFromAsset(ctx,jsonName);
+
+            //解析json
+            Gson gson = new Gson();
+            Type type = new TypeToken <TipItem>(){}.getType();
+            TipItem item = gson.fromJson(json,type);
+
+            item.setTip(hint);
+
+            //展示
+            TipDialog d = new TipDialog(ctx,item);
+            d.show();
+        }
+    }
+
+    //从asset加载json文件
+    public static String loadJsonFromAsset(Context ctx,String jsonName) {
+        InputStream in = null;
+        String json;
+        try {
+            in = ctx.getResources().getAssets().open(jsonName);
+            int size = in.available();
+            byte[] buffer = new byte[size];
+            in.read(buffer);
+            in.close();
+            json = new String(buffer,"UTF-8");
+        } catch (IOException e) {
+            throw new SQLiteException("database config is not exist");
+        } finally {
+            closeQuietly(in);
+        }
+        return json;
+    }
+
+    //关闭可关闭的流
+    public static void closeQuietly(Closeable closeable) {
+        try {
+            if (closeable != null) {
+                closeable.close();
+            }
+        } catch (IOException e) {
+            Log.e("Closeable","close with error");
+        }
+    }
+
+    //获取资源ID
+    public static int getResIdByName(String name, Class c) {
+        if (TextUtils.isEmpty(name)) {
+            return 0;
+        } else {
+            try {
+                Field field = c.getField(name);
+                int resId = field.getInt(null);
+                return resId;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return 0;
+            }
         }
     }
 

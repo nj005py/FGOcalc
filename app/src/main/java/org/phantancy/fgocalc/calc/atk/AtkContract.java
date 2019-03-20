@@ -2,10 +2,14 @@ package org.phantancy.fgocalc.calc.atk;
 
 import org.phantancy.fgocalc.base.BasePresenter;
 import org.phantancy.fgocalc.base.BaseView;
+import org.phantancy.fgocalc.item.AtkHpItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.ConditionAtk;
 import org.phantancy.fgocalc.item.ConditionTrump;
+import org.phantancy.fgocalc.item.CurveItem;
 import org.phantancy.fgocalc.item.ServantItem;
+
+import java.util.List;
 
 /**
  * Created by HATTER on 2017/11/6.
@@ -29,5 +33,6 @@ public interface AtkContract {
                                          ServantItem servantItem, BuffsItem buffsItem,String npLv);
         void getReady(ConditionAtk conAtk,ConditionTrump conT);
         void clean();
+        AtkHpItem getAtkHpByLv(ServantItem sItem,int lv,List<CurveItem> curveList);
     }
 }

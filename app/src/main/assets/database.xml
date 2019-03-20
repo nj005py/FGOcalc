@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<database>
-    <!-- 数据库名称 -->
-    <dbname value="servants.db"></dbname>
-
-    <!-- 数据库版本 -->
-    <version value="42"></version>
-</database>

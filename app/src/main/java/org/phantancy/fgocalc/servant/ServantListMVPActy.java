@@ -41,6 +41,7 @@ public class ServantListMVPActy extends BaseActy{
     private long exitTime = 0;//用于记录退出时间
     private ServantListPresenter mPresenter;
     private final int REQUEST_PERMISSION = 0;
+    private boolean isClear = true;//搜索栏是否清空
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +113,16 @@ public class ServantListMVPActy extends BaseActy{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(ctx, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                ActivityCollector.finishAll();
+            //判断搜索栏状态
+            if (isClear) {
+                if ((System.currentTimeMillis() - exitTime) > 2000) {
+                    Toast.makeText(ctx, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    exitTime = System.currentTimeMillis();
+                } else {
+                    ActivityCollector.finishAll();
+                }
+            }else{
+
             }
             return true;
         }

@@ -45,6 +45,7 @@ import static android.app.Activity.RESULT_OK;
 public class NpFrag extends BaseFrag implements
         NpContract.View,
         View.OnClickListener {
+
     @BindView(R.id.fnm_btn_buff)
     Button fnmBtnBuff;
     @BindView(R.id.fnm_btn_clean)
@@ -69,21 +70,8 @@ public class NpFrag extends BaseFrag implements
     CheckBox fnmCbCr2;
     @BindView(R.id.fnm_cb_cr3)
     CheckBox fnmCbCr3;
-    @BindView(R.id.fnm_rb_low)
-    RadioButton fnmRbLow;
-    @BindView(R.id.fnm_rb_high)
-    RadioButton fnmRbHigh;
-    @BindView(R.id.fnm_rb_middle)
-    RadioButton fnmRbMiddle;
-    @BindView(R.id.fnm_rg_ran)
-    RadioGroup fnmRgRan;
-    @BindView(R.id.fnm_ll_input)
-    LinearLayout fnmLlInput;
-    @BindView(R.id.fnm_tv_result)
-    TextView fnmTvResult;
-    Unbinder unbinder;
-    @BindView(R.id.fnm_sv_result)
-    ScrollView fnmSvResult;
+    @BindView(R.id.fnm_sp_class)
+    Spinner fnmSpClass;
     @BindView(R.id.fnm_rb_enemy_one)
     RadioButton fnmRbEnemyOne;
     @BindView(R.id.fnm_rb_enemy_two)
@@ -92,10 +80,13 @@ public class NpFrag extends BaseFrag implements
     RadioButton fnmRbEnemyThree;
     @BindView(R.id.fnm_rg_enemy_amount)
     RadioGroup fnmRgEnemyAmount;
-    @BindView(R.id.fnm_rb_class)
-    RadioButton fnmRbClass;
-    @BindView(R.id.fnm_sp_class)
-    Spinner fnmSpClass;
+    @BindView(R.id.fnm_ll_input)
+    LinearLayout fnmLlInput;
+    @BindView(R.id.fnm_tv_result)
+    TextView fnmTvResult;
+    @BindView(R.id.fnm_sv_result)
+    ScrollView fnmSvResult;
+    Unbinder unbinder;
     private ServantItem servantItem;
     private BuffsItem buffsItem;
     private String[] cardValues = {"b", "a", "q", "np"};
@@ -108,9 +99,9 @@ public class NpFrag extends BaseFrag implements
     private String trumpColor;
 
     //职阶
-    private String[] classes = {"Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Avenger","Alterego","MoonCancer","Foreigner"};
+    private String[] classes = {"标准", "Rider", "Caster & MoonCancer", "Assassin", "Berserker"};
     //职阶np系数
-    private double[] classCoefficients = {1.0,1.0,1.0,1.1,1.2,0.9,0.8,1.0,1.0,1.0,1.0,1.0};
+    private double[] classCoefficients = {1.0, 1.1, 1.2, 0.9, 0.8};
 
     @NonNull
     private NpContract.Presenter mPresenter;
@@ -156,7 +147,7 @@ public class NpFrag extends BaseFrag implements
         fnmSpCard3.setAdapter(simpleAdapter);
         fnmTvResult.setMovementMethod(new ScrollingMovementMethod());
 
-        ToolCase.spInitDeep(ctx,classes,fnmSpClass);
+        ToolCase.spInitDeep(ctx, classes, fnmSpClass);
 
         setListener();
         boolean firstTimeUse = (Boolean) SharedPreferencesUtils.getParam(ctx, "firstTimeUse", true);
@@ -279,30 +270,6 @@ public class NpFrag extends BaseFrag implements
                     ifCr3 = true;
                 } else {
                     ifCr3 = false;
-                }
-            }
-        });
-
-        fnmRgRan.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.fnm_rb_low:
-                        random = mPresenter.getRan(Constant.TYPE_MIN);
-                        fnmSpClass.setVisibility(View.GONE);
-                        break;
-                    case R.id.fnm_rb_high:
-                        random = mPresenter.getRan(Constant.TYPE_MAX);
-                        fnmSpClass.setVisibility(View.GONE);
-                        break;
-                    case R.id.fnm_rb_middle:
-                        random = mPresenter.getRan(Constant.TYPE_AVERAGE);
-                        fnmSpClass.setVisibility(View.GONE);
-                        break;
-                    case R.id.fnm_rb_class:
-                        random = 1.0;
-                        fnmSpClass.setVisibility(View.VISIBLE);
-                        break;
                 }
             }
         });

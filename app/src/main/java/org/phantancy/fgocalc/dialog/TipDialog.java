@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,11 +36,14 @@ public class TipDialog extends Dialog {
         super(context, R.style.dialog);
         setContentView(R.layout.dialog_tip);
         ctx = context;
+
         item = i;
+
         tvTip = findViewById(R.id.dt_tv_tip);
         ivCharacter = findViewById(R.id.dt_iv_character);
         rvOption = findViewById(R.id.dt_rv_options);
         svTip = findViewById(R.id.dt_sv_tip);
+
         init();
     }
 
@@ -50,7 +52,7 @@ public class TipDialog extends Dialog {
             //设置提示与人物立绘
             if (item.isHasTip()) {
                 String tip = item.getTip();
-                int imgId = item.getImgId();
+                int imgId = ToolCase.getResIdByName(item.getImgName(),R.drawable.class);
                 if (!TextUtils.isEmpty(tip) && imgId != 0) {
                     ToolCase.setViewValue(tvTip, tip);
                     ivCharacter.setImageDrawable(ContextCompat.getDrawable(ctx, imgId));
@@ -67,7 +69,7 @@ public class TipDialog extends Dialog {
             }
             //设置选项
             if (item.isHasOption()) {
-                List<OptionItem> list = item.getOptionList();
+                List<OptionItem> list = item.getOptions();
                 if (list != null && 0 < list.size()) {
                     adapter = new OptionAdapter(ctx, list, tvTip,this);
                     LinearLayoutManager lm = new LinearLayoutManager(ctx,LinearLayoutManager.VERTICAL,false);

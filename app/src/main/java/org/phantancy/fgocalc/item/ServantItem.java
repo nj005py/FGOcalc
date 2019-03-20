@@ -58,6 +58,42 @@ public class ServantItem implements Serializable{
     private String pic;
     private String alignments;//属性
     private String np_classification;//宝具分类
+    private int atk_base;
+    private int hp_base;
+    private int reward_lv;
+    private int exp_type;
+
+    public int getAtk_base() {
+        return atk_base;
+    }
+
+    public void setAtk_base(int atk_base) {
+        this.atk_base = atk_base;
+    }
+
+    public int getHp_base() {
+        return hp_base;
+    }
+
+    public void setHp_base(int hp_base) {
+        this.hp_base = hp_base;
+    }
+
+    public int getReward_lv() {
+        return reward_lv;
+    }
+
+    public void setReward_lv(int reward_lv) {
+        this.reward_lv = reward_lv;
+    }
+
+    public int getExp_type() {
+        return exp_type;
+    }
+
+    public void setExp_type(int exp_type) {
+        this.exp_type = exp_type;
+    }
 
     public String getNp_classification() {
         return np_classification;

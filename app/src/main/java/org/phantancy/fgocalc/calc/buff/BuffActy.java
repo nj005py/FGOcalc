@@ -164,8 +164,7 @@ public class BuffActy extends BaseActy implements BuffContract.View {
                     i.putExtra("url", url);
                     startActivity(i);
                 } else {
-                    TipItem tItem = new TipItem(R.drawable.altria_alter_b, "未检测到网络连接", true);
-                    ToolCase.showTip(ctx, tItem);
+                    ToolCase.showTip(ctx, "tip_no_network.json");
                 }
             }
         });

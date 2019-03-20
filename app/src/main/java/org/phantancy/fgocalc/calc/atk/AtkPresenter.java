@@ -1,23 +1,30 @@
 package org.phantancy.fgocalc.calc.atk;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.calc.CalcActy;
 import org.phantancy.fgocalc.common.Constant;
+import org.phantancy.fgocalc.database.DBManager;
+import org.phantancy.fgocalc.item.AtkHpItem;
 import org.phantancy.fgocalc.item.BuffsItem;
 import org.phantancy.fgocalc.item.CommandCard;
 import org.phantancy.fgocalc.item.ConditionAtk;
 import org.phantancy.fgocalc.item.ConditionTrump;
+import org.phantancy.fgocalc.item.CurveItem;
 import org.phantancy.fgocalc.item.ServantItem;
 import org.phantancy.fgocalc.util.BaseUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HATTER on 2017/11/6.
@@ -62,6 +69,26 @@ public class AtkPresenter implements AtkContract.Presenter {
         }
         return ran;
     }
+
+    @Override
+    public AtkHpItem getAtkHpByLv(ServantItem sItem,int lv,List<CurveItem> curveList) {
+        if (lv > 0 && curveList != null) {
+            int curve = curveList.get(lv).getCurve();
+
+            int atkBase = sItem.getAtk_base();
+            int atkDefault = sItem.getDefault_atk();
+            int hpBase = sItem.getHp_base();
+            int hpDefault = sItem.getDefault_hp();
+
+            int atk = (int)(atkBase + ((float)atkDefault - (float) atkBase) / 1000 * curve);
+            int hp = (int)(hpBase + ((float)hpDefault - (float)hpBase) / 1000 * curve);
+
+            return new AtkHpItem(atk,hp);
+        }else{
+            return new AtkHpItem(0,0);
+        }
+    }
+
 
     @Override
     public ConditionAtk getCondition(int atk, String cardType1, String cardType2, String cardType3,

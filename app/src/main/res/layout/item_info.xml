@@ -14,7 +14,9 @@
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:src="@drawable/loading"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:alpha="0.1"
+        />
 
     <TextView
         android:id="@+id/ii_tv_info_title"

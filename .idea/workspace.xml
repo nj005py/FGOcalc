@@ -17,7 +17,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e4212179-841a-4e62-ad97-1a5f599cd141" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/md/update_record.md" beforeDir="false" afterPath="$PROJECT_DIR$/md/update_record.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -3486,7 +3486,21 @@
       <option name="project" value="LOCAL" />
       <updated>1553089404667</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update readme.md">
+      <created>1553089631977</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1553089631977</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update readme.md">
+      <created>1553090483856</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1553090483856</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3535,7 +3549,8 @@
     <MESSAGE value="database to 42" />
     <MESSAGE value="reduce app size" />
     <MESSAGE value="add update record" />
-    <option name="LAST_COMMIT_MESSAGE" value="add update record" />
+    <MESSAGE value="update readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

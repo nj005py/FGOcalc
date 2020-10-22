@@ -2,8 +2,8 @@ package org.phantancy.fgocalc.dialog;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatDialog;
+
+import androidx.appcompat.app.AppCompatDialog;
 import android.widget.ImageView;
 
 import org.phantancy.fgocalc.R;

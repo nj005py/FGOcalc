@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?><!--输入-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--阶职相性-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="职阶相性" />
+
+                <Spinner
+                    android:id="@+id/sp_affinity"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--阵营相性-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="阵营相性" />
+
+                <Spinner
+                    android:id="@+id/sp_attribute"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--    &lt;!&ndash;伤害敌补正&ndash;&gt;-->
+            <!--    <LinearLayout style="@style/ConditionContainer">-->
+
+            <!--        <TextView-->
+            <!--            style="@style/ConditionName"-->
+            <!--            android:text="伤害敌补正" />-->
+
+            <!--        <Spinner style="@style/ConditionSpinner" />-->
+
+            <!--    </LinearLayout>-->
+
+            <!--    &lt;!&ndash;宝具充能敌补正&ndash;&gt;-->
+            <!--    <LinearLayout style="@style/ConditionContainer">-->
+
+            <!--        <TextView-->
+            <!--            style="@style/ConditionName"-->
+            <!--            android:text="宝具充能敌补正" />-->
+
+            <!--        <Spinner style="@style/ConditionSpinner" />-->
+
+            <!--    </LinearLayout>-->
+
+            <!--    &lt;!&ndash;打星敌补正&ndash;&gt;-->
+            <!--    <LinearLayout style="@style/ConditionContainer">-->
+
+            <!--        <TextView-->
+            <!--            style="@style/ConditionName"-->
+            <!--            android:text="打星敌补正" />-->
+
+            <!--        <Spinner style="@style/ConditionSpinner" />-->
+
+            <!--    </LinearLayout>-->
+
+            <!--宝具lv-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="宝具lv" />
+
+                <Spinner
+                    android:id="@+id/sp_np_lv"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--芙芙atk-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="芙芙atk" />
+
+                <Spinner
+                    android:id="@+id/sp_fou_atk"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+
+            <!--礼装atk-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="礼装atk" />
+
+                <Spinner
+                    android:id="@+id/sp_essence_atk"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--    等级-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="等级" />
+
+                <com.xw.repo.BubbleSeekBar
+                    android:id="@+id/fam_sb_lv_svt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:max="100"
+                    android:progress="80"
+                    app:bsb_bubble_text_color="@color/white"
+                    app:bsb_min="1"
+                    app:bsb_second_track_color="@color/blueWordPrimary"
+                    app:bsb_section_count="10"
+                    app:bsb_section_text_position="bottom_sides"
+                    app:bsb_show_section_mark="true"
+                    app:bsb_show_section_text="true"
+                    app:bsb_show_thumb_text="true"
+                    app:bsb_touch_to_seek="true"
+                    app:bsb_track_color="@color/blueWordAccent" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="允许直接输入指定atk" />
+
+            <!--atk-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="atk" />
+
+                <EditText
+                    android:id="@+id/et_atk_total"
+                    style="@style/ConditionEditText"
+                    android:hint="ATK"
+                    android:inputType="number"
+                    android:maxLength="5" />
+
+            </LinearLayout>
+
+            <!--总hp-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="总hp" />
+
+                <EditText
+                    android:id="@+id/et_hp_total"
+                    style="@style/ConditionEditText"
+                    android:hint="总hp" />
+
+            </LinearLayout>
+
+            <!--剩余hp-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="剩余hp" />
+
+                <EditText
+                    android:id="@+id/et_hp_left"
+                    style="@style/ConditionEditText"
+                    android:hint="剩余hp"
+                    android:inputType="number"
+                    android:maxLength="5" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="敌方单位设置，用于计算NP、打星" />
+
+            <!--敌人数量-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="敌人数量" />
+
+                <Spinner
+                    android:id="@+id/sp_enemy_count"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--敌人职阶-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="敌方1" />
+
+                <Spinner
+                    android:id="@+id/sp_enemy_class1"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--敌人职阶2-->
+            <LinearLayout
+                android:id="@+id/ll_enemy_setting2"
+                style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="敌方2" />
+
+                <Spinner
+                    android:id="@+id/sp_enemy_class2"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--敌人职阶3-->
+            <LinearLayout
+                android:id="@+id/ll_enemy_setting3"
+                style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="敌方3" />
+
+                <Spinner
+                    android:id="@+id/sp_enemy_class3"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

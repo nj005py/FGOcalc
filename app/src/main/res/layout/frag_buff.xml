@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btn_set_buff"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_blue"
+            android:text="@string/set_buff"
+            android:textColor="@color/blueWordDark"
+            />
+
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_blue"
+            android:text="@string/reset"
+            android:textColor="@color/blueWordDark"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btn_shortcut_support"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_blue"
+            android:text="@string/shortcut_support"
+            android:textColor="@color/blueWordDark"
+            />
+
+
+        <Button
+            android:id="@+id/btn_shortcut_mst_equipment"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/btn_blue"
+            android:text="@string/shortcut_essence"
+            android:textColor="@color/blueWordDark"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_buff_input"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:spanCount="2"
+        />
+
+</LinearLayout>

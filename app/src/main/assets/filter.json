@@ -1,0 +1,58 @@
+[
+  {
+    "title": "职阶",
+    "dataType": 0,
+    "hint": ["不限","Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Shielder","Alterego","Avenger","MoonCancer","Foreigner"],
+    "data0": ["all","Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Shielder","Alterego","Avenger","MoonCancer","Foreigner"],
+    "data1": []
+  },
+  {
+    "title": "星数",
+    "dataType": 1,
+    "hint": ["不限","1星","2星","3星","4星","5星","无星"],
+    "data0": [],
+    "data1": [-1,1,2,3,4,5,0]
+  },
+  {
+    "title": "阵营",
+    "dataType": 0,
+    "hint": ["不限","天","地","人","星"],
+    "data0": ["all","天","地","人","星"],
+    "data1": []
+  },
+  {
+    "title": "排序",
+    "dataType": 0,
+    "hint": ["编号升序","编号降序","ATK升序(无系数)","ATK降序(无系数)","HP升序","HP降序","ATK升序(算系数)","ATK降序(算系数)","蓝卡NP率升序","蓝卡NP率降序","绿卡NP率升序","绿卡NP率降序","蓝卡NP获取升序","蓝卡NP获取降序","绿卡NP获取升序","绿卡NP获取降序"],
+    "data0": ["id asc","id desc","atk_default asc","atk_default desc","hp_default asc","hp_default desc","atk_default_mod asc","atk_default_mod desc","arts_na asc","arts_na desc","quick_na asc","quick_na desc","(arts_na * arts_hit) asc","(arts_na * arts_hit) desc","(quick_na * quick_hit) asc","(quick_na * quick_hit) desc"],
+    "data1": []
+  },
+  {
+    "title": "特性",
+    "dataType": 0,
+    "hint": ["不限","骑乘","人型","从者（被EA克制）","天/地从者","半从者","龙","亚瑟","Saber脸","王","罗马","所爱之人","神性","从者（不被EA克制）","希腊神话系男性","拟似从者","魔性","猛兽","超巨大"],
+    "data0": ["all","骑乘","人型","从者（被EA克制）","天/地从者","半从者","龙","亚瑟","Saber脸","王","罗马","所爱之人","神性","从者（不被EA克制）","希腊神话系男性","拟似从者","魔性","猛兽","超巨大"],
+    "data1": []
+  },
+  {
+    "title": "宝具卡色",
+    "dataType": 0,
+    "hint": ["不限","Quick","Arts","Buster"],
+    "data0": ["all","np_q","np_a","np_b"],
+    "data1": []
+  },
+  {
+    "title": "宝具类型",
+    "dataType": 0,
+    "hint": ["不限","单体","全体","辅助"],
+    "data0": ["all","one","all","support"],
+    "data1": []
+  },
+  {
+    "title": "配卡",
+    "dataType": 0,
+    "hint": ["不限","qaabb","qqabb","qqqab","qaaab","qabbb"],
+    "data0": ["all","qaabb","qqabb","qqqab","qaaab","qabbb"],
+    "data1": []
+  }
+]

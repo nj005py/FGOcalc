@@ -7,14 +7,15 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+
+import androidx.appcompat.widget.AppCompatEditText;
 
 import org.phantancy.fgocalc.R;
 
 /**
  * Created by PY on 2017/3/3.
  */
-public class ClearEditText extends EditText implements View.OnFocusChangeListener, TextWatcher {
+public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener, TextWatcher {
 
     private Drawable mClearDrawable;
     private boolean hasFocus;
@@ -38,9 +39,9 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         mClearDrawable = getCompoundDrawables()[2]; // 获取drawableRight
         if (mClearDrawable == null) {
             // 如果为空，即没有设置drawableRight，则使用R.drawable.close这张图片
-            mClearDrawable = getResources().getDrawable(R.drawable.close);
+            mClearDrawable = getResources().getDrawable(R.drawable.ic_close_black_24dp);
         }
-        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth() / 3, mClearDrawable.getIntrinsicHeight() / 3);
+        mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth() / 1, mClearDrawable.getIntrinsicHeight() / 1);
         setOnFocusChangeListener(this);
         addTextChangedListener(this);
         // 默认隐藏图标

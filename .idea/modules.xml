@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FGOcalc.iml" filepath="$PROJECT_DIR$/FGOcalc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/push/push.iml" filepath="$PROJECT_DIR$/push/push.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FGOcalc.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FGOcalc.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/push/FGOcalc.push.iml" filepath="$PROJECT_DIR$/.idea/modules/push/FGOcalc.push.iml" />
     </modules>
   </component>
 </project>

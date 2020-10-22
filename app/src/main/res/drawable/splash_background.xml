@@ -2,14 +2,10 @@
 <layer-list
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item>
-        <color android:color="@color/colorGray"/>
-    </item>
-
-    <item>
-        <scale android:drawable="@drawable/splash"
-            android:scaleGravity="center"/>
-    </item>
+    <!--<item>-->
+        <!--<scale android:drawable="@drawable/splash"-->
+            <!--android:scaleGravity="center"/>-->
+    <!--</item>-->
 
     <item>
         <bitmap android:src="@drawable/splash"/>

@@ -32,7 +32,10 @@ public class App extends Application {
             @Override
             public void run() {
                 //友盟统计
+                //初始化sdk
                 UMConfigure.init(appCtx, "5a61306b8f4a9d420400090e", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "635f1a6fb0fe4b7fff7e18bfe4af9a77");
+                // 选用AUTO页面采集模式
+//                MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
                 PushAgent mPushAgent = PushAgent.getInstance(appCtx);
                 //注册推送服务，每次调用register方法都会回调该接口
                 mPushAgent.register(new IUmengRegisterCallback() {

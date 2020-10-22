@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">@color/colorShineBlue</color>
-    <color name="colorShineBlue">#28C1FB</color>
-    <color name="colorTransparentBlue">#4028C1FB</color>
-    <color name="colorLightBlue">#2A8AE0</color>
-    <color name="colorLightBlue2">#4E8DFC</color>
-    <color name="colorLabelBlue">#DAEAF9</color>
-    <color name="colorDeepBlue">#276AB0</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorWhiteGray">#F3F2F7</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorGray">#C0BEBF</color>
-    <color name="colorBgGray">#F5F5F5</color>
-    <color name="colorLightGray">#D9D9D9</color>
-    <color name="colorGrayWiki">#F5F7FA</color>
-    <color name="colorGrayHard">#4C5865</color>
-    <color name="colorGrayDark">#21282e</color>
-    <color name="colorRed">#AF0301</color>
-    <color name="colorGreen">#16580B</color>
-    <color name="colorGolden">#E4B222</color>
-    <color name="colorBrown">#86755C</color>
-    <color name="colorSilver">#B3B3B3</color>
-    <color name="colorL">#314143</color>
+    <color name="colorPrimary">@color/blueWordPrimary</color>
+    <color name="colorPrimaryDark">@color/blueWordDark</color>
+    <color name="colorAccent">@color/blueWordAccent</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <!--orange-->
+    <color name="orange300">#FF8A65</color>
+    <color name="orange400">#FF7043</color>
+
+    <!--gray-->
+    <color name="gray300">#E0E0E0</color>
+    <color name="gray400">#BDBDBD</color>
+    <color name="gray500">#9E9E9E</color>
+    <color name="grayWordTabbar">#E9E9E9</color>
+    <color name="grayWordBackground">#E6E6E6</color>
+    <color name="grayWordSelected">#BEBEBE</color>
+
+    <!--blue-->
+    <color name="blueWordPrimary">#2B579A</color>
+    <color name="blueWordDark">#124078</color>
+    <color name="blueWordAccent">#C2D5F2</color>
 </resources>

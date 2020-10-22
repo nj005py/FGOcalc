@@ -7,8 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,7 +19,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        >
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -35,28 +35,38 @@
             android:value="635f1a6fb0fe4b7fff7e18bfe4af9a77" />
 
         <activity
-            android:name="org.phantancy.fgocalc.splash.SplashActy"
+            android:name="org.phantancy.fgocalc.activity.MainActy"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustResize"
-            android:theme="@style/SplashTheme">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:theme="@style/SplashTheme"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <!--应对这个提示Warning: App is not indexable by Google Search; consider adding at least one Activity with an ACTION-VIEW intent filter.-->
+                <!--很显然这是为Action Slice服务的-->
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.phantancy.fgocalc.servant.ServantListMVPActy"/>
+        <activity android:name=".activity.CalcActy"/>
+
+        <!--
+        <activity android:name="org.phantancy.fgocalc.servant.ServantListActy"/>
+
+
         <activity android:name="org.phantancy.fgocalc.metaphysics.MetaphysicsActy"/>
-        <activity android:name="org.phantancy.fgocalc.activity.FateGoActy"/>
-        <activity android:name="org.phantancy.fgocalc.calc.CalcActy"
+        <activity android:name="org.phantancy.fgocalc.activity.BaseActy.CalcActy"
             android:theme="@style/TransTheme"/>
         <activity android:name="org.phantancy.fgocalc.calc.buff.BuffActy"
             android:theme="@style/TransTheme"/>
-        <activity android:name="org.phantancy.fgocalc.activity.WebviewActy"/>
+        <activity android:name="org.phantancy.fgocalc.web.WebviewActy"/>
         <activity android:name=".activity.CompassActy"/>
         <activity android:name=".activity.PartyActy"/>
+        -->
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="org.phantancy.fgocalc.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

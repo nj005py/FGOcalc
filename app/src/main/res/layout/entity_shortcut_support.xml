@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:id="@+id/iv_support_avatar"
+        style="@style/iv_buff_shortcut"
+        />
+
+    <Button
+        android:id="@+id/tv_support_buff_des"
+        style="@style/tv_buff_shortcut"
+        android:layout_weight="1.0"
+        android:background="@drawable/btn_blue"
+        android:textColor="@color/blueWordDark"
+        />
+
+    <Button
+        android:id="@+id/btn_reduce_support_buff"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="2.0"
+        android:background="@drawable/btn_blue"
+        android:text="@string/reduce_buff"
+        android:textColor="@color/blueWordDark" />
+
+</LinearLayout>

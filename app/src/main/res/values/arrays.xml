@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--搜索 筛选-->
+    <string-array name="searchMode">
+        <item>搜索</item>
+        <item>筛选</item>
+    </string-array>
+
+
     <string-array name = "classType">
         <item>All</item>
         <item>Saber</item>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_buff_icon"
+        style="@style/LogoBuff" />
+
+    <org.phantancy.fgocalc.view.ClearEditText
+        android:id="@+id/et_buff"
+        style="@style/BuffInputCell"
+        android:background="@android:color/transparent"
+        android:textColorHint="@color/gray500"
+        android:maxLength="5"
+        android:inputType="numberDecimal"
+        />
+
+    <TextView
+        android:id="@+id/tv_percent_icon"
+        style="@style/tv_percent"
+        />
+
+</LinearLayout>

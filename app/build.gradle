@@ -2,16 +2,22 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 33
-        versionName "1.7.6"
+        targetSdkVersion 28
+        versionCode 50
+        versionName "2.0.0"
         // Enabling multidex support.
         multiDexEnabled false
         resConfigs "zh"
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
@@ -25,7 +31,7 @@ android {
 
     dexOptions {
 //        incremental true
-        javaMaxHeapSize "3g"
+        javaMaxHeapSize "4g"
     }
 
     productFlavors {
@@ -41,7 +47,7 @@ android {
             keyAlias 'fgocalc'
             keyPassword 'ph123456'
         }
-        debug{
+        debug {
             storeFile file('fgocalc.jks')
             storePassword 'ph123456'
             keyAlias 'fgocalc'
@@ -69,33 +75,78 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    viewBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
+
+
 dependencies {
+    def lifecycle_version = "2.1.0"
+    def room_version = "2.2.5"
+    def material = "1.1.0";
+    def viewpager2 = "1.0.0"
+
+
     // App's dependencies, including test
-    api fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation 'junit:junit:4.12'
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    api files('libs/ZHConverter.jar')
-    api 'com.android.support:appcompat-v7:28.0.0-rc01'
-    api 'com.android.support:cardview-v7:28.0.0-rc01'
-    api 'com.android.support:design:28.0.0-rc01'
-    //google.common等东西在里面
-    //    api 'com.google.guava:guava:18.0'
-    api 'com.google.code.gson:gson:2.8.2'
-//    api 'com.android.support:multidex:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/ZHConverter.jar')
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "com.google.android.material:material:$material"
+    implementation 'com.google.code.gson:gson:2.8.2'
     //友盟
-    api project(':push')
-    api files('libs/utdid4all-1.1.5.3_proguard.jar')
+//    api project(':push')
+//    api files('libs/utdid4all-1.1.5.3_proguard.jar')
+    implementation files('libs/umeng-analytics-7.5.3.jar')
+//    api files('libs/umeng-common-1.5.3.jar')
+    //PushSDK必须依赖基础组件库，所以需要加入对应依赖
+    implementation 'com.umeng.umsdk:common:1.5.4'
+    //PushSDK必须依赖utdid库，所以需要加入对应依赖
+    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+    //PushSDK
+    implementation 'com.umeng.umsdk:push:6.0.1'
     //html解析
-    api 'org.jsoup:jsoup:1.11.3'
-    api files('libs/umeng-analytics-7.5.3.jar')
-    api files('libs/umeng-common-1.5.3.jar')
-    api 'com.android.support.constraint:constraint-layout:1.1.2'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
-    api 'org.greenrobot:eventbus:3.1.1'
+    implementation 'org.jsoup:jsoup:1.11.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
     //有提示的seekbar
     implementation 'com.xw.repo:bubbleseekbar:3.19-lite'
+    //rxjava
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    //lifecycles
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    //room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    //viewpager2
+    implementation "androidx.viewpager2:viewpager2:$viewpager2"
+    //common.io
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    implementation "commons-io:commons-io:2.6"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta05'
+    //permissionx
+    implementation 'com.permissionx.guolindev:permissionx:1.2.2'
+    //滑动刷新
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }

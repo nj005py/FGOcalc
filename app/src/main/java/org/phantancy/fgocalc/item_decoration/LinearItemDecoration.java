@@ -1,6 +1,6 @@
 package org.phantancy.fgocalc.item_decoration;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by HATTER on 2017/11/3.

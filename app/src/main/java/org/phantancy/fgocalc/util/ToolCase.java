@@ -12,13 +12,14 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +30,8 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.phantancy.fgocalc.R;
-import org.phantancy.fgocalc.dialog.TipDialog;
-import org.phantancy.fgocalc.item.ServantItem;
-import org.phantancy.fgocalc.item.TipItem;
+import org.phantancy.fgocalc.entity.ServantEntity;
+import org.phantancy.fgocalc.entity.TipItem;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -137,86 +137,11 @@ public class ToolCase {
         }
     }
 
-    //设置沉浸式状态栏
-    public static void setStatusBar(LinearLayout llStatusBar,int statusColor, Activity acty,boolean ifStatus,boolean ifNavigation){
-        llStatusBar = (LinearLayout)acty.findViewById(R.id.status_bar);
-        if (Build.VERSION.SDK_INT == 19) {
-            if (ifStatus) {
-                acty.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                int height = BaseUtils.getStatusBarHeight(acty);
-                if (0 != statusColor) {
-                    llStatusBar.setBackgroundColor(statusColor);
-                }
-                llStatusBar.setPadding(0, height, 0, 0);
-            }
-            if (ifNavigation) {
-                acty.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
-        }
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
-            Window window = acty.getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS|
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            if (ifStatus) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                if (0 != statusColor) {
-                    window.setStatusBarColor(statusColor);
-                }else{
-                    window.setStatusBarColor(Color.TRANSPARENT);//calculateStatusColor(Color.WHITE, (int) alphaValue)
-                }
-//                int height = BaseUtils.getStatusBarHeight(acty);
-//                llStatusBar.setPadding(0, height, 0, 0);
-            }
-            if (ifNavigation) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//            window.setNavigationBarColor(Color.TRANSPARENT);
-            }
-        }
-    }
-
     //繁体转简体
     public static String tc2sc(@NonNull String str) {
         ZHConverter converter = ZHConverter.getInstance(ZHConverter.SIMPLIFIED);
         String simplifiedStr = converter.convert(str);
         return simplifiedStr;
-    }
-
-    //spinner绑定数据源,simple样式限定
-    public static void spInitSimple(Context context, String[] str, Spinner sp){
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context, R.layout.item_simple_spinner,str);
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner);
-        sp.setAdapter(spAdapter);
-    }
-
-    public static void spInitSimple(Context context, int[] str, Spinner sp){
-        if (str != null) {
-            String[] arr = new String[str.length];
-            for (int i = 0;i < str.length;i ++){
-                arr[i] = str + "";
-            }
-            ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context, R.layout.item_simple_spinner,arr);
-            spAdapter.setDropDownViewResource(R.layout.item_content_spinner);
-            sp.setAdapter(spAdapter);
-        }
-    }
-
-    //spinner绑定数据源,deep样式
-    public static void spInitDeep(Context context,String[] str,Spinner sp){
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_light,str);
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_light);
-        sp.setAdapter(spAdapter);
-    }
-
-    public static void spInitDeep(Context context,int[] inte,Spinner sp){
-        String[] str = new String[inte.length];
-        for(int i = 0;i < inte.length;i ++){
-            str[i] = String.valueOf(inte[i]);
-        }
-        ArrayAdapter<String> spAdapter = new ArrayAdapter<String>(context,R.layout.item_content_spinner_light,str);
-        spAdapter.setDropDownViewResource(R.layout.item_content_spinner_light);
-        sp.setAdapter(spAdapter);
     }
 
     public static void spInitCustom(Context context,String[] str,Spinner sp,int layout){
@@ -253,7 +178,7 @@ public class ToolCase {
         // 将ClipData内容放到系统剪贴板里。
         cm.setPrimaryClip(mClipData);
         //提示
-        showTip(ctx,"tip_clipboard_normal.json",hint);
+//        showTip(ctx,"tip_clipboard_normal.json",hint);
     }
 
     //获取指令卡列表
@@ -455,7 +380,7 @@ public class ToolCase {
     }
 
     //生成servant json数组，为web版创造数据源
-    public static void createJson(List<ServantItem> servantList){
+    public static void createJson(List<ServantEntity> servantList){
         JSONArray ja = new JSONArray();
         Gson gson = new Gson();
         for (int i = 0;i < servantList.size();i ++){
@@ -494,40 +419,6 @@ public class ToolCase {
             }
         }
         return 2;//unknown error
-    }
-
-    public static void showTip(Context ctx,String jsonName) {
-        if (ctx != null) {
-            //获取json
-            String json = loadJsonFromAsset(ctx,jsonName);
-
-            //解析json
-            Gson gson = new Gson();
-            Type type = new TypeToken <TipItem>(){}.getType();
-            TipItem item = gson.fromJson(json,type);
-
-            //展示
-            TipDialog d = new TipDialog(ctx,item);
-            d.show();
-        }
-    }
-
-    public static void showTip(Context ctx,String jsonName,String hint) {
-        if (ctx != null && !TextUtils.isEmpty(hint)) {
-            //获取json
-            String json = loadJsonFromAsset(ctx,jsonName);
-
-            //解析json
-            Gson gson = new Gson();
-            Type type = new TypeToken <TipItem>(){}.getType();
-            TipItem item = gson.fromJson(json,type);
-
-            item.setTip(hint);
-
-            //展示
-            TipDialog d = new TipDialog(ctx,item);
-            d.show();
-        }
     }
 
     //从asset加载json文件
@@ -573,6 +464,26 @@ public class ToolCase {
                 e.printStackTrace();
                 return 0;
             }
+        }
+    }
+
+    public static double doubleParser(String data) {
+        try {
+            return TextUtils.isEmpty(data) ? 0d : Double.parseDouble(data);
+        } catch (NumberFormatException e) {
+            return 0d;
+        }
+    }
+
+    /**
+     * 自动关闭软键盘
+     * @param activity
+     */
+    public static void closeKeybord(Activity activity) {
+        InputMethodManager imm =  (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if(imm != null) {
+            Log.d(TAG,"imm != null");
+            imm.hideSoftInputFromWindow(activity.getWindow().getDecorView().getWindowToken(), 0);
         }
     }
 

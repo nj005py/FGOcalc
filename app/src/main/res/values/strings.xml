@@ -35,4 +35,35 @@
     <string name="alignments">属性</string>
     <string name="about_calc_result">长按计算结果可以复制到剪切板，这个功能一直都有，之前没明说。多个计算器之间共享buff设置。默认atk为满级atk+1000，默认hp为满级hp+1000。3蓝的20%np，3绿的10星不参与计算。从者被动属性自动带入计算。np的平均补正不是标准的1.0，比1.0略高，标准是1.0。</string>
     <string name="fgocalc_divider">\n\n==== FGOcalc ====\n\n</string>
+    <string name="navgation_left">←_←</string>
+    <string name="navgation_right">→_→</string>
+
+    <!--MainActy-->
+    <string name="permission_deny">您拒绝了权限，或影响正常使用</string>
+    <!--搜索提示-->
+    <string name="search_hint">输入从者名称或昵称搜索</string>
+
+    <!--FilterFrag-->
+    <string name="filter">筛选</string>
+    <string name="reset">重置</string>
+
+    <!--InfoFrag-->
+    <string name="more_info">去wiki查看更多信息</string>
+
+    <!--BuffFrag-->
+    <string name="set_buff">设置Buff</string>
+    <string name="shortcut_support">拐快捷键</string>
+    <string name="shortcut_essence">御主礼装快捷键</string>
+    <string name="reduce_buff">减buff</string>
+
+    <!--CalcFrag-->
+    <string name="calc">计算</string>
+    <string name="clean_result">清理结果</string>
+    <string name="calc_atk">伤害</string>
+    <string name="calc_np_charge">充能</string>
+    <string name="calc_star">打星</string>
+    <string name="overkill">overkill</string>
+    <string name="critical">暴击</string>
+    <string name="calc_result">计算结果</string>
+
 </resources>

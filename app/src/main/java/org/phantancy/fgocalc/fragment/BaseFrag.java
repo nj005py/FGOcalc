@@ -22,7 +22,7 @@ import org.phantancy.fgocalc.dialog.LoadingDialog;
  */
 public class BaseFrag extends Fragment{
 
-    public String TAG = getClass().getSimpleName();
+    final protected String TAG = getClass().getSimpleName();
     protected Context ctx;
     protected FragmentActivity mActy;
     protected View rootView;

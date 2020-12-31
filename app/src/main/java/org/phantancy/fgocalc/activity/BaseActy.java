@@ -20,7 +20,7 @@ import org.phantancy.fgocalc.dialog.LoadingDialog;
 
 public class BaseActy extends AppCompatActivity {
     protected Context ctx;
-    protected String TAG = getClass().getName();
+    protected final String TAG = getClass().getName();
     protected LoadingDialog loadingDialog;
 
     @Override

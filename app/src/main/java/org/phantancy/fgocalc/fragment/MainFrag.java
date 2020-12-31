@@ -30,31 +30,37 @@ import java.util.List;
 public class MainFrag extends BaseFrag {
 
     private FragMainBinding binding;
-    final String TAG = "MainFrag";
+    //    final String TAG = "MainFrag";
     private MainViewModel vm;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragMainBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
     @Override
-    public void onActivityCreated( Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         vm = ViewModelProviders.of(mActy).get(MainViewModel.class);
         //列表绑定适配器
         ServantAdapter adapter = new ServantAdapter();
         binding.rvList.setAdapter(adapter);
 
+        //获取从者列表
+        Log.d(TAG,"获取从者列表");
+        vm.getAllServants();
+
+        //获得从者数据时，更新列表
         vm.getServants().observe(this, new Observer<List<ServantEntity>>() {
             @Override
             public void onChanged(List<ServantEntity> servantEntities) {
-                Log.d(TAG,"size:" + servantEntities.size());
+                Log.d(TAG, "size:" + servantEntities.size());
                 adapter.submitList(servantEntities);
             }
         });
 
+        //关键词搜索
         vm.getKeyword().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -63,7 +69,7 @@ public class MainFrag extends BaseFrag {
                 } else {
                     vm.getServantsByKeyword(s);
                 }
-                Log.d(TAG,"keyword:" + s);
+                Log.d(TAG, "keyword:" + s);
             }
         });
 
@@ -83,10 +89,10 @@ public class MainFrag extends BaseFrag {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_SEND || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                     String x = ToolCase.getViewValue(binding.etSearch);
-                    x = x.replace(",","");
-                    x = x.replace("，","");
+                    x = x.replace(",", "");
+                    x = x.replace("，", "");
                     vm.setKeyword(x);
-                    Log.d(TAG,"etSearch: search");
+                    Log.d(TAG, "etSearch: search");
                     return true;
                 }
                 return false;
@@ -113,9 +119,9 @@ public class MainFrag extends BaseFrag {
             @Override
             public void openCalcPage(ServantEntity x, ImageView y) {
                 Intent i = new Intent(mActy, CalcActy.class);
-                ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActy,y,"avatar");
-                i.putExtra("servant",x);
-                startActivity(i,actyOptions.toBundle());
+                ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActy, y, "avatar");
+                i.putExtra("servant", x);
+                startActivity(i, actyOptions.toBundle());
 //                startActivity(i);
             }
         });

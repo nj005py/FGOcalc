@@ -8,7 +8,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -66,21 +66,21 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="add avatar">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="update 御主礼装">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_empty_wiki.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/MainViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/MainViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/entity_info_text.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_info_text.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_wiki.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_wiki.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[19e9ef]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[5JP0217C04001798]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -172,11 +172,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
         <option value="Interface" />
         <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -394,7 +394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609385998986</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update 御主礼装">
+      <created>1609851685791</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609851685791</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -411,37 +418,46 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add avatar" />
-    <option name="LAST_COMMIT_MESSAGE" value="add avatar" />
+    <MESSAGE value="update 御主礼装" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 御主礼装" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1609396826866">
+    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1609851684679">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1609396826866" />
-    <state width="1877" height="374" key="GridCell.Tab.0.bottom" timestamp="1609395130464">
+    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1609851684679" />
+    <state width="1877" height="395" key="GridCell.Tab.0.bottom" timestamp="1609856000567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="374" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130464" />
-    <state width="1877" height="374" key="GridCell.Tab.0.center" timestamp="1609395130463">
+    <state width="1877" height="395" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609856000567" />
+    <state width="1877" height="395" key="GridCell.Tab.0.center" timestamp="1609856000566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="374" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130463" />
-    <state width="1877" height="374" key="GridCell.Tab.0.left" timestamp="1609395130463">
+    <state width="1877" height="395" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609856000566" />
+    <state width="1877" height="395" key="GridCell.Tab.0.left" timestamp="1609856000566">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="374" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130463" />
-    <state width="1877" height="374" key="GridCell.Tab.0.right" timestamp="1609395130464">
+    <state width="1877" height="395" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609856000566" />
+    <state width="1877" height="395" key="GridCell.Tab.0.right" timestamp="1609856000567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="374" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130464" />
+    <state width="1877" height="395" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609856000567" />
+    <state x="397" y="0" key="ScreenshotViewer.Dimensions" timestamp="1609855994582">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="397" y="0" key="ScreenshotViewer.Dimensions/0.0.1920.1040@0.0.1920.1040" timestamp="1609855994582" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1609393532472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1609393532472" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1609386028004">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1609851689145">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1609386028004" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1609851689145" />
+    <state width="300" height="59" key="javadoc.popup.new" timestamp="1609855477480">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="300" height="59" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1609855477480" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

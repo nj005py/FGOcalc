@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/iv_empty"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/doctor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fl_wiki_controller"
+        />
+
+    <TextView
+        android:id="@+id/tv_wiki"
+        style="@style/TvOption"
+        android:text="加载wiki"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_mc"
+        />
+
+    <TextView
+        android:id="@+id/tv_mc"
+        style="@style/TvOption"
+        android:text="加载mc"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_empty"
+        />
+</merge>

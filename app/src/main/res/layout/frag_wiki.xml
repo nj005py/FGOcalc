@@ -17,6 +17,10 @@
         app:layout_constraintBottom_toTopOf="@+id/fl_wiki_controller"
         />
 
+    <include
+        layout="@layout/layout_empty_wiki"
+        />
+
 
     <FrameLayout
         android:id="@+id/fl_wiki_controller"
@@ -25,7 +29,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/srl_wiki"
-
+        android:background="@color/white"
         >
 
         <ImageView
@@ -41,7 +45,7 @@
         <TextView
             android:id="@+id/tv_load_wiki"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:gravity="center_vertical"
             android:text="点击加载"
             android:textColor="@color/blueWordDark"

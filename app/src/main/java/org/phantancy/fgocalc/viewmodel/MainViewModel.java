@@ -69,8 +69,8 @@ public class MainViewModel extends AndroidViewModel {
     public MainViewModel(Application app) {
         super(app);
         calcRepository = new CalcRepository(app);
-        getAllServants();
-        getFilters();
+//        getAllServants();
+//        getFilters();
     }
 
 

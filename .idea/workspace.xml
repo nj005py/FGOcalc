@@ -8,7 +8,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -66,651 +66,21 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/fgocalc.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/assets/filter.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CalcActy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MainActy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffInputAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/CalcViewPagerAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/CardsAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ContentPagerAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/PickAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ShortcutMstEquipmentAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ShortcutSupportAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/Formula.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/LogManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/ParamsMerger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/BuffData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/CalcDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/CalcRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/ConditionData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/InfoBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/ServantAvatar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/ServantDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/SqlLoC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/SvtExpDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/ShortcutMstEquipmentDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/ShortcutSupportDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/BuffInputEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/CardPickEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/CommandCardEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/FetchEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/FilterEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/IBuffShortCut.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/InfoEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/InputData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/OneTurnNp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/OneTurnResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/ServantEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/ShortcutBuffEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/ShortcutMstEquipmentEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/ShortcutSupportEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/SvtExpEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BuffFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/ConditionFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/InfoFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/SettingFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/WikiFrag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/KeybordUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/TypeConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/MainViewModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v21/btn_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_info_title.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_radius_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/card_bronze.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/card_golden.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/card_sliver.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ckb_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/extra.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_broken_image.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_chevron_left.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_chevron_right.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_image.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_refresh.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_close_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_menu_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_search_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image239.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image240.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image241.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image242.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image243.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image244.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image245.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image246.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image247.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image248.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image249.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image250.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image251.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image252.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image253.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image254.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image255.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image256.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image257.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image258.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image259.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image260.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image261.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image262.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image263.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image264.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image265.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image266.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image267.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image268.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image269.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image270.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image271.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image272.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image273.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image274.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image275.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image276.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image277.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image278.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image279.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image280.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image281.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image282.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image283.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst001a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst001b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst002a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst002b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst005a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst005b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst006a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst006b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst007a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst007b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst008a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst008b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst009a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst009b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst010a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst010b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst011a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst011b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst012a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst012b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst013a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst013b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst014a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst014b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst015a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst015b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst016a.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/mst016b.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/semicircle_blue.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/semicircle_blueworddark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/semicircle_bluewordprimary.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_blueworddark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_bluewordprimary.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_radius_bluewordaccent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_radius_blueworddark.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_radius_bluewordprimary.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/slt_calc_type.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/stroke_bottom_black.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tile.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_shortcut_mst_equipment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_shortcut_support.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_buff_input.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_buff_input_category.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_card_pick.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_filter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_info_text.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_servant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_shortcut_mst_equipment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_shortcut_support.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_spinner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_buff.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_calc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_condition.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_filter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_setting.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_wiki.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_webview.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/attrs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="add avatar">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FGOcalc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FGOcalc.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/umeng-common-1.5.3.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/libs/utdid4all-1.1.5.3_proguard.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/database.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/database.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/tip_strawberry_g.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/tip_strawberry_g.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CompassActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/FateGoActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/PartyActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/WebviewActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/ZActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/BuffAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/FilterAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/FilterAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/InfoCardsMVPAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ItemAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/MenuAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/OptionAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/PartyItemTouchHelperCallback.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/PartySvtAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/ServantCardViewAdapter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BasePresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/base/BaseView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/CalcActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/atk/AtkPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/buff/BuffPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/info/InfoPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/np/NpPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/star/StarPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpFrag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/calc/trump/TrumpPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/common/UrlConstant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/database/DBManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/AboutDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/FeedbackDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/LoadingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/LoadingDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/MenulLocDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/TalkDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/TipDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/dialog/UpdateDialog.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/event/DatabaseEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MetaphysicsFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/AtkHpItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/AtkHpItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/BuffsItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CardsItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CatchItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CommandCard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionAtk.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionNp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionStar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ConditionTrump.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/CurveItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/CurveItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/FilterItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/HotItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/InfoCardsMVPItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/InfoItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/MenuItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/OptionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/OptionItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/ServantItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/TipItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/TipItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/UpdateItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/entity/UpdateItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item/zItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/DividerItemDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/DividerItemDecoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/GridItemDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/GridItemDecoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CardsItemView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/CatchItemView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/ItemView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/itemview/zItemView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/metaphysics/MetaphysicsPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListContract.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListFragment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListMVPActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/servant/ServantListPresenter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/splash/SplashActy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ActivityUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ActivityUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/BaseUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/BaseUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/MyAppGlideModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/MyAppGlideModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ServantLayoutManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ServantLayoutManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ToolCase.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/util/ToolCase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CameraPreview.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ClearEditText.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ClearEditText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/CompassView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/DividerItemDecoration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/OptionDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/OptionDecoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ProgressWebView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/ProgressWebView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/StrokeTextView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/view/StrokeTextView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image1.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image10.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image10.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image100.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image100.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image1004.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image1004.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image101.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image101.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image102.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image102.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image103.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image103.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image104.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image104.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image105.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image105.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image106.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image106.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image107.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image107.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image108.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image108.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image109.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image109.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image11.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image11.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image110.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image110.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image111.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image111.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image112.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image112.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image113.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image113.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image114.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image114.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image115.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image115.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image116.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image116.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image117.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image117.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image118.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image118.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image119.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image119.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image12.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image12.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image120.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image120.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image121.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image121.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image122.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image122.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image123.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image123.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image124.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image124.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image125.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image125.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image126.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image126.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image127.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image127.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image128.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image128.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image129.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image129.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image13.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image13.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image130.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image130.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image131.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image131.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image132.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image132.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image133.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image133.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image134.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image134.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image135.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image135.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image136.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image136.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image137.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image137.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image138.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image138.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image139.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image139.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image14.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image14.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image140.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image140.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image141.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image141.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image142.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image142.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image143.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image143.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image144.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image144.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image145.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image145.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image146.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image146.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image147.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image147.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image148.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image148.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image149.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image149.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image15.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image15.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image150.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image150.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image151.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image151.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image152.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image152.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image153.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image153.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image154.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image154.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image155.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image155.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image156.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image156.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image157.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image157.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image158.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image158.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image159.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image159.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image16.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image16.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image160.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image160.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image161.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image161.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image162.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image162.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image163.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image163.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image164.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image164.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image165.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image165.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image166.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image166.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image167.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image167.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image168.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image168.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image169.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image169.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image17.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image17.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image170.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image170.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image171.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image171.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image172.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image172.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image173.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image173.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image174.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image174.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image175.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image175.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image176.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image176.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image177.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image177.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image178.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image178.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image179.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image179.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image18.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image18.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image180.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image180.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image181.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image181.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image182.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image182.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image183.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image183.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image184.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image184.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image185.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image185.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image186.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image186.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image187.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image187.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image188.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image188.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image189.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image189.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image19.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image19.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image190.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image190.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image191.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image191.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image192.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image192.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image193.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image193.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image194.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image194.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image195.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image195.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image196.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image196.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image197.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image197.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image198.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image198.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image199.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image199.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image2.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image2.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image20.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image20.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image200.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image200.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image201.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image201.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image202.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image202.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image203.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image203.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image204.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image204.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image205.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image205.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image206.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image206.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image207.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image207.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image208.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image208.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image209.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image209.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image21.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image21.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image210.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image210.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image211.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image211.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image212.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image212.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image213.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image213.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image214.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image214.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image215.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image215.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image216.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image216.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image217.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image217.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image218.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image218.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image219.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image219.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image22.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image22.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image220.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image220.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image221.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image221.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image222.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image222.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image223.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image223.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image224.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image224.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image225.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image225.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image226.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image226.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image227.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image227.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image228.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image228.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image229.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image229.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image23.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image23.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image230.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image230.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image231.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image231.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image232.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image232.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image233.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image233.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image234.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image234.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image235.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image235.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image236.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image236.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image237.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image237.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image238.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image238.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image24.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image24.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image25.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image25.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image26.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image26.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image27.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image27.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image28.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image28.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image29.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image29.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image3.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image3.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image30.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image30.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image31.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image31.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image32.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image32.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image33.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image33.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image34.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image34.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image35.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image35.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image36.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image36.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image37.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image37.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image38.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image38.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image39.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image39.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image4.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image4.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image40.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image40.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image41.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image41.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image42.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image42.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image43.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image43.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image44.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image44.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image45.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image45.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image46.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image46.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image47.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image47.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image48.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image48.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image49.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image49.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image5.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image5.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image50.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image50.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image51.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image51.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image52.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image52.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image53.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image53.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image54.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image54.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image55.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image55.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image56.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image56.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image57.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image57.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image58.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image58.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image59.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image59.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image6.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image6.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image60.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image60.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image61.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image61.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image62.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image62.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image63.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image63.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image64.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image64.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image65.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image65.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image66.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image66.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image67.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image67.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image68.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image68.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image69.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image69.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image7.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image7.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image70.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image70.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image71.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image71.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image72.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image72.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image73.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image73.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image74.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image74.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image75.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image75.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image76.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image76.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image77.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image77.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image78.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image78.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image79.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image79.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image8.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image8.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image80.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image80.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image81.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image81.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image82.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image82.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image83.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image83.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image84.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image84.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image85.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image85.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image86.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image86.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image87.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image87.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image88.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image88.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image89.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image89.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image9.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image9.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image90.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image90.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image91.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image91.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image92.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image92.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image93.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image93.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image94.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image94.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image95.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image95.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image96.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image96.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image97.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image97.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image98.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image98.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/image99.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/image99.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/np_up.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/npc_up.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_blue_deepblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_bluegrayhard_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_cb_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_gradient_blue_deepblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_gray_dark.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_l_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_lightblue2_deepblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_lightblue_deepblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_radius_blue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_radius_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_blue_noradius.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_blue_stroke.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_rb_gray_grayhard_noradius.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_search.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_textcolor.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_txt_white_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/se_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/servant_golden.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/servant_silver.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_r_bottom_lightblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_r_top_lightblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_r_top_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_blue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_deepblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_gray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_gray_dark.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_gray_hard.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_radius_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_normal.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_search_pressed.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_stroke.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_stroke_black.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_stroke_black_bg_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_stroke_golden_bg_lightblue.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_stroke_golden_bg_lightgray.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/sh_white.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/shape_drop_down_normal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/shape_drop_down_normal.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/slt_floating_btn.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/splash_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/trump_down.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_down.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/trump_special_up.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_special_up.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/trump_up.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/np_up.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/wake_up.webp" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/weak_up.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_buff.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/acty_calc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_catch.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_compass.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_extract.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_fate_go.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_map.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_metaphysics.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_party.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_servant_list_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_splash.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/acty_webview.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/buff_bar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_about.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_feedback.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_menu_loc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diag_update.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_talk.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_tip.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_atk_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_info.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_info_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_metaphysics.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_np_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_servant_list.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_star_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_trump_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_buff.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_card_type.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_catch.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_deep.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_l.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_content_spinner_light.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_filter.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_info_cards_mvp.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_menu.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_option.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_servant_cardview.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_simple_spinner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/status_bar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/view_side_menu.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/z_layout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/raw/servants.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/arrays.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/test/java/org/phantancy/fgocalc/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/push/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/push/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/push/push.iml" beforeDir="false" afterPath="$PROJECT_DIR$/push/push.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/BaseActy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/MainViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/MainViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[19e9ef]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -812,6 +182,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
   </component>
   <component name="ProjectId" id="1a1lqcoGsk9i9kGqI7lt2lqU3Qv" />
   <component name="ProjectViewState">
@@ -826,11 +197,11 @@
     <property name="android.sdk.path" value="$PROJECT_DIR$/../../AndroidSDK/sdk" />
     <property name="device.picker.selection" value="Pixel_3_API_28" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Download/FilePicker-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.1.4" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -840,8 +211,11 @@
     <option name="LAST_EDITED_BUILD_TYPE" value="release" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\AndroidLab\FGOcalc\app\src\main\assets" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\code_android\FGOcalc\app\src\main\res\drawable" />
+      <recent name="E:\AndroidLab\FGOcalc\app\src\main\res\drawable" />
+      <recent name="E:\AndroidLab\FGOcalc\app\src\main\res\layout" />
+      <recent name="E:\AndroidLab\FGOcalc\app\libs" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.phantancy.fgocalc.entity" />
@@ -849,10 +223,8 @@
       <recent name="org.phantancy.fgocalc.dialog" />
       <recent name="org.phantancy.fgocalc.data" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\AndroidLab\FGOcalc\app\src\main\res\drawable" />
-      <recent name="E:\AndroidLab\FGOcalc\app\src\main\res\layout" />
-      <recent name="E:\AndroidLab\FGOcalc\app\libs" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\AndroidLab\FGOcalc\app\src\main\assets" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -1015,29 +387,61 @@
       <option name="presentableId" value="Default" />
       <updated>1556366980174</updated>
     </task>
+    <task id="LOCAL-00001" summary="add avatar">
+      <created>1609385998986</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1609385998986</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add avatar" />
+    <option name="LAST_COMMIT_MESSAGE" value="add avatar" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1609396826866">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1609396826866" />
+    <state width="1877" height="374" key="GridCell.Tab.0.bottom" timestamp="1609395130464">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="374" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130464" />
+    <state width="1877" height="374" key="GridCell.Tab.0.center" timestamp="1609395130463">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="374" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130463" />
+    <state width="1877" height="374" key="GridCell.Tab.0.left" timestamp="1609395130463">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="374" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130463" />
+    <state width="1877" height="374" key="GridCell.Tab.0.right" timestamp="1609395130464">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="374" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609395130464" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1609393532472">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1609393532472" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1609386028004">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1609386028004" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,10 @@ public class FilterFrag extends BaseFrag {
 
         FilterAdapter adapter = new FilterAdapter(ctx,null);
         binding.rvFilter.setAdapter(adapter);
+
+        //获取筛选项
+        Log.d(TAG,"获取筛选内容");
+        vm.getFilters();
 
         vm.filters.observe(this, new Observer<List<FilterEntity>>() {
             @Override

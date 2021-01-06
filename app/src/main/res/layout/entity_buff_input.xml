@@ -21,7 +21,7 @@
         android:background="@android:color/transparent"
         android:textColorHint="@color/gray500"
         android:maxLength="5"
-        android:inputType="numberDecimal"
+        android:inputType="numberSigned|numberDecimal"
         />
 
     <TextView

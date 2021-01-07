@@ -15,6 +15,7 @@ import org.phantancy.fgocalc.adapter.CardsAdapter;
 import org.phantancy.fgocalc.adapter.PickAdapter;
 import org.phantancy.fgocalc.databinding.FragCalcBinding;
 import org.phantancy.fgocalc.entity.CardPickEntity;
+import org.phantancy.fgocalc.item_decoration.LinearItemDecoration;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public class CalcFragment extends LazyFragment {
         CardsAdapter cardsAdapter = new CardsAdapter();
 
         binding.rvPicked.setAdapter(pickAdapter);
+        final float scale = getResources().getDisplayMetrics().density;
+        binding.rvPicked.addItemDecoration(new LinearItemDecoration((int) (60 * scale + 0.5f)));
         binding.rvCards.setAdapter(cardsAdapter);
 
         //选卡

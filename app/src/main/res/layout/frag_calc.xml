@@ -43,16 +43,18 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_picked"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_weight="1.0"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             />
 
         <ImageView
             android:id="@+id/iv_card_ex"
-            android:layout_width="60dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_weight="3.0"
             android:src="@drawable/extra"
             />
 

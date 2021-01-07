@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -30,7 +28,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.List;
 
-public class InfoFrag extends BaseFrag {
+public class InfoFragment extends LazyFragment {
     private FragInfoBinding binding;
     private CalcViewModel vm;
 
@@ -42,8 +40,7 @@ public class InfoFrag extends BaseFrag {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
         ServantEntity svt = vm.getServant();

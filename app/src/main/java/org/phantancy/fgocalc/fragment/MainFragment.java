@@ -27,7 +27,7 @@ import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
 import java.util.List;
 
-public class MainFrag extends BaseFrag {
+public class MainFragment extends BaseFragment {
 
     private FragMainBinding binding;
     //    final String TAG = "MainFrag";

@@ -12,17 +12,14 @@ import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
-import org.phantancy.fgocalc.adapter.ContentPagerAdapter;
 import org.phantancy.fgocalc.databinding.ActyCalcBinding;
 import org.phantancy.fgocalc.entity.ServantEntity;
-import org.phantancy.fgocalc.fragment.BaseFrag;
-import org.phantancy.fgocalc.fragment.BuffFrag;
-import org.phantancy.fgocalc.fragment.CalcFrag;
-import org.phantancy.fgocalc.fragment.ConditionFrag;
-import org.phantancy.fgocalc.fragment.InfoFrag;
-import org.phantancy.fgocalc.fragment.WikiFrag;
+import org.phantancy.fgocalc.fragment.BuffFragment;
+import org.phantancy.fgocalc.fragment.CalcFragment;
+import org.phantancy.fgocalc.fragment.ConditionFragment;
+import org.phantancy.fgocalc.fragment.InfoFragment;
+import org.phantancy.fgocalc.fragment.WikiFragment;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.ArrayList;
@@ -47,16 +44,16 @@ public class CalcActy extends BaseActy {
         /**
          * 创建ViewPager Adapter
          */
-        WikiFrag wikiFrag = new WikiFrag();
+        WikiFragment wikiFrag = new WikiFragment();
         wikiFrag.setParentPager(binding.vpCalcPager);
 
         List<Fragment> fragments = new ArrayList<Fragment>() {
             {
-                add(new InfoFrag());
+                add(new InfoFragment());
                 add(wikiFrag);
-                add(new BuffFrag());
-                add(new ConditionFrag());
-                add(new CalcFrag());
+                add(new BuffFragment());
+                add(new ConditionFragment());
+                add(new CalcFragment());
             }
         };
 

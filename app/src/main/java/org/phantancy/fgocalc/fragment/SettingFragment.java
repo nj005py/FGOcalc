@@ -7,16 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import org.phantancy.fgocalc.databinding.FragSettingBinding;
-import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
-import java.util.List;
-
-public class SettingFrag extends BaseFrag{
+public class SettingFragment extends BaseFragment {
     private MainViewModel vm;
     private FragSettingBinding binding;
 

@@ -11,16 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.FilterAdapter;
-import org.phantancy.fgocalc.fragment.BaseFrag;
 import org.phantancy.fgocalc.databinding.FragFilterBinding;
 import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
 import java.util.List;
 
-public class FilterFrag extends BaseFrag {
+public class FilterFragment extends BaseFragment {
 
     private FragFilterBinding binding;
     private MainViewModel vm;

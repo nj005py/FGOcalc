@@ -19,7 +19,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.List;
 
-public class CalcFrag extends BaseFrag {
+public class CalcFragment extends LazyFragment {
     private FragCalcBinding binding;
     private CalcViewModel vm;
 
@@ -31,8 +31,7 @@ public class CalcFrag extends BaseFrag {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
         PickAdapter pickAdapter = new PickAdapter();
@@ -88,14 +87,11 @@ public class CalcFrag extends BaseFrag {
                 binding.tvCalcResult.setText(s);
             }
         });
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         //解析配卡
         vm.parsePickCards();
     }
+
 
     private void setOverkillCritical() {
         binding.cbOk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

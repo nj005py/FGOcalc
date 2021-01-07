@@ -120,7 +120,11 @@ public class CalcViewModel extends AndroidViewModel {
             list.add(parseCardPickEntity(id, y));
             id++;
         }
-        list.add(parseCardPickNp(id, servant.npColor));
+//        list.add(parseCardPickNp(id, servant.npColor));
+        //测试宇宙凛
+        list.add(parseCardPickNp(id++, "np_q"));
+        list.add(parseCardPickNp(id++, "np_a"));
+        list.add(parseCardPickNp(id, "np_b"));
         cardPicks.setValue(list);
     }
 

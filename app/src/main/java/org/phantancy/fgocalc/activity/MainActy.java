@@ -20,9 +20,9 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
 import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.databinding.ActyMainBinding;
-import org.phantancy.fgocalc.fragment.FilterFrag;
-import org.phantancy.fgocalc.fragment.MainFrag;
-import org.phantancy.fgocalc.fragment.SettingFrag;
+import org.phantancy.fgocalc.fragment.FilterFragment;
+import org.phantancy.fgocalc.fragment.MainFragment;
+import org.phantancy.fgocalc.fragment.SettingFragment;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
@@ -73,9 +73,9 @@ public class MainActy extends BaseActy {
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
-        fragments.add(new MainFrag());
-        fragments.add(new FilterFrag());
-        fragments.add(new SettingFrag());
+        fragments.add(new MainFragment());
+        fragments.add(new FilterFragment());
+        fragments.add(new SettingFragment());
 
         //set tabs
         List<String> tabs = new ArrayList<>();

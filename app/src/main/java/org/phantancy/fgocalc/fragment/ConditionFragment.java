@@ -19,10 +19,9 @@ import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
-public class ConditionFrag extends BaseFrag {
+public class ConditionFragment extends LazyFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
-    private boolean isFirstTime;
 
     @Nullable
     @Override
@@ -32,10 +31,8 @@ public class ConditionFrag extends BaseFrag {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
-//        isFirstTime = true;
         initView();
     }
 

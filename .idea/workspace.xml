@@ -66,14 +66,22 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="update 御主礼装">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_empty_wiki.xml" afterDir="false" />
+    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="update wiki页更新">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/entity_info_text.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/entity_info_text.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_wiki.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_wiki.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CalcActy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/CalcActy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MainActy.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/activity/MainActy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/CardsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/adapter/CardsAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BaseFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BuffFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/BuffFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/ConditionFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/ConditionFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/FilterFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/InfoFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/InfoFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/LazyFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/LazyFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/MainFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/SettingFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/SettingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/WikiFrag.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/WikiFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -401,7 +409,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609851685791</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update wiki页更新">
+      <created>1609856024811</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609856024811</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -419,13 +434,22 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add avatar" />
     <MESSAGE value="update 御主礼装" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 御主礼装" />
+    <MESSAGE value="update wiki页更新" />
+    <option name="LAST_COMMIT_MESSAGE" value="update wiki页更新" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1609851684679">
+    <state x="1216" y="228" key="#com.intellij.ide.util.MemberChooser" timestamp="1610026284025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1609851684679" />
+    <state x="1216" y="228" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610026284025" />
+    <state x="779" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610025455891">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="779" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610025455891" />
+    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1609856023366">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1609856023366" />
     <state width="1877" height="395" key="GridCell.Tab.0.bottom" timestamp="1609856000567">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -442,22 +466,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="395" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1609856000567" />
-    <state x="397" y="0" key="ScreenshotViewer.Dimensions" timestamp="1609855994582">
+    <state x="397" y="0" key="ScreenshotViewer.Dimensions" timestamp="1610027246350">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="397" y="0" key="ScreenshotViewer.Dimensions/0.0.1920.1040@0.0.1920.1040" timestamp="1609855994582" />
+    <state x="397" y="0" key="ScreenshotViewer.Dimensions/0.0.1920.1040@0.0.1920.1040" timestamp="1610027246350" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1609393532472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1609393532472" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1609851689145">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1609856029095">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1609851689145" />
-    <state width="300" height="59" key="javadoc.popup.new" timestamp="1609855477480">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1609856029095" />
+    <state x="1205" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610025322399">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="300" height="59" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1609855477480" />
+    <state x="1205" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1610025322399" />
+    <state width="300" height="59" key="javadoc.popup.new" timestamp="1610025427756">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="300" height="59" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1610025427756" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -489,26 +517,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>340</line>
+          <line>344</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>389</line>
+          <line>393</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>281</line>
+          <line>285</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>287</line>
+          <line>291</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFrag.java</url>
+          <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFragment.java</url>
           <line>80</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>

@@ -21,7 +21,7 @@ import org.phantancy.fgocalc.entity.ShortcutBuffEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
-public class BuffFrag extends BaseFrag {
+public class BuffFragment extends LazyFragment {
     private FragBuffBinding binding;
     private CalcViewModel vm;
 
@@ -33,8 +33,7 @@ public class BuffFrag extends BaseFrag {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
         BuffInputAdapter adapter = new BuffInputAdapter(ctx);
@@ -116,6 +115,5 @@ public class BuffFrag extends BaseFrag {
                 x.show();
             }
         });
-
     }
 }

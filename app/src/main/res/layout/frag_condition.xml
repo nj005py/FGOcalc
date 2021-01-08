@@ -72,6 +72,35 @@
             <!--        <Spinner style="@style/ConditionSpinner" />-->
 
             <!--    </LinearLayout>-->
+            <TextView
+                style="@style/ConditionTips"
+                android:text="宝具设置" />
+
+            <!--选择宝具-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="选择宝具" />
+
+                <Spinner
+                    android:id="@+id/sp_np_select"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--宝具是否强化-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="宝具是否强化" />
+
+                <Spinner
+                    android:id="@+id/sp_np_updated"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
 
             <!--宝具lv-->
             <LinearLayout style="@style/ConditionContainer">

@@ -52,6 +52,7 @@
 
     <!--BuffFrag-->
     <string name="set_buff">设置Buff</string>
+    <string name="svt_buff">从者buff</string>
     <string name="shortcut_support">拐快捷键</string>
     <string name="shortcut_essence">御主礼装快捷键</string>
     <string name="reduce_buff">减buff</string>

@@ -33,6 +33,7 @@ public class CalcFragment extends LazyFragment {
 
     @Override
     protected void init() {
+        //d
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
         PickAdapter pickAdapter = new PickAdapter();

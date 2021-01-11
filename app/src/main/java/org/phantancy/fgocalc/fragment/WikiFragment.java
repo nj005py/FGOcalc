@@ -37,6 +37,20 @@ public class WikiFragment extends LazyFragment {
     }
 
     @Override
+    public void onDestroy() {
+        //清理webview
+        if (webviewBinding.wvWiki != null) {
+            webviewBinding.wvWiki.setWebChromeClient(null);
+            webviewBinding.wvWiki.setWebViewClient(null);
+            webviewBinding.wvWiki.getSettings().setJavaScriptEnabled(false);
+            webviewBinding.wvWiki.clearCache(true);
+            webviewBinding.wvWiki.removeAllViews();
+            webviewBinding.wvWiki.destroy();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
         url = vm.getServantWiki();

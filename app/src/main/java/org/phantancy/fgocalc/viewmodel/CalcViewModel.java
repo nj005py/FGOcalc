@@ -120,11 +120,11 @@ public class CalcViewModel extends AndroidViewModel {
             list.add(parseCardPickEntity(id, y));
             id++;
         }
-//        list.add(parseCardPickNp(id, servant.npColor));
+        list.add(parseCardPickNp(id, servant.npColor));
         //测试宇宙凛
-        list.add(parseCardPickNp(id++, "np_q"));
-        list.add(parseCardPickNp(id++, "np_a"));
-        list.add(parseCardPickNp(id, "np_b"));
+//        list.add(parseCardPickNp(id++, "np_q"));
+//        list.add(parseCardPickNp(id++, "np_a"));
+//        list.add(parseCardPickNp(id, "np_b"));
         cardPicks.setValue(list);
     }
 
@@ -231,7 +231,7 @@ public class CalcViewModel extends AndroidViewModel {
         return 0;
     }
 
-    //获取svt经验数据
+    //获取从者经验数据
     public void setSvtExpEntities() {
         Flowable.create(new FlowableOnSubscribe<List<SvtExpEntity>>() {
             @Override

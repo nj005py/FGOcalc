@@ -13,7 +13,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.phantancy.fgocalc.common.Constant;
-import org.phantancy.fgocalc.entity.UpdateItem;
 
 /**
  * Created by PY on 2017/7/19.

@@ -41,6 +41,8 @@ public class ConditionFragment extends LazyFragment {
         setSpAdapter(binding.spAffinity,ConditionData.getAffinityKeys());
         //阵营相性
         setSpAdapter(binding.spAttribute,ConditionData.getAttributeKeys());
+        //宝具选择
+
         //宝具lv
         setSpAdapter(binding.spNpLv,ConditionData.npLvKeys);
         //芙芙atk

@@ -23,6 +23,7 @@ public abstract class CalcDatabase extends RoomDatabase {
     final static String TAG = "CalcDatabase";
     public abstract ServantDao servantDao();
     public abstract SvtExpDao svtExpDao();
+    public abstract NoblePhantasmDao noblePhantasmDao();
 
     public static CalcDatabase INSTANCE;
 

@@ -8,6 +8,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
 
@@ -17,7 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Database(entities = {ServantEntity.class, SvtExpEntity.class},version = 2,exportSchema = true)
+@Database(entities = {ServantEntity.class, SvtExpEntity.class, NoblePhantasmEntity.class},version = 2,exportSchema = true)
 public abstract class CalcDatabase extends RoomDatabase {
 
     final static String TAG = "CalcDatabase";

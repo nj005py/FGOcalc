@@ -60,6 +60,9 @@ public class NoblePhantasmEntity implements Parcelable {
     @ColumnInfo(name = "buff_updated")
     public String buffUpdated;
 
+    public NoblePhantasmEntity() {
+    }
+
     protected NoblePhantasmEntity(Parcel in) {
         id = in.readInt();
         sid = in.readInt();

@@ -10,5 +10,5 @@ import java.util.List;
 @Dao
 public interface NoblePhantasmDao {
     @Query("SELECT * FROM noble_phantasm WHERE sid=:sid")
-    NoblePhantasmEntity getNoblePhantasmEntity(int sid);
+    public NoblePhantasmEntity getNoblePhantasmEntity(int sid);
 }

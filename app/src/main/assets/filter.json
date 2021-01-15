@@ -3,7 +3,7 @@
     "title": "职阶",
     "dataType": 0,
     "hint": ["不限","Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Shielder","Alterego","Avenger","MoonCancer","Foreigner"],
-    "data0": ["all","Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Shielder","Alterego","Avenger","MoonCancer","Foreigner"],
+    "data0": ["any","Saber","Archer","Lancer","Rider","Caster","Assassin","Berserker","Ruler","Shielder","Alterego","Avenger","MoonCancer","Foreigner"],
     "data1": []
   },
   {
@@ -17,7 +17,7 @@
     "title": "阵营",
     "dataType": 0,
     "hint": ["不限","天","地","人","星"],
-    "data0": ["all","天","地","人","星"],
+    "data0": ["any","天","地","人","星"],
     "data1": []
   },
   {
@@ -31,28 +31,28 @@
     "title": "特性",
     "dataType": 0,
     "hint": ["不限","骑乘","人型","从者（被EA克制）","天/地从者","半从者","龙","亚瑟","Saber脸","王","罗马","所爱之人","神性","从者（不被EA克制）","希腊神话系男性","拟似从者","魔性","猛兽","超巨大"],
-    "data0": ["all","骑乘","人型","从者（被EA克制）","天/地从者","半从者","龙","亚瑟","Saber脸","王","罗马","所爱之人","神性","从者（不被EA克制）","希腊神话系男性","拟似从者","魔性","猛兽","超巨大"],
+    "data0": ["any","骑乘","人型","从者（被EA克制）","天/地从者","半从者","龙","亚瑟","Saber脸","王","罗马","所爱之人","神性","从者（不被EA克制）","希腊神话系男性","拟似从者","魔性","猛兽","超巨大"],
     "data1": []
   },
   {
     "title": "宝具卡色",
     "dataType": 0,
     "hint": ["不限","Quick","Arts","Buster"],
-    "data0": ["all","np_q","np_a","np_b"],
+    "data0": ["any","np_q","np_a","np_b"],
     "data1": []
   },
   {
     "title": "宝具类型",
     "dataType": 0,
     "hint": ["不限","单体","全体","辅助"],
-    "data0": ["all","one","all","support"],
+    "data0": ["any","one","all","support"],
     "data1": []
   },
   {
     "title": "配卡",
     "dataType": 0,
     "hint": ["不限","qaabb","qqabb","qqqab","qaaab","qabbb"],
-    "data0": ["all","qaabb","qqabb","qqqab","qaaab","qabbb"],
+    "data0": ["any","qaabb","qqabb","qqqab","qaaab","qabbb"],
     "data1": []
   }
 ]

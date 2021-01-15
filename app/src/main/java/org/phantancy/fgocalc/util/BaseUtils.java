@@ -121,36 +121,6 @@ public class BaseUtils {
         return false;
     }
 
-    //通过html获取版本号
-    public static void getVersionByHtml(final Handler handler){
-        new Thread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        final String checkUrl = "http://nj005py.gitee.io/fgocalc/version";
-                        try {
-                            UpdateItem item = new UpdateItem();
-                            //从一个URL加载一个Document对象。
-                            Document doc = Jsoup.connect(checkUrl).get();
-                            Elements version = doc.select("li.version");
-                            Elements url = doc.select("li.url");
-                            Elements content = doc.select("li.content");
-                            item.setVersion(version.text());
-                            item.setUrl(url.text());
-                            item.setContent(content.text());
-                            item.setCheckUrl(checkUrl);
-                            Message msg = new Message();
-                            msg.obj = item;
-                            msg.what = Constant.CHECK_APP_VERSION;
-                            handler.sendMessage(msg);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        ).start();
-    }
-
     //通过卡色获取html样式的卡色String
     public static String getCardTypeWithColour(String cardType){
         String vaule = "";

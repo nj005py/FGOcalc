@@ -144,34 +144,42 @@ public class MainViewModel extends AndroidViewModel {
         }).start();
     }
 
+    //职阶类型
     private String handleClassType(String x) {
-        return x.equals("all") ? "" : " AND class_type = '" + x + "'";
+        return x.equals("any") ? "" : " AND class_type = '" + x + "'";
     }
 
+    //星
     private String handleStar(int x) {
         return x == -1 ? "" : " AND star = " + x;
     }
 
+    //阵营
     private String handleAttribute(String x) {
-        return x.equals("all") ? "" : " AND attribute = '" + x + "'";
+        return x.equals("any") ? "" : " AND attribute = '" + x + "'";
     }
 
+    //特性
     private String handleTraits(String x) {
-        return x.equals("all") ? "" : " AND traits LIKE '%" + x + "%'";
+        return x.equals("any") ? "" : " AND traits LIKE '%" + x + "%'";
     }
 
+    //宝具卡色
     private String handleNpColor(String x) {
-        return x.equals("all") ? "" : " AND np_color = '" + x + "'";
+        return x.equals("any") ? "" : " AND np_color = '" + x + "'";
     }
 
+    //宝具类型
     private String handleNpType(String x) {
-        return x.equals("all") ? "" : " AND np_type = '" + x + "'";
+        return x.equals("any") ? "" : " AND np_type = '" + x + "'";
     }
 
+    //卡序
     private String handleCards(String x) {
-        return x.equals("all") ? "" : " AND cards = '" + x + "'";
+        return x.equals("any") ? "" : " AND cards = '" + x + "'";
     }
 
+    //排序
     private String handleOrderType(String x) {
         return " ORDER BY " + x;
     }

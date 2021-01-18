@@ -39,7 +39,7 @@ public class WikiFragment extends LazyFragment {
     @Override
     public void onDestroy() {
         //清理webview
-        if (webviewBinding.wvWiki != null) {
+        if (webviewBinding != null && webviewBinding.wvWiki != null) {
             webviewBinding.wvWiki.setWebChromeClient(null);
             webviewBinding.wvWiki.setWebViewClient(null);
             webviewBinding.wvWiki.getSettings().setJavaScriptEnabled(false);

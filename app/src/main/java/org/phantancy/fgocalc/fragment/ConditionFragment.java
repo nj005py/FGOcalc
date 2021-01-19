@@ -10,6 +10,7 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.xw.repo.BubbleSeekBar;
@@ -17,11 +18,14 @@ import com.xw.repo.BubbleSeekBar;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
+import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
+import org.phantancy.fgocalc.viewmodel.ConditionViewModel;
 
 public class ConditionFragment extends LazyFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
+    private ConditionViewModel conVm;
 
     @Nullable
     @Override
@@ -33,7 +37,18 @@ public class ConditionFragment extends LazyFragment {
     @Override
     protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
+        conVm = ViewModelProviders.of(mActy).get(ConditionViewModel.class);
         initView();
+        //获取宝具信息
+        conVm.getNoblePhantasmEntities(vm.getServant().id);
+        conVm.getNpEntity().observe(this, new Observer<NoblePhantasmEntity>() {
+            @Override
+            public void onChanged(NoblePhantasmEntity entity) {
+                //“选择宝具”
+//                setSpAdapter(binding.spNpSelect,entity.);
+                //"宝具是否强化"
+            }
+        });
     }
 
     private void initView(){

@@ -36,6 +36,7 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+//计算Activity ViewModel
 public class CalcViewModel extends AndroidViewModel {
     final String TAG = "CalcViewModel";
     private ServantEntity servant;

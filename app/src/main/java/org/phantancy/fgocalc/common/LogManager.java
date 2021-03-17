@@ -47,8 +47,7 @@ public class LogManager {
                 .append(MessageFormat.format("4.{0}卡伤害{1} ~ {2},平均{3}", getCardDisplay(data.getCardType4()),
                         displayResult(x.min4), displayResult(x.max4), displayResult(x.avg4)))
                 .append(MessageFormat.format("总计{0} ~ {1},平均{2}", displayResult(x.sumMin),
-                        displayResult(x.sumMax), displayResult(x.sumAvg)))
-        ;
+                        displayResult(x.sumMax), displayResult(x.sumAvg)));
         return y.toString();
     }
 

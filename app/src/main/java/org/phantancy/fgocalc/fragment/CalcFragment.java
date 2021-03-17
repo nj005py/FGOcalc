@@ -20,6 +20,9 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.List;
 
+/**
+ * 计算页
+ */
 public class CalcFragment extends LazyFragment {
     private FragCalcBinding binding;
     private CalcViewModel vm;
@@ -64,13 +67,6 @@ public class CalcFragment extends LazyFragment {
             @Override
             public void onChanged(List<CardPickEntity> x) {
                 cardsAdapter.submitList(x);
-            }
-        });
-
-        binding.btnCalc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vm.clickCalc(pickAdapter.getEntities());
             }
         });
 

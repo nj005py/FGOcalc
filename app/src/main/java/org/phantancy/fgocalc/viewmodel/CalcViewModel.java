@@ -285,6 +285,7 @@ public class CalcViewModel extends AndroidViewModel {
     //点击计算
     public void clickCalc(List<CardPickEntity> pickedCards) {
         this.pickedCards = pickedCards;
+        //计算伤害
         if (pickedCards != null && pickedCards.size() == 3) {
             inputData.setCardType1(pickedCards.get(0).getName());
             inputData.setCardType2(pickedCards.get(1).getName());
@@ -294,6 +295,8 @@ public class CalcViewModel extends AndroidViewModel {
             String dmgResult = LogManager.resultLog(inputData,x);
             calcResult.setValue(dmgResult);
         }
+        //计算Np
+        //计算打星
     }
 
 
@@ -346,8 +349,7 @@ public class CalcViewModel extends AndroidViewModel {
         return ParamsMerger.isNp(cardType) ? dmg(cardType, position,random) : npDmg(cardType,random);
     }
 
-    //计算普攻伤害
-    //Todo
+    //Todo 普攻伤害
     private double dmg(String cardType, int position,double random) {
         String cardType1 = inputData.getCardType1();
         boolean isSameColor = inputData.isSameColor();
@@ -399,7 +401,7 @@ public class CalcViewModel extends AndroidViewModel {
                 exDmgBuff, selfDmgBuff, selfDmgDefBuff, busterChainMod);
     }
 
-    //todo
+    //todo 宝具伤害
     private double npDmg(String cardType,double random) {
         //atk
         double atk = inputData.getAtk();

@@ -12,12 +12,12 @@
         android:gravity="center_vertical">
 
         <Button
-            android:id="@+id/btn_clean"
+            android:id="@+id/btn_calc"
             style="@style/ButtonBlue"
             android:text="@string/calc"/>
 
         <Button
-            android:id="@+id/btn_calc"
+            android:id="@+id/btn_clean"
             style="@style/ButtonBlue"
             android:text="@string/clean_result"/>
 

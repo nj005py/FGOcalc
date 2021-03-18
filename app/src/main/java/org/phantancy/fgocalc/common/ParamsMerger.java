@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.common;
 
+import org.phantancy.fgocalc.data.ConditionData;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -109,31 +111,18 @@ public class ParamsMerger {
     }};
 
     public static double mergeclassAtkMod(String svtClass) {
+        svtClass = svtClass.toLowerCase();
         return classAtkModMap.get(svtClass);
     }
 
-    // double affinityMod,
-    public static Map<String, Double> affinityModMap = new HashMap<String, Double>() {{
-        put("0.5x", 0.5);
-        put("1.0x", 1.0);
-        put("1.2x", 1.2);
-        put("1.5x", 1.5);
-        put("2.0x", 2.0);
-    }};
-
+    //职阶相性
     public static double mergeAffinityMod(String affinity) {
-        return affinityModMap.get(affinity);
+        return ConditionData.affinityMap.get(affinity);
     }
 
-    // double attributeMod,
-    public static Map<String, Double> attributeModMap = new HashMap<String, Double>() {{
-        put("无克制", 1.0);
-        put("克制", 1.1);
-        put("被克制", 0.9);
-    }};
-
+    //阵营相性
     public static double mergeAttributeMod(String attribue) {
-        return attributeModMap.get(attribue);
+        return ConditionData.attributeMap.get(attribue);
     }
 
     // double atkBuff,

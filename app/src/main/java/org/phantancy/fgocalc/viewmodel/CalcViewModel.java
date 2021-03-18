@@ -284,6 +284,10 @@ public class CalcViewModel extends AndroidViewModel {
 
     //点击计算
     public void clickCalc(List<CardPickEntity> pickedCards) {
+        //buff信息
+        //条件信息
+
+        //选择的卡
         this.pickedCards = pickedCards;
         //计算伤害
         if (pickedCards != null && pickedCards.size() == 3) {

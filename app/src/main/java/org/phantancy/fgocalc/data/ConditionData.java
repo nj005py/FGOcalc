@@ -5,12 +5,12 @@ import java.util.Map;
 
 public class ConditionData {
     //职阶相性
-    static Map<String,Double> affinityMap = new HashMap<String,Double>(){{
-        put("1.0x",1.0);
-        put("0.5x",0.5);
-        put("2.0x",2.0);
-        put("1.5x",1.5);
-        put("1.2x",1.2);
+    public static Map<String,Double> affinityMap = new HashMap<String,Double>(){{
+        put("0.5x", 0.5);
+        put("1.0x", 1.0);
+        put("1.2x", 1.2);
+        put("1.5x", 1.5);
+        put("2.0x", 2.0);
     }};
 
     public static String[] getAffinityKeys() {
@@ -22,7 +22,7 @@ public class ConditionData {
     }
 
     //阵营相性
-    static Map<String,Double> attributeMap = new HashMap<String, Double>(){{
+    public static Map<String,Double> attributeMap = new HashMap<String, Double>(){{
         put("无克制",1.0);
         put("被克制",0.9);
         put("克制",1.1);

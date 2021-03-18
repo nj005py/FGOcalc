@@ -54,8 +54,31 @@ public class ConditionFragment extends LazyFragment {
     private void initView(){
         //职阶相性
         setSpAdapter(binding.spAffinity,ConditionData.getAffinityKeys());
+        binding.spAffinity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                vm.inputData.setAffinityType(ConditionData.getAffinityKeys()[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                vm.inputData.setAffinityType(ConditionData.getAffinityKeys()[0]);
+            }
+        });
         //阵营相性
         setSpAdapter(binding.spAttribute,ConditionData.getAttributeKeys());
+        binding.spAttribute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                vm.inputData.setAttributeType(ConditionData.getAttributeKeys()[position]);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                vm.inputData.setAttributeType(ConditionData.getAttributeKeys()[0]);
+            }
+        });
         //宝具选择
 
         //宝具lv

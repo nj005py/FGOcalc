@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.fragment;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 public class BuffFragment extends LazyFragment {
     private FragBuffBinding binding;
     private CalcViewModel vm;
-
+    private BuffInputAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class BuffFragment extends LazyFragment {
     protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
-        BuffInputAdapter adapter = new BuffInputAdapter(ctx);
+        adapter = new BuffInputAdapter(ctx);
         GridLayoutManager layoutManager = new GridLayoutManager(ctx,2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -116,4 +117,14 @@ public class BuffFragment extends LazyFragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //保存UI数据
+        Log.d(TAG,"保存buff数据");
+        vm.saveBuff(adapter.getList());
+
+    }
+
 }

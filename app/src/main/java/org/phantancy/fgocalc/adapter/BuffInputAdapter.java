@@ -2,6 +2,9 @@ package org.phantancy.fgocalc.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +80,11 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyDataSetChanged();
     }
 
+    public List<BuffInputEntity> getList() {
+        return mList;
+    }
+
+    //加buff
     public void addBuff(ShortcutBuffEntity x) {
         Map<String,Double> map = x.getBuffMap();
         for (String buffKey : map.keySet()) {
@@ -94,6 +102,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         notifyDataSetChanged();
     }
 
+    //减buff
     public void reduceBuff(ShortcutBuffEntity x) {
         Map<String,Double> map = x.getBuffMap();
         for (String buffKey : map.keySet()) {
@@ -141,6 +150,26 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             } else {
                 binding.tvPercentIcon.setVisibility(View.VISIBLE);
             }
+            binding.etBuff.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (TextUtils.isEmpty(s)) {
+                        x.setValue(0d);
+                    } else {
+                        x.setValue(Double.parseDouble(s.toString()));
+                    }
+                }
+            });
         }
     }
 

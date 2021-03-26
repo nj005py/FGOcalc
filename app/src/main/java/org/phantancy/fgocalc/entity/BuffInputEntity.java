@@ -44,6 +44,10 @@ public class BuffInputEntity {
             valueDisplay = "";
         } else {
             valueDisplay = String.valueOf(value);
+            //判断是否是百分数
+            if (type == 1) {
+                this.value = value / 100;
+            }
         }
     }
 

@@ -26,6 +26,7 @@ import org.phantancy.fgocalc.entity.SvtExpEntity;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -270,10 +271,19 @@ public class CalcViewModel extends AndroidViewModel {
         return svtExpEntities;
     }
 
-    //buff页
+    /**
+     * buff页
+     */
     //获取buff表
     public List<BuffInputEntity> getBuffInputList() {
         return BuffData.buildBuffs();
+    }
+
+    //todo 保存buff信息
+    public void saveBuff(List<BuffInputEntity> buffs) {
+        for (BuffInputEntity x : buffs) {
+            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
+        }
     }
 
     //计算页

@@ -92,6 +92,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 BuffInputEntity input = mList.get(i);
                 if (buffKey.equals(input.getKey())) {
                     //发现需要加的buff
+//                    double oldVal = input.getValue();
                     double oldVal = input.getValue();
                     double newVal = oldVal + map.get(buffKey);
                     Log.d(TAG,"newVal:" + newVal);

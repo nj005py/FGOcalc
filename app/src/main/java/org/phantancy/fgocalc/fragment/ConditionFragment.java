@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,14 @@ public class ConditionFragment extends LazyFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        //保存UI数据
+        Log.d(TAG,"保存条件数据");
+
+    }
+
+    @Override
     protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
         conVm = ViewModelProviders.of(mActy).get(ConditionViewModel.class);
@@ -47,6 +56,11 @@ public class ConditionFragment extends LazyFragment {
                 //“选择宝具”
 //                setSpAdapter(binding.spNpSelect,entity.);
                 //"宝具是否强化"
+                if (entity.npUpgraded == 1) {
+                    binding.spNpUpdated.setVisibility(View.VISIBLE);
+                } else {
+                    binding.spNpUpdated.setVisibility(View.GONE);
+                }
             }
         });
     }

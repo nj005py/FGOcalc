@@ -34,6 +34,15 @@ public class BuffFragment extends LazyFragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        //保存UI数据
+        Log.d(TAG,"保存buff数据");
+        vm.saveBuff(adapter.getList());
+
+    }
+
+    @Override
     protected void init() {
         vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
 
@@ -116,15 +125,6 @@ public class BuffFragment extends LazyFragment {
                 x.show();
             }
         });
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //保存UI数据
-        Log.d(TAG,"保存buff数据");
-        vm.saveBuff(adapter.getList());
-
     }
 
 }

@@ -28,7 +28,9 @@ import org.reactivestreams.Subscription;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -95,6 +97,9 @@ public class CalcViewModel extends AndroidViewModel {
         inputData = new InputData();
     }
 
+    /**
+     * 信息页
+     */
     //信息列表
     private MutableLiveData<List<InfoEntity>> infoList = new MutableLiveData<>();
 
@@ -168,7 +173,9 @@ public class CalcViewModel extends AndroidViewModel {
         return url;
     }
 
-    //条件页
+    /**
+     * 条件页
+     */
     public int getRewardLv() {
         return servant.rewardLv;
     }
@@ -271,6 +278,28 @@ public class CalcViewModel extends AndroidViewModel {
         return svtExpEntities;
     }
 
+    //todo 保存条件数据
+    public void saveCondition() {
+        //职阶相性
+        //阵营相性
+        //选择宝具？
+        //宝具是否强化？
+        //宝具lv
+        //芙芙atk
+        //礼装atk
+        //等级
+        //atk
+        //总hp
+        //剩余hp
+        /**
+         * 敌方单位设置
+         */
+        //敌人数量
+        //敌方1
+        //敌方2
+        //敌方3
+    }
+
     /**
      * buff页
      */
@@ -281,12 +310,29 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
+        Map<String,Double> buffMap = new HashMap<>();
         for (BuffInputEntity x : buffs) {
-            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
+//            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
+            switch (x.getType()) {
+                //整数
+                case 0:
+                    buffMap.put(x.getKey(),x.getValue());
+                    break;
+                //百分号
+                case 1:
+                    buffMap.put(x.getKey(),x.getValue() / 100);
+                    break;
+            }
+        }
+        //todo 验证buff
+        for (Map.Entry<String, Double> x : buffMap.entrySet()) {
+            Log.d(TAG,MessageFormat.format("{0} {1}",x.getKey(),x.getValue()));
         }
     }
 
-    //计算页
+    /**
+     * 计算页
+     */
     private MutableLiveData<String> calcResult = new MutableLiveData<>();
     public LiveData<String> getCalcResult() {
         return calcResult;

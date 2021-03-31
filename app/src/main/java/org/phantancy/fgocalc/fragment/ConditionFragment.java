@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,17 @@ public class ConditionFragment extends LazyFragment {
         super.onPause();
         //保存UI数据
         Log.d(TAG,"保存条件数据");
-
+        if (!TextUtils.isEmpty(binding.etHpTotal.getText())) {
+            vm.inputData.setHp(Double.parseDouble(binding.etHpTotal.getText().toString()));
+        } else {
+            vm.inputData.setHp(0d);
+        }
+        if (!TextUtils.isEmpty(binding.etHpLeft.getText())) {
+            vm.inputData.setHpLeft(Double.parseDouble(binding.etHpLeft.getText().toString()));
+        } else {
+            vm.inputData.setHpLeft(0d);
+        }
+        vm.saveCondition();
     }
 
     @Override

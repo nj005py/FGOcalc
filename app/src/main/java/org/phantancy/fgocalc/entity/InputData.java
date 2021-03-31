@@ -25,7 +25,12 @@ public class InputData {
     private String[] enemyClasses;
     private String targetEnemyClass;
 
+    //总atk
     private double atk;
+    //总hp
+    private double hp;
+    //剩余hp
+    private double hpLeft;
     private double quickBuffP;
     private double artsBuffP;
     private double busterBuffP;
@@ -418,5 +423,21 @@ public class InputData {
 
     public void setEnemysNpMod(double[] enemysNpMod) {
         this.enemysNpMod = enemysNpMod;
+    }
+
+    public double getHp() {
+        return hp;
+    }
+
+    public void setHp(double hp) {
+        this.hp = hp;
+    }
+
+    public double getHpLeft() {
+        return hpLeft;
+    }
+
+    public void setHpLeft(double hpLeft) {
+        this.hpLeft = hpLeft;
     }
 }

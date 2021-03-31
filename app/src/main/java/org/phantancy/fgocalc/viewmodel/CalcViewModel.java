@@ -281,16 +281,28 @@ public class CalcViewModel extends AndroidViewModel {
     //todo 保存条件数据
     public void saveCondition() {
         //职阶相性
+
+        Log.d(TAG,"职阶相性：" + inputData.getAffinityType());
         //阵营相性
+        Log.d(TAG,"阵营相性：" + inputData.getAttributeType());
+        /**
+         * 宝具倍率问题
+         */
         //选择宝具？
         //宝具是否强化？
         //宝具lv
+        /**
+         * atk问题
+         */
         //芙芙atk
         //礼装atk
         //等级
         //atk
+        Log.d(TAG,"atk：" + inputData.getAtk());
         //总hp
+        Log.d(TAG,"总hp:" + inputData.getHp());
         //剩余hp
+        Log.d(TAG,"剩余hp：" + inputData.getHpLeft());
         /**
          * 敌方单位设置
          */
@@ -323,10 +335,6 @@ public class CalcViewModel extends AndroidViewModel {
                     buffMap.put(x.getKey(),x.getValue() / 100);
                     break;
             }
-        }
-        //todo 验证buff
-        for (Map.Entry<String, Double> x : buffMap.entrySet()) {
-            Log.d(TAG,MessageFormat.format("{0} {1}",x.getKey(),x.getValue()));
         }
     }
 

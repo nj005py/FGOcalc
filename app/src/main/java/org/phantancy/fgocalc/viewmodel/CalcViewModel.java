@@ -358,10 +358,12 @@ public class CalcViewModel extends AndroidViewModel {
             inputData.setCardType1(pickedCards.get(0).getName());
             inputData.setCardType2(pickedCards.get(1).getName());
             inputData.setCardType3(pickedCards.get(2).getName());
-            //todo
-            OneTurnResult x = oneTurnDmg(servant,inputData);
-            String dmgResult = LogManager.resultLog(inputData,x);
-            calcResult.setValue(dmgResult);
+            //todo 完整计算结果
+//            OneTurnResult x = oneTurnDmg(servant,inputData);
+//            String dmgResult = LogManager.resultLog(inputData,x);
+//            calcResult.setValue(dmgResult);
+            //todo 计算
+            calcResult.setValue("结果：" + calcDmg());
         }
         //计算Np
         //计算打星
@@ -422,6 +424,80 @@ public class CalcViewModel extends AndroidViewModel {
         String cardType1 = inputData.getCardType1();
         boolean isSameColor = inputData.isSameColor();
         boolean isBusterChain = inputData.isBusterChain();
+        //atk
+        double atk = inputData.getAtk();
+        //卡牌伤害倍率
+        double cardDmgMultiplier = ParamsMerger.mergecardDmgMultiplier(cardType);
+        //位置补正
+        double positionMod = ParamsMerger.mergeDmgPositionMod(position);
+        //卡牌buff(魔放)
+        double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
+        double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
+        double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
+        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        //首卡加成
+        double firstCardMod = ParamsMerger.mergeDmgFirstCardMod(cardType1);
+        //职阶系数
+        double classAtkMod = ParamsMerger.mergeclassAtkMod(servant.classType);
+        //职阶克制
+        double affinityMod = ParamsMerger.mergeAffinityMod(inputData.getAffinityType());
+        //阵营克制
+        double attributeMod = ParamsMerger.mergeAttributeMod(inputData.getAttributeType());
+        //攻击buff
+        double atkBuff = ParamsMerger.mergeBuffDebuff(inputData.getAtkBuff(), inputData.getAtkDown());
+        //防御buff
+        double defBuff = ParamsMerger.mergeBuffDebuff(inputData.getDefUp(), inputData.getDefDown());
+        //特攻
+        double specialBuff = inputData.getSpecialBuff();
+        //特防
+        double specialDefBuff = inputData.getSpecialDefBuff();
+        //暴击buff
+        //判断暴击
+        boolean isCritical = ParamsMerger.isCritical(position,inputData.isCritical1(),inputData.isCritical2(),inputData.isCritical3());
+        double criticalBuff = ParamsMerger.mergeCriticalBuff(isCritical, cardType, inputData.getCriticalUp(),
+                inputData.getCriticalDown(), inputData.getCriticalQuick(), inputData.getCriticalArts(), inputData.getCriticalBuster());
+        //暴击补正
+        double criticalMod = ParamsMerger.mergeDmgCriticalMod(isCritical);
+        double exDmgBuff = ParamsMerger.mergeExDmgBuff(cardType, isSameColor);
+        //固伤
+        double selfDmgBuff = inputData.getSelfDmgBuff();
+        //固防
+        double selfDmgDefBuff = inputData.getSelfDmgDefBuff();
+        //红链
+        double busterChainMod = ParamsMerger.mergeBusterChainMod(cardType, isBusterChain);
+
+        return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
+                affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
+                exDmgBuff, selfDmgBuff, selfDmgDefBuff, busterChainMod);
+    }
+
+    //todo 笼统计算伤害
+    private double calcDmg(){
+        /**
+         * 需要3张卡判断的参数
+         */
+        //同色
+        inputData.setSameColor(ParamsMerger.isCardsSameColor(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
+        //红链
+        inputData.setBusterChain(ParamsMerger.isCardsBusterChain(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
+        //伤害随机
+        double dmgRandomMax = 1.1;
+        double dmgRandomMin = 0.9;
+        double dmgRandomAvg = 1.0;
+        //设置个平均值吧
+        double random = dmgRandomAvg;
+        //首卡类型，看染色
+        String cardType1 = inputData.getCardType1();
+        //看看是不是同色卡链
+        boolean isSameColor = inputData.isSameColor();
+        //看看是不是三红加固伤
+        boolean isBusterChain = inputData.isBusterChain();
+        /**
+         * 单独卡计算的部分
+         */
+        //选个卡计算吧
+        String cardType = inputData.getCardType1();
+        int position = 1;
         //atk
         double atk = inputData.getAtk();
         //卡牌伤害倍率

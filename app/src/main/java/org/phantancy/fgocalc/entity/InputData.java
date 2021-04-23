@@ -2,6 +2,9 @@ package org.phantancy.fgocalc.entity;
 
 import org.phantancy.fgocalc.common.Constant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class InputData {
     //ui数据
     //选卡类型，
@@ -57,13 +60,28 @@ public class InputData {
     private double npSpecialBuff;
     //数据库获取
     private ServantEntity svt;
-    //加工数据
+    /**
+     * 加工数据
+     */
     private String firstCardType;
     private boolean isSameColor;
     private boolean isBusterChain;
     private double random;
     private double enemyNpMod;
     private double[] enemysNpMod;
+    //输入buff数据
+    private Map<String,Double> buffMap;
+
+    public Map<String, Double> getBuffMap() {
+        if (buffMap == null) {
+            buffMap = new HashMap<>();
+        }
+        return buffMap;
+    }
+
+    public void setBuffMap(Map<String, Double> buffMap) {
+        this.buffMap = buffMap;
+    }
 
     public boolean isOverkill4() {
         return isOverkill4;

@@ -39,6 +39,9 @@ import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static org.phantancy.fgocalc.common.ParamsMerger.mergeDmgPositionMod;
+import static org.phantancy.fgocalc.common.ParamsMerger.mergecardDmgMultiplier;
+
 //计算Activity ViewModel
 public class CalcViewModel extends AndroidViewModel {
     final String TAG = "CalcViewModel";
@@ -135,6 +138,7 @@ public class CalcViewModel extends AndroidViewModel {
         cardPicks.setValue(list);
     }
 
+    //解析指令卡
     private CardPickEntity parseCardPickEntity(int id, char color) {
         if (color == 'q') {
             return new CardPickEntity(id, "q", R.drawable.quick);
@@ -146,6 +150,7 @@ public class CalcViewModel extends AndroidViewModel {
 
     }
 
+    //解析宝具卡
     private CardPickEntity parseCardPickNp(int id, String color) {
         if (color.equals("np_q")) {
             return new CardPickEntity(id, color, R.drawable.np_q);
@@ -282,9 +287,9 @@ public class CalcViewModel extends AndroidViewModel {
     public void saveCondition() {
         //职阶相性
 
-        Log.d(TAG,"职阶相性：" + inputData.getAffinityType());
+        Log.d(TAG, "职阶相性：" + inputData.getAffinityType());
         //阵营相性
-        Log.d(TAG,"阵营相性：" + inputData.getAttributeType());
+        Log.d(TAG, "阵营相性：" + inputData.getAttributeType());
         /**
          * 宝具倍率问题
          */
@@ -298,11 +303,11 @@ public class CalcViewModel extends AndroidViewModel {
         //礼装atk
         //等级
         //atk
-        Log.d(TAG,"atk：" + inputData.getAtk());
+        Log.d(TAG, "atk：" + inputData.getAtk());
         //总hp
-        Log.d(TAG,"总hp:" + inputData.getHp());
+        Log.d(TAG, "总hp:" + inputData.getHp());
         //剩余hp
-        Log.d(TAG,"剩余hp：" + inputData.getHpLeft());
+        Log.d(TAG, "剩余hp：" + inputData.getHpLeft());
         /**
          * 敌方单位设置
          */
@@ -322,26 +327,28 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
-        Map<String,Double> buffMap = new HashMap<>();
+        Map<String, Double> buffMap = new HashMap<>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
             switch (x.getType()) {
                 //整数
                 case 0:
-                    buffMap.put(x.getKey(),x.getValue());
+                    buffMap.put(x.getKey(), x.getValue());
                     break;
                 //百分号
                 case 1:
-                    buffMap.put(x.getKey(),x.getValue() / 100);
+                    buffMap.put(x.getKey(), x.getValue() / 100);
                     break;
             }
         }
+        inputData.setBuffMap(buffMap);
     }
 
     /**
      * 计算页
      */
     private MutableLiveData<String> calcResult = new MutableLiveData<>();
+
     public LiveData<String> getCalcResult() {
         return calcResult;
     }
@@ -377,7 +384,7 @@ public class CalcViewModel extends AndroidViewModel {
 
 
     //calc dmg
-    private OneTurnResult oneTurnDmg(ServantEntity svt,InputData data) {
+    private OneTurnResult oneTurnDmg(ServantEntity svt, InputData data) {
         //同色
         inputData.setSameColor(ParamsMerger.isCardsSameColor(data.getCardType1(), data.getCardType2(), data.getCardType3()));
         //红链
@@ -389,24 +396,24 @@ public class CalcViewModel extends AndroidViewModel {
 
         //4 card dmg
 //        FullData minParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomMin);
-        double min1 = oneCardDmg(data.getCardType1(), 1,dmgRandomMin);
-        double min2 = oneCardDmg(data.getCardType2(), 2,dmgRandomMin);
-        double min3 = oneCardDmg(data.getCardType3(), 3,dmgRandomMin);
-        double min4 = oneCardDmg(data.getCardType4(), 4,dmgRandomMin);
+        double min1 = oneCardDmg(data.getCardType1(), 1, dmgRandomMin);
+        double min2 = oneCardDmg(data.getCardType2(), 2, dmgRandomMin);
+        double min3 = oneCardDmg(data.getCardType3(), 3, dmgRandomMin);
+        double min4 = oneCardDmg(data.getCardType4(), 4, dmgRandomMin);
         double sumMin = min1 + min2 + min3 + min4;
         //max
 //        FullData maxParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomMax);
-        double max1 = oneCardDmg(data.getCardType1(), 1,dmgRandomMax);
-        double max2 = oneCardDmg(data.getCardType2(), 2,dmgRandomMax);
-        double max3 = oneCardDmg(data.getCardType3(), 3,dmgRandomMax);
-        double max4 = oneCardDmg(data.getCardType4(), 4,dmgRandomMax);
+        double max1 = oneCardDmg(data.getCardType1(), 1, dmgRandomMax);
+        double max2 = oneCardDmg(data.getCardType2(), 2, dmgRandomMax);
+        double max3 = oneCardDmg(data.getCardType3(), 3, dmgRandomMax);
+        double max4 = oneCardDmg(data.getCardType4(), 4, dmgRandomMax);
         double sumMax = max1 + max2 + max3 + max4;
         //avg
 //        FullData avgParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomAvg);
-        double avg1 = oneCardDmg(data.getCardType1(), 1,dmgRandomAvg);
-        double avg2 = oneCardDmg(data.getCardType2(), 2,dmgRandomAvg);
-        double avg3 = oneCardDmg(data.getCardType3(), 3,dmgRandomAvg);
-        double avg4 = oneCardDmg(data.getCardType4(), 4,dmgRandomAvg);
+        double avg1 = oneCardDmg(data.getCardType1(), 1, dmgRandomAvg);
+        double avg2 = oneCardDmg(data.getCardType2(), 2, dmgRandomAvg);
+        double avg3 = oneCardDmg(data.getCardType3(), 3, dmgRandomAvg);
+        double avg4 = oneCardDmg(data.getCardType4(), 4, dmgRandomAvg);
         double sumAvg = avg1 + avg2 + avg3 + avg4;
         return new OneTurnResult(min1, min2, min3, min4, sumMin,
                 max1, max2, max3, max4, sumMax,
@@ -414,22 +421,22 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //计算一张卡的伤害
-    private double oneCardDmg(String cardType, int position,double random) {
+    private double oneCardDmg(String cardType, int position, double random) {
         //判断卡片类型，宝具卡或普攻卡
-        return ParamsMerger.isNp(cardType) ? dmg(cardType, position,random) : npDmg(cardType,random);
+        return ParamsMerger.isNp(cardType) ? dmg(cardType, position, random) : npDmg(cardType, random);
     }
 
     //Todo 普攻伤害
-    private double dmg(String cardType, int position,double random) {
+    private double dmg(String cardType, int position, double random) {
         String cardType1 = inputData.getCardType1();
         boolean isSameColor = inputData.isSameColor();
         boolean isBusterChain = inputData.isBusterChain();
         //atk
         double atk = inputData.getAtk();
         //卡牌伤害倍率
-        double cardDmgMultiplier = ParamsMerger.mergecardDmgMultiplier(cardType);
+        double cardDmgMultiplier = mergecardDmgMultiplier(cardType);
         //位置补正
-        double positionMod = ParamsMerger.mergeDmgPositionMod(position);
+        double positionMod = mergeDmgPositionMod(position);
         //卡牌buff(魔放)
         double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
         double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
@@ -453,7 +460,7 @@ public class CalcViewModel extends AndroidViewModel {
         double specialDefBuff = inputData.getSpecialDefBuff();
         //暴击buff
         //判断暴击
-        boolean isCritical = ParamsMerger.isCritical(position,inputData.isCritical1(),inputData.isCritical2(),inputData.isCritical3());
+        boolean isCritical = ParamsMerger.isCritical(position, inputData.isCritical1(), inputData.isCritical2(), inputData.isCritical3());
         double criticalBuff = ParamsMerger.mergeCriticalBuff(isCritical, cardType, inputData.getCriticalUp(),
                 inputData.getCriticalDown(), inputData.getCriticalQuick(), inputData.getCriticalArts(), inputData.getCriticalBuster());
         //暴击补正
@@ -472,13 +479,13 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 笼统计算伤害
-    private double calcDmg(){
+    private double calcDmg() {
         /**
          * 需要3张卡判断的参数
          */
-        //同色
+        //是否同色
         inputData.setSameColor(ParamsMerger.isCardsSameColor(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
-        //红链
+        //是否红链
         inputData.setBusterChain(ParamsMerger.isCardsBusterChain(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
         //伤害随机
         double dmgRandomMax = 1.1;
@@ -492,6 +499,8 @@ public class CalcViewModel extends AndroidViewModel {
         boolean isSameColor = inputData.isSameColor();
         //看看是不是三红加固伤
         boolean isBusterChain = inputData.isBusterChain();
+        //宝具卡位置
+        int npPosition = ParamsMerger.getNpPosition(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3());
         /**
          * 单独卡计算的部分
          */
@@ -504,10 +513,29 @@ public class CalcViewModel extends AndroidViewModel {
         double cardDmgMultiplier = ParamsMerger.mergecardDmgMultiplier(cardType);
         //位置补正
         double positionMod = ParamsMerger.mergeDmgPositionMod(position);
-        //卡牌buff(魔放)
+        /**
+         * 卡牌buff(魔放)
+         * 1，被动buff，这个稳
+         * 2，全局buff，输入的全上
+         * 3，判断宝具前，宝具后buff，有选择地上
+         */
         double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
         double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
         double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
+        //判断宝具卡前还是后，按需取buff
+        if (position < npPosition) {
+            //宝具前buff
+            quickBuff = quickBuff + inputData.getBuffMap().get(BuffData.QUICK_UP_BE);
+            artsBuff = artsBuff + inputData.getBuffMap().get(BuffData.ARTS_UP_BE);
+            busterBuff = busterBuff + inputData.getBuffMap().get(BuffData.BUSTER_UP_BE);
+        } else {
+            //宝具后buff
+            quickBuff = quickBuff + inputData.getBuffMap().get(BuffData.QUICK_UP_AF);
+            artsBuff = artsBuff + inputData.getBuffMap().get(BuffData.ARTS_UP_AF);
+            busterBuff = busterBuff + inputData.getBuffMap().get(BuffData.BUSTER_UP_AF);
+        }
+
+        //最终用于计算的魔放结果
         double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
         //首卡加成
         double firstCardMod = ParamsMerger.mergeDmgFirstCardMod(cardType1);
@@ -519,6 +547,11 @@ public class CalcViewModel extends AndroidViewModel {
         double attributeMod = ParamsMerger.mergeAttributeMod(inputData.getAttributeType());
         //攻击buff
         double atkBuff = ParamsMerger.mergeBuffDebuff(inputData.getAtkBuff(), inputData.getAtkDown());
+        if (position < npPosition) {
+            atkBuff = atkBuff + inputData.getBuffMap().get(BuffData.ATK_UP_BE);
+        } else {
+            atkBuff = atkBuff + inputData.getBuffMap().get(BuffData.ATK_UP_AF);
+        }
         //防御buff
         double defBuff = ParamsMerger.mergeBuffDebuff(inputData.getDefUp(), inputData.getDefDown());
         //特攻
@@ -527,9 +560,23 @@ public class CalcViewModel extends AndroidViewModel {
         double specialDefBuff = inputData.getSpecialDefBuff();
         //暴击buff
         //判断暴击
-        boolean isCritical = ParamsMerger.isCritical(position,inputData.isCritical1(),inputData.isCritical2(),inputData.isCritical3());
+        boolean isCritical = ParamsMerger.isCritical(position, inputData.isCritical1(), inputData.isCritical2(), inputData.isCritical3());
         double criticalBuff = ParamsMerger.mergeCriticalBuff(isCritical, cardType, inputData.getCriticalUp(),
                 inputData.getCriticalDown(), inputData.getCriticalQuick(), inputData.getCriticalArts(), inputData.getCriticalBuster());
+        if (position < npPosition) {
+            criticalBuff = criticalBuff + ParamsMerger.mergeCriticalBuff(isCritical, cardType,
+                    inputData.getBuffMap().get(BuffData.CRITICAL_UP_BE),
+                    0, inputData.getBuffMap().get(BuffData.CRITICAL_QUICK_UP_BE),
+                    inputData.getBuffMap().get(BuffData.CRITICAL_ARTS_UP_BE),
+                    inputData.getBuffMap().get(BuffData.CRITICAL_BUSTER_UP_BE));
+        } else {
+            criticalBuff = criticalBuff + ParamsMerger.mergeCriticalBuff(isCritical, cardType,
+                    inputData.getBuffMap().get(BuffData.CRITICAL_UP_AF),
+                    0, inputData.getBuffMap().get(BuffData.CRITICAL_QUICK_UP_AF),
+                    inputData.getBuffMap().get(BuffData.CRITICAL_ARTS_UP_AF),
+                    inputData.getBuffMap().get(BuffData.CRITICAL_BUSTER_UP_AF));
+        }
+
         //暴击补正
         double criticalMod = ParamsMerger.mergeDmgCriticalMod(isCritical);
         double exDmgBuff = ParamsMerger.mergeExDmgBuff(cardType, isSameColor);
@@ -546,13 +593,13 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 宝具伤害
-    private double npDmg(String cardType,double random) {
+    private double npDmg(String cardType, double random) {
         //atk
         double atk = inputData.getAtk();
         //宝具倍率
         double npDmgMultiplier = inputData.getNpDmgMultiplier();
         //卡牌伤害倍率
-        double cardDmgMultiplier = ParamsMerger.mergecardDmgMultiplier(cardType);
+        double cardDmgMultiplier = mergecardDmgMultiplier(cardType);
         //卡牌buff(魔放)
         double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
         double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();

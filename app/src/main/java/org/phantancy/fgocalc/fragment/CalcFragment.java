@@ -26,7 +26,6 @@ import java.util.List;
 public class CalcFragment extends LazyFragment {
     private FragCalcBinding binding;
     private CalcViewModel vm;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

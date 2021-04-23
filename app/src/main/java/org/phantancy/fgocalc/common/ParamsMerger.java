@@ -66,11 +66,13 @@ public class ParamsMerger {
         put(4, 1.0);
     }};
 
+    //位置补正
     public static double mergeDmgPositionMod(int position) {
         return dmgPositionModMap.get(position);
     }
 
     // double effectiveBuff,
+    //魔放
     public static double mergeEffectiveBuff(String cardColor, double quick, double arts, double buster) {
         String x = getCardColor(cardColor);
         switch (x) {
@@ -143,17 +145,17 @@ public class ParamsMerger {
 
     // double criticalBuff,
     // double starRate,
-    public static double mergeCriticalBuff(boolean isCritical,String cardType,double buff, double debuff, double quick, double arts, double buster) {
+    public static double mergeCriticalBuff(boolean isCritical, String cardType, double buff, double debuff, double quick, double arts, double buster) {
         if (isCritical && !isNp(cardType)) {
             switch (getCardColor(cardType)) {
                 case Constant.CARD_QUICK:
-                    return mergeBuffDebuff(buff + quick,debuff);
+                    return mergeBuffDebuff(buff + quick, debuff);
                 case Constant.CARD_ARTS:
-                    return mergeBuffDebuff(buff + arts,debuff);
+                    return mergeBuffDebuff(buff + arts, debuff);
                 case Constant.CARD_BUSTER:
-                    return mergeBuffDebuff(buff + buster,debuff);
+                    return mergeBuffDebuff(buff + buster, debuff);
                 default:
-                    return mergeBuffDebuff(buff,debuff);
+                    return mergeBuffDebuff(buff, debuff);
             }
         }
         return 0;
@@ -197,7 +199,7 @@ public class ParamsMerger {
 
     //double na,
     //double hits,
-    public static double mergeNaHits(String cardType,double q,double a,double b,double ex,double np) {
+    public static double mergeNaHits(String cardType, double q, double a, double b, double ex, double np) {
         if (isQuick(cardType)) {
             return q;
         }
@@ -228,12 +230,13 @@ public class ParamsMerger {
         String color = getCardColor(cardType);
         return cardDmgMultiplierMap.get(color);
     }
+
     //double positionMod,
-    public static Map<Integer,Double> npPositionModMap = new HashMap<Integer, Double>(){{
-        put(1,1.0);
-        put(2,1.5);
-        put(3,2.0);
-        put(4,1.0);
+    public static Map<Integer, Double> npPositionModMap = new HashMap<Integer, Double>() {{
+        put(1, 1.0);
+        put(2, 1.5);
+        put(3, 2.0);
+        put(4, 1.0);
     }};
 
     public static double mergeNpPositionMod(int position) {
@@ -244,10 +247,12 @@ public class ParamsMerger {
     public static double mergeNpFirstCardMod(String firstcardType) {
         return isArts(firstcardType) ? 1.0 : 0;
     }
+
     //double criticalMod,
-    public static double mergeNpCriticalMod(boolean isCritical,String cardType) {
+    public static double mergeNpCriticalMod(boolean isCritical, String cardType) {
         return !isNp(cardType) && isCritical ? 2.0 : 1.0;
     }
+
     //double overkillMod,
     public static double mergeNpOverkillMod(boolean isCritical) {
         return isCritical ? 1.5 : 1.0;
@@ -273,22 +278,23 @@ public class ParamsMerger {
 
 
     // double cardStarMultiplier,
-    static Map<Integer,Double> quickStarMultiplierMap = new HashMap<Integer, Double>(){{
-        put(1,0.8);
-        put(2,1.3);
-        put(3,1.8);
+    static Map<Integer, Double> quickStarMultiplierMap = new HashMap<Integer, Double>() {{
+        put(1, 0.8);
+        put(2, 1.3);
+        put(3, 1.8);
     }};
-    static Map<Integer,Double> artsStarMultiplierMap = new HashMap<Integer, Double>(){{
-        put(1,0d);
-        put(2,0d);
-        put(3,0d);
+    static Map<Integer, Double> artsStarMultiplierMap = new HashMap<Integer, Double>() {{
+        put(1, 0d);
+        put(2, 0d);
+        put(3, 0d);
     }};
-    static Map<Integer,Double> busterStarMultiplierMap = new HashMap<Integer, Double>(){{
-        put(1,0.1);
-        put(2,0.15);
-        put(3,0.2);
+    static Map<Integer, Double> busterStarMultiplierMap = new HashMap<Integer, Double>() {{
+        put(1, 0.1);
+        put(2, 0.15);
+        put(3, 0.2);
     }};
-    public static double mergeCardStarMultiplier(String cardType,int position) {
+
+    public static double mergeCardStarMultiplier(String cardType, int position) {
         String cardColor = getCardColor(cardType);
         if (isQuick(cardColor)) {
             return quickStarMultiplierMap.get(position);
@@ -304,15 +310,18 @@ public class ParamsMerger {
         }
         return 1d;
     }
+
     // double effectiveBuff,
     // double firstCardMod,
     public static double mergeStarFirstCardMod(String firstCardType) {
         return isQuick(firstCardType) ? 0.2 : 0d;
     }
+
     // double starRateBuff,
     public static double mergeStarCtriticalMod(boolean isCritical) {
         return isCritical ? 0.2 : 0;
     }
+
     // double criticalMod,
     // double enemyStarBuff,
     // double randomMod,
@@ -320,18 +329,18 @@ public class ParamsMerger {
     // double overkillAdd
     // double cardStarRate,
     // double overkillAdd,
-    public static double mergeOverkillAdd(boolean isOverkill){
+    public static double mergeOverkillAdd(boolean isOverkill) {
         return isOverkill ? 0.3 : 0;
     }
     // double enemyAmount
 
     //是否暴击
-    public static boolean isCritical(int position,boolean isCritical1,boolean isCritical2,boolean isCritical3) {
-        Map<Integer,Boolean> map = new HashMap<Integer, Boolean>(){{
-            put(1,isCritical1);
-            put(2,isCritical2);
-            put(3,isCritical3);
-            put(4,false);
+    public static boolean isCritical(int position, boolean isCritical1, boolean isCritical2, boolean isCritical3) {
+        Map<Integer, Boolean> map = new HashMap<Integer, Boolean>() {{
+            put(1, isCritical1);
+            put(2, isCritical2);
+            put(3, isCritical3);
+            put(4, false);
         }};
         return map.get(position);
     }
@@ -367,6 +376,7 @@ public class ParamsMerger {
         }
         return false;
     }
+
     //判断quick卡
     public static boolean isQuick(String cardType) {
         if (cardType.equals(Constant.CARD_QUICK)) {
@@ -374,6 +384,7 @@ public class ParamsMerger {
         }
         return false;
     }
+
     //判断卡色
     static Map<String, String> cardColorMap = new HashMap<String, String>() {{
         put(Constant.CARD_QUICK, Constant.COLOR_QUICK);
@@ -389,7 +400,7 @@ public class ParamsMerger {
     }
 
     //判断同色
-    public static boolean isCardsSameColor(String cardType1,String cardType2,String cardType3) {
+    public static boolean isCardsSameColor(String cardType1, String cardType2, String cardType3) {
         String x = getCardColor(cardType1);
         String y = getCardColor(cardType2);
         String z = getCardColor(cardType3);
@@ -400,11 +411,22 @@ public class ParamsMerger {
     }
 
     //判断红链
-    public static boolean isCardsBusterChain(String cardType1,String cardType2,String cardType3) {
-        if (isCardsSameColor(cardType1,cardType2,cardType3) &&isBuster(cardType1)) {
+    public static boolean isCardsBusterChain(String cardType1, String cardType2, String cardType3) {
+        if (isCardsSameColor(cardType1, cardType2, cardType3) && isBuster(cardType1)) {
             return true;
         }
         return false;
+    }
+
+    //判断宝具卡位置
+    public static int getNpPosition(String cardType1, String cardType2, String cardType3) {
+        String[] cards = {cardType1, cardType2, cardType3};
+        for (int i = 0; i < cards.length; i++) {
+            if (isNp(cards[i])) {
+                return i+1;
+            }
+        }
+        return -1;
     }
 
 }

@@ -62,10 +62,12 @@ public class CalcViewModel extends AndroidViewModel {
         return atkDefault + "";
     }
 
+    //默认hp
     public String getHpDefaultKey() {
         return hpDefault + "";
     }
 
+    //剩余hp
     public String getHpLeftKey() {
         return hpLeft + "";
     }
@@ -285,6 +287,7 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 保存条件数据
     public void saveCondition() {
+        inputData.setSavedCondition(true);
         //职阶相性
 
         Log.d(TAG, "职阶相性：" + inputData.getAffinityType());
@@ -327,6 +330,7 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
+        inputData.setSavedBuff(true);
         Map<String, Double> buffMap = new HashMap<>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
@@ -481,6 +485,22 @@ public class CalcViewModel extends AndroidViewModel {
     //todo 笼统计算伤害
     private double calcDmg() {
         /**
+         * 如果未保存条件，初始化inputData
+         */
+        if (!inputData.isSavedCondition()) {
+            inputData.setAtk(sumAtk());
+            inputData.setHp(hpDefault);
+            inputData.setHpLeft(hpLeft);
+        }
+
+        /**
+         * 如果未保存条件，初始化buffMap
+         */
+        if (!inputData.isSavedBuff()) {
+
+        }
+
+        /**
          * 需要3张卡判断的参数
          */
         //是否同色
@@ -524,8 +544,8 @@ public class CalcViewModel extends AndroidViewModel {
         double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
         //判断宝具卡前还是后，按需取buff
         if (position < npPosition) {
-            //宝具前buff
-            quickBuff = quickBuff + inputData.getBuffMap().get(BuffData.QUICK_UP_BE);
+            //todo 宝具前buff
+            quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE);
             artsBuff = artsBuff + inputData.getBuffMap().get(BuffData.ARTS_UP_BE);
             busterBuff = busterBuff + inputData.getBuffMap().get(BuffData.BUSTER_UP_BE);
         } else {
@@ -746,6 +766,15 @@ public class CalcViewModel extends AndroidViewModel {
 
     private String dataToFinalLog() {
         return LogManager.logFinal(infoLog, calcLogs);
+    }
+
+    //安全取buff
+    public double safeGetBuffMap(String key) {
+        if (inputData.getBuffMap().get(key) == null) {
+            return 0;
+        } else {
+            return inputData.getBuffMap().get(key);
+        }
     }
 
 }

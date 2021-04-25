@@ -34,6 +34,11 @@ public class InputData {
     private double hp;
     //剩余hp
     private double hpLeft;
+    //是否保存条件
+    private boolean isSavedCondition = false;
+    //是否保存buff
+    private boolean isSavedBuff = false;
+
     private double quickBuffP;
     private double artsBuffP;
     private double busterBuffP;
@@ -71,6 +76,22 @@ public class InputData {
     private double[] enemysNpMod;
     //输入buff数据
     private Map<String,Double> buffMap;
+
+    public boolean isSavedCondition() {
+        return isSavedCondition;
+    }
+
+    public void setSavedCondition(boolean savedCondition) {
+        isSavedCondition = savedCondition;
+    }
+
+    public boolean isSavedBuff() {
+        return isSavedBuff;
+    }
+
+    public void setSavedBuff(boolean savedBuff) {
+        isSavedBuff = savedBuff;
+    }
 
     public Map<String, Double> getBuffMap() {
         if (buffMap == null) {

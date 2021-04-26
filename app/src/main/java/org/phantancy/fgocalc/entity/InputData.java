@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.entity;
 
+import androidx.collection.SimpleArrayMap;
+
 import org.phantancy.fgocalc.common.Constant;
 
 import java.util.HashMap;
@@ -75,7 +77,7 @@ public class InputData {
     private double enemyNpMod;
     private double[] enemysNpMod;
     //输入buff数据
-    private Map<String,Double> buffMap;
+    private SimpleArrayMap<String,Double> buffMap;
 
     public boolean isSavedCondition() {
         return isSavedCondition;
@@ -93,14 +95,14 @@ public class InputData {
         isSavedBuff = savedBuff;
     }
 
-    public Map<String, Double> getBuffMap() {
+    public SimpleArrayMap<String, Double> getBuffMap() {
         if (buffMap == null) {
-            buffMap = new HashMap<>();
+            buffMap = new SimpleArrayMap<>();
         }
         return buffMap;
     }
 
-    public void setBuffMap(Map<String, Double> buffMap) {
+    public void setBuffMap(SimpleArrayMap<String, Double> buffMap) {
         this.buffMap = buffMap;
     }
 

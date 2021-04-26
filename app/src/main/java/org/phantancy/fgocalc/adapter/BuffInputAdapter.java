@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.collection.SimpleArrayMap;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,6 +123,24 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         }
         notifyDataSetChanged();
+    }
+
+    //加宝具自带buff
+    public void addBuffFromNp(SimpleArrayMap<String,Double> x) {
+        if (x != null && x.size() > 0) {
+            for (int k = 0; k < x.size(); k++) {
+                for (int i = 0;i < mList.size();i++) {
+                    BuffInputEntity input = mList.get(i);
+                    if (x.keyAt(k).equals(input.getKey())) {
+                        //发现需要加的buff
+                        double oldVal = input.getValue();
+                        double newVal = oldVal + x.valueAt(k);
+                        Log.d(TAG,"newVal:" + newVal);
+                        mList.get(i).setValue(newVal);
+                    }
+                }
+            }
+        }
     }
 
     //重置buff，清空所有buff

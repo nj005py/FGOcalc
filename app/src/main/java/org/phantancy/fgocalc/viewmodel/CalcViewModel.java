@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 import android.widget.ScrollView;
 
+import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -329,10 +330,23 @@ public class CalcViewModel extends AndroidViewModel {
         return BuffData.buildBuffs();
     }
 
+    //宝具自带的buff
+    private MutableLiveData<SimpleArrayMap<String,Double>> buffFromNp = new MutableLiveData<>();
+
+    public void setBuffFromNp(SimpleArrayMap<String,Double> x) {
+        if (x != null && x.size() > 0) {
+            buffFromNp.setValue(x);
+        }
+    }
+
+    public LiveData<SimpleArrayMap<String,Double>> getBuffFromNp() {
+        return buffFromNp;
+    }
+
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
         inputData.setSavedBuff(true);
-        Map<String, Double> buffMap = new HashMap<>();
+        SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String,Double>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
             switch (x.getType()) {

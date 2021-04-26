@@ -12,9 +12,13 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
@@ -23,6 +27,9 @@ import org.phantancy.fgocalc.databinding.FragConditionBinding;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import org.phantancy.fgocalc.viewmodel.ConditionViewModel;
+
+import java.text.MessageFormat;
+import java.util.Map;
 
 public class ConditionFragment extends LazyFragment {
     private FragConditionBinding binding;
@@ -66,6 +73,26 @@ public class ConditionFragment extends LazyFragment {
             public void onChanged(NoblePhantasmEntity entity) {
                 //“选择宝具”
 //                setSpAdapter(binding.spNpSelect,entity.);
+                if (!TextUtils.isEmpty(entity.npBuff)) {
+                    //解析宝具字符串
+                    JsonObject buffObj = (JsonObject) new JsonParser().parse(entity.npBuff);
+                    //解析宝具json
+                    if (buffObj != null && buffObj.size() > 0) {
+                        SimpleArrayMap<String,Double> npBuffs = new SimpleArrayMap<>();
+                        for (Map.Entry<String, JsonElement> it : buffObj.entrySet()){
+                            if (it.getValue() != null) {
+                                double v = it.getValue().getAsDouble();
+                                npBuffs.put(it.getKey(),v);
+                            }
+                            Log.d(TAG, MessageFormat.format("{0} {1}",it.getKey(),it.getValue()));
+                        }
+                        //更新buff
+                        vm.setBuffFromNp(npBuffs);
+                    }
+                }
+
+
+
                 //"宝具是否强化"
                 if (entity.npUpgraded == 1) {
                     binding.spNpUpdated.setVisibility(View.VISIBLE);

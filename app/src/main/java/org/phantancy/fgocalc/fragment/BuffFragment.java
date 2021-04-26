@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.collection.SimpleArrayMap;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -125,6 +127,13 @@ public class BuffFragment extends LazyFragment {
                 x.show();
             }
         });
+
+        //监听宝具自带buff变化
+        vm.getBuffFromNp().observe(this, buffMap -> {
+            adapter.addBuffFromNp(buffMap);
+        });
     }
+
+
 
 }

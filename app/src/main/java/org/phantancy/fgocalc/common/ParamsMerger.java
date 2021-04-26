@@ -52,6 +52,9 @@ public class ParamsMerger {
         put(Constant.CARD_ARTS, 1.0);
         put(Constant.CARD_BUSTER, 1.5);
         put(Constant.CARD_EX, 1.0);
+        put(Constant.NP_QUICK, 0.8);
+        put(Constant.NP_ARTS, 1.0);
+        put(Constant.NP_BUSTER, 1.5);
     }};
 
     public static double mergecardDmgMultiplier(String cardType) {

@@ -67,39 +67,42 @@ public class ConditionFragment extends LazyFragment {
         conVm = ViewModelProviders.of(mActy).get(ConditionViewModel.class);
         initView();
         //获取宝具信息
-        conVm.getNoblePhantasmEntities(vm.getServant().id);
-        conVm.getNpEntity().observe(this, new Observer<NoblePhantasmEntity>() {
-            @Override
-            public void onChanged(NoblePhantasmEntity entity) {
-                //“选择宝具”
-//                setSpAdapter(binding.spNpSelect,entity.);
-                if (!TextUtils.isEmpty(entity.npBuff)) {
-                    //解析宝具字符串
-                    JsonObject buffObj = (JsonObject) new JsonParser().parse(entity.npBuff);
-                    //解析宝具json
-                    if (buffObj != null && buffObj.size() > 0) {
-                        SimpleArrayMap<String,Double> npBuffs = new SimpleArrayMap<>();
-                        for (Map.Entry<String, JsonElement> it : buffObj.entrySet()){
-                            if (it.getValue() != null) {
-                                double v = it.getValue().getAsDouble();
-                                npBuffs.put(it.getKey(),v);
-                            }
-                            Log.d(TAG, MessageFormat.format("{0} {1}",it.getKey(),it.getValue()));
-                        }
-                        //更新buff
-                        vm.setBuffFromNp(npBuffs);
-                    }
-                }
-
-
-
-                //"宝具是否强化"
-                if (entity.npUpgraded == 1) {
-                    binding.spNpUpdated.setVisibility(View.VISIBLE);
-                } else {
-                    binding.spNpUpdated.setVisibility(View.GONE);
-                }
+        conVm.getNPEntities(vm.getServant().id).observe(this,entities -> {
+            String[] desArr = new String[entities.size()];
+            for (int i = 0; i < entities.size(); i++) {
+                desArr[i] = entities.get(i).npDes;
             }
+            setSpAdapter(binding.spNpSelect,desArr);
+        });
+        conVm.getNpEntity().observe(this, entity -> {
+            //“选择宝具”
+//                setSpAdapter(binding.spNpSelect,entity.);
+//                if (!TextUtils.isEmpty(entity.npBuff)) {
+//                    //解析宝具字符串
+//                    JsonObject buffObj = (JsonObject) new JsonParser().parse(entity.npBuff);
+//                    //解析宝具json
+//                    if (buffObj != null && buffObj.size() > 0) {
+//                        SimpleArrayMap<String,Double> npBuffs = new SimpleArrayMap<>();
+//                        for (Map.Entry<String, JsonElement> it : buffObj.entrySet()){
+//                            if (it.getValue() != null) {
+//                                double v = it.getValue().getAsDouble();
+//                                npBuffs.put(it.getKey(),v);
+//                            }
+//                            Log.d(TAG, MessageFormat.format("{0} {1}",it.getKey(),it.getValue()));
+//                        }
+//                        //更新buff
+//                        vm.setBuffFromNp(npBuffs);
+//                    }
+//                }
+
+
+
+//            //"宝具是否强化"
+//            if (entity.npUpgraded == 1) {
+//                binding.spNpUpdated.setVisibility(View.VISIBLE);
+//            } else {
+//                binding.spNpUpdated.setVisibility(View.GONE);
+//            }
         });
     }
 

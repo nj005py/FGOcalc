@@ -12,6 +12,8 @@ import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
+import java.util.List;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -27,12 +29,14 @@ public class ConditionViewModel extends AndroidViewModel {
         return npEntity;
     }
 
+    private MutableLiveData<List<NoblePhantasmEntity>> npEntities = new MutableLiveData<>();
+
     public ConditionViewModel(@NonNull Application application) {
         super(application);
         npRepository = new NoblePhantasmRepository(application);
     }
 
-    public void getNoblePhantasmEntities(int svtId) {
+    public void getNoblePhantasmEntity(int svtId) {
         Flowable.create(new FlowableOnSubscribe<NoblePhantasmEntity>() {
             @Override
             public void subscribe(@io.reactivex.annotations.NonNull FlowableEmitter<NoblePhantasmEntity> emitter) throws Exception {
@@ -65,5 +69,9 @@ public class ConditionViewModel extends AndroidViewModel {
 
                     }
                 });
+    }
+
+    public LiveData<List<NoblePhantasmEntity>> getNPEntities(int svtId) {
+        return npRepository.getNoblePhantasmEntities(svtId);
     }
 }

@@ -2,7 +2,11 @@ package org.phantancy.fgocalc.data;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
+
+import java.util.List;
 
 public class NoblePhantasmRepository {
     private NoblePhantasmDao npDao;
@@ -19,5 +23,9 @@ public class NoblePhantasmRepository {
      */
     public NoblePhantasmEntity getNoblePhantasmEntity(int svtId) {
         return npDao.getNoblePhantasmEntity(svtId);
+    }
+
+    public LiveData<List<NoblePhantasmEntity>> getNoblePhantasmEntities(int svtId) {
+        return npDao.getNoblePhantasmEntities(svtId);
     }
 }

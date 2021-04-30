@@ -126,8 +126,15 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //加宝具自带buff
-    public void addBuffFromNp(SimpleArrayMap<String,Double> x) {
+
+    /**
+     *
+     * @param x 要加的buff
+     * @param y 上一次缓存的buff
+     */
+    public void addBuffFromNp(SimpleArrayMap<String,Double> x,SimpleArrayMap<String,Double> y) {
         if (x != null && x.size() > 0) {
+            reduceBuffFromNp(y);
             for (int k = 0; k < x.size(); k++) {
                 for (int i = 0;i < mList.size();i++) {
                     BuffInputEntity input = mList.get(i);
@@ -137,6 +144,26 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         double newVal = oldVal + x.valueAt(k);
                         Log.d(TAG,"newVal:" + newVal);
                         mList.get(i).setValue(newVal);
+                    }
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    //减宝具自带buff
+    public void reduceBuffFromNp(SimpleArrayMap<String,Double> x) {
+        if (x != null && x.size() > 0) {
+            for (int k = 0; k < x.size(); k++) {
+                for (int i = 0;i < mList.size();i++) {
+                    BuffInputEntity input = mList.get(i);
+                    if (x.keyAt(k).equals(input.getKey())) {
+                        double oldVal = input.getValue();
+                        if (oldVal > 0) {
+                            double newVal = oldVal - x.valueAt(k);
+                            Log.d(TAG,"newVal:" + newVal);
+                            mList.get(i).setValue(newVal);
+                        }
                     }
                 }
             }
@@ -186,11 +213,25 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (TextUtils.isEmpty(s)) {
                         x.setValue(0d);
                     } else {
-                        x.setValue(Double.parseDouble(s.toString()));
+                        if (checkInput(s.toString())) {
+                            x.setValue(Double.parseDouble(s.toString()));
+                        }
                     }
                 }
             });
         }
+    }
+
+    /**
+     * 校验输入，防止string转double失败
+     * @param x
+     * @return
+     */
+    private boolean checkInput(String x) {
+        if (x.equals("-") || x.equals(".")) {
+            return false;
+        }
+        return true;
     }
 
     class CategoryViewHolder extends RecyclerView.ViewHolder {

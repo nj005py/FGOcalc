@@ -21,10 +21,6 @@ public class NoblePhantasmRepository {
      * @param svtId
      * @return
      */
-    public NoblePhantasmEntity getNoblePhantasmEntity(int svtId) {
-        return npDao.getNoblePhantasmEntity(svtId);
-    }
-
     public LiveData<List<NoblePhantasmEntity>> getNoblePhantasmEntities(int svtId) {
         return npDao.getNoblePhantasmEntities(svtId);
     }

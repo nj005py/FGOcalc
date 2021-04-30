@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.viewmodel;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ScrollView;
 
@@ -8,6 +9,10 @@ import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
@@ -22,6 +27,7 @@ import org.phantancy.fgocalc.entity.BuffInputEntity;
 import org.phantancy.fgocalc.entity.CardPickEntity;
 import org.phantancy.fgocalc.entity.InputData;
 import org.phantancy.fgocalc.entity.InfoEntity;
+import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.OneTurnResult;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
@@ -130,15 +136,28 @@ public class CalcViewModel extends AndroidViewModel {
         String x = servant.cards;
         int id = 0;
         List<CardPickEntity> list = new ArrayList<>();
+        //平A
         for (char y : x.toCharArray()) {
             list.add(parseCardPickEntity(id, y));
             id++;
         }
+        //宝具
         list.add(parseCardPickNp(id, servant.npColor));
-        //测试宇宙凛
-//        list.add(parseCardPickNp(id++, "np_q"));
-//        list.add(parseCardPickNp(id++, "np_a"));
-//        list.add(parseCardPickNp(id, "np_b"));
+        cardPicks.setValue(list);
+    }
+
+    //更新宝具
+    public void parsePickCards(NoblePhantasmEntity np) {
+        String x = servant.cards;
+        int id = 0;
+        List<CardPickEntity> list = new ArrayList<>();
+        //平A
+        for (char y : x.toCharArray()) {
+            list.add(parseCardPickEntity(id, y));
+            id++;
+        }
+        //宝具
+        list.add(parseCardPickNp(id, np.npColor));
         cardPicks.setValue(list);
     }
 
@@ -330,9 +349,74 @@ public class CalcViewModel extends AndroidViewModel {
         return BuffData.buildBuffs();
     }
 
+    //缓存上次buff
+    public SimpleArrayMap<String, Double> preNpBuff = new SimpleArrayMap<>();
+    /**
+     *
+     * @param it 宝具
+     * @param lv 宝具等级
+     */
+    public void parseNpBuff(NoblePhantasmEntity it, String lv) {
+        //buff随宝具
+        String lvBuff = "";
+        switch (lv) {
+            case "一宝":
+                lvBuff = it.buffLv1;
+                break;
+            case "二宝":
+                lvBuff = it.buffLv2;
+                break;
+            case "三宝":
+                lvBuff = it.buffLv3;
+                break;
+            case "四宝":
+                lvBuff = it.buffLv4;
+                break;
+            case "五宝":
+                lvBuff = it.buffLv5;
+                break;
+
+        }
+        SimpleArrayMap<String, Double> lvMap = buffStrToMap(lvBuff);
+        //buff随oc
+        String ocBuff = it.oc_buff;
+        SimpleArrayMap<String, Double> ocMap = buffStrToMap(ocBuff);
+
+        //更新buff
+        setBuffFromNp(lvMap);
+        setBuffFromNp(ocMap);
+    }
+
+    /**
+     * 字符串buff信息，解析为map
+     * @param buffStr
+     */
+    private SimpleArrayMap<String, Double> buffStrToMap(String buffStr){
+        if (TextUtils.isEmpty(buffStr)) {
+            return null;
+        }
+        //解析宝具字符串
+        JsonObject buffObj = (JsonObject) new JsonParser().parse(buffStr);
+        //解析宝具json
+        SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<>();
+        if (buffObj != null && buffObj.size() > 0) {
+            for (Map.Entry<String, JsonElement> entry : buffObj.entrySet()) {
+                if (entry.getValue() != null) {
+                    double v = entry.getValue().getAsDouble();
+                    buffMap.put(entry.getKey(), v);
+                }
+                Log.d(TAG, MessageFormat.format("{0} {1}", entry.getKey(), entry.getValue()));
+            }
+        }
+        return buffMap;
+    }
     //宝具自带的buff
     private MutableLiveData<SimpleArrayMap<String,Double>> buffFromNp = new MutableLiveData<>();
 
+    /**
+     * 选宝具，设置宝具自带buff
+     * @param x
+     */
     public void setBuffFromNp(SimpleArrayMap<String,Double> x) {
         if (x != null && x.size() > 0) {
             buffFromNp.setValue(x);

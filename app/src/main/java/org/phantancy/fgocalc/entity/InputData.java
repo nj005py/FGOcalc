@@ -78,6 +78,16 @@ public class InputData {
     private double[] enemysNpMod;
     //输入buff数据
     private SimpleArrayMap<String,Double> buffMap;
+    //选择宝具
+    private NoblePhantasmEntity npEntity;
+
+    public NoblePhantasmEntity getNpEntity() {
+        return npEntity;
+    }
+
+    public void setNpEntity(NoblePhantasmEntity npEntity) {
+        this.npEntity = npEntity;
+    }
 
     public boolean isSavedCondition() {
         return isSavedCondition;

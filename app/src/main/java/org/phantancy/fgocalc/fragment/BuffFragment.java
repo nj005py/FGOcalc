@@ -130,7 +130,9 @@ public class BuffFragment extends LazyFragment {
 
         //监听宝具自带buff变化
         vm.getBuffFromNp().observe(this, buffMap -> {
-            adapter.addBuffFromNp(buffMap);
+            adapter.addBuffFromNp(buffMap,vm.preNpBuff);
+            //缓存本次宝具buff
+            vm.preNpBuff = buffMap;
         });
     }
 

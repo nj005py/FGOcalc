@@ -60,24 +60,47 @@
       </library-update>
     </library-updates>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="update lazy loading">
+    <list default="true" id="e33ad549-2c33-4495-97c0-2ec435a2e5d3" name="Default" comment="update 对齐计算页选卡">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/item_decoration/LinearItemDecoration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_calc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/frag_calc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/NoblePhantasmDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/NoblePhantasmDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/ServantAvatar.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/data/ServantAvatar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[2e3e802f]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -170,10 +193,10 @@
       <list>
         <option value="valueResourceFile" />
         <option value="layoutResourceFile_vertical" />
-        <option value="Interface" />
         <option value="Class" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -194,7 +217,7 @@
     <property name="android.sdk.path" value="$PROJECT_DIR$/../../AndroidSDK/sdk" />
     <property name="device.picker.selection" value="Pixel_3_API_28" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -412,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610029402390</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update 对齐计算页选卡">
+      <created>1610031353524</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1610031353524</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -420,7 +450,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -432,61 +474,30 @@
     <MESSAGE value="update 御主礼装" />
     <MESSAGE value="update wiki页更新" />
     <MESSAGE value="update lazy loading" />
-    <option name="LAST_COMMIT_MESSAGE" value="update lazy loading" />
+    <MESSAGE value="update 对齐计算页选卡" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 对齐计算页选卡" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1216" y="228" key="#com.intellij.ide.util.MemberChooser" timestamp="1610031140285">
+    <state x="558" y="86" width="804" height="948" key="CommitChangelistDialog2" timestamp="1619943503521">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1216" y="228" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610031140285" />
-    <state x="779" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610025455891">
+    <state x="558" y="86" width="804" height="948" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1619943503521" />
+    <state x="184" y="85" key="MergeDialog" timestamp="1619928261215">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="779" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610025455891" />
-    <state x="558" y="86" key="CommitChangelistDialog2" timestamp="1610029399906">
+    <state x="184" y="85" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1619928261215" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1619943228304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="558" y="86" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1610029399906" />
-    <state width="1877" height="143" key="GridCell.Tab.0.bottom" timestamp="1610030976370">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1619943228304" />
+    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619943505520">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="143" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610030976370" />
-    <state width="1877" height="143" key="GridCell.Tab.0.center" timestamp="1610030976370">
+    <state x="754" y="432" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1619943505520" />
+    <state width="300" height="59" key="javadoc.popup.new" timestamp="1619942867943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="143" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610030976370" />
-    <state width="1877" height="143" key="GridCell.Tab.0.left" timestamp="1610030976370">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="143" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610030976370" />
-    <state width="1877" height="143" key="GridCell.Tab.0.right" timestamp="1610030976370">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="143" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610030976370" />
-    <state x="397" y="0" key="ScreenshotViewer.Dimensions" timestamp="1610027246350">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="397" y="0" key="ScreenshotViewer.Dimensions/0.0.1920.1040@0.0.1920.1040" timestamp="1610027246350" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1609393532472">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1609393532472" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1610029405828">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1610029405828" />
-    <state x="1205" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1610025322399">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="1205" y="436" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1610025322399" />
-    <state x="661" y="252" width="598" height="536" key="find.popup" timestamp="1610031040082">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="661" y="252" width="598" height="536" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610031040082" />
-    <state width="300" height="59" key="javadoc.popup.new" timestamp="1610030750884">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="300" height="59" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1610030750884" />
+    <state width="300" height="59" key="javadoc.popup.new/0.0.1920.1040@0.0.1920.1040" timestamp="1619942867943" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -518,27 +529,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>344</line>
+          <line>528</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>393</line>
+          <line>710</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>285</line>
+          <line>464</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/viewmodel/CalcViewModel.java</url>
-          <line>291</line>
+          <line>471</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/org/phantancy/fgocalc/fragment/CalcFragment.java</url>
-          <line>83</line>
+          <line>79</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>

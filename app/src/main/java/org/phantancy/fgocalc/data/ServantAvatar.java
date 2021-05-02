@@ -308,6 +308,7 @@ public class ServantAvatar {
         put(281, R.drawable.image281);
         put(282, R.drawable.image282);
         put(283, R.drawable.image283);
+        put(284, R.drawable.image284);
 
     }};
 }

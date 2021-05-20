@@ -351,8 +351,8 @@ public class CalcViewModel extends AndroidViewModel {
 
     //缓存上次buff
     public SimpleArrayMap<String, Double> preNpBuff = new SimpleArrayMap<>();
+
     /**
-     *
      * @param it 宝具
      * @param lv 宝具等级
      */
@@ -389,9 +389,10 @@ public class CalcViewModel extends AndroidViewModel {
 
     /**
      * 字符串buff信息，解析为map
+     *
      * @param buffStr
      */
-    private SimpleArrayMap<String, Double> buffStrToMap(String buffStr){
+    private SimpleArrayMap<String, Double> buffStrToMap(String buffStr) {
         if (TextUtils.isEmpty(buffStr)) {
             return null;
         }
@@ -410,27 +411,54 @@ public class CalcViewModel extends AndroidViewModel {
         }
         return buffMap;
     }
+
     //宝具自带的buff
-    private MutableLiveData<SimpleArrayMap<String,Double>> buffFromNp = new MutableLiveData<>();
+    private MutableLiveData<SimpleArrayMap<String, Double>> buffFromNp = new MutableLiveData<>();
 
     /**
      * 选宝具，设置宝具自带buff
+     *
      * @param x
      */
-    public void setBuffFromNp(SimpleArrayMap<String,Double> x) {
+    public void setBuffFromNp(SimpleArrayMap<String, Double> x) {
         if (x != null && x.size() > 0) {
             buffFromNp.setValue(x);
         }
     }
 
-    public LiveData<SimpleArrayMap<String,Double>> getBuffFromNp() {
+    /**
+     * 设置宝具倍率
+     *
+     * @return
+     */
+    public void setNpDmgMultiplier(NoblePhantasmEntity it, int lv) {
+        switch (lv) {
+            case 0:
+                inputData.setNpDmgMultiplier(it.npLv1);
+                break;
+            case 1:
+                inputData.setNpDmgMultiplier(it.npLv2);
+                break;
+            case 2:
+                inputData.setNpDmgMultiplier(it.npLv3);
+                break;
+            case 3:
+                inputData.setNpDmgMultiplier(it.npLv4);
+                break;
+            case 4:
+                inputData.setNpDmgMultiplier(it.npLv5);
+                break;
+        }
+    }
+
+    public LiveData<SimpleArrayMap<String, Double>> getBuffFromNp() {
         return buffFromNp;
     }
 
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
         inputData.setSavedBuff(true);
-        SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String,Double>();
+        SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String, Double>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
             switch (x.getType()) {
@@ -473,7 +501,8 @@ public class CalcViewModel extends AndroidViewModel {
 //            String dmgResult = LogManager.resultLog(inputData,x);
 //            calcResult.setValue(dmgResult);
             //todo 计算
-            calcResult.setValue(MessageFormat.format("平A: {0}，宝具伤害: {1}",calcDmg(),npDmg()));
+            double res = npDmg();
+            calcResult.setValue(MessageFormat.format("平A: {0}，宝具伤害: {1}", calcDmg(), res));
         }
         //计算Np
         //计算打星
@@ -806,10 +835,17 @@ public class CalcViewModel extends AndroidViewModel {
         double npPowerBuff = ParamsMerger.mergeBuffDebuff(inputData.getNpPowerUp(), inputData.getNpPowerDown());
         //宝具特攻
         double npSpecialBuff = inputData.getNpSpecialBuff();
+        //宝具特攻不能为0
+        if (npSpecialBuff == 0) {
+            npSpecialBuff = 1;
+        }
         //固伤
         double selfDmgBuff = inputData.getSelfDmgBuff();
         //固防
         double selfDmgDefBuff = inputData.getSelfDmgDefBuff();
+        Log.d(TAG,MessageFormat.format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} ",atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
+                affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff,
+                npPowerBuff, npSpecialBuff, selfDmgBuff, selfDmgDefBuff));
         return Formula.npDamageFormula(atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff,
                 npPowerBuff, npSpecialBuff, selfDmgBuff, selfDmgDefBuff);

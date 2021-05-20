@@ -25,9 +25,9 @@ public class Formula {
             double selfDmgDefBuff,
             double busterChainMod
     ) {
-        double attack = atk * 0.23 * (cardDmgMultiplier * postitionMod * (1 + effectiveBuff) + firstCardMod) *
-                classAtkMod * affinityMod * attributeMod * randomMod * (1 + atkBuff - defBuff) *
-                (1 + specialBuff - specialDefBuff + criticalBuff) * criticalMod * exDmgBuff
+        double attack = atk * 0.23 * (cardDmgMultiplier * postitionMod * (1.0 + effectiveBuff) + firstCardMod) *
+                classAtkMod * affinityMod * attributeMod * randomMod * (1.0 + atkBuff - defBuff) *
+                (1.0 + specialBuff - specialDefBuff + criticalBuff) * criticalMod * exDmgBuff
                 + (selfDmgBuff - selfDmgDefBuff) + atk * busterChainMod;
         return attack;
     }
@@ -50,9 +50,9 @@ public class Formula {
             double selfDmgBuff,
             double selfDmgDefBuff
     ) {
-        double attack = atk * 0.23 * (npDmgMultiplier * cardDmgMultiplier * (1 + effectiveBuff))
+        double attack = atk * 0.23 * (npDmgMultiplier * cardDmgMultiplier * (1.0 + effectiveBuff))
                 * classAtkMod * affinityMod * attributeMod * randomMod *
-                (1 + atkBuff - defBuff) * (1 + specialBuff - specialDefBuff + npPowerBuff)
+                (1.0 + atkBuff - defBuff) * (1.0 + specialBuff - specialDefBuff + npPowerBuff)
                 * npSpecialBuff + (selfDmgBuff - selfDmgDefBuff);
         return attack;
     }

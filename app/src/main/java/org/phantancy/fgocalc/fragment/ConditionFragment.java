@@ -135,14 +135,20 @@ public class ConditionFragment extends LazyFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (vm.inputData.getNpEntity() != null) {
+                    //buff
                     vm.parseNpBuff(vm.inputData.getNpEntity(),binding.spNpLv.getSelectedItem().toString());
+                    //倍率
+                    vm.setNpDmgMultiplier(vm.inputData.getNpEntity(),position);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (npList != null) {
+                    //buff
                     vm.parseNpBuff(npList.get(0),binding.spNpLv.getSelectedItem().toString());
+                    //倍率
+                    vm.setNpDmgMultiplier(npList.get(0),0);
                 }
             }
         });

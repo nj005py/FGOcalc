@@ -51,7 +51,8 @@ import static org.phantancy.fgocalc.common.ParamsMerger.mergeDmgPositionMod;
 import static org.phantancy.fgocalc.common.ParamsMerger.mergecardDmgMultiplier;
 
 //计算Activity ViewModel
-public class CalcViewModel extends AndroidViewModel {
+public class
+CalcViewModel extends AndroidViewModel {
     final String TAG = "CalcViewModel";
     private ServantEntity servant;
     //经验列表

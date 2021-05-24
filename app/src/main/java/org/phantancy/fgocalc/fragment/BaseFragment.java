@@ -20,7 +20,7 @@ import org.phantancy.fgocalc.dialog.LoadingDialog;
 /**
  * Created by PY on 2017/2/7.
  */
-public class BaseFragment extends Fragment{
+public class BaseFragment extends Fragment {
 
     final protected String TAG = getClass().getSimpleName();
     protected Context ctx;

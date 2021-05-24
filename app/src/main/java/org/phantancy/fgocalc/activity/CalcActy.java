@@ -7,7 +7,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -16,6 +16,7 @@ import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
 import org.phantancy.fgocalc.databinding.ActyCalcBinding;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.fragment.BuffFragment;
+import org.phantancy.fgocalc.fragment.CalcContainerFragment;
 import org.phantancy.fgocalc.fragment.CalcFragment;
 import org.phantancy.fgocalc.fragment.ConditionFragment;
 import org.phantancy.fgocalc.fragment.InfoFragment;
@@ -37,7 +38,7 @@ public class CalcActy extends BaseActy {
 
         ServantEntity servant = (ServantEntity) getIntent().getParcelableExtra("servant");
 
-        vm = ViewModelProviders.of(this).get(CalcViewModel.class);
+        vm = new ViewModelProvider(this).get(CalcViewModel.class);
         if (servant != null) {
             vm.setServant(servant);
         }
@@ -51,9 +52,10 @@ public class CalcActy extends BaseActy {
             {
                 add(new InfoFragment());
                 add(wikiFrag);
-                add(new BuffFragment());
-                add(new ConditionFragment());
-                add(new CalcFragment());
+//                add(new BuffFragment());
+//                add(new ConditionFragment());
+//                add(new CalcFragment());
+                add(new CalcContainerFragment());
             }
         };
 
@@ -61,8 +63,8 @@ public class CalcActy extends BaseActy {
             {
                 add("从者信息");
                 add("wiki");
-                add("Buff设置");
-                add("条件设置");
+//                add("Buff设置");
+//                add("条件设置");
                 add("计算");
             }
         };

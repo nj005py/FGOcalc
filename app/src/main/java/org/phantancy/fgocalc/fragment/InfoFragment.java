@@ -10,7 +10,7 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -41,7 +41,7 @@ public class InfoFragment extends LazyFragment {
 
     @Override
     protected void init() {
-        vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
 
         ServantEntity svt = vm.getServant();
         if (svt.avatarRes != -1) {

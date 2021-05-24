@@ -10,7 +10,7 @@ import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -52,12 +52,13 @@ public class WikiFragment extends LazyFragment {
 
     @Override
     protected void init() {
-        vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
         url = vm.getServantWiki();
 
         binding.tvLoadWiki.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                binding.vsWebview.getViewStub().inflate();
                 binding.vsWebview.inflate();
             }
         });

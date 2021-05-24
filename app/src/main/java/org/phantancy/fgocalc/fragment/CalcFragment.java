@@ -9,7 +9,7 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.adapter.CardsAdapter;
 import org.phantancy.fgocalc.adapter.PickAdapter;
@@ -36,7 +36,7 @@ public class CalcFragment extends LazyFragment {
     @Override
     protected void init() {
         //d
-        vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
 
         PickAdapter pickAdapter = new PickAdapter();
         CardsAdapter cardsAdapter = new CardsAdapter();

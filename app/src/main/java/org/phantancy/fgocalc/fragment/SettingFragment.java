@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.databinding.FragSettingBinding;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
@@ -26,7 +26,7 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        vm = ViewModelProviders.of(mActy).get(MainViewModel.class);
+        vm = new ViewModelProvider(mActy).get(MainViewModel.class);
 
     }
 }

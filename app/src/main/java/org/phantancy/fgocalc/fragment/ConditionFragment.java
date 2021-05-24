@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -66,8 +66,8 @@ public class ConditionFragment extends LazyFragment {
 
     @Override
     protected void init() {
-        vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
-        conVm = ViewModelProviders.of(mActy).get(ConditionViewModel.class);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
+        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
         initView();
         //获取宝具信息
         conVm.getNPEntities(vm.getServant().id).observe(this, entities -> {

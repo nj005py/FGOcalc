@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -68,7 +68,7 @@ public class MainActy extends BaseActy {
 
     private void init() {
 
-        vm = ViewModelProviders.of(this).get(MainViewModel.class);
+        vm = new ViewModelProvider(this).get(MainViewModel.class);
 
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();

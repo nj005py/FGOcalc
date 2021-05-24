@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.adapter.FilterAdapter;
 import org.phantancy.fgocalc.databinding.FragFilterBinding;
@@ -33,7 +33,7 @@ public class FilterFragment extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        vm = ViewModelProviders.of(mActy).get(MainViewModel.class);
+        vm = new ViewModelProvider(mActy).get(MainViewModel.class);
 
         FilterAdapter adapter = new FilterAdapter(ctx,null);
         binding.rvFilter.setAdapter(adapter);
@@ -42,7 +42,7 @@ public class FilterFragment extends BaseFragment {
         Log.d(TAG,"获取筛选内容");
         vm.getFilters();
 
-        vm.filters.observe(this, new Observer<List<FilterEntity>>() {
+        vm.filters.observe(getViewLifecycleOwner(), new Observer<List<FilterEntity>>() {
             @Override
             public void onChanged(List<FilterEntity> filterEntities) {
                 adapter.setItems(filterEntities);

@@ -17,8 +17,8 @@
             android:layout_height="40dp"
             android:layout_weight="1.0"
             android:background="@drawable/btn_blue"
-            android:text="@string/svt_buff"
             android:textColor="@color/blueWordDark"
+            android:text="@string/svt_buff"
             />
 
 

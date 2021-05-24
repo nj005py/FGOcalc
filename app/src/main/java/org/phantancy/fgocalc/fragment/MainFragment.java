@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.activity.CalcActy;
 import org.phantancy.fgocalc.adapter.ServantAdapter;
@@ -42,7 +42,7 @@ public class MainFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        vm = ViewModelProviders.of(mActy).get(MainViewModel.class);
+        vm = new ViewModelProvider(mActy).get(MainViewModel.class);
         //列表绑定适配器
         ServantAdapter adapter = new ServantAdapter();
         binding.rvList.setAdapter(adapter);
@@ -52,7 +52,7 @@ public class MainFragment extends BaseFragment {
         vm.getAllServants();
 
         //获得从者数据时，更新列表
-        vm.getServants().observe(this, new Observer<List<ServantEntity>>() {
+        vm.getServants().observe(getViewLifecycleOwner(), new Observer<List<ServantEntity>>() {
             @Override
             public void onChanged(List<ServantEntity> servantEntities) {
                 Log.d(TAG, "size:" + servantEntities.size());
@@ -61,7 +61,7 @@ public class MainFragment extends BaseFragment {
         });
 
         //关键词搜索
-        vm.getKeyword().observe(this, new Observer<String>() {
+        vm.getKeyword().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 if (TextUtils.isEmpty(s)) {
@@ -73,7 +73,7 @@ public class MainFragment extends BaseFragment {
             }
         });
 
-        vm.getClearSearch().observe(this, new Observer<Boolean>() {
+        vm.getClearSearch().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean needClear) {
                 if (needClear) {

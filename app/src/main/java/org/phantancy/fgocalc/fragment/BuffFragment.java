@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import org.phantancy.fgocalc.R;
@@ -46,7 +46,7 @@ public class BuffFragment extends LazyFragment {
 
     @Override
     protected void init() {
-        vm = ViewModelProviders.of(mActy).get(CalcViewModel.class);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
 
         adapter = new BuffInputAdapter(ctx);
         GridLayoutManager layoutManager = new GridLayoutManager(ctx,2);

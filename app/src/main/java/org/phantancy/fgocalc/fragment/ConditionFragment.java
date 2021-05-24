@@ -12,13 +12,8 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.collection.SimpleArrayMap;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
@@ -28,12 +23,10 @@ import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import org.phantancy.fgocalc.viewmodel.ConditionViewModel;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ConditionFragment extends LazyFragment {
+public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
     private ConditionViewModel conVm;
@@ -44,6 +37,15 @@ public class ConditionFragment extends LazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragConditionBinding.inflate(getLayoutInflater());
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
+        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
+        initView();
+        initNp();
     }
 
     @Override
@@ -62,23 +64,6 @@ public class ConditionFragment extends LazyFragment {
             vm.inputData.setHpLeft(0d);
         }
         vm.saveCondition();
-    }
-
-    @Override
-    protected void init() {
-        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
-        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
-        initView();
-        //获取宝具信息
-        conVm.getNPEntities(vm.getServant().id).observe(this, entities -> {
-            String[] desArr = new String[entities.size()];
-            npList.addAll(entities);
-
-            for (int i = 0; i < entities.size(); i++) {
-                desArr[i] = entities.get(i).npDes;
-            }
-            setSpAdapter(binding.spNpSelect, desArr);
-        });
     }
 
     private void initView() {
@@ -109,49 +94,7 @@ public class ConditionFragment extends LazyFragment {
                 vm.inputData.setAttributeType(ConditionData.getAttributeKeys()[0]);
             }
         });
-        //宝具选择
-        binding.spNpSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (npList != null) {
-                    NoblePhantasmEntity it = npList.get(position);
-                    vm.inputData.setNpEntity(it);
-                    vm.parseNpBuff(it,binding.spNpLv.getSelectedItem().toString());
-                    vm.parsePickCards(it);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                if (npList != null) {
-                    vm.inputData.setNpEntity(npList.get(0));
-                    vm.parseNpBuff(npList.get(0),binding.spNpLv.getSelectedItem().toString());
-                }
-            }
-        });
-        //宝具lv
-        setSpAdapter(binding.spNpLv, ConditionData.npLvKeys);
-        binding.spNpLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (vm.inputData.getNpEntity() != null) {
-                    //buff
-                    vm.parseNpBuff(vm.inputData.getNpEntity(),binding.spNpLv.getSelectedItem().toString());
-                    //倍率
-                    vm.setNpDmgMultiplier(vm.inputData.getNpEntity(),position);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                if (npList != null) {
-                    //buff
-                    vm.parseNpBuff(npList.get(0),binding.spNpLv.getSelectedItem().toString());
-                    //倍率
-                    vm.setNpDmgMultiplier(npList.get(0),0);
-                }
-            }
-        });
         //芙芙atk
         setSpAdapter(binding.spFouAtk, ConditionData.getFouAtkKeys());
         //默认选1000
@@ -222,6 +165,64 @@ public class ConditionFragment extends LazyFragment {
         setSpAdapter(binding.spEnemyClass1, ConditionData.classTypeKeys);
         setSpAdapter(binding.spEnemyClass2, ConditionData.classTypeKeys);
         setSpAdapter(binding.spEnemyClass3, ConditionData.classTypeKeys);
+    }
+
+    //宝具相关初始化
+    private void initNp() {
+        //获取宝具信息
+        conVm.getNPEntities(vm.getServant().id).observe(getViewLifecycleOwner(), entities -> {
+            String[] desArr = new String[entities.size()];
+            npList.addAll(entities);
+
+            for (int i = 0; i < entities.size(); i++) {
+                desArr[i] = entities.get(i).npDes;
+            }
+            //宝具选择
+            setSpAdapter(binding.spNpSelect, desArr);
+            binding.spNpSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (npList != null) {
+                        NoblePhantasmEntity it = npList.get(position);
+                        vm.inputData.setNpEntity(it);
+                        vm.parseNpBuff(it, binding.spNpLv.getSelectedItem().toString());
+                        vm.parsePickCards(it);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    if (npList != null) {
+                        vm.inputData.setNpEntity(npList.get(0));
+                        vm.parseNpBuff(npList.get(0), binding.spNpLv.getSelectedItem().toString());
+                    }
+                }
+            });
+            //宝具lv
+            setSpAdapter(binding.spNpLv, ConditionData.npLvKeys);
+            binding.spNpLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (vm.inputData.getNpEntity() != null) {
+                        //buff
+                        vm.parseNpBuff(vm.inputData.getNpEntity(), binding.spNpLv.getSelectedItem().toString());
+                        //倍率
+                        vm.setNpDmgMultiplier(vm.inputData.getNpEntity(), position);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    if (npList != null) {
+                        //buff
+                        vm.parseNpBuff(npList.get(0), binding.spNpLv.getSelectedItem().toString());
+                        //倍率
+                        vm.setNpDmgMultiplier(npList.get(0), 0);
+                    }
+                }
+            });
+
+        });
     }
 
     private void setSpAdapter(Spinner sp, String[] x) {

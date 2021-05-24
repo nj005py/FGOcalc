@@ -24,7 +24,7 @@ import org.phantancy.fgocalc.entity.ShortcutBuffEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
-public class BuffFragment extends LazyFragment {
+public class BuffFragment extends BaseFragment {
     private FragBuffBinding binding;
     private CalcViewModel vm;
     private BuffInputAdapter adapter;
@@ -36,16 +36,8 @@ public class BuffFragment extends LazyFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        //保存UI数据
-        Log.d(TAG,"保存buff数据");
-        vm.saveBuff(adapter.getList());
-
-    }
-
-    @Override
-    protected void init() {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
 
         adapter = new BuffInputAdapter(ctx);
@@ -129,13 +121,19 @@ public class BuffFragment extends LazyFragment {
         });
 
         //监听宝具自带buff变化
-        vm.getBuffFromNp().observe(this, buffMap -> {
+        vm.getBuffFromNp().observe(getViewLifecycleOwner(), buffMap -> {
             adapter.addBuffFromNp(buffMap,vm.preNpBuff);
             //缓存本次宝具buff
             vm.preNpBuff = buffMap;
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        //保存UI数据
+        Log.d(TAG,"保存buff数据");
+        vm.saveBuff(adapter.getList());
 
-
+    }
 }

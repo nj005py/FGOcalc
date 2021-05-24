@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 计算页
  */
-public class CalcFragment extends LazyFragment {
+public class CalcFragment extends BaseFragment {
     private FragCalcBinding binding;
     private CalcViewModel vm;
     @Nullable
@@ -34,8 +34,8 @@ public class CalcFragment extends LazyFragment {
     }
 
     @Override
-    protected void init() {
-        //d
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
 
         PickAdapter pickAdapter = new PickAdapter();
@@ -62,7 +62,7 @@ public class CalcFragment extends LazyFragment {
             }
         });
 
-        vm.getCardPicks().observe(this, new Observer<List<CardPickEntity>>() {
+        vm.getCardPicks().observe(getViewLifecycleOwner(), new Observer<List<CardPickEntity>>() {
             @Override
             public void onChanged(List<CardPickEntity> x) {
                 cardsAdapter.submitList(x);
@@ -80,7 +80,7 @@ public class CalcFragment extends LazyFragment {
             }
         });
 
-        vm.getCalcResult().observe(this, new Observer<String>() {
+        vm.getCalcResult().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 binding.tvCalcResult.setText(s);
@@ -90,7 +90,6 @@ public class CalcFragment extends LazyFragment {
         //解析配卡
         vm.parsePickCards();
     }
-
 
     private void setOverkillCritical() {
         binding.cbOk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

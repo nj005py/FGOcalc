@@ -3,7 +3,6 @@ package org.phantancy.fgocalc.viewmodel;
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ScrollView;
 
 import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.AndroidViewModel;
@@ -18,37 +17,28 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
 import org.phantancy.fgocalc.common.LogManager;
-import org.phantancy.fgocalc.common.ParamsMerger;
+import org.phantancy.fgocalc.common.ParamsUtil;
 import org.phantancy.fgocalc.data.BuffData;
 import org.phantancy.fgocalc.data.CalcRepository;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.data.InfoBuilder;
+import org.phantancy.fgocalc.data.NoblePhantasmRepository;
 import org.phantancy.fgocalc.entity.BuffInputEntity;
 import org.phantancy.fgocalc.entity.CardPickEntity;
-import org.phantancy.fgocalc.entity.InputData;
+import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.InfoEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.OneTurnResult;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-import static org.phantancy.fgocalc.common.ParamsMerger.mergeDmgPositionMod;
-import static org.phantancy.fgocalc.common.ParamsMerger.mergecardDmgMultiplier;
+import static org.phantancy.fgocalc.common.ParamsUtil.mergeDmgPositionMod;
+import static org.phantancy.fgocalc.common.ParamsUtil.mergecardDmgMultiplier;
 
 //计算Activity ViewModel
 public class CalcViewModel extends AndroidViewModel {
@@ -57,42 +47,35 @@ public class CalcViewModel extends AndroidViewModel {
     //经验列表
     List<SvtExpEntity> svtExpEntities;
     //输入的数据，采集用户输入数据
-    public InputData inputData;
+    public CalcEntity calcEntity;
 
+    //等级atk
     private int atkLv = 0;
+    //礼装atk
     private int atkEssence = 0;
+    //芙芙atk
     private int atkFou = 0;
+    //默认atk
     private int atkDefault = 0;
-    private int hpDefault = 0;
-    private int hpLeft = 0;
 
     public String getAtkDefaultKey() {
         return atkDefault + "";
     }
 
+    //等级hp
+    private int hpLv = 0;
     //默认hp
+    private int hpDefault = 0;
+
     public String getHpDefaultKey() {
         return hpDefault + "";
     }
 
     //剩余hp
+    private int hpLeft = 0;
+
     public String getHpLeftKey() {
         return hpLeft + "";
-    }
-
-    private int hpLv = 0;
-
-    public void setServant(ServantEntity servant) {
-        this.servant = servant;
-        setSvtExpEntities();
-        atkLv = servant.atkDefault;
-        atkDefault = servant.atkDefault;
-        hpDefault = servant.hpDefault;
-        hpLeft = servant.hpDefault;
-    }
-
-    public ServantEntity getServant() {
-        return servant;
     }
 
     //当前页
@@ -102,12 +85,28 @@ public class CalcViewModel extends AndroidViewModel {
         return mCurrentPage;
     }
 
+    //数据源
     private CalcRepository calcRepository;
+    private NoblePhantasmRepository npRepository;
 
+    //入口
     public CalcViewModel(Application app) {
         super(app);
         calcRepository = new CalcRepository(app);
-        inputData = new InputData();
+        npRepository = new NoblePhantasmRepository(app);
+        calcEntity = new CalcEntity();
+    }
+
+    public void setServant(ServantEntity servant) {
+        this.servant = servant;
+        atkLv = servant.atkDefault;
+        atkDefault = servant.atkDefault;
+        hpDefault = servant.hpDefault;
+        hpLeft = servant.hpDefault;
+    }
+
+    public ServantEntity getServant() {
+        return servant;
     }
 
     /**
@@ -211,8 +210,9 @@ public class CalcViewModel extends AndroidViewModel {
     //合计条件atk
     public int sumAtk() {
         Log.d(TAG, "atkLv:" + atkLv + " atkEssence:" + atkEssence + " atkFou:" + atkFou);
+        //等级atk+礼装atk+芙芙atk
         int res = atkLv + atkEssence + atkFou;
-        inputData.setAtk(res);
+        calcEntity.setAtk(res);
         return res;
     }
 
@@ -268,52 +268,59 @@ public class CalcViewModel extends AndroidViewModel {
         return 0;
     }
 
-    //获取从者经验数据
-    public void setSvtExpEntities() {
-        Flowable.create(new FlowableOnSubscribe<List<SvtExpEntity>>() {
-            @Override
-            public void subscribe(FlowableEmitter<List<SvtExpEntity>> emitter) throws Exception {
-                int id = servant.id;
-                emitter.onNext(calcRepository.getSvtExpList(id));
-                emitter.onComplete();
-            }
-        }, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<List<SvtExpEntity>>() {
-                    @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(Long.MAX_VALUE);
-                    }
-
-                    @Override
-                    public void onNext(List<SvtExpEntity> svtExpEntities) {
-                        CalcViewModel.this.svtExpEntities = svtExpEntities;
-                    }
-
-                    @Override
-                    public void onError(Throwable t) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+    //数据库查询从者等级数据
+    public void setSvtExpEntities(List<SvtExpEntity> exps) {
+        if (exps != null) {
+            this.svtExpEntities = exps;
+        }
+//        Flowable.create(new FlowableOnSubscribe<List<SvtExpEntity>>() {
+//            @Override
+//            public void subscribe(FlowableEmitter<List<SvtExpEntity>> emitter) throws Exception {
+//                int id = servant.id;
+//                emitter.onNext(calcRepository.getSvtExpList(id));
+//                emitter.onComplete();
+//            }
+//        }, BackpressureStrategy.BUFFER).subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Subscriber<List<SvtExpEntity>>() {
+//                    @Override
+//                    public void onSubscribe(Subscription s) {
+//                        s.request(Long.MAX_VALUE);
+//                    }
+//
+//                    @Override
+//                    public void onNext(List<SvtExpEntity> svtExpEntities) {
+//                        CalcViewModel.this.svtExpEntities = svtExpEntities;
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable t) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
 
-    public List<SvtExpEntity> getSvtExpEntities() {
-        return svtExpEntities;
+    public LiveData<List<SvtExpEntity>> getSvtExpEntities() {
+        return calcRepository.getSvtExpList(servant.id);
+    }
+
+    //数据库查询宝具信息
+    public LiveData<List<NoblePhantasmEntity>> getNPEntities(int svtId) {
+        return npRepository.getNoblePhantasmEntities(svtId);
     }
 
     //todo 保存条件数据
-    public void saveCondition() {
-        inputData.setSavedCondition(true);
+    public void saveCondition(String atk, String hp, String hpLeft) {
+        calcEntity.setSavedCondition(true);
         //职阶相性
-
-        Log.d(TAG, "职阶相性：" + inputData.getAffinityType());
+        Log.d(TAG, "职阶相性：" + calcEntity.getAffinityMod());
         //阵营相性
-        Log.d(TAG, "阵营相性：" + inputData.getAttributeType());
+        Log.d(TAG, "阵营相性：" + calcEntity.getAttributeMod());
         /**
          * 宝具倍率问题
          */
@@ -323,15 +330,15 @@ public class CalcViewModel extends AndroidViewModel {
         /**
          * atk问题
          */
-        //芙芙atk
-        //礼装atk
-        //等级
         //atk
-        Log.d(TAG, "atk：" + inputData.getAtk());
+        calcEntity.setAtk(Double.parseDouble(atk));
+        Log.d(TAG, "atk：" + calcEntity.getAtk());
         //总hp
-        Log.d(TAG, "总hp:" + inputData.getHp());
+        calcEntity.setHp(Double.parseDouble(hp));
+        Log.d(TAG, "总hp:" + calcEntity.getHp());
         //剩余hp
-        Log.d(TAG, "剩余hp：" + inputData.getHpLeft());
+        calcEntity.setHpLeft(Double.parseDouble(hpLeft));
+        Log.d(TAG, "剩余hp：" + calcEntity.getHpLeft());
         /**
          * 敌方单位设置
          */
@@ -339,6 +346,17 @@ public class CalcViewModel extends AndroidViewModel {
         //敌方1
         //敌方2
         //敌方3
+    }
+
+    //保存职阶克制
+    public void saveAffinity(double affinityMod) {
+        calcEntity.setAffinityMod(affinityMod);
+
+    }
+
+    //保存阵营克制
+    public void saveAttribute(double attributeMod) {
+        calcEntity.setAttributeMod(attributeMod);
     }
 
     /**
@@ -434,19 +452,19 @@ public class CalcViewModel extends AndroidViewModel {
     public void setNpDmgMultiplier(NoblePhantasmEntity it, int lv) {
         switch (lv) {
             case 0:
-                inputData.setNpDmgMultiplier(it.npLv1);
+                calcEntity.setNpDmgMultiplier(it.npLv1);
                 break;
             case 1:
-                inputData.setNpDmgMultiplier(it.npLv2);
+                calcEntity.setNpDmgMultiplier(it.npLv2);
                 break;
             case 2:
-                inputData.setNpDmgMultiplier(it.npLv3);
+                calcEntity.setNpDmgMultiplier(it.npLv3);
                 break;
             case 3:
-                inputData.setNpDmgMultiplier(it.npLv4);
+                calcEntity.setNpDmgMultiplier(it.npLv4);
                 break;
             case 4:
-                inputData.setNpDmgMultiplier(it.npLv5);
+                calcEntity.setNpDmgMultiplier(it.npLv5);
                 break;
         }
     }
@@ -457,7 +475,7 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
-        inputData.setSavedBuff(true);
+        calcEntity.setSavedBuff(true);
         SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String, Double>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
@@ -472,7 +490,7 @@ public class CalcViewModel extends AndroidViewModel {
                     break;
             }
         }
-        inputData.setBuffMap(buffMap);
+        calcEntity.setBuffMap(buffMap);
     }
 
     /**
@@ -493,9 +511,9 @@ public class CalcViewModel extends AndroidViewModel {
         this.pickedCards = pickedCards;
         //计算伤害
         if (pickedCards != null && pickedCards.size() == 3) {
-            inputData.setCardType1(pickedCards.get(0).getName());
-            inputData.setCardType2(pickedCards.get(1).getName());
-            inputData.setCardType3(pickedCards.get(2).getName());
+            calcEntity.setCardType1(pickedCards.get(0).getName());
+            calcEntity.setCardType2(pickedCards.get(1).getName());
+            calcEntity.setCardType3(pickedCards.get(2).getName());
             //todo 完整计算结果
 //            OneTurnResult x = oneTurnDmg(servant,inputData);
 //            String dmgResult = LogManager.resultLog(inputData,x);
@@ -516,11 +534,11 @@ public class CalcViewModel extends AndroidViewModel {
 
 
     //calc dmg
-    private OneTurnResult oneTurnDmg(ServantEntity svt, InputData data) {
+    private OneTurnResult oneTurnDmg(ServantEntity svt, CalcEntity data) {
         //同色
-        inputData.setSameColor(ParamsMerger.isCardsSameColor(data.getCardType1(), data.getCardType2(), data.getCardType3()));
+        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(data.getCardType1(), data.getCardType2(), data.getCardType3()));
         //红链
-        inputData.setBusterChain(ParamsMerger.isCardsBusterChain(data.getCardType1(), data.getCardType2(), data.getCardType3()));
+        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(data.getCardType1(), data.getCardType2(), data.getCardType3()));
         //伤害随机
         double dmgRandomMax = 1.1;
         double dmgRandomMin = 0.9;
@@ -555,55 +573,55 @@ public class CalcViewModel extends AndroidViewModel {
     //计算一张卡的伤害
     private double oneCardDmg(String cardType, int position, double random) {
         //判断卡片类型，宝具卡或普攻卡
-        return ParamsMerger.isNp(cardType) ? dmg(cardType, position, random) : npDmg();
+        return ParamsUtil.isNp(cardType) ? dmg(cardType, position, random) : npDmg();
     }
 
     //Todo 普攻伤害
     private double dmg(String cardType, int position, double random) {
-        String cardType1 = inputData.getCardType1();
-        boolean isSameColor = inputData.isSameColor();
-        boolean isBusterChain = inputData.isBusterChain();
+        String cardType1 = calcEntity.getCardType1();
+        boolean isSameColor = calcEntity.isSameColor();
+        boolean isBusterChain = calcEntity.isBusterChain();
         //atk
-        double atk = inputData.getAtk();
+        double atk = calcEntity.getAtk();
         //卡牌伤害倍率
         double cardDmgMultiplier = mergecardDmgMultiplier(cardType);
         //位置补正
         double positionMod = mergeDmgPositionMod(position);
         //卡牌buff(魔放)
-        double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
-        double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
-        double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
-        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
+        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
+        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
+        double effectiveBuff = ParamsUtil.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
         //首卡加成
-        double firstCardMod = ParamsMerger.mergeDmgFirstCardMod(cardType1);
+        double firstCardMod = ParamsUtil.mergeDmgFirstCardMod(cardType1);
         //职阶系数
-        double classAtkMod = ParamsMerger.mergeclassAtkMod(servant.classType);
+        double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsMerger.mergeAffinityMod(inputData.getAffinityType());
+        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
         //阵营克制
-        double attributeMod = ParamsMerger.mergeAttributeMod(inputData.getAttributeType());
+        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
         //攻击buff
-        double atkBuff = ParamsMerger.mergeBuffDebuff(inputData.getAtkBuff(), inputData.getAtkDown());
+        double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkBuff(), calcEntity.getAtkDown());
         //防御buff
-        double defBuff = ParamsMerger.mergeBuffDebuff(inputData.getDefUp(), inputData.getDefDown());
+        double defBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
         //特攻
-        double specialBuff = inputData.getSpecialBuff();
+        double specialBuff = calcEntity.getSpecialBuff();
         //特防
-        double specialDefBuff = inputData.getSpecialDefBuff();
+        double specialDefBuff = calcEntity.getSpecialDefBuff();
         //暴击buff
         //判断暴击
-        boolean isCritical = ParamsMerger.isCritical(position, inputData.isCritical1(), inputData.isCritical2(), inputData.isCritical3());
-        double criticalBuff = ParamsMerger.mergeCriticalBuff(isCritical, cardType, inputData.getCriticalUp(),
-                inputData.getCriticalDown(), inputData.getCriticalQuick(), inputData.getCriticalArts(), inputData.getCriticalBuster());
+        boolean isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(), calcEntity.isCritical2(), calcEntity.isCritical3());
+        double criticalBuff = ParamsUtil.mergeCriticalBuff(isCritical, cardType, calcEntity.getCriticalUp(),
+                calcEntity.getCriticalDown(), calcEntity.getCriticalQuick(), calcEntity.getCriticalArts(), calcEntity.getCriticalBuster());
         //暴击补正
-        double criticalMod = ParamsMerger.mergeDmgCriticalMod(isCritical);
-        double exDmgBuff = ParamsMerger.mergeExDmgBuff(cardType, isSameColor);
+        double criticalMod = ParamsUtil.mergeDmgCriticalMod(isCritical);
+        double exDmgBuff = ParamsUtil.mergeExDmgBuff(cardType, isSameColor);
         //固伤
-        double selfDmgBuff = inputData.getSelfDmgBuff();
+        double selfDmgBuff = calcEntity.getSelfDmgBuff();
         //固防
-        double selfDmgDefBuff = inputData.getSelfDmgDefBuff();
+        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
         //红链
-        double busterChainMod = ParamsMerger.mergeBusterChainMod(cardType, isBusterChain);
+        double busterChainMod = ParamsUtil.mergeBusterChainMod(cardType, isBusterChain);
 
         return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
@@ -615,20 +633,20 @@ public class CalcViewModel extends AndroidViewModel {
         /**
          * 如果未保存条件，初始化inputData
          */
-        if (!inputData.isSavedCondition()) {
-            inputData.setAtk(sumAtk());
-            inputData.setHp(hpDefault);
-            inputData.setHpLeft(hpLeft);
+        if (!calcEntity.isSavedCondition()) {
+            calcEntity.setAtk(sumAtk());
+            calcEntity.setHp(hpDefault);
+            calcEntity.setHpLeft(hpLeft);
             //职阶相性
-            inputData.setAffinityType(ConditionData.getAffinityKeys()[0]);
+            calcEntity.setAffinityType(ConditionData.getAffinityKeys()[0]);
             //阵营相性
-            inputData.setAttributeType(ConditionData.getAttributeKeys()[0]);
+            calcEntity.setAttributeType(ConditionData.getAttributeKeys()[0]);
         }
 
         /**
          * 如果未保存条件，初始化buffMap
          */
-        if (!inputData.isSavedBuff()) {
+        if (!calcEntity.isSavedBuff()) {
 
         }
 
@@ -636,9 +654,9 @@ public class CalcViewModel extends AndroidViewModel {
          * 需要3张卡判断的参数
          */
         //是否同色
-        inputData.setSameColor(ParamsMerger.isCardsSameColor(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
+        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()));
         //是否红链
-        inputData.setBusterChain(ParamsMerger.isCardsBusterChain(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3()));
+        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()));
         //伤害随机
         double dmgRandomMax = 1.1;
         double dmgRandomMin = 0.9;
@@ -646,34 +664,34 @@ public class CalcViewModel extends AndroidViewModel {
         //设置个平均值吧
         double random = dmgRandomAvg;
         //首卡类型，看染色
-        String cardType1 = inputData.getCardType1();
+        String cardType1 = calcEntity.getCardType1();
         //看看是不是同色卡链
-        boolean isSameColor = inputData.isSameColor();
+        boolean isSameColor = calcEntity.isSameColor();
         //看看是不是三红加固伤
-        boolean isBusterChain = inputData.isBusterChain();
+        boolean isBusterChain = calcEntity.isBusterChain();
         //宝具卡位置
-        int npPosition = ParamsMerger.getNpPosition(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3());
+        int npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3());
         /**
          * 单独卡计算的部分
          */
         //选个卡计算吧
-        String cardType = inputData.getCardType1();
+        String cardType = calcEntity.getCardType1();
         int position = 1;
         //atk
-        double atk = inputData.getAtk();
+        double atk = calcEntity.getAtk();
         //卡牌伤害倍率
-        double cardDmgMultiplier = ParamsMerger.mergecardDmgMultiplier(cardType);
+        double cardDmgMultiplier = ParamsUtil.mergecardDmgMultiplier(cardType);
         //位置补正
-        double positionMod = ParamsMerger.mergeDmgPositionMod(position);
+        double positionMod = ParamsUtil.mergeDmgPositionMod(position);
         /**
          * 卡牌buff(魔放)
          * 1，被动buff，这个稳
          * 2，全局buff，输入的全上
          * 3，判断宝具前，宝具后buff，有选择地上
          */
-        double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
-        double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
-        double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
+        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
+        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
+        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
         //判断宝具卡前还是后，按需取buff
         if (position < npPosition) {
             //todo 宝具前buff
@@ -688,41 +706,41 @@ public class CalcViewModel extends AndroidViewModel {
         }
 
         //最终用于计算的魔放结果
-        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        double effectiveBuff = ParamsUtil.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
         //首卡加成
-        double firstCardMod = ParamsMerger.mergeDmgFirstCardMod(cardType1);
+        double firstCardMod = ParamsUtil.mergeDmgFirstCardMod(cardType1);
         //职阶系数
-        double classAtkMod = ParamsMerger.mergeclassAtkMod(servant.classType);
+        double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsMerger.mergeAffinityMod(inputData.getAffinityType());
+        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
         //阵营克制
-        double attributeMod = ParamsMerger.mergeAttributeMod(inputData.getAttributeType());
+        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
         //攻击buff
-        double atkBuff = ParamsMerger.mergeBuffDebuff(inputData.getAtkBuff(), inputData.getAtkDown());
+        double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkBuff(), calcEntity.getAtkDown());
         if (position < npPosition) {
             atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_BE);
         } else {
             atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_AF);
         }
         //防御buff
-        double defBuff = ParamsMerger.mergeBuffDebuff(inputData.getDefUp(), inputData.getDefDown());
+        double defBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
         //特攻
-        double specialBuff = inputData.getSpecialBuff();
+        double specialBuff = calcEntity.getSpecialBuff();
         //特防
-        double specialDefBuff = inputData.getSpecialDefBuff();
+        double specialDefBuff = calcEntity.getSpecialDefBuff();
         //暴击buff
         //判断暴击
-        boolean isCritical = ParamsMerger.isCritical(position, inputData.isCritical1(), inputData.isCritical2(), inputData.isCritical3());
-        double criticalBuff = ParamsMerger.mergeCriticalBuff(isCritical, cardType, inputData.getCriticalUp(),
-                inputData.getCriticalDown(), inputData.getCriticalQuick(), inputData.getCriticalArts(), inputData.getCriticalBuster());
+        boolean isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(), calcEntity.isCritical2(), calcEntity.isCritical3());
+        double criticalBuff = ParamsUtil.mergeCriticalBuff(isCritical, cardType, calcEntity.getCriticalUp(),
+                calcEntity.getCriticalDown(), calcEntity.getCriticalQuick(), calcEntity.getCriticalArts(), calcEntity.getCriticalBuster());
         if (position < npPosition) {
-            criticalBuff = criticalBuff + ParamsMerger.mergeCriticalBuff(isCritical, cardType,
+            criticalBuff = criticalBuff + ParamsUtil.mergeCriticalBuff(isCritical, cardType,
                     safeGetBuffMap(BuffData.CRITICAL_UP_BE),
                     0, safeGetBuffMap(BuffData.CRITICAL_QUICK_UP_BE),
                     safeGetBuffMap(BuffData.CRITICAL_ARTS_UP_BE),
                     safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP_BE));
         } else {
-            criticalBuff = criticalBuff + ParamsMerger.mergeCriticalBuff(isCritical, cardType,
+            criticalBuff = criticalBuff + ParamsUtil.mergeCriticalBuff(isCritical, cardType,
                     safeGetBuffMap(BuffData.CRITICAL_UP_AF),
                     0, safeGetBuffMap(BuffData.CRITICAL_QUICK_UP_AF),
                     safeGetBuffMap(BuffData.CRITICAL_ARTS_UP_AF),
@@ -730,14 +748,14 @@ public class CalcViewModel extends AndroidViewModel {
         }
 
         //暴击补正
-        double criticalMod = ParamsMerger.mergeDmgCriticalMod(isCritical);
-        double exDmgBuff = ParamsMerger.mergeExDmgBuff(cardType, isSameColor);
+        double criticalMod = ParamsUtil.mergeDmgCriticalMod(isCritical);
+        double exDmgBuff = ParamsUtil.mergeExDmgBuff(cardType, isSameColor);
         //固伤
-        double selfDmgBuff = inputData.getSelfDmgBuff();
+        double selfDmgBuff = calcEntity.getSelfDmgBuff();
         //固防
-        double selfDmgDefBuff = inputData.getSelfDmgDefBuff();
+        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
         //红链
-        double busterChainMod = ParamsMerger.mergeBusterChainMod(cardType, isBusterChain);
+        double busterChainMod = ParamsUtil.mergeBusterChainMod(cardType, isBusterChain);
 
         return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
@@ -749,20 +767,20 @@ public class CalcViewModel extends AndroidViewModel {
         /**
          * 如果未保存条件，初始化inputData
          */
-        if (!inputData.isSavedCondition()) {
-            inputData.setAtk(sumAtk());
-            inputData.setHp(hpDefault);
-            inputData.setHpLeft(hpLeft);
+        if (!calcEntity.isSavedCondition()) {
+            calcEntity.setAtk(sumAtk());
+            calcEntity.setHp(hpDefault);
+            calcEntity.setHpLeft(hpLeft);
             //职阶相性
-            inputData.setAffinityType(ConditionData.getAffinityKeys()[0]);
+            calcEntity.setAffinityType(ConditionData.getAffinityKeys()[0]);
             //阵营相性
-            inputData.setAttributeType(ConditionData.getAttributeKeys()[0]);
+            calcEntity.setAttributeType(ConditionData.getAttributeKeys()[0]);
         }
 
         /**
          * 如果未保存条件，初始化buffMap
          */
-        if (!inputData.isSavedBuff()) {
+        if (!calcEntity.isSavedBuff()) {
 
         }
         /**
@@ -775,17 +793,17 @@ public class CalcViewModel extends AndroidViewModel {
         //设置个平均值吧
         double random = dmgRandomAvg;
         //宝具卡位置
-        int npPosition = ParamsMerger.getNpPosition(inputData.getCardType1(), inputData.getCardType2(), inputData.getCardType3());
+        int npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3());
         /**
          * 单独卡计算的部分
          */
         //选个卡计算吧
-        String cardType = inputData.getCardType2();
+        String cardType = calcEntity.getCardType2();
         int position = 2;
         //atk
-        double atk = inputData.getAtk();
+        double atk = calcEntity.getAtk();
         //宝具倍率
-        double npDmgMultiplier = inputData.getNpDmgMultiplier();
+        double npDmgMultiplier = calcEntity.getNpDmgMultiplier();
         //卡牌伤害倍率
         double cardDmgMultiplier = mergecardDmgMultiplier(cardType);
         /**
@@ -794,9 +812,9 @@ public class CalcViewModel extends AndroidViewModel {
          * 2，全局buff，输入的全上
          * 3，判断宝具前，宝具后buff，有选择地上
          */
-        double quickBuff = servant.quickBuffN + inputData.getQuickBuffP();
-        double artsBuff = servant.artsBuffN + inputData.getArtsBuffP();
-        double busterBuff = servant.busterBuffN + inputData.getBusterBuffP();
+        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
+        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
+        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
         //判断宝具卡前还是后，按需取buff
         if (position < npPosition) {
             //todo 宝具前buff
@@ -810,40 +828,40 @@ public class CalcViewModel extends AndroidViewModel {
             busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_AF);
         }
         //最终用于计算的魔放结果
-        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        double effectiveBuff = ParamsUtil.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
 
         //职阶系数
-        double classAtkMod = ParamsMerger.mergeclassAtkMod(servant.classType);
+        double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsMerger.mergeAffinityMod(inputData.getAffinityType());
+        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
         //阵营克制
-        double attributeMod = ParamsMerger.mergeAttributeMod(inputData.getAttributeType());
+        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
         //攻击buff
-        double atkBuff = ParamsMerger.mergeBuffDebuff(inputData.getAtkUp(), inputData.getAtkDown());
+        double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkUp(), calcEntity.getAtkDown());
         if (position < npPosition) {
             atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_BE);
         } else {
             atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_AF);
         }
         //防御buff
-        double defBuff = ParamsMerger.mergeBuffDebuff(inputData.getDefUp(), inputData.getDefDown());
+        double defBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
         //特攻
-        double specialBuff = inputData.getSpecialBuff();
+        double specialBuff = calcEntity.getSpecialBuff();
         //特防
-        double specialDefBuff = inputData.getSpecialDefBuff();
+        double specialDefBuff = calcEntity.getSpecialDefBuff();
         //宝具威力
-        double npPowerBuff = ParamsMerger.mergeBuffDebuff(inputData.getNpPowerUp(), inputData.getNpPowerDown());
+        double npPowerBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getNpPowerUp(), calcEntity.getNpPowerDown());
         //宝具特攻
-        double npSpecialBuff = inputData.getNpSpecialBuff();
+        double npSpecialBuff = calcEntity.getNpSpecialBuff();
         //宝具特攻不能为0
         if (npSpecialBuff == 0) {
             npSpecialBuff = 1;
         }
         //固伤
-        double selfDmgBuff = inputData.getSelfDmgBuff();
+        double selfDmgBuff = calcEntity.getSelfDmgBuff();
         //固防
-        double selfDmgDefBuff = inputData.getSelfDmgDefBuff();
-        Log.d(TAG,MessageFormat.format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} ",atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
+        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
+        Log.d(TAG, MessageFormat.format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} ", atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff,
                 npPowerBuff, npSpecialBuff, selfDmgBuff, selfDmgDefBuff));
         return Formula.npDamageFormula(atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
@@ -967,10 +985,10 @@ public class CalcViewModel extends AndroidViewModel {
 
     //安全取buff
     public double safeGetBuffMap(String key) {
-        if (inputData.getBuffMap().get(key) == null) {
+        if (calcEntity.getBuffMap().get(key) == null) {
             return 0;
         } else {
-            return inputData.getBuffMap().get(key);
+            return calcEntity.getBuffMap().get(key);
         }
     }
 

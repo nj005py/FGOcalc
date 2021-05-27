@@ -7,7 +7,28 @@ import org.phantancy.fgocalc.common.Constant;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InputData {
+//用于计算的数据
+public class CalcEntity {
+    /**
+     * 条件
+     */
+    //职阶克制
+    private double affinityMod = 2.0;
+    //阵营克制
+    private double attributeMod = 1.0;
+    //选择宝具
+    private NoblePhantasmEntity npEntity;
+    //todo 宝具lv
+    //总atk
+    private double atk = 0;
+    //总hp
+    private double hp = 0;
+    //剩余hp
+    private double hpLeft = 0;
+    //敌方情况
+    private double enemyNpMod;
+    private double[] enemysNpMod;
+
     //ui数据
     //选卡类型，
     private String cardType1;
@@ -16,26 +37,21 @@ public class InputData {
     private String cardType4 = Constant.CARD_EX;
 
     //1-3位置是否暴击
-    private boolean isCritical1;
-    private boolean isCritical2;
-    private boolean isCritical3;
+    private boolean isCritical1 = false;
+    private boolean isCritical2 = false;
+    private boolean isCritical3 = false;
 
     //1-4位置是否过量伤害
-    private boolean isOverkill1;
-    private boolean isOverkill2;
-    private boolean isOverkill3;
-    private boolean isOverkill4;
+    private boolean isOverkill1 = false;
+    private boolean isOverkill2 = false;
+    private boolean isOverkill3 = false;
+    private boolean isOverkill4 = false;
 
     //敌人
     private String[] enemyClasses;
     private String targetEnemyClass;
 
-    //总atk
-    private double atk;
-    //总hp
-    private double hp;
-    //剩余hp
-    private double hpLeft;
+
     //是否保存条件
     private boolean isSavedCondition = false;
     //是否保存buff
@@ -44,8 +60,7 @@ public class InputData {
     private double quickBuffP;
     private double artsBuffP;
     private double busterBuffP;
-    private String affinityType;
-    private String attributeType;
+
     private double atkUp;
     private double atkDown;
     private double defUp;
@@ -74,12 +89,10 @@ public class InputData {
     private boolean isSameColor;
     private boolean isBusterChain;
     private double random;
-    private double enemyNpMod;
-    private double[] enemysNpMod;
+
     //输入buff数据
     private SimpleArrayMap<String,Double> buffMap;
-    //选择宝具
-    private NoblePhantasmEntity npEntity;
+
 
     public NoblePhantasmEntity getNpEntity() {
         return npEntity;
@@ -252,20 +265,20 @@ public class InputData {
         this.busterBuffP = busterBuffP;
     }
 
-    public String getAffinityType() {
-        return affinityType;
+    public double getAffinityMod() {
+        return affinityMod;
     }
 
-    public void setAffinityType(String affinityType) {
-        this.affinityType = affinityType;
+    public void setAffinityMod(double affinityMod) {
+        this.affinityMod = affinityMod;
     }
 
-    public String getAttributeType() {
-        return attributeType;
+    public double getAttributeMod() {
+        return attributeMod;
     }
 
-    public void setAttributeType(String attributeType) {
-        this.attributeType = attributeType;
+    public void setAttributeMod(double attributeMod) {
+        this.attributeMod = attributeMod;
     }
 
     public double getAtkUp() {

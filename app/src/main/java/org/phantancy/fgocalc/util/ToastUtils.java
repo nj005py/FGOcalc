@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import org.phantancy.fgocalc.common.App;
+
 /**
  * Created by PY on 2017/3/3.
  */
@@ -51,5 +53,11 @@ public class ToastUtils {
 
     public static void displayCustomToast(Context context, View viewId, CharSequence content) {
         displayCustomToast(context, viewId, content, Toast.LENGTH_LONG);
+    }
+
+    public static void showToast(CharSequence content) {
+        if (isDisplayToas) {
+            Toast.makeText(App.getAppContext(), content, Toast.LENGTH_SHORT).show();
+        }
     }
 }

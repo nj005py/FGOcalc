@@ -1,6 +1,6 @@
 package org.phantancy.fgocalc.common;
 
-import org.phantancy.fgocalc.entity.InputData;
+import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.OneTurnResult;
 
 import java.text.DecimalFormat;
@@ -19,7 +19,7 @@ public class LogManager {
         return mergeLog(mergeLog(conditionLog, buffLog), resultLog);
     }
 
-    public static String logCondition(InputData data) {
+    public static String logCondition(CalcEntity data) {
         StringBuilder y = new StringBuilder();
 //        y.append(MessageFormat.format("职阶克制{0} 阵营克制{1}",data.affinityType,data.attributeType));
         return y.toString();
@@ -35,7 +35,7 @@ public class LogManager {
 //        return y.toString();
 //    }
 
-   public static String resultLog(InputData data, OneTurnResult x) {
+   public static String resultLog(CalcEntity data, OneTurnResult x) {
         //1.a卡伤害10000 ~ 10197,平均10002
         StringBuilder y = new StringBuilder();
         y.append(MessageFormat.format("1.{0}卡伤害{1} ~ {2},平均{3}", getCardDisplay(data.getCardType1()),

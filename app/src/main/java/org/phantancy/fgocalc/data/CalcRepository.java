@@ -3,6 +3,7 @@ package org.phantancy.fgocalc.data;
 import android.app.Application;
 import android.text.TextUtils;
 
+import androidx.lifecycle.LiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import com.google.gson.Gson;
@@ -78,7 +79,7 @@ public class CalcRepository {
 
 
     //获取经验列表
-    public List<SvtExpEntity> getSvtExpList(int svtId) {
+    public LiveData<List<SvtExpEntity>> getSvtExpList(int svtId) {
         return svtExpDao.getSvtExpList(svtId);
     }
 

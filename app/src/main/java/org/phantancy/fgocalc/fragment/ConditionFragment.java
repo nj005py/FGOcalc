@@ -20,6 +20,7 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
+import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import org.phantancy.fgocalc.viewmodel.ConditionViewModel;
 
@@ -53,17 +54,29 @@ public class ConditionFragment extends BaseFragment {
         super.onPause();
         //保存UI数据
         Log.d(TAG, "保存条件数据");
+        if (check()) {
+            String atk = binding.etAtkTotal.getText().toString();
+            String hp = binding.etHpTotal.getText().toString();
+            String hpLeft = binding.etHpLeft.getText().toString();
+            vm.saveCondition(atk, hp, hpLeft);
+        }
+
+    }
+
+    private boolean check() {
+        if (!TextUtils.isEmpty(binding.etAtkTotal.getText())) {
+            ToastUtils.showToast("atk不能为空");
+            return false;
+        }
         if (!TextUtils.isEmpty(binding.etHpTotal.getText())) {
-            vm.inputData.setHp(Double.parseDouble(binding.etHpTotal.getText().toString()));
-        } else {
-            vm.inputData.setHp(0d);
+            ToastUtils.showToast("hp不能为空");
+            return false;
         }
         if (!TextUtils.isEmpty(binding.etHpLeft.getText())) {
-            vm.inputData.setHpLeft(Double.parseDouble(binding.etHpLeft.getText().toString()));
-        } else {
-            vm.inputData.setHpLeft(0d);
+            ToastUtils.showToast("剩余hp不能为空");
+            return false;
         }
-        vm.saveCondition();
+        return true;
     }
 
     private void initView() {
@@ -72,12 +85,12 @@ public class ConditionFragment extends BaseFragment {
         binding.spAffinity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                vm.inputData.setAffinityType(ConditionData.getAffinityKeys()[position]);
+                vm.saveAffinity(ConditionData.getAffinityValues()[position]);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                vm.inputData.setAffinityType(ConditionData.getAffinityKeys()[0]);
+                vm.saveAffinity(ConditionData.getAffinityValues()[0]);
             }
         });
         //阵营相性
@@ -85,13 +98,13 @@ public class ConditionFragment extends BaseFragment {
         binding.spAttribute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                vm.inputData.setAttributeType(ConditionData.getAttributeKeys()[position]);
+                vm.saveAttribute(ConditionData.getAttributeValues()[position]);
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                vm.inputData.setAttributeType(ConditionData.getAttributeKeys()[0]);
+                vm.saveAttribute(ConditionData.getAttributeValues()[0]);
             }
         });
 
@@ -111,11 +124,11 @@ public class ConditionFragment extends BaseFragment {
             }
         });
         //礼装atk
-        setSpAdapter(binding.spEssenceAtk, ConditionData.essenceAtkKeys);
+        setSpAdapter(binding.spEssenceAtk, ConditionData.getEssenceAtkKeys());
         binding.spEssenceAtk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                binding.etAtkTotal.setText(vm.onEssenceAtkChanged(ConditionData.essenceAtkValues[position]));
+                binding.etAtkTotal.setText(vm.onEssenceAtkChanged(ConditionData.getEssenceAtkValues()[position]));
             }
 
             @Override
@@ -123,25 +136,30 @@ public class ConditionFragment extends BaseFragment {
 
             }
         });
-        //等级滑条
-        binding.famSbLvSvt.setProgress(vm.getRewardLv());
-        binding.famSbLvSvt.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
-            @Override
-            public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+        //等级滑条，数据库查询成功后初始化
+        vm.getSvtExpEntities().observe(getViewLifecycleOwner(), (svtExpEntities -> {
+            //进度条最大值
+            binding.famSbLvSvt.setProgress(vm.getRewardLv());
+            vm.setSvtExpEntities(svtExpEntities);
+            binding.famSbLvSvt.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
+                @Override
+                public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
 
-            }
+                }
 
-            @Override
-            public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
-                binding.etAtkTotal.setText(vm.onAtkLvChanged(progress));
-                binding.etHpTotal.setText(vm.onHpLvChanged(progress));
-            }
+                @Override
+                public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+                    binding.etAtkTotal.setText(vm.onAtkLvChanged(progress));
+                    binding.etHpTotal.setText(vm.onHpLvChanged(progress));
+                }
 
-            @Override
-            public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+                @Override
+                public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
 
-            }
-        });
+                }
+            });
+        }));
+
         //atk
         binding.etAtkTotal.setText(vm.getAtkDefaultKey());
         //总hp
@@ -184,7 +202,7 @@ public class ConditionFragment extends BaseFragment {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (npList != null) {
                         NoblePhantasmEntity it = npList.get(position);
-                        vm.inputData.setNpEntity(it);
+                        vm.calcEntity.setNpEntity(it);
                         vm.parseNpBuff(it, binding.spNpLv.getSelectedItem().toString());
                         vm.parsePickCards(it);
                     }
@@ -193,7 +211,7 @@ public class ConditionFragment extends BaseFragment {
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                     if (npList != null) {
-                        vm.inputData.setNpEntity(npList.get(0));
+                        vm.calcEntity.setNpEntity(npList.get(0));
                         vm.parseNpBuff(npList.get(0), binding.spNpLv.getSelectedItem().toString());
                     }
                 }
@@ -203,11 +221,11 @@ public class ConditionFragment extends BaseFragment {
             binding.spNpLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (vm.inputData.getNpEntity() != null) {
+                    if (vm.calcEntity.getNpEntity() != null) {
                         //buff
-                        vm.parseNpBuff(vm.inputData.getNpEntity(), binding.spNpLv.getSelectedItem().toString());
+                        vm.parseNpBuff(vm.calcEntity.getNpEntity(), binding.spNpLv.getSelectedItem().toString());
                         //倍率
-                        vm.setNpDmgMultiplier(vm.inputData.getNpEntity(), position);
+                        vm.setNpDmgMultiplier(vm.calcEntity.getNpEntity(), position);
                     }
                 }
 

@@ -72,7 +72,7 @@ public class CalcActy extends BaseActy {
         //set viewpager
         CalcViewPagerAdapter pagerAdapter = new CalcViewPagerAdapter(this, fragments);
         binding.vpCalcPager.setAdapter(pagerAdapter);
-
+        binding.tlCalcTab.setTabMode(TabLayout.MODE_FIXED);
         new TabLayoutMediator(binding.tlCalcTab, binding.vpCalcPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

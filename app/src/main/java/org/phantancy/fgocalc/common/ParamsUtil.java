@@ -6,10 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 合并参数
- * 提供公式需要参数
+ * 参数处理工具
  */
-public class ParamsMerger {
+public class ParamsUtil {
     /**
      * 伤害计算
      * double atk,
@@ -121,14 +120,14 @@ public class ParamsMerger {
     }
 
     //职阶相性
-    public static double mergeAffinityMod(String affinity) {
-        return ConditionData.affinityMap.get(affinity);
-    }
+//    public static double mergeAffinityMod(String affinity) {
+//        return ConditionData.affinityMap.get(affinity);
+//    }
 
     //阵营相性
-    public static double mergeAttributeMod(String attribue) {
-        return ConditionData.attributeMap.get(attribue);
-    }
+//    public static double mergeAttributeMod(String attribue) {
+//        return ConditionData.attributeMap.get(attribue);
+//    }
 
     // double atkBuff,
     // double defBuff,

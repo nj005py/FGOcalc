@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.*
+import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.databinding.FragmentCalcContainerBinding
 
 class CalcContainerFragment : LazyFragment() {
@@ -29,21 +31,31 @@ class CalcContainerFragment : LazyFragment() {
         val adapter = CalcPagerAdapter(mActy, fragments)
         binding.vpCalc.adapter = adapter
         binding.vpCalc.orientation = ORIENTATION_VERTICAL
+        //true:滑动，false：禁止滑动
+        binding.vpCalc.isUserInputEnabled = false
         binding.vpCalc.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 when {
                     position == 0 -> {
-                        binding.btnUp.visibility = View.GONE
-                        binding.btnDown.visibility = View.VISIBLE
+                        //首页
+                        binding.btnUp.isEnabled = false
+                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.gray400))
+                        binding.btnDown.isEnabled = true
+                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
                     }
                     position == (fragments.size - 1) -> {
-                        binding.btnUp.visibility = View.VISIBLE
-                        binding.btnDown.visibility = View.GONE
+                        //尾页
+                        binding.btnUp.isEnabled = true
+                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
+                        binding.btnDown.isEnabled = false
+                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.gray400))
 
                     }
                     else -> {
-                        binding.btnUp.visibility = View.VISIBLE
-                        binding.btnDown.visibility = View.VISIBLE
+                        binding.btnUp.isEnabled = true
+                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
+                        binding.btnDown.isEnabled = true
+                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
                     }
                 }
             }

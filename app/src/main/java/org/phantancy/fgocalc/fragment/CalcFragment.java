@@ -95,43 +95,43 @@ public class CalcFragment extends BaseFragment {
         binding.cbOk1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setOverkill1(isChecked);
+                vm.calcEntity.setOverkill1(isChecked);
             }
         });
         binding.cbOk2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setOverkill2(isChecked);
+                vm.calcEntity.setOverkill2(isChecked);
             }
         });
         binding.cbOk3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setOverkill3(isChecked);
+                vm.calcEntity.setOverkill3(isChecked);
             }
         });
         binding.cbOk4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setOverkill4(isChecked);
+                vm.calcEntity.setOverkill4(isChecked);
             }
         });
         binding.cbCr1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setCritical1(isChecked);
+                vm.calcEntity.setCritical1(isChecked);
             }
         });
         binding.cbCr1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setCritical2(isChecked);
+                vm.calcEntity.setCritical2(isChecked);
             }
         });
         binding.cbCr1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                vm.inputData.setCritical3(isChecked);
+                vm.calcEntity.setCritical3(isChecked);
             }
         });
     }

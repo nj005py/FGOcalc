@@ -103,6 +103,10 @@ public class CalcViewModel extends AndroidViewModel {
         atkDefault = servant.atkDefault;
         hpDefault = servant.hpDefault;
         hpLeft = servant.hpDefault;
+        //初始化计算参数
+        calcEntity.setAtk(sumAtk());
+        calcEntity.setHp(hpDefault);
+        calcEntity.setHpLeft(hpLeft);
     }
 
     public ServantEntity getServant() {
@@ -599,7 +603,7 @@ public class CalcViewModel extends AndroidViewModel {
         //职阶克制
         double affinityMod = calcEntity.getAffinityMod();
         //阵营克制
-        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
+        double attributeMod = calcEntity.getAttributeMod();
         //攻击buff
         double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkBuff(), calcEntity.getAtkDown());
         //防御buff
@@ -630,19 +634,6 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 笼统计算伤害
     private double calcDmg() {
-        /**
-         * 如果未保存条件，初始化inputData
-         */
-        if (!calcEntity.isSavedCondition()) {
-            calcEntity.setAtk(sumAtk());
-            calcEntity.setHp(hpDefault);
-            calcEntity.setHpLeft(hpLeft);
-            //职阶相性
-            calcEntity.setAffinityType(ConditionData.getAffinityKeys()[0]);
-            //阵营相性
-            calcEntity.setAttributeType(ConditionData.getAttributeKeys()[0]);
-        }
-
         /**
          * 如果未保存条件，初始化buffMap
          */
@@ -712,9 +703,9 @@ public class CalcViewModel extends AndroidViewModel {
         //职阶系数
         double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
+        double affinityMod = calcEntity.getAffinityMod();
         //阵营克制
-        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
+        double attributeMod = calcEntity.getAttributeMod();
         //攻击buff
         double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkBuff(), calcEntity.getAtkDown());
         if (position < npPosition) {
@@ -764,19 +755,6 @@ public class CalcViewModel extends AndroidViewModel {
 
     //todo 宝具伤害
     private double npDmg() {
-        /**
-         * 如果未保存条件，初始化inputData
-         */
-        if (!calcEntity.isSavedCondition()) {
-            calcEntity.setAtk(sumAtk());
-            calcEntity.setHp(hpDefault);
-            calcEntity.setHpLeft(hpLeft);
-            //职阶相性
-            calcEntity.setAffinityType(ConditionData.getAffinityKeys()[0]);
-            //阵营相性
-            calcEntity.setAttributeType(ConditionData.getAttributeKeys()[0]);
-        }
-
         /**
          * 如果未保存条件，初始化buffMap
          */
@@ -833,9 +811,9 @@ public class CalcViewModel extends AndroidViewModel {
         //职阶系数
         double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
+        double affinityMod = calcEntity.getAffinityMod();
         //阵营克制
-        double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
+        double attributeMod = calcEntity.getAttributeMod();
         //攻击buff
         double atkBuff = ParamsUtil.mergeBuffDebuff(calcEntity.getAtkUp(), calcEntity.getAtkDown());
         if (position < npPosition) {

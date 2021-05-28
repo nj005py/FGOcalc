@@ -18,7 +18,7 @@ import org.phantancy.fgocalc.dialog.LoadingDialog;
 
 
 /**
- * Created by PY on 2017/2/7.
+ * Created by PY on 2017/2/7.new
  */
 public class BaseFragment extends Fragment {
 

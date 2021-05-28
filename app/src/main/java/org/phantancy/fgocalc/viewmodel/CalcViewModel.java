@@ -597,7 +597,7 @@ public class CalcViewModel extends AndroidViewModel {
         //职阶系数
         double classAtkMod = ParamsUtil.mergeclassAtkMod(servant.classType);
         //职阶克制
-        double affinityMod = ParamsUtil.mergeAffinityMod(calcEntity.getAffinityType());
+        double affinityMod = calcEntity.getAffinityMod();
         //阵营克制
         double attributeMod = ParamsUtil.mergeAttributeMod(calcEntity.getAttributeType());
         //攻击buff

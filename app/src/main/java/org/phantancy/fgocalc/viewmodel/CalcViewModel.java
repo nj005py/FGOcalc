@@ -369,8 +369,8 @@ public class CalcViewModel extends AndroidViewModel {
 
     //缓存上次buff
     public SimpleArrayMap<String, Double> preNpBuff = new SimpleArrayMap<>();
-
     /**
+     *
      * @param it 宝具
      * @param lv 宝具等级
      */

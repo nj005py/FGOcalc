@@ -1,7 +1,5 @@
 package org.phantancy.fgocalc.common;
 
-import org.phantancy.fgocalc.data.ConditionData;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +54,8 @@ public class ParamsUtil {
         put(Constant.NP_BUSTER, 1.5);
     }};
 
-    public static double mergecardDmgMultiplier(String cardType) {
+    //判断卡牌倍率
+    public static double getCardDmgMultiplier(String cardType) {
         return cardDmgMultiplierMap.get(cardType);
     }
 
@@ -69,13 +68,13 @@ public class ParamsUtil {
     }};
 
     //位置补正
-    public static double mergeDmgPositionMod(int position) {
+    public static double getDmgPositionMod(int position) {
         return dmgPositionModMap.get(position);
     }
 
     // double effectiveBuff,
-    //魔放
-    public static double mergeEffectiveBuff(String cardColor, double quick, double arts, double buster) {
+    //判断有效魔放
+    public static double getEffectiveBuff(String cardColor, double quick, double arts, double buster) {
         String x = getCardColor(cardColor);
         switch (x) {
             case Constant.COLOR_QUICK:
@@ -90,7 +89,8 @@ public class ParamsUtil {
     }
 
     // double firstCardMod,
-    public static double mergeDmgFirstCardMod(String firstcardType) {
+    //获取首卡补正
+    public static double getDmgFirstCardMod(String firstcardType) {
         return isBuster(firstcardType) ? 0.5 : 0;
     }
 
@@ -114,7 +114,7 @@ public class ParamsUtil {
         put("foreigner", 1.0);
     }};
 
-    public static double mergeclassAtkMod(String svtClass) {
+    public static double getClassAtkMod(String svtClass) {
         svtClass = svtClass.toLowerCase();
         return classAtkModMap.get(svtClass);
     }
@@ -136,35 +136,35 @@ public class ParamsUtil {
     // double selfDmgBuff,
     // double selfDmgDefBuff,
     // double npPowerBuff
-    public static double mergeBuffDebuff(double buff, double debuff) {
+    public static double getBuffDebuff(double buff, double debuff) {
         return buff - debuff;
     }
 
     // double criticalMod,
-    public static double mergeDmgCriticalMod(boolean isCritical) {
+    public static double getDmgCriticalMod(boolean isCritical) {
         return isCritical ? 2.0 : 1.0;
     }
 
     // double criticalBuff,
     // double starRate,
-    public static double mergeCriticalBuff(boolean isCritical, String cardType, double buff, double debuff, double quick, double arts, double buster) {
+    public static double getCriticalBuff(boolean isCritical, String cardType, double buff, double debuff, double quick, double arts, double buster) {
         if (isCritical && !isNp(cardType)) {
             switch (getCardColor(cardType)) {
                 case Constant.CARD_QUICK:
-                    return mergeBuffDebuff(buff + quick, debuff);
+                    return getBuffDebuff(buff + quick, debuff);
                 case Constant.CARD_ARTS:
-                    return mergeBuffDebuff(buff + arts, debuff);
+                    return getBuffDebuff(buff + arts, debuff);
                 case Constant.CARD_BUSTER:
-                    return mergeBuffDebuff(buff + buster, debuff);
+                    return getBuffDebuff(buff + buster, debuff);
                 default:
-                    return mergeBuffDebuff(buff, debuff);
+                    return getBuffDebuff(buff, debuff);
             }
         }
         return 0;
     }
 
     // double exDmgBuff,
-    public static double mergeExDmgBuff(String cardType, boolean isSameColor) {
+    public static double getExDmgBuff(String cardType, boolean isSameColor) {
         if (isEx(cardType)) {
             return isSameColor ? 3.5 : 2.0;
         }

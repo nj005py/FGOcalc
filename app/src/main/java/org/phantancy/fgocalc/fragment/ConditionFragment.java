@@ -33,8 +33,9 @@ import java.util.List;
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
-    private ConditionViewModel conVm;
-    List<NoblePhantasmEntity> npList = new ArrayList<>();
+//    private ConditionViewModel conVm;
+    private final String[] enemies = new String[3];
+
 
     @Nullable
     @Override
@@ -47,7 +48,7 @@ public class ConditionFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
-        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
+//        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
         initView();
         initNp();
     }
@@ -61,7 +62,7 @@ public class ConditionFragment extends BaseFragment {
             String atk = binding.etAtkTotal.getText().toString();
             String hp = binding.etHpTotal.getText().toString();
             String hpLeft = binding.etHpLeft.getText().toString();
-            vm.saveCondition(atk, hp, hpLeft);
+            vm.saveCondition(atk, hp, hpLeft,enemies);
         }
 
     }
@@ -186,12 +187,51 @@ public class ConditionFragment extends BaseFragment {
         setSpAdapter(binding.spEnemyClass1, ConditionData.classTypeKeys);
         setSpAdapter(binding.spEnemyClass2, ConditionData.classTypeKeys);
         setSpAdapter(binding.spEnemyClass3, ConditionData.classTypeKeys);
+
+        binding.spEnemyClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                enemies[0] = ConditionData.classTypeKeys[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                enemies[0] = ConditionData.classTypeKeys[0];
+            }
+        });
+
+        binding.spEnemyClass2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                enemies[1] = ConditionData.classTypeKeys[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                if (binding.spEnemyClass2.getVisibility() == View.VISIBLE) {
+                    enemies[1] = ConditionData.classTypeKeys[0];
+                }
+            }
+        });
+
+        binding.spEnemyClass3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                enemies[2] = ConditionData.classTypeKeys[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                enemies[2] = ConditionData.classTypeKeys[0];
+            }
+        });
     }
 
     //宝具相关初始化
     private void initNp() {
         //获取宝具信息
-        conVm.getNPEntities(vm.getServant().id).observe(getViewLifecycleOwner(), entities -> {
+        final List<NoblePhantasmEntity> npList = new ArrayList<>();
+        vm.getNPEntities(vm.getServant().id).observe(getViewLifecycleOwner(), entities -> {
             String[] desArr = new String[entities.size()];
             npList.addAll(entities);
 

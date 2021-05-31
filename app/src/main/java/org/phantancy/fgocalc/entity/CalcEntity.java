@@ -62,7 +62,6 @@ public class CalcEntity {
     private double busterBuffP;
 
     private double atkUp;
-    private double atkDown;
     private double defUp;
     private double defDown;
     private double specialBuff;
@@ -287,14 +286,6 @@ public class CalcEntity {
 
     public void setAtkUp(double atkUp) {
         this.atkUp = atkUp;
-    }
-
-    public double getAtkDown() {
-        return atkDown;
-    }
-
-    public void setAtkDown(double atkDown) {
-        this.atkDown = atkDown;
     }
 
     public double getDefUp() {

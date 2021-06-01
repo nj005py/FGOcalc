@@ -631,18 +631,26 @@ public class CalcViewModel extends AndroidViewModel {
          * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
          */
         //判断宝具卡前还是后，按需取buff
-        //宝具前buff
-        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
-        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
-        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
-        if (position > npPosition) {
-            //宝具后buff
-            quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE) + safeGetBuffMap(BuffData.QUICK_UP_AF);
-            artsBuff = artsBuff + safeGetBuffMap(BuffData.ARTS_UP_BE) + safeGetBuffMap(BuffData.ARTS_UP_AF);
-            busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_BE) + safeGetBuffMap(BuffData.BUSTER_UP_AF);
+        double quickBuff = 0;
+        double artsBuff = 0;
+        double busterBuff = 0;
+        double effectiveBuff = 0;
+
+        if (!ParamsUtil.isEx(cardType)) {
+            quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
+            artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
+            busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
+            //宝具前buff
+            if (position > npPosition) {
+                //宝具后buff
+                quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE) + safeGetBuffMap(BuffData.QUICK_UP_AF);
+                artsBuff = artsBuff + safeGetBuffMap(BuffData.ARTS_UP_BE) + safeGetBuffMap(BuffData.ARTS_UP_AF);
+                busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_BE) + safeGetBuffMap(BuffData.BUSTER_UP_AF);
+            }
+            //最终用于计算的魔放结果
+            effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
         }
-        //最终用于计算的魔放结果
-        double effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+
         //首卡加成
         double firstCardMod = ParamsUtil.getDmgFirstCardMod(cardType1);
         //职阶系数
@@ -688,7 +696,7 @@ public class CalcViewModel extends AndroidViewModel {
         //暴击补正
         double criticalMod = ParamsUtil.getDmgCriticalMod(isCritical);
         //ex卡补正
-        double exDmgBuff = ParamsUtil.getExDmgBuff(cardType, isSameColor);
+        double exDmgBouns = ParamsUtil.getExDmgBouns(cardType, isSameColor);
         //固伤
         double selfDmgBuff = calcEntity.getSelfDmgBuff();
         //固防
@@ -698,7 +706,7 @@ public class CalcViewModel extends AndroidViewModel {
 
         return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
-                exDmgBuff, selfDmgBuff, selfDmgDefBuff, busterChainMod);
+                exDmgBouns, selfDmgBuff, selfDmgDefBuff, busterChainMod);
     }
 
     //todo 笼统计算伤害
@@ -805,7 +813,7 @@ public class CalcViewModel extends AndroidViewModel {
         //暴击补正
         double criticalMod = ParamsUtil.getDmgCriticalMod(isCritical);
         //ex卡补正
-        double exDmgBuff = ParamsUtil.getExDmgBuff(cardType, isSameColor);
+        double exDmgBuff = ParamsUtil.getExDmgBouns(cardType, isSameColor);
         //固伤
         double selfDmgBuff = calcEntity.getSelfDmgBuff();
         //固防

@@ -20,8 +20,8 @@ public class ConditionData {
         return affinityMap.keySet().toArray(new String[0]);
     }
 
-    public static Integer[] getAffinityValues() {
-        return affinityMap.values().toArray(new Integer[0]);
+    public static Double[] getAffinityValues() {
+        return affinityMap.values().toArray(new Double[0]);
     }
 
     //阵营相性
@@ -37,8 +37,8 @@ public class ConditionData {
         return attributeMap.keySet().toArray(new String[0]);
     }
 
-    public static Integer[] getAttributeValues() {
-        return attributeMap.values().toArray(new Integer[0]);
+    public static Double[] getAttributeValues() {
+        return attributeMap.values().toArray(new Double[0]);
     }
 
     //宝具等级

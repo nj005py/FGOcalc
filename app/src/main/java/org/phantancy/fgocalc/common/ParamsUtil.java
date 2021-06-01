@@ -164,7 +164,7 @@ public class ParamsUtil {
     }
 
     // double exDmgBuff,
-    public static double getExDmgBuff(String cardType, boolean isSameColor) {
+    public static double getExDmgBouns(String cardType, boolean isSameColor) {
         if (isEx(cardType)) {
             return isSameColor ? 3.5 : 2.0;
         }

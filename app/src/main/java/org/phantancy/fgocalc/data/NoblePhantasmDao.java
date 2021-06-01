@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
@@ -9,6 +10,6 @@ import java.util.List;
 
 @Dao
 public interface NoblePhantasmDao {
-    @Query("select * from noble_phantasm where sid=:svtId")
-    List<NoblePhantasmEntity> getNoblePhantasmList(int svtId);
+    @Query("SELECT * FROM noble_phantasm WHERE sid=:sid")
+    public LiveData<List<NoblePhantasmEntity>> getNoblePhantasmEntities(int sid);
 }

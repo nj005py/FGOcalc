@@ -68,15 +68,15 @@ public class ConditionFragment extends BaseFragment {
     }
 
     private boolean check() {
-        if (!TextUtils.isEmpty(binding.etAtkTotal.getText())) {
+        if (TextUtils.isEmpty(binding.etAtkTotal.getText())) {
             ToastUtils.showToast("atk不能为空");
             return false;
         }
-        if (!TextUtils.isEmpty(binding.etHpTotal.getText())) {
+        if (TextUtils.isEmpty(binding.etHpTotal.getText())) {
             ToastUtils.showToast("hp不能为空");
             return false;
         }
-        if (!TextUtils.isEmpty(binding.etHpLeft.getText())) {
+        if (TextUtils.isEmpty(binding.etHpLeft.getText())) {
             ToastUtils.showToast("剩余hp不能为空");
             return false;
         }

@@ -41,22 +41,21 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //buff类型 0:整数 1:百分号数 2:分类
         if (viewType == 2) {
-            EntityBuffInputCategoryBinding binding = EntityBuffInputCategoryBinding.inflate(LayoutInflater.from(ctx),parent,false);
+            EntityBuffInputCategoryBinding binding = EntityBuffInputCategoryBinding.inflate(LayoutInflater.from(ctx), parent, false);
             return new CategoryViewHolder(binding);
         } else {
-            EntityBuffInputBinding binding = EntityBuffInputBinding.inflate(LayoutInflater.from(ctx),parent,false);
+            EntityBuffInputBinding binding = EntityBuffInputBinding.inflate(LayoutInflater.from(ctx), parent, false);
             return new InputViewHolder(binding);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BuffInputEntity x = getItem(position);
-        int type = x.getType();
-        if (type == 2) {
-            ((CategoryViewHolder) holder).bindView(x);
+        if (getItemViewType(position) == 2) {
+            ((CategoryViewHolder) holder).bindView(getItem(position));
         } else {
-            ((InputViewHolder)holder).bindView(x);
+            ((InputViewHolder) holder).binding.etBuff.setTag(position);
+            ((InputViewHolder) holder).bindView(getItem(position));
         }
     }
 
@@ -70,15 +69,15 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return getItem(position).getType();
     }
 
-    public BuffInputEntity getItem(int position){
+    public BuffInputEntity getItem(int position) {
         return mList.get(position);
     }
 
     public void submitList(List<BuffInputEntity> list) {
         if (list != null) {
             mList = list;
+            notifyDataSetChanged();
         }
-        notifyDataSetChanged();
     }
 
     public List<BuffInputEntity> getList() {
@@ -87,16 +86,16 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //加buff
     public void addBuff(ShortcutBuffEntity x) {
-        Map<String,Double> map = x.getBuffMap();
+        Map<String, Double> map = x.getBuffMap();
         for (String buffKey : map.keySet()) {
-            for (int i = 0;i < mList.size();i++) {
+            for (int i = 0; i < mList.size(); i++) {
                 BuffInputEntity input = mList.get(i);
                 if (buffKey.equals(input.getKey())) {
                     //发现需要加的buff
 //                    double oldVal = input.getValue();
                     double oldVal = input.getValue();
                     double newVal = oldVal + map.get(buffKey);
-                    Log.d(TAG,"newVal:" + newVal);
+                    Log.d(TAG, "newVal:" + newVal);
                     mList.get(i).setValue(newVal);
                 }
             }
@@ -106,9 +105,9 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     //减buff
     public void reduceBuff(ShortcutBuffEntity x) {
-        Map<String,Double> map = x.getBuffMap();
+        Map<String, Double> map = x.getBuffMap();
         for (String buffKey : map.keySet()) {
-            for (int i = 0;i < mList.size();i++) {
+            for (int i = 0; i < mList.size(); i++) {
                 BuffInputEntity input = mList.get(i);
                 if (buffKey.equals(input.getKey())) {
                     //发现需要减的buff
@@ -117,7 +116,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     if (oldVal >= newVal) {
                         newVal = oldVal - newVal;
                     }
-                    Log.d(TAG,"newVal:" + newVal);
+                    Log.d(TAG, "newVal:" + newVal);
                     mList.get(i).setValue(newVal);
                 }
             }
@@ -128,21 +127,20 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     //加宝具自带buff
 
     /**
-     *
      * @param x 要加的buff
      * @param y 上一次缓存的buff
      */
-    public void addBuffFromNp(SimpleArrayMap<String,Double> x,SimpleArrayMap<String,Double> y) {
+    public void addBuffFromNp(SimpleArrayMap<String, Double> x, SimpleArrayMap<String, Double> y) {
         if (x != null && x.size() > 0) {
             reduceBuffFromNp(y);
             for (int k = 0; k < x.size(); k++) {
-                for (int i = 0;i < mList.size();i++) {
+                for (int i = 0; i < mList.size(); i++) {
                     BuffInputEntity input = mList.get(i);
                     if (x.keyAt(k).equals(input.getKey())) {
                         //发现需要加的buff
                         double oldVal = input.getValue();
                         double newVal = oldVal + x.valueAt(k);
-                        Log.d(TAG,"newVal:" + newVal);
+                        Log.d(TAG, "newVal:" + newVal);
                         mList.get(i).setValue(newVal);
                     }
                 }
@@ -152,16 +150,16 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     //减宝具自带buff
-    public void reduceBuffFromNp(SimpleArrayMap<String,Double> x) {
+    public void reduceBuffFromNp(SimpleArrayMap<String, Double> x) {
         if (x != null && x.size() > 0) {
             for (int k = 0; k < x.size(); k++) {
-                for (int i = 0;i < mList.size();i++) {
+                for (int i = 0; i < mList.size(); i++) {
                     BuffInputEntity input = mList.get(i);
                     if (x.keyAt(k).equals(input.getKey())) {
                         double oldVal = input.getValue();
                         if (oldVal > 0) {
                             double newVal = oldVal - x.valueAt(k);
-                            Log.d(TAG,"newVal:" + newVal);
+                            Log.d(TAG, "newVal:" + newVal);
                             mList.get(i).setValue(newVal);
                         }
                     }
@@ -187,7 +185,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         public void bindView(BuffInputEntity x) {
-            Drawable icon = ContextCompat.getDrawable(ctx,x.getIcon());
+            Drawable icon = ContextCompat.getDrawable(ctx, x.getIcon());
             binding.ivBuffIcon.setImageDrawable(icon);
             binding.etBuff.setHint(x.getKey());
             binding.etBuff.setText(x.getValueDisplay());
@@ -210,11 +208,13 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    int position = (int)binding.etBuff.getTag();
                     if (TextUtils.isEmpty(s)) {
-                        x.setValue(0d);
+                        mList.get(position).setValue(0d);
+//                        x.setValue(0d);
                     } else {
                         if (checkInput(s.toString())) {
-                            x.setValue(Double.parseDouble(s.toString()));
+                            mList.get(position).setValue(Double.parseDouble(s.toString()));
                         }
                     }
                 }
@@ -224,6 +224,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     /**
      * 校验输入，防止string转double失败
+     *
      * @param x
      * @return
      */

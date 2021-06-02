@@ -14,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
@@ -25,7 +22,6 @@ import org.phantancy.fgocalc.databinding.FragConditionBinding;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
-import org.phantancy.fgocalc.viewmodel.ConditionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +29,6 @@ import java.util.List;
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
-//    private ConditionViewModel conVm;
     private final String[] enemies = new String[3];
 
 
@@ -48,7 +43,6 @@ public class ConditionFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
-//        conVm = new ViewModelProvider(mActy).get(ConditionViewModel.class);
         initView();
         initNp();
     }
@@ -227,27 +221,38 @@ public class ConditionFragment extends BaseFragment {
         });
     }
 
+    private int preNpSelect = 0;
+    private int preNpLvSelect = 0;
     //宝具相关初始化
     private void initNp() {
         //获取宝具信息
-        final List<NoblePhantasmEntity> npList = new ArrayList<>();
         vm.getNPEntities(vm.getServant().id).observe(getViewLifecycleOwner(), entities -> {
             String[] desArr = new String[entities.size()];
+            final List<NoblePhantasmEntity> npList = new ArrayList<>();
             npList.addAll(entities);
 
             for (int i = 0; i < entities.size(); i++) {
                 desArr[i] = entities.get(i).npDes;
             }
+            /**
+             * 选择宝具，重新绑定倍率
+             */
             //宝具选择
             setSpAdapter(binding.spNpSelect, desArr);
+            //宝具lv，选择倍率
+            setSpAdapter(binding.spNpLv, ConditionData.npLvKeys);
+
             binding.spNpSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (npList != null) {
                         NoblePhantasmEntity it = npList.get(position);
                         vm.calcEntity.setNpEntity(it);
-                        vm.parseNpBuff(it, binding.spNpLv.getSelectedItem().toString());
-                        vm.parsePickCards(it);
+                        //发现宝具切换，选择当前lv提交
+                        if (preNpSelect != position) {
+                            submitNpLv(preNpLvSelect);
+                        }
+                        preNpSelect = position;
                     }
                 }
 
@@ -255,35 +260,38 @@ public class ConditionFragment extends BaseFragment {
                 public void onNothingSelected(AdapterView<?> parent) {
                     if (npList != null) {
                         vm.calcEntity.setNpEntity(npList.get(0));
-                        vm.parseNpBuff(npList.get(0), binding.spNpLv.getSelectedItem().toString());
+                        preNpSelect = 0;
                     }
                 }
             });
-            //宝具lv
-            setSpAdapter(binding.spNpLv, ConditionData.npLvKeys);
+
             binding.spNpLv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (vm.calcEntity.getNpEntity() != null) {
-                        //buff
-                        vm.parseNpBuff(vm.calcEntity.getNpEntity(), binding.spNpLv.getSelectedItem().toString());
-                        //倍率
-                        vm.setNpDmgMultiplier(vm.calcEntity.getNpEntity(), position);
-                    }
+                    submitNpLv(position);
+                    preNpLvSelect = position;
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    if (npList != null) {
-                        //buff
-                        vm.parseNpBuff(npList.get(0), binding.spNpLv.getSelectedItem().toString());
-                        //倍率
-                        vm.setNpDmgMultiplier(npList.get(0), 0);
-                    }
+                    submitNpLv(0);
+                    preNpLvSelect = 0;
                 }
             });
 
         });
+
+    }
+
+    //宝具lv，选择倍率
+    private void submitNpLv(int position) {
+        NoblePhantasmEntity entity = vm.calcEntity.getNpEntity();
+        if (entity != null) {
+            //buff
+            vm.parseNpBuff(entity, binding.spNpLv.getSelectedItem().toString());
+            //倍率
+            vm.setNpDmgMultiplier(entity, position);
+        }
     }
 
     private void setSpAdapter(Spinner sp, String[] x) {

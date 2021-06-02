@@ -91,7 +91,7 @@ public class ParamsUtil {
     // double firstCardMod,
     //获取首卡补正
     public static double getDmgFirstCardMod(String firstcardType) {
-        return isBuster(firstcardType) ? 0.5 : 0;
+        return isBusterColor(firstcardType) ? 0.5 : 0;
     }
 
     //获取职阶系数
@@ -429,6 +429,14 @@ public class ParamsUtil {
             }
         }
         return -1;
+    }
+
+    //判断是否是红色卡
+    public static boolean isBusterColor(String cardType) {
+        if (getCardColor(cardType).equals(Constant.COLOR_BUSTER)) {
+            return true;
+        }
+        return false;
     }
 
 }

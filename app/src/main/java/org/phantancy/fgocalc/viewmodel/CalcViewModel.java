@@ -520,9 +520,14 @@ public class CalcViewModel extends AndroidViewModel {
             double dmgRandomMax = 1.1;
             double dmgRandomMin = 0.9;
             double dmgRandomAvg = 1.0;
-            fourCardsDmg(dmgRandomMax);
-            fourCardsDmg(dmgRandomMin);
-            fourCardsDmg(dmgRandomAvg);
+            StringBuilder resBuilder = new StringBuilder();
+            resBuilder.append("max:\n")
+                    .append(fourCardsDmg(dmgRandomMax))
+                    .append("min:\n")
+                    .append(fourCardsDmg(dmgRandomMin))
+                    .append("avg:\n")
+                    .append(fourCardsDmg(dmgRandomAvg));
+            calcResult.setValue(resBuilder.toString());
         }
         //计算Np
         //计算打星
@@ -572,7 +577,7 @@ public class CalcViewModel extends AndroidViewModel {
                 avg1, avg2, avg3, avg4, sumAvg);
     }
 
-    private void fourCardsDmg(double random) {
+    private String fourCardsDmg(double random) {
         /**
          * 需要3张卡判断的参数
          */
@@ -586,8 +591,8 @@ public class CalcViewModel extends AndroidViewModel {
         double res3 = dmgCalc(calcEntity.getCardType3(), 3, random);
         double res4 = dmgCalc(calcEntity.getCardType4(), 4, random);
         double sum = res1 + res2 + res3 + res4;
-        calcResult.setValue(MessageFormat.format("c1:{0} c2:{1} c3:{2} c4:{3} sum:{4}",
-                res1, res2, res3, res4, sum));
+        return MessageFormat.format("c1:{0}\n c2:{1}\n c3:{2}\n c4:{3}\n sum:{4}\n\n",
+                res1, res2, res3, res4, sum);
     }
 
     /**
@@ -637,9 +642,9 @@ public class CalcViewModel extends AndroidViewModel {
         double effectiveBuff = 0;
 
         if (!ParamsUtil.isEx(cardType)) {
-            quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
-            artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
-            busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
+            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP);
+            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP);
+            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP);
             //宝具前buff
             if (position > npPosition) {
                 //宝具后buff
@@ -660,16 +665,16 @@ public class CalcViewModel extends AndroidViewModel {
         //阵营克制
         double attributeMod = calcEntity.getAttributeMod();
         //攻击buff
-        double atkBuff = calcEntity.getAtkBuff();
+        double atkBuff = safeGetBuffMap(BuffData.ATK_UP);
         if (position > npPosition) {
             atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_BE) + safeGetBuffMap(BuffData.ATK_UP_AF);
         }
         //防御buff
-        double defBuff = ParamsUtil.getBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
+        double defBuff = 0d;
         //特攻
-        double specialBuff = calcEntity.getSpecialBuff();
+        double specialBuff = safeGetBuffMap(BuffData.SPECIAL_UP);
         //特防
-        double specialDefBuff = calcEntity.getSpecialDefBuff();
+        double specialDefBuff = 0d;
         /**
          * 暴击buff
          */
@@ -678,11 +683,11 @@ public class CalcViewModel extends AndroidViewModel {
                 calcEntity.isCritical2(),
                 calcEntity.isCritical3());
         double criticalBuff = ParamsUtil.getCriticalBuff(isCritical, cardType,
-                calcEntity.getCriticalUp(),
-                calcEntity.getCriticalDown(),
-                calcEntity.getCriticalQuick(),
-                calcEntity.getCriticalArts(),
-                calcEntity.getCriticalBuster());
+                safeGetBuffMap(BuffData.CRITICAL_UP),
+                0d,
+                safeGetBuffMap(BuffData.CRITICAL_QUICK_UP),
+                safeGetBuffMap(BuffData.CRITICAL_ARTS_UP),
+                safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP));
         criticalBuff = criticalBuff + servant.criticalBuffN;
         //宝具卡后
         if (position > npPosition) {
@@ -698,132 +703,15 @@ public class CalcViewModel extends AndroidViewModel {
         //ex卡补正
         double exDmgBouns = ParamsUtil.getExDmgBouns(cardType, isSameColor);
         //固伤
-        double selfDmgBuff = calcEntity.getSelfDmgBuff();
+        double selfDmgBuff = safeGetBuffMap(BuffData.SELF_DAMAGE_UP);
         //固防
-        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
+        double selfDmgDefBuff = 0d;
         //红链
         double busterChainMod = ParamsUtil.mergeBusterChainMod(cardType, isBusterChain);
 
         return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
                 exDmgBouns, selfDmgBuff, selfDmgDefBuff, busterChainMod);
-    }
-
-    //todo 笼统计算伤害
-    private double calcDmg() {
-        /**
-         * 需要3张卡判断的参数
-         */
-        //是否同色
-        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()));
-        //是否红链
-        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()));
-        //伤害随机
-        double dmgRandomMax = 1.1;
-        double dmgRandomMin = 0.9;
-        double dmgRandomAvg = 1.0;
-        //设置个平均值吧
-        double random = dmgRandomAvg;
-        //首卡类型，看染色
-        String cardType1 = calcEntity.getCardType1();
-        //看看是不是同色卡链
-        boolean isSameColor = calcEntity.isSameColor();
-        //看看是不是三红加固伤
-        boolean isBusterChain = calcEntity.isBusterChain();
-        //宝具卡位置
-        int npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3());
-        /**
-         * 单独卡计算的部分
-         */
-        //选个卡计算吧
-        String cardType = calcEntity.getCardType1();
-        int position = 1;
-        //atk
-        double atk = calcEntity.getAtk();
-        //卡牌伤害倍率
-        double cardDmgMultiplier = ParamsUtil.getCardDmgMultiplier(cardType);
-        //位置补正
-        double positionMod = ParamsUtil.getDmgPositionMod(position);
-        /**
-         * 卡牌buff(魔放)
-         * 1，被动buff，这个稳
-         * 2，全局buff，输入的全上
-         * 3，判断宝具前，宝具后buff，有选择地上
-         */
-        /**
-         * 宝具前，平A需要考虑:全buff+被动buff
-         * 宝具，平A不考虑
-         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
-         */
-        //判断宝具卡前还是后，按需取buff
-        //宝具前buff
-        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP();
-        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP();
-        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP();
-        if (position > npPosition) {
-            //宝具后buff
-            quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE) + safeGetBuffMap(BuffData.QUICK_UP_AF);
-            artsBuff = artsBuff + safeGetBuffMap(BuffData.ARTS_UP_BE) + safeGetBuffMap(BuffData.ARTS_UP_AF);
-            busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_BE) + safeGetBuffMap(BuffData.BUSTER_UP_AF);
-        }
-        //最终用于计算的魔放结果
-        double effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
-        //首卡加成
-        double firstCardMod = ParamsUtil.getDmgFirstCardMod(cardType1);
-        //职阶系数
-        double classAtkMod = ParamsUtil.getClassAtkMod(servant.classType);
-        //职阶克制
-        double affinityMod = calcEntity.getAffinityMod();
-        //阵营克制
-        double attributeMod = calcEntity.getAttributeMod();
-        //攻击buff
-        double atkBuff = calcEntity.getAtkBuff();
-        if (position > npPosition) {
-            atkBuff = atkBuff + safeGetBuffMap(BuffData.ATK_UP_BE) + safeGetBuffMap(BuffData.ATK_UP_AF);
-        }
-        //防御buff
-        double defBuff = ParamsUtil.getBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
-        //特攻
-        double specialBuff = calcEntity.getSpecialBuff();
-        //特防
-        double specialDefBuff = calcEntity.getSpecialDefBuff();
-        /**
-         * 暴击buff
-         */
-        //判断暴击
-        boolean isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(),
-                calcEntity.isCritical2(),
-                calcEntity.isCritical3());
-        double criticalBuff = ParamsUtil.getCriticalBuff(isCritical, cardType,
-                calcEntity.getCriticalUp(),
-                calcEntity.getCriticalDown(),
-                calcEntity.getCriticalQuick(),
-                calcEntity.getCriticalArts(),
-                calcEntity.getCriticalBuster());
-        criticalBuff = criticalBuff + servant.criticalBuffN;
-        //宝具卡后
-        if (position > npPosition) {
-            criticalBuff = criticalBuff + ParamsUtil.getCriticalBuff(isCritical, cardType,
-                    safeGetBuffMap(BuffData.CRITICAL_UP_BE) + safeGetBuffMap(BuffData.CRITICAL_UP_AF),
-                    0,
-                    safeGetBuffMap(BuffData.CRITICAL_QUICK_UP_BE) + safeGetBuffMap(BuffData.CRITICAL_QUICK_UP_AF),
-                    safeGetBuffMap(BuffData.CRITICAL_ARTS_UP_BE) + safeGetBuffMap(BuffData.CRITICAL_ARTS_UP_AF),
-                    safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP_BE) + safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP_AF));
-        }
-        //暴击补正
-        double criticalMod = ParamsUtil.getDmgCriticalMod(isCritical);
-        //ex卡补正
-        double exDmgBuff = ParamsUtil.getExDmgBouns(cardType, isSameColor);
-        //固伤
-        double selfDmgBuff = calcEntity.getSelfDmgBuff();
-        //固防
-        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
-        //红链
-        double busterChainMod = ParamsUtil.mergeBusterChainMod(cardType, isBusterChain);
-
-        return Formula.damgeFormula(atk, cardDmgMultiplier, positionMod, effectiveBuff, firstCardMod, classAtkMod,
-                affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff, criticalBuff, criticalMod,
-                exDmgBuff, selfDmgBuff, selfDmgDefBuff, busterChainMod);
     }
 
     //todo 宝具伤害
@@ -846,9 +734,9 @@ public class CalcViewModel extends AndroidViewModel {
         /**
          * 卡牌buff(魔放)
          */
-        double quickBuff = servant.quickBuffN + calcEntity.getQuickBuffP() + safeGetBuffMap(BuffData.QUICK_UP_BE);
-        double artsBuff = servant.artsBuffN + calcEntity.getArtsBuffP() + safeGetBuffMap(BuffData.ARTS_UP_BE);
-        double busterBuff = servant.busterBuffN + calcEntity.getBusterBuffP() + safeGetBuffMap(BuffData.BUSTER_UP_BE);
+        double quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP) + safeGetBuffMap(BuffData.QUICK_UP_BE);
+        double artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP) + safeGetBuffMap(BuffData.ARTS_UP_BE);
+        double busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP) + safeGetBuffMap(BuffData.BUSTER_UP_BE);
         //最终用于计算的魔放结果
         double effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
         //职阶系数
@@ -858,25 +746,25 @@ public class CalcViewModel extends AndroidViewModel {
         //阵营克制
         double attributeMod = calcEntity.getAttributeMod();
         //攻击buff
-        double atkBuff = calcEntity.getAtkUp() + safeGetBuffMap(BuffData.ATK_UP_BE);
+        double atkBuff = safeGetBuffMap(BuffData.ATK_UP) + safeGetBuffMap(BuffData.ATK_UP_BE);
         //防御buff
-        double defBuff = ParamsUtil.getBuffDebuff(calcEntity.getDefUp(), calcEntity.getDefDown());
+        double defBuff = 0d;
         //特攻
-        double specialBuff = calcEntity.getSpecialBuff();
+        double specialBuff = safeGetBuffMap(BuffData.SPECIAL_UP);
         //特防
-        double specialDefBuff = calcEntity.getSpecialDefBuff();
+        double specialDefBuff = 0d;
         //宝具威力
-        double npPowerBuff = ParamsUtil.getBuffDebuff(calcEntity.getNpPowerUp(), calcEntity.getNpPowerDown());
+        double npPowerBuff = safeGetBuffMap(BuffData.NP_POWER_UP);
         //宝具特攻
-        double npSpecialBuff = calcEntity.getNpSpecialBuff();
+        double npSpecialBuff = safeGetBuffMap(BuffData.NP_SPECICAL_UP_BE);
         //宝具特攻不能为0
         if (npSpecialBuff == 0) {
             npSpecialBuff = 1;
         }
         //固伤
-        double selfDmgBuff = calcEntity.getSelfDmgBuff();
+        double selfDmgBuff = safeGetBuffMap(BuffData.SELF_DAMAGE_UP);
         //固防
-        double selfDmgDefBuff = calcEntity.getSelfDmgDefBuff();
+        double selfDmgDefBuff = 0;
         Log.d(TAG, MessageFormat.format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} ", atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,
                 affinityMod, attributeMod, random, atkBuff, defBuff, specialBuff, specialDefBuff,
                 npPowerBuff, npSpecialBuff, selfDmgBuff, selfDmgDefBuff));

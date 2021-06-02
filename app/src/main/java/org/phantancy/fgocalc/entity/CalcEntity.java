@@ -18,7 +18,8 @@ public class CalcEntity {
     private double attributeMod = 1.0;
     //选择宝具
     private NoblePhantasmEntity npEntity;
-    //todo 宝具lv
+    //宝具伤害倍率
+    private double npDmgMultiplier = 0.0;
     //总atk
     private double atk = 0;
     //总hp
@@ -57,28 +58,6 @@ public class CalcEntity {
     //是否保存buff
     private boolean isSavedBuff = false;
 
-    private double quickBuffP;
-    private double artsBuffP;
-    private double busterBuffP;
-
-    private double atkUp;
-    private double defUp;
-    private double defDown;
-    private double specialBuff;
-    private double specialDefBuff;
-    private double criticalUp;
-    private double criticalDown;
-    private double criticalQuick;
-    private double criticalArts;
-    private double criticalBuster;
-    private double selfDmgBuff;
-    private double selfDmgDefBuff;
-    private double npDmgMultiplier;
-    private double atkBuff;
-    private double defBuff;
-    private double npPowerUp;
-    private double npPowerDown;
-    private double npSpecialBuff;
     //数据库获取
     private ServantEntity svt;
     /**
@@ -92,6 +71,13 @@ public class CalcEntity {
     //输入buff数据
     private SimpleArrayMap<String,Double> buffMap;
 
+    public double getNpDmgMultiplier() {
+        return npDmgMultiplier;
+    }
+
+    public void setNpDmgMultiplier(double npDmgMultiplier) {
+        this.npDmgMultiplier = npDmgMultiplier;
+    }
 
     public NoblePhantasmEntity getNpEntity() {
         return npEntity;
@@ -240,29 +226,6 @@ public class CalcEntity {
         this.atk = atk;
     }
 
-    public double getQuickBuffP() {
-        return quickBuffP;
-    }
-
-    public void setQuickBuffP(double quickBuffP) {
-        this.quickBuffP = quickBuffP;
-    }
-
-    public double getArtsBuffP() {
-        return artsBuffP;
-    }
-
-    public void setArtsBuffP(double artsBuffP) {
-        this.artsBuffP = artsBuffP;
-    }
-
-    public double getBusterBuffP() {
-        return busterBuffP;
-    }
-
-    public void setBusterBuffP(double busterBuffP) {
-        this.busterBuffP = busterBuffP;
-    }
 
     public double getAffinityMod() {
         return affinityMod;
@@ -278,150 +241,6 @@ public class CalcEntity {
 
     public void setAttributeMod(double attributeMod) {
         this.attributeMod = attributeMod;
-    }
-
-    public double getAtkUp() {
-        return atkUp;
-    }
-
-    public void setAtkUp(double atkUp) {
-        this.atkUp = atkUp;
-    }
-
-    public double getDefUp() {
-        return defUp;
-    }
-
-    public void setDefUp(double defUp) {
-        this.defUp = defUp;
-    }
-
-    public double getDefDown() {
-        return defDown;
-    }
-
-    public void setDefDown(double defDown) {
-        this.defDown = defDown;
-    }
-
-    public double getSpecialBuff() {
-        return specialBuff;
-    }
-
-    public void setSpecialBuff(double specialBuff) {
-        this.specialBuff = specialBuff;
-    }
-
-    public double getSpecialDefBuff() {
-        return specialDefBuff;
-    }
-
-    public void setSpecialDefBuff(double specialDefBuff) {
-        this.specialDefBuff = specialDefBuff;
-    }
-
-    public double getCriticalUp() {
-        return criticalUp;
-    }
-
-    public void setCriticalUp(double criticalUp) {
-        this.criticalUp = criticalUp;
-    }
-
-    public double getCriticalDown() {
-        return criticalDown;
-    }
-
-    public void setCriticalDown(double criticalDown) {
-        this.criticalDown = criticalDown;
-    }
-
-    public double getCriticalQuick() {
-        return criticalQuick;
-    }
-
-    public void setCriticalQuick(double criticalQuick) {
-        this.criticalQuick = criticalQuick;
-    }
-
-    public double getCriticalArts() {
-        return criticalArts;
-    }
-
-    public void setCriticalArts(double criticalArts) {
-        this.criticalArts = criticalArts;
-    }
-
-    public double getCriticalBuster() {
-        return criticalBuster;
-    }
-
-    public void setCriticalBuster(double criticalBuster) {
-        this.criticalBuster = criticalBuster;
-    }
-
-    public double getSelfDmgBuff() {
-        return selfDmgBuff;
-    }
-
-    public void setSelfDmgBuff(double selfDmgBuff) {
-        this.selfDmgBuff = selfDmgBuff;
-    }
-
-    public double getSelfDmgDefBuff() {
-        return selfDmgDefBuff;
-    }
-
-    public void setSelfDmgDefBuff(double selfDmgDefBuff) {
-        this.selfDmgDefBuff = selfDmgDefBuff;
-    }
-
-    public double getNpDmgMultiplier() {
-        return npDmgMultiplier;
-    }
-
-    public void setNpDmgMultiplier(double npDmgMultiplier) {
-        this.npDmgMultiplier = npDmgMultiplier;
-    }
-
-    public double getAtkBuff() {
-        return atkBuff;
-    }
-
-    public void setAtkBuff(double atkBuff) {
-        this.atkBuff = atkBuff;
-    }
-
-    public double getDefBuff() {
-        return defBuff;
-    }
-
-    public void setDefBuff(double defBuff) {
-        this.defBuff = defBuff;
-    }
-
-    public double getNpPowerUp() {
-        return npPowerUp;
-    }
-
-    public void setNpPowerUp(double npPowerUp) {
-        this.npPowerUp = npPowerUp;
-    }
-
-    public double getNpPowerDown() {
-        return npPowerDown;
-    }
-
-    public void setNpPowerDown(double npPowerDown) {
-        this.npPowerDown = npPowerDown;
-    }
-
-    public double getNpSpecialBuff() {
-        return npSpecialBuff;
-    }
-
-    public void setNpSpecialBuff(double npSpecialBuff) {
-        this.npSpecialBuff = npSpecialBuff;
     }
 
     public ServantEntity getSvt() {

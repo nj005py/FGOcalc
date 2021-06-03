@@ -974,48 +974,86 @@ public class CalcViewModel extends AndroidViewModel {
         double overkillMod = ParamsUtil.getNpOverkillMod(isOverkill);
         return Formula.npNpGenerationFormula(na, hits, cardNpMultiplier, effectiveBuff, npBuff, overkillMod, enemyNpMod);
     }
-    // calc star
-    /*
-    private double starDropRatePerHit(FullData x, String cardType, int position, double enemyStarMod) {
-        ServantEntity svt = x.getSvt();
-        FetchData data = x.getData();
+
+    /**
+     * 打星计算
+     */
+
+    //每hit掉星率
+    private double starDropRatePerHit(String cardType, int position, double enemyStarMod) {
+        /**
+         * 准备条件
+         */
+        //首卡类型，看染色
+        String cardType1 = calcEntity.getCardType1();
+        //宝具卡位置
+        int npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3());
+        /**
+         * 单独卡计算的部分
+         */
         //svt带的
-        double starRate = svt.getStarGeneration();
+        double starRate = servant.starGeneration;
         //卡牌补正，受卡色、位置影响
-        double cardStarMultiplier = ParamsMerger.mergeCardStarMultiplier(cardType,position);
+        double cardStarMultiplier = ParamsUtil.getCardStarMultiplier(cardType,position);
         //魔放
-        double quickBuff = svt.getQuickBuffN() + data.quickBuffP;
-        double artsBuff = svt.getArtsBuffN() + data.artsBuffP;
-        double busterBuff = svt.getBusterBuffN() + data.busterBuffP;
-        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        double quickBuff = 0;
+        double artsBuff = 0;
+        double busterBuff = 0;
+        double effectiveBuff = 0;
+
+        if (!ParamsUtil.isEx(cardType)) {
+            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP);
+            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP);
+            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP);
+            //宝具前buff
+            if (position > npPosition) {
+                //宝具后buff
+                quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE) + safeGetBuffMap(BuffData.QUICK_UP_AF);
+                artsBuff = artsBuff + safeGetBuffMap(BuffData.ARTS_UP_BE) + safeGetBuffMap(BuffData.ARTS_UP_AF);
+                busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_BE) + safeGetBuffMap(BuffData.BUSTER_UP_AF);
+            }
+            //最终用于计算的魔放结果
+            effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        }
         //首卡补正quick 20% 非quick 0，判断卡色，返回结果
-        double firstCardMod = ParamsMerger.mergeStarFirstCardMod(data.cardType1);
+        double firstCardMod = ParamsUtil.getStarFirstCardMod(cardType1);
         //星星发生率Buff-星星发生率DeBuff
-        double starRateBuff = ParamsMerger.mergeBuffDebuff(data.starRateUp,data.starRateDown);
+        double starRateBuff = servant.starGenerationN + safeGetBuffMap(BuffData.STAR_UP);
+        if (position > npPosition) {
+            //宝具后
+            starRateBuff = starRateBuff + safeGetBuffMap(BuffData.STAR_UP_BE) + safeGetBuffMap(BuffData.STAR_UP_AF);
+        }
         //暴击补正：暴击时计算此项。为定值[20%]
-        double criticalMod = ParamsMerger.mergeStarCtriticalMod(data.isCritical);
+        //判断暴击
+        boolean isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(),
+                calcEntity.isCritical2(),
+                calcEntity.isCritical3());
+        double criticalMod = ParamsUtil.getStarCtriticalMod(isCritical);
         //敌方星星发生率Buff,此项基本不进行计算。
         double enemyStarBuff = 0;
         //常数1
         double overkillMultiplier = 1;
         //触发时，定值30%
-        double overkillAdd = ParamsMerger.mergeOverkillAdd(isOverkill);
+        boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4());
+        double overkillAdd = ParamsUtil.getOverkillAdd(isOverkill);
         return Formula.starDropRatePerHitFormula(starRate,cardStarMultiplier,effectiveBuff,firstCardMod,starRateBuff,
                 criticalMod,enemyStarBuff,enemyStarMod,overkillMultiplier,overkillAdd);
     }
 
-    private double npStarDropRatePerHit() {
-        double starRate,
-        double cardStarRate,
-        double effectiveBuff,
-        double starRateBuff,
-        double enemyStarBuff,
-        double randomMod,
-        double overkillMultiplier,
-        double overkillAdd,
-        double enemyAmount
-        return Formula.npStarDropRatePerHitFormula();
-    }*/
+    //宝具每hit掉星率
+    private double npStarDropRatePerHit(String cardType, int position, double enemyStarMod) {
+        double starRate = servant.starGeneration;
+        double cardStarRate = ParamsUtil.getCardStarRate(cardType);
+        double effectiveBuff;
+        double starRateBuff;
+        double enemyStarBuff;
+        double randomMod;
+        double overkillMultiplier;
+        double overkillAdd;
+        return Formula.npStarDropRatePerHitFormula(starRate,cardStarRate,effectiveBuff,starRateBuff,
+                enemyStarBuff,enemyStarBuff,overkillMultiplier,overkillAdd);
+    }
 
     String calcLogs = "";
 

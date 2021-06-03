@@ -308,48 +308,53 @@ public class ParamsUtil {
      */
 
 
-    // double cardStarMultiplier,
-    static Map<Integer, Double> quickStarMultiplierMap = new HashMap<Integer, Double>() {{
-        put(1, 0.8);
-        put(2, 1.3);
-        put(3, 1.8);
-    }};
-    static Map<Integer, Double> artsStarMultiplierMap = new HashMap<Integer, Double>() {{
-        put(1, 0d);
-        put(2, 0d);
-        put(3, 0d);
-    }};
-    static Map<Integer, Double> busterStarMultiplierMap = new HashMap<Integer, Double>() {{
-        put(1, 0.1);
-        put(2, 0.15);
-        put(3, 0.2);
-    }};
+    // 卡牌补正Quick
+    static Map<Integer, Double> quickStarMultiplierMap = new HashMap<Integer, Double>();
+    static {
+        quickStarMultiplierMap.put(1, 0.8);
+        quickStarMultiplierMap.put(2, 1.3);
+        quickStarMultiplierMap.put(3, 1.8);
+    }
+    // 卡牌补正Arts
+    static Map<Integer, Double> artsStarMultiplierMap = new HashMap<Integer, Double>();
+    static {
+        artsStarMultiplierMap.put(1, 0d);
+        artsStarMultiplierMap.put(2, 0d);
+        artsStarMultiplierMap.put(3, 0d);
+    }
+    // 卡牌补正Buster
+    static Map<Integer, Double> busterStarMultiplierMap = new HashMap<Integer, Double>();
+    static {
+        busterStarMultiplierMap.put(1, 0.1);
+        busterStarMultiplierMap.put(2, 0.15);
+        busterStarMultiplierMap.put(3, 0.2);
+    }
 
-    public static double mergeCardStarMultiplier(String cardType, int position) {
-        String cardColor = getCardColor(cardType);
-        if (isQuick(cardColor)) {
+    //卡牌补正
+    public static double getCardStarMultiplier(String cardType, int position) {
+        //判断卡色
+        if (isQuickColor(cardType)) {
             return quickStarMultiplierMap.get(position);
         }
-        if (isArts(cardColor)) {
+        if (isArtsColor(cardType)) {
             return artsStarMultiplierMap.get(position);
         }
-        if (isBuster(cardColor)) {
+        if (isBuster(cardType)) {
             return busterStarMultiplierMap.get(position);
         }
-        if (isEx(cardColor)) {
+        if (isEx(cardType)) {
             return 1d;
         }
         return 1d;
     }
 
-    // double effectiveBuff,
-    // double firstCardMod,
-    public static double mergeStarFirstCardMod(String firstCardType) {
-        return isQuick(firstCardType) ? 0.2 : 0d;
+    //打星首卡补正
+    public static double getStarFirstCardMod(String firstCardType) {
+        return isQuickColor(firstCardType) ? 0.2 : 0d;
     }
 
-    // double starRateBuff,
-    public static double mergeStarCtriticalMod(boolean isCritical) {
+    //暴击打星补正
+    public static double getStarCtriticalMod(boolean isCritical) {
         return isCritical ? 0.2 : 0;
     }
 
@@ -360,8 +365,20 @@ public class ParamsUtil {
     // double overkillAdd
     // double cardStarRate,
     // double overkillAdd,
-    public static double mergeOverkillAdd(boolean isOverkill) {
+    //打星overkill加算
+    public static double getOverkillAdd(boolean isOverkill) {
         return isOverkill ? 0.3 : 0;
+    }
+
+    private static Map<String,Double> cardStarRateMap = new HashMap<>();
+    static {
+        cardStarRateMap.put(Constant.NP_QUICK,0.8);
+        cardStarRateMap.put(Constant.NP_ARTS,0.0);
+        cardStarRateMap.put(Constant.NP_BUSTER,0.1);
+    }
+    //卡牌星星发生率
+    public static double getCardStarRate(String cardType) {
+        return cardStarRateMap.get(cardType);
     }
 
     //是否overkill
@@ -474,9 +491,9 @@ public class ParamsUtil {
         return -1;
     }
 
-    //判断是否是红色卡
-    public static boolean isBusterColor(String cardType) {
-        if (getCardColor(cardType).equals(Constant.COLOR_BUSTER)) {
+    //判断是否是绿色卡
+    public static boolean isQuickColor(String cardType) {
+        if (getCardColor(cardType).equals(Constant.COLOR_QUICK)) {
             return true;
         }
         return false;
@@ -485,6 +502,14 @@ public class ParamsUtil {
     //判断是否是蓝色卡
     public static boolean isArtsColor(String cardType) {
         if (getCardColor(cardType).equals(Constant.COLOR_ARTS)) {
+            return true;
+        }
+        return false;
+    }
+
+    //判断是否是红色卡
+    public static boolean isBusterColor(String cardType) {
+        if (getCardColor(cardType).equals(Constant.COLOR_BUSTER)) {
             return true;
         }
         return false;

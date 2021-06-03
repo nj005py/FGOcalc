@@ -115,11 +115,10 @@ public class Formula {
             double enemyStarBuff,
             double enemyStarMod,
             double overkillMultiplier,
-            double overkillAdd,
-            double enemyAmount
+            double overkillAdd
     ) {
         double ratePerHit = ((starRate + cardStarRate * (1 + effectiveBuff) + starRateBuff - enemyStarBuff - enemyStarMod)
-                * overkillMultiplier + overkillAdd) * enemyAmount;
+                * overkillMultiplier + overkillAdd);
         return ratePerHit;
     }
 

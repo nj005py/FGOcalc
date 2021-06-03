@@ -122,13 +122,13 @@ public class CalcFragment extends BaseFragment {
                 vm.calcEntity.setCritical1(isChecked);
             }
         });
-        binding.cbCr1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.cbCr2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 vm.calcEntity.setCritical2(isChecked);
             }
         });
-        binding.cbCr1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.cbCr3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 vm.calcEntity.setCritical3(isChecked);

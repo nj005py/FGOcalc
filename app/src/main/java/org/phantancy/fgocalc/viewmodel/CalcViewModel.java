@@ -590,9 +590,17 @@ public class CalcViewModel extends AndroidViewModel {
         double res2 = dmgCalc(calcEntity.getCardType2(), 2, random);
         double res3 = dmgCalc(calcEntity.getCardType3(), 3, random);
         double res4 = dmgCalc(calcEntity.getCardType4(), 4, random);
+        res1 = Math.floor(res1);
+        res2 = Math.floor(res2);
+        res3 = Math.floor(res3);
+        res4 = Math.floor(res4);
         double sum = res1 + res2 + res3 + res4;
-        return MessageFormat.format("c1:{0}\n c2:{1}\n c3:{2}\n c4:{3}\n sum:{4}\n\n",
-                res1, res2, res3, res4, sum);
+        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
+                ParamsUtil.calcResFormat(res1),
+                ParamsUtil.calcResFormat(res2),
+                ParamsUtil.calcResFormat(res3),
+                ParamsUtil.calcResFormat(res4),
+                ParamsUtil.calcResFormat(sum));
     }
 
     /**

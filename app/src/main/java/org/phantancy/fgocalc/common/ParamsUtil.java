@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.common;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,11 @@ import java.util.Map;
  * 参数处理工具
  */
 public class ParamsUtil {
+    private static DecimalFormat calcResFormat = new DecimalFormat("#");
+
+    public static String calcResFormat(double x){
+        return calcResFormat.format(x);
+    }
     /**
      * 伤害计算
      * double atk,
@@ -33,15 +39,6 @@ public class ParamsUtil {
      * double npSpecialBuff,
      * double selfDmgDefBuff
      */
-
-    // double atk,
-    public static double mergeAtk(
-            double svtAtk,
-            double fouAtk,
-            double essenceAtk
-    ) {
-        return svtAtk + fouAtk + essenceAtk;
-    }
 
     // 卡牌倍率 cardDmgMultiplier
     public static Map<String, Double> cardDmgMultiplierMap = new HashMap<String, Double>() {{
@@ -171,7 +168,7 @@ public class ParamsUtil {
         return 1.0;
     }
 
-    // double busterChainMod 判断3张卡是否是红卡，ex卡不计算此项
+    // double busterChainMod 判断3张卡是否是红卡，ex卡，宝具卡不计算此项
     public static double mergeBusterChainMod(String cardType, boolean isBusterChain) {
         return isBuster(cardType) && isBusterChain ? 0.2 : 0;
     }
@@ -414,7 +411,7 @@ public class ParamsUtil {
 
     //判断红链
     public static boolean isCardsBusterChain(String cardType1, String cardType2, String cardType3) {
-        if (isCardsSameColor(cardType1, cardType2, cardType3) && isBuster(cardType1)) {
+        if (isCardsSameColor(cardType1, cardType2, cardType3) && isBusterColor(cardType1)) {
             return true;
         }
         return false;

@@ -26,9 +26,7 @@ public class CalcEntity {
     private double hp = 0;
     //剩余hp
     private double hpLeft = 0;
-    //敌方情况
-    private double enemyNpMod;
-    private double[] enemysNpMod;
+
 
     //ui数据
     //选卡类型，
@@ -49,9 +47,8 @@ public class CalcEntity {
     private boolean isOverkill4 = false;
 
     //敌人
-    private String[] enemyClasses;
-    private String targetEnemyClass;
-
+    private int enemyCount = 1;
+    private double[] enemysNpMod;
 
     //是否保存条件
     private boolean isSavedCondition = false;
@@ -70,6 +67,14 @@ public class CalcEntity {
 
     //输入buff数据
     private SimpleArrayMap<String,Double> buffMap;
+
+    public int getEnemyCount() {
+        return enemyCount;
+    }
+
+    public void setEnemyCount(int enemyCount) {
+        this.enemyCount = enemyCount;
+    }
 
     public double getNpDmgMultiplier() {
         return npDmgMultiplier;
@@ -202,22 +207,6 @@ public class CalcEntity {
         isOverkill3 = overkill3;
     }
 
-    public String[] getEnemyClasses() {
-        return enemyClasses;
-    }
-
-    public void setEnemyClasses(String[] enemyClasses) {
-        this.enemyClasses = enemyClasses;
-    }
-
-    public String getTargetEnemyClass() {
-        return targetEnemyClass;
-    }
-
-    public void setTargetEnemyClass(String targetEnemyClass) {
-        this.targetEnemyClass = targetEnemyClass;
-    }
-
     public double getAtk() {
         return atk;
     }
@@ -281,14 +270,6 @@ public class CalcEntity {
 
     public void setRandom(double random) {
         this.random = random;
-    }
-
-    public double getEnemyNpMod() {
-        return enemyNpMod;
-    }
-
-    public void setEnemyNpMod(double enemyNpMod) {
-        this.enemyNpMod = enemyNpMod;
     }
 
     public double[] getEnemysNpMod() {

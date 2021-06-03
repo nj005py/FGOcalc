@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.common;
 
+import androidx.collection.SimpleArrayMap;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,11 +10,18 @@ import java.util.Map;
  * 参数处理工具
  */
 public class ParamsUtil {
-    private static DecimalFormat calcResFormat = new DecimalFormat("#");
+    private static DecimalFormat calcResFormatter = new DecimalFormat("#");
 
-    public static String calcResFormat(double x){
-        return calcResFormat.format(x);
+    public static String dmgResFormat(double x) {
+        return calcResFormatter.format(x);
     }
+
+    private static DecimalFormat npcFormatter = new DecimalFormat("0.00%");
+
+    public static String npGenResFormat(double x) {
+        return npcFormatter.format(x);
+    }
+
     /**
      * 伤害计算
      * double atk,
@@ -196,9 +205,8 @@ public class ParamsUtil {
      * double randomMod
      */
 
-    //double na,
-    //double hits,
-    public static double mergeNaHits(String cardType, double q, double a, double b, double ex, double np) {
+    //np获取率
+    public static double getNa(String cardType, double q, double a, double b, double ex, double np) {
         if (isQuick(cardType)) {
             return q;
         }
@@ -217,44 +225,68 @@ public class ParamsUtil {
         return q;
     }
 
-    //double cardNpMultiplier,
-    public static Map<String, Double> cardNpMultiplierMap = new HashMap<String, Double>() {{
-        put(Constant.CARD_QUICK, 0.8);
-        put(Constant.CARD_ARTS, 1.0);
-        put(Constant.CARD_BUSTER, 1.5);
-        put(Constant.CARD_EX, 1.0);
-    }};
-
-    public static double mergecardNpMultiplier(String cardType) {
-        String color = getCardColor(cardType);
-        return cardDmgMultiplierMap.get(color);
+    //打击次数
+    public static int getHits(String cardType, int q, int a, int b, int ex, int np) {
+        if (isQuick(cardType)) {
+            return q;
+        }
+        if (isArts(cardType)) {
+            return a;
+        }
+        if (isBuster(cardType)) {
+            return b;
+        }
+        if (isEx(cardType)) {
+            return ex;
+        }
+        if (isNp(cardType)) {
+            return np;
+        }
+        return q;
     }
 
-    //double positionMod,
-    public static Map<Integer, Double> npPositionModMap = new HashMap<Integer, Double>() {{
-        put(1, 1.0);
-        put(2, 1.5);
-        put(3, 2.0);
-        put(4, 1.0);
-    }};
+    //卡牌np率
+    public static Map<String, Double> cardNpMultiplierMap = new HashMap<>();
 
-    public static double mergeNpPositionMod(int position) {
+    static {
+        cardNpMultiplierMap.put(Constant.CARD_QUICK, 1.0);
+        cardNpMultiplierMap.put(Constant.CARD_ARTS, 3.0);
+        cardNpMultiplierMap.put(Constant.CARD_BUSTER, 0.0);
+        cardNpMultiplierMap.put(Constant.CARD_EX, 1.0);
+    }
+
+    public static double getCardNpMultiplier(String cardType) {
+        String color = getCardColor(cardType);
+        return cardNpMultiplierMap.get(color);
+    }
+
+    //np位置补正
+    public static Map<Integer, Double> npPositionModMap = new HashMap<>();
+
+    static {
+        npPositionModMap.put(1, 1.0);
+        npPositionModMap.put(2, 1.5);
+        npPositionModMap.put(3, 2.0);
+        npPositionModMap.put(4, 1.0);
+    }
+
+    public static double getNpPositionMod(int position) {
         return npPositionModMap.get(position);
     }
 
-    //double firstCardMod
-    public static double mergeNpFirstCardMod(String firstcardType) {
-        return isArts(firstcardType) ? 1.0 : 0;
+    //np首卡染色
+    public static double getNpFirstCardMod(String firstcardType) {
+        return isArtsColor(firstcardType) ? 1.0 : 0;
     }
 
-    //double criticalMod,
-    public static double mergeNpCriticalMod(boolean isCritical, String cardType) {
-        return !isNp(cardType) && isCritical ? 2.0 : 1.0;
+    //暴击np补正
+    public static double getNpCriticalMod(boolean isCritical, String cardType) {
+        return (!isNp(cardType) && isCritical) ? 2.0 : 1.0;
     }
 
-    //double overkillMod,
-    public static double mergeNpOverkillMod(boolean isCritical) {
-        return isCritical ? 1.5 : 1.0;
+    //overkill np补正
+    public static double getNpOverkillMod(boolean isOverkill) {
+        return isOverkill ? 1.5 : 1.0;
     }
     //double randomMod
 
@@ -331,16 +363,25 @@ public class ParamsUtil {
     public static double mergeOverkillAdd(boolean isOverkill) {
         return isOverkill ? 0.3 : 0;
     }
-    // double enemyAmount
+
+    //是否overkill
+    public static boolean isOverkill(int position, boolean isOverkill1, boolean isOverkill2,
+                                     boolean isOverkill3, boolean isOverkill4) {
+        SimpleArrayMap<Integer, Boolean> map = new SimpleArrayMap<>();
+        map.put(1, isOverkill1);
+        map.put(2, isOverkill2);
+        map.put(3, isOverkill3);
+        map.put(4, isOverkill4);
+        return map.get(position);
+    }
 
     //是否暴击
     public static boolean isCritical(int position, boolean isCritical1, boolean isCritical2, boolean isCritical3) {
-        Map<Integer, Boolean> map = new HashMap<Integer, Boolean>() {{
-            put(1, isCritical1);
-            put(2, isCritical2);
-            put(3, isCritical3);
-            put(4, false);
-        }};
+        SimpleArrayMap<Integer, Boolean> map = new SimpleArrayMap<>();
+        map.put(1, isCritical1);
+        map.put(2, isCritical2);
+        map.put(3, isCritical3);
+        map.put(4, false);
         return map.get(position);
     }
 
@@ -385,14 +426,19 @@ public class ParamsUtil {
     }
 
     //判断卡色
-    static Map<String, String> cardColorMap = new HashMap<String, String>() {{
-        put(Constant.CARD_QUICK, Constant.COLOR_QUICK);
-        put(Constant.CARD_ARTS, Constant.COLOR_ARTS);
-        put(Constant.CARD_BUSTER, Constant.COLOR_BUSTER);
-        put(Constant.NP_QUICK, Constant.COLOR_QUICK);
-        put(Constant.NP_ARTS, Constant.COLOR_ARTS);
-        put(Constant.NP_BUSTER, Constant.COLOR_BUSTER);
-    }};
+    static Map<String, String> cardColorMap = new HashMap<String, String>();
+
+    static {
+        {
+            cardColorMap.put(Constant.CARD_QUICK, Constant.COLOR_QUICK);
+            cardColorMap.put(Constant.CARD_ARTS, Constant.COLOR_ARTS);
+            cardColorMap.put(Constant.CARD_BUSTER, Constant.COLOR_BUSTER);
+            cardColorMap.put(Constant.NP_QUICK, Constant.COLOR_QUICK);
+            cardColorMap.put(Constant.NP_ARTS, Constant.COLOR_ARTS);
+            cardColorMap.put(Constant.NP_BUSTER, Constant.COLOR_BUSTER);
+            cardColorMap.put(Constant.CARD_EX, Constant.CARD_EX);
+        }
+    }
 
     public static String getCardColor(String cardType) {
         return cardColorMap.get(cardType);
@@ -422,7 +468,7 @@ public class ParamsUtil {
         String[] cards = {cardType1, cardType2, cardType3};
         for (int i = 0; i < cards.length; i++) {
             if (isNp(cards[i])) {
-                return i+1;
+                return i + 1;
             }
         }
         return -1;
@@ -431,6 +477,14 @@ public class ParamsUtil {
     //判断是否是红色卡
     public static boolean isBusterColor(String cardType) {
         if (getCardColor(cardType).equals(Constant.COLOR_BUSTER)) {
+            return true;
+        }
+        return false;
+    }
+
+    //判断是否是蓝色卡
+    public static boolean isArtsColor(String cardType) {
+        if (getCardColor(cardType).equals(Constant.COLOR_ARTS)) {
             return true;
         }
         return false;

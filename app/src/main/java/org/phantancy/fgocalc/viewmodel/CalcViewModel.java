@@ -317,7 +317,7 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 保存条件数据
-    public void saveCondition(String atk, String hp, String hpLeft, String[] enemyClasses) {
+    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyClasses) {
         calcEntity.setSavedCondition(true);
         //职阶相性
         Log.d(TAG, "职阶相性：" + calcEntity.getAffinityMod());
@@ -345,7 +345,7 @@ public class CalcViewModel extends AndroidViewModel {
          * 敌方单位设置
          */
         //敌人
-        calcEntity.setEnemyClasses(enemyClasses);
+        calcEntity.setEnemysNpMod(enemyClasses);
     }
 
     //保存职阶克制
@@ -506,16 +506,13 @@ public class CalcViewModel extends AndroidViewModel {
     public void clickCalc(List<CardPickEntity> pickedCards) {
         //选择的卡
         this.pickedCards = pickedCards;
-        //计算伤害
+
         if (pickedCards != null && pickedCards.size() == 3) {
+            //设置卡片
             calcEntity.setCardType1(pickedCards.get(0).getName());
             calcEntity.setCardType2(pickedCards.get(1).getName());
             calcEntity.setCardType3(pickedCards.get(2).getName());
-            //todo 完整计算结果
-//            OneTurnResult x = oneTurnDmg(servant,inputData);
-//            String dmgResult = LogManager.resultLog(inputData,x);
-//            calcResult.setValue(dmgResult);
-            //todo 计算
+            //计算伤害
             //伤害随机
             double dmgRandomMax = 1.1;
             double dmgRandomMin = 0.9;
@@ -527,9 +524,13 @@ public class CalcViewModel extends AndroidViewModel {
                     .append(fourCardsDmg(dmgRandomMin))
                     .append("avg:\n")
                     .append(fourCardsDmg(dmgRandomAvg));
+
+            //计算Np np随机由敌人职阶决定
+            resBuilder.append(fourCardsNp());
+            //显示结果
             calcResult.setValue(resBuilder.toString());
         }
-        //计算Np
+
         //计算打星
     }
 
@@ -596,11 +597,11 @@ public class CalcViewModel extends AndroidViewModel {
         res4 = Math.floor(res4);
         double sum = res1 + res2 + res3 + res4;
         return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
-                ParamsUtil.calcResFormat(res1),
-                ParamsUtil.calcResFormat(res2),
-                ParamsUtil.calcResFormat(res3),
-                ParamsUtil.calcResFormat(res4),
-                ParamsUtil.calcResFormat(sum));
+                ParamsUtil.dmgResFormat(res1),
+                ParamsUtil.dmgResFormat(res2),
+                ParamsUtil.dmgResFormat(res3),
+                ParamsUtil.dmgResFormat(res4),
+                ParamsUtil.dmgResFormat(sum));
     }
 
     /**
@@ -616,7 +617,7 @@ public class CalcViewModel extends AndroidViewModel {
         return ParamsUtil.isNp(cardType) ? npDmg(cardType, random) : dmg(cardType, position, random);
     }
 
-    //Todo 普攻伤害
+    //普攻伤害
     private double dmg(String cardType, int position, double random) {
         /**
          * 准备条件
@@ -722,7 +723,7 @@ public class CalcViewModel extends AndroidViewModel {
                 exDmgBouns, selfDmgBuff, selfDmgDefBuff, busterChainMod);
     }
 
-    //todo 宝具伤害
+    //宝具伤害
     private double npDmg(String cardType, double random) {
         /**
          * 需要3张卡判断的参数
@@ -781,7 +782,9 @@ public class CalcViewModel extends AndroidViewModel {
                 npPowerBuff, npSpecialBuff, selfDmgBuff, selfDmgDefBuff);
     }
 
-    // calc np
+    /**
+     * np计算，宝具充能计算
+     */
 //    private OneTurnResult oneTurnNp(ServantEntity svt, InputData data) {
 //        String cardType1 = data.cardType1;
 //        double np1;
@@ -790,56 +793,187 @@ public class CalcViewModel extends AndroidViewModel {
 //        double np4;
 //        return new OneTurnResult();
 //    }
+    private String fourCardsNp() {
+        double enemyNpMod = calcEntity.getEnemysNpMod()[0];
+        double[] res1 = npGenCalc(calcEntity.getCardType1(), 1, enemyNpMod);
+        double[] res2 = npGenCalc(calcEntity.getCardType2(), 2, enemyNpMod);
+        double[] res3 = npGenCalc(calcEntity.getCardType3(), 3, enemyNpMod);
+        double[] res4 = npGenCalc(calcEntity.getCardType4(), 4, enemyNpMod);
+        double sum = getNpRes(res1,calcEntity.getCardType1()) + getNpRes(res2,calcEntity.getCardType2())
+                + getNpRes(res3,calcEntity.getCardType3()) + getNpRes(res4,calcEntity.getCardType4());
 
-//    private double oneCardNpGeneration(FullData x, String cardType, int position) {
-//
-//        return ParamsMerger.isNp(cardType) ? npGeneration(x, cardType, position) : npNpGeneration(x, cardType);
-//    }
+        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+                parseNpRes(res1,calcEntity.getCardType1()),
+                parseNpRes(res2,calcEntity.getCardType2()),
+                parseNpRes(res3,calcEntity.getCardType3()),
+                parseNpRes(res4,calcEntity.getCardType4()),
+                ParamsUtil.npGenResFormat(sum)
+        );
+    }
 
-//    private double npGeneration(FullData x, String cardType, int position, double enemyNpMod) {
-//        ServantEntity svt = x.getSvt();
-//        InputData data = x.getData();
-//
-//        //np获取率
-//        double na = ParamsMerger.mergeNaHits(cardType, svt.getQuickNa(), svt.getArtsNa(), svt.getBusterNa(), svt.getExNa(), svt.getNpNa());
-//        //hit数
-//        double hits = ParamsMerger.mergeNaHits(cardType, svt.getQuickHit(), svt.getArtsHit(), svt.getBusterHit(), svt.getExHit(), svt.getNpHit());
-//        //卡牌np倍率
-//        double cardNpMultiplier = ParamsMerger.mergecardNpMultiplier(cardType);
-//        //位置加成
-//        double positionMod = ParamsMerger.mergeNpPositionMod(position);
-//        //魔放
-//        double quickBuff = svt.getQuickBuffN() + data.quickBuffP;
-//        double artsBuff = svt.getArtsBuffN() + data.artsBuffP;
-//        double busterBuff = svt.getBusterBuffN() + data.busterBuffP;
-//        double effectiveBuff = ParamsMerger.mergeEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
-//        //首卡加成
-//        double firstCardMod = ParamsMerger.mergeNpFirstCardMod(x.getCardType1());
-//        double npBuff = ParamsMerger.mergeBuffDebuff(data.npUp, data.npDown);
-//        double criticalMod = ParamsMerger.mergeNpCriticalMod(data.isCritical, cardType);
-//        double overkillMod = ParamsMerger.mergeNpOverkillMod(data.isOverkill);
-//        //敌补正
-//        return Formula.npGenerationFormula(na, hits, cardNpMultiplier, positionMod, effectiveBuff, firstCardMod,
-//                npBuff, criticalMod, overkillMod, enemyNpMod);
-//
-//    }
+    private String parseNpRes(double[] res, String cardType) {
+        if (ParamsUtil.isNp(cardType)) {
+            StringBuilder builder = new StringBuilder();
+            String sum = ParamsUtil.npGenResFormat(getNpRes(res,cardType));
+            builder.append("获得np:")
+                    .append(sum)
+                    .append(" ");
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                builder.append("打敌人")
+                        .append(i + 1)
+                        .append("获得np:")
+                        .append(ParamsUtil.npGenResFormat(res[i]));
+            }
+            builder.append("\n");
+            return builder.toString();
 
-//    private double npNpGeneration(FullData x, String cardType) {
-//        //np类型
-//        ServantEntity svt = x.getSvt();
-//        if (svt.getNpType().equals("all")) {
-//            double[] targets = x.getEnemysNpMod();
-//            double np = 0;
-//            for (int i = 0; i < targets.length; i++) {
-//                np += npGeneration();
-//            }
-//            return np;
-//        }
-//        if (svt.getNpType().equals("support")) {
-//            return 0;
-//        }
-//        return npGeneration();
-//    }
+        } else {
+            StringBuilder builder = new StringBuilder();
+            builder.append("获得np:")
+                    .append(ParamsUtil.npGenResFormat(res[0]))
+                    .append("\n");
+            return builder.toString();
+        }
+    }
+
+    private double getNpRes(double[] res, String cardType) {
+        if (ParamsUtil.isNp(cardType)) {
+            double sum = 0;
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                sum += res[i];
+            }
+            return sum;
+        } else {
+            return res[0];
+        }
+    }
+
+    private double[] npGenCalc(String cardType, int position, double enemyNpMod) {
+        return ParamsUtil.isNp(cardType) ? npNpGenDelegate(cardType, position, enemyNpMod)
+                : npGen(cardType, position, enemyNpMod);
+    }
+
+    //普攻np
+    private double[] npGen(String cardType, int position, double enemyNpMod) {
+        /**
+         * 准备条件
+         */
+        //首卡类型，看染色
+        String cardType1 = calcEntity.getCardType1();
+        //宝具卡位置
+        int npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3());
+        /**
+         * 单独卡计算的部分
+         */
+        //np获取率
+        double na = ParamsUtil.getNa(cardType, servant.quickNa, servant.artsNa, servant.busterNa, servant.exNa, servant.npHit);
+        //hit数
+        double hits = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
+        //卡牌np倍率
+        double cardNpMultiplier = ParamsUtil.getCardNpMultiplier(cardType);
+        //位置加成
+        double positionMod = ParamsUtil.getNpPositionMod(position);
+        /**
+         * 宝具前，平A需要考虑:全buff+被动buff
+         * 宝具，平A不考虑
+         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
+         */
+        //魔放
+        double quickBuff = 0;
+        double artsBuff = 0;
+        double busterBuff = 0;
+        double effectiveBuff = 0;
+
+        if (!ParamsUtil.isEx(cardType)) {
+            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP);
+            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP);
+            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP);
+            //宝具前buff
+            if (position > npPosition) {
+                //宝具后buff
+                quickBuff = quickBuff + safeGetBuffMap(BuffData.QUICK_UP_BE) + safeGetBuffMap(BuffData.QUICK_UP_AF);
+                artsBuff = artsBuff + safeGetBuffMap(BuffData.ARTS_UP_BE) + safeGetBuffMap(BuffData.ARTS_UP_AF);
+                busterBuff = busterBuff + safeGetBuffMap(BuffData.BUSTER_UP_BE) + safeGetBuffMap(BuffData.BUSTER_UP_AF);
+            }
+            //最终用于计算的魔放结果
+            effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        }
+        //首卡加成
+        double firstCardMod = ParamsUtil.getNpFirstCardMod(cardType1);
+        //黄金率
+        double npBuff = safeGetBuffMap(BuffData.NPC_UP);
+        if (position > npPosition) {
+            //宝具后
+            npBuff = npBuff + safeGetBuffMap(BuffData.NPC_UP_BE) + safeGetBuffMap(BuffData.NPC_UP_AF);
+        }
+        //暴击补正
+        //判断暴击
+        boolean isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(),
+                calcEntity.isCritical2(),
+                calcEntity.isCritical3());
+        double criticalMod = ParamsUtil.getNpCriticalMod(isCritical, cardType);
+        //overkill补正
+        boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4());
+        double overkillMod = ParamsUtil.getNpOverkillMod(isOverkill);
+        double[] res = new double[3];
+        res[0] = Formula.npGenerationFormula(na, hits, cardNpMultiplier, positionMod, effectiveBuff, firstCardMod,
+                npBuff, criticalMod, overkillMod, enemyNpMod);
+        return res;
+    }
+
+    //宝具np多情况计算
+    private double[] npNpGenDelegate(String cardType, int position, double enemyNpMod) {
+        double[] res = new double[3];
+        //辅助宝具不用算直接为0
+        if (servant.npType.equals("support")) {
+            res[0] = 0;
+            return res;
+        }
+        //单体宝具只算第一个敌人
+        if (servant.npType.equals("one")) {
+            res[0] = npNpGen(cardType, position, enemyNpMod);
+        }
+        //光炮宝具算整个敌人列表
+        if (servant.npType.equals("all")) {
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                //判断是否设置敌人
+                enemyNpMod = calcEntity.getEnemysNpMod()[i];
+                //计算
+                res[i] = npNpGen(cardType, position, enemyNpMod);
+            }
+            return res;
+        }
+        return res;
+    }
+
+    //宝具np计算
+    private double npNpGen(String cardType, int position, double enemyNpMod) {
+        //np获取率
+        double na = ParamsUtil.getNa(cardType, servant.quickNa, servant.artsNa, servant.busterNa, servant.exNa, servant.npNa);
+        //hit数
+        double hits = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
+        //卡牌np倍率
+        double cardNpMultiplier = ParamsUtil.getCardNpMultiplier(cardType);
+        /**
+         * 宝具前，平A需要考虑:全buff+被动buff
+         * 宝具，平A不考虑
+         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
+         */
+        //魔放
+        double quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP) + safeGetBuffMap(BuffData.QUICK_UP_BE);
+        double artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP) + safeGetBuffMap(BuffData.ARTS_UP_BE);
+        double busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP) + safeGetBuffMap(BuffData.BUSTER_UP_BE);
+        //最终用于计算的魔放结果
+        double effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        //黄金率
+        double npBuff = safeGetBuffMap(BuffData.NPC_UP) + safeGetBuffMap(BuffData.NPC_UP_BE);
+        //overkill补正
+        boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4());
+        double overkillMod = ParamsUtil.getNpOverkillMod(isOverkill);
+        return Formula.npNpGenerationFormula(na, hits, cardNpMultiplier, effectiveBuff, npBuff, overkillMod, enemyNpMod);
+    }
     // calc star
     /*
     private double starDropRatePerHit(FullData x, String cardType, int position, double enemyStarMod) {

@@ -103,5 +103,38 @@ public class ConditionData {
 
     //职阶
     public final static String[] classTypeKeys = {"saber", "archer", "lancer", "rider", "caster", "assassin", "berserker",
-            "ruler", "shielder", "alterego", "avenger", "beast", "mooncancer", "foreigner"};
+            "ruler", "alterego", "avenger", "beast", "mooncancer", "foreigner"};
+
+    //敌方np补正类型1
+    public final static Map<String,Double> enemyNpMods = new LinkedHashMap<>();
+    static {
+        enemyNpMods.put("saber类型1",1.0);
+        enemyNpMods.put("archer类型1",1.0);
+        enemyNpMods.put("lancer类型1",1.0);
+        enemyNpMods.put("rider类型1",1.1);
+        enemyNpMods.put("caster类型1",1.2);
+        enemyNpMods.put("assassin类型1",0.9);
+        enemyNpMods.put("berserker类型1",0.8);
+        enemyNpMods.put("ruler类型1",1.0);
+        enemyNpMods.put("alterego类型1",1.0);
+        enemyNpMods.put("avenger类型1",1.0);
+        enemyNpMods.put("beast类型1",1.0);
+        enemyNpMods.put("mooncancer类型1",1.2);
+        enemyNpMods.put("foreigner类型1",1.0);
+        enemyNpMods.put("saber类型2",1.2);
+        enemyNpMods.put("archer类型2",1.2);
+        enemyNpMods.put("lancer类型2",1.2);
+        enemyNpMods.put("rider类型2",1.32);
+        enemyNpMods.put("caster类型2",1.44);
+        enemyNpMods.put("assassin类型2",1.08);
+        enemyNpMods.put("berserker类型2",0.96);
+    }
+
+    public static String[] getEnemyNpModsKeys() {
+        return enemyNpMods.keySet().toArray(new String[0]);
+    }
+
+    public static Double[] getEnemyNpModsValues() {
+        return enemyNpMods.values().toArray(new Double[0]);
+    }
 }

@@ -29,7 +29,7 @@ import java.util.List;
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
-    private final String[] enemies = new String[3];
+    private final double[] enemies = new double[3];
 
 
     @Nullable
@@ -56,7 +56,7 @@ public class ConditionFragment extends BaseFragment {
             String atk = binding.etAtkTotal.getText().toString();
             String hp = binding.etHpTotal.getText().toString();
             String hpLeft = binding.etHpLeft.getText().toString();
-            vm.saveCondition(atk, hp, hpLeft,enemies);
+            vm.saveCondition(atk, hp, hpLeft, enemies);
         }
 
     }
@@ -170,40 +170,42 @@ public class ConditionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 handleEnemyClassDisplay(position);
+                int count = ConditionData.getEnemyCountValues()[position];
+                vm.calcEntity.setEnemyCount(count);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                vm.calcEntity.setEnemyCount(1);
             }
         });
         //敌人职阶
-        setSpAdapter(binding.spEnemyClass1, ConditionData.classTypeKeys);
-        setSpAdapter(binding.spEnemyClass2, ConditionData.classTypeKeys);
-        setSpAdapter(binding.spEnemyClass3, ConditionData.classTypeKeys);
+        setSpAdapter(binding.spEnemyClass1, ConditionData.getEnemyNpModsKeys());
+        setSpAdapter(binding.spEnemyClass2, ConditionData.getEnemyNpModsKeys());
+        setSpAdapter(binding.spEnemyClass3, ConditionData.getEnemyNpModsKeys());
 
         binding.spEnemyClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[0] = ConditionData.classTypeKeys[position];
+                enemies[0] = ConditionData.getEnemyNpModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                enemies[0] = ConditionData.classTypeKeys[0];
+                enemies[0] = ConditionData.getEnemyNpModsValues()[0];
             }
         });
 
         binding.spEnemyClass2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[1] = ConditionData.classTypeKeys[position];
+                enemies[1] = ConditionData.getEnemyNpModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (binding.spEnemyClass2.getVisibility() == View.VISIBLE) {
-                    enemies[1] = ConditionData.classTypeKeys[0];
+                    enemies[1] = ConditionData.getEnemyNpModsValues()[0];
                 }
             }
         });
@@ -211,18 +213,19 @@ public class ConditionFragment extends BaseFragment {
         binding.spEnemyClass3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[2] = ConditionData.classTypeKeys[position];
+                enemies[2] = ConditionData.getEnemyNpModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                enemies[2] = ConditionData.classTypeKeys[0];
+                enemies[2] = ConditionData.getEnemyNpModsValues()[0];
             }
         });
     }
 
     private int preNpSelect = 0;
     private int preNpLvSelect = 0;
+
     //宝具相关初始化
     private void initNp() {
         //获取宝具信息

@@ -57,6 +57,7 @@ public class Formula {
         return attack;
     }
 
+    //普攻np获取
     public static double npGenerationFormula(
             double na,
             double hits,
@@ -71,6 +72,21 @@ public class Formula {
     ) {
         double np = na * hits * (cardNpMultiplier * positionMod * (1 + effectiveBuff) + firstCardMod) *
                 (1 + npBuff) * criticalMod * overkillMod * enemyNpMod;
+        return np;
+    }
+
+    //宝具np获取
+    public static double npNpGenerationFormula(
+            double na,
+            double hits,
+            double cardNpMultiplier,
+            double effectiveBuff,
+            double npBuff,
+            double overkillMod,
+            double enemyNpMod
+    ) {
+        double np = na * hits * (cardNpMultiplier * (1 + effectiveBuff)) *
+                (1 + npBuff) * overkillMod * enemyNpMod;
         return np;
     }
 

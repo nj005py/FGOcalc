@@ -48,7 +48,10 @@ public class CalcEntity {
 
     //敌人
     private int enemyCount = 1;
+    //np敌补正
     private double[] enemysNpMod;
+    //打星敌补正
+    private double[] enemysStarMod;
 
     //是否保存条件
     private boolean isSavedCondition = false;
@@ -64,6 +67,14 @@ public class CalcEntity {
     private boolean isSameColor;
     private boolean isBusterChain;
     private double random;
+
+    public double[] getEnemysStarMod() {
+        return enemysStarMod;
+    }
+
+    public void setEnemysStarMod(double[] enemysStarMod) {
+        this.enemysStarMod = enemysStarMod;
+    }
 
     //输入buff数据
     private SimpleArrayMap<String,Double> buffMap;

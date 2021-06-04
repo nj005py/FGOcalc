@@ -991,7 +991,7 @@ public class CalcViewModel extends AndroidViewModel {
         /**
          * 单独卡计算的部分
          */
-        //svt带的
+        //出星率
         double starRate = servant.starGeneration;
         //卡牌补正，受卡色、位置影响
         double cardStarMultiplier = ParamsUtil.getCardStarMultiplier(cardType,position);
@@ -1045,14 +1045,39 @@ public class CalcViewModel extends AndroidViewModel {
     private double npStarDropRatePerHit(String cardType, int position, double enemyStarMod) {
         double starRate = servant.starGeneration;
         double cardStarRate = ParamsUtil.getCardStarRate(cardType);
-        double effectiveBuff;
-        double starRateBuff;
-        double enemyStarBuff;
-        double randomMod;
-        double overkillMultiplier;
-        double overkillAdd;
+        //魔放
+        double quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP) + safeGetBuffMap(BuffData.QUICK_UP_BE);
+        double artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP) + safeGetBuffMap(BuffData.ARTS_UP_BE);
+        double busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP) + safeGetBuffMap(BuffData.BUSTER_UP_BE);
+        double effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff);
+        double starRateBuff = servant.starGenerationN + safeGetBuffMap(BuffData.STAR_UP) + safeGetBuffMap(BuffData.STAR_UP_BE);
+        //敌方星星发生率Buff,此项基本不进行计算。
+        double enemyStarBuff = 0;
+        //常数1
+        double overkillMultiplier = 1;
+        //触发时，定值30%
+        boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4());
+        double overkillAdd = ParamsUtil.getOverkillAdd(isOverkill);
         return Formula.npStarDropRatePerHitFormula(starRate,cardStarRate,effectiveBuff,starRateBuff,
-                enemyStarBuff,enemyStarBuff,overkillMultiplier,overkillAdd);
+                enemyStarBuff,enemyStarMod,overkillMultiplier,overkillAdd);
+    }
+
+    //计算产星数量
+    private double calcStarDropNumber(String cardType, int position, double enemyStarMod) {
+        double rate = ParamsUtil.isNp(cardType) ? npStarDropRatePerHit(cardType, position, enemyStarMod)
+                : starDropRatePerHit(cardType, position, enemyStarMod);
+        int hit = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
+        //产星率不能高于3
+        if (rate > 3d) {
+            rate = 3d;
+        }
+        double res = rate * hit;
+        return res;
+    }
+
+    private void fourCardsStar(){
+        double res1 = calcStarDropNumber(calcEntity.getCardType1(),1,)
     }
 
     String calcLogs = "";

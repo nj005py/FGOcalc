@@ -2,6 +2,8 @@ package org.phantancy.fgocalc.common;
 
 import androidx.collection.SimpleArrayMap;
 
+import org.phantancy.fgocalc.entity.ServantEntity;
+
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
@@ -358,13 +360,6 @@ public class ParamsUtil {
         return isCritical ? 0.2 : 0;
     }
 
-    // double criticalMod,
-    // double enemyStarBuff,
-    // double randomMod,
-    // double overkillMultiplier,
-    // double overkillAdd
-    // double cardStarRate,
-    // double overkillAdd,
     //打星overkill加算
     public static double getOverkillAdd(boolean isOverkill) {
         return isOverkill ? 0.3 : 0;

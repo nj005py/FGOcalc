@@ -24,6 +24,12 @@ public class ParamsUtil {
         return npcFormatter.format(x);
     }
 
+    private static DecimalFormat starFormatter = new DecimalFormat("#.00");
+
+    public static String starDropResFormat(double x) {
+        return starFormatter.format(x);
+    }
+
     /**
      * 伤害计算
      * double atk,

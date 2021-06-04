@@ -29,7 +29,8 @@ import java.util.List;
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
-    private final double[] enemies = new double[3];
+    private final double[] enemyNpMods = new double[3];
+    private final double[] enemyStarMods = new double[3];
 
 
     @Nullable
@@ -56,7 +57,7 @@ public class ConditionFragment extends BaseFragment {
             String atk = binding.etAtkTotal.getText().toString();
             String hp = binding.etHpTotal.getText().toString();
             String hpLeft = binding.etHpLeft.getText().toString();
-            vm.saveCondition(atk, hp, hpLeft, enemies);
+            vm.saveCondition(atk, hp, hpLeft, enemyNpMods,enemyStarMods);
         }
 
     }
@@ -187,25 +188,29 @@ public class ConditionFragment extends BaseFragment {
         binding.spEnemyClass1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[0] = ConditionData.getEnemyNpModsValues()[position];
+                enemyNpMods[0] = ConditionData.getEnemyNpModsValues()[position];
+                enemyStarMods[0] = ConditionData.getEnemyStarModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                enemies[0] = ConditionData.getEnemyNpModsValues()[0];
+                enemyNpMods[0] = ConditionData.getEnemyNpModsValues()[0];
+                enemyStarMods[0] = ConditionData.getEnemyStarModsValues()[0];
             }
         });
 
         binding.spEnemyClass2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[1] = ConditionData.getEnemyNpModsValues()[position];
+                enemyNpMods[1] = ConditionData.getEnemyNpModsValues()[position];
+                enemyStarMods[1] = ConditionData.getEnemyStarModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 if (binding.spEnemyClass2.getVisibility() == View.VISIBLE) {
-                    enemies[1] = ConditionData.getEnemyNpModsValues()[0];
+                    enemyNpMods[1] = ConditionData.getEnemyNpModsValues()[0];
+                    enemyStarMods[1] = ConditionData.getEnemyStarModsValues()[0];
                 }
             }
         });
@@ -213,12 +218,14 @@ public class ConditionFragment extends BaseFragment {
         binding.spEnemyClass3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                enemies[2] = ConditionData.getEnemyNpModsValues()[position];
+                enemyNpMods[2] = ConditionData.getEnemyNpModsValues()[position];
+                enemyStarMods[2] = ConditionData.getEnemyStarModsValues()[position];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                enemies[2] = ConditionData.getEnemyNpModsValues()[0];
+                enemyNpMods[2] = ConditionData.getEnemyNpModsValues()[0];
+                enemyStarMods[2] = ConditionData.getEnemyStarModsValues()[0];
             }
         });
     }

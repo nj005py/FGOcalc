@@ -317,7 +317,7 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 保存条件数据
-    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyClasses) {
+    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyNpMods, double[] enemyStarMods) {
         calcEntity.setSavedCondition(true);
         //职阶相性
         Log.d(TAG, "职阶相性：" + calcEntity.getAffinityMod());
@@ -345,7 +345,8 @@ public class CalcViewModel extends AndroidViewModel {
          * 敌方单位设置
          */
         //敌人
-        calcEntity.setEnemysNpMod(enemyClasses);
+        calcEntity.setEnemysNpMod(enemyNpMods);
+        calcEntity.setEnemysStarMod(enemyStarMods);
     }
 
     //保存职阶克制
@@ -526,7 +527,10 @@ public class CalcViewModel extends AndroidViewModel {
                     .append(fourCardsDmg(dmgRandomAvg));
 
             //计算Np np随机由敌人职阶决定
-            resBuilder.append(fourCardsNp());
+            resBuilder.append(fourCardsNp())
+                    .append("\n");
+            //计算打星
+            resBuilder.append(fourCardsStar());
             //显示结果
             calcResult.setValue(resBuilder.toString());
         }
@@ -799,14 +803,14 @@ public class CalcViewModel extends AndroidViewModel {
         double[] res2 = npGenCalc(calcEntity.getCardType2(), 2, enemyNpMod);
         double[] res3 = npGenCalc(calcEntity.getCardType3(), 3, enemyNpMod);
         double[] res4 = npGenCalc(calcEntity.getCardType4(), 4, enemyNpMod);
-        double sum = getNpRes(res1,calcEntity.getCardType1()) + getNpRes(res2,calcEntity.getCardType2())
-                + getNpRes(res3,calcEntity.getCardType3()) + getNpRes(res4,calcEntity.getCardType4());
+        double sum = getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
+                + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4());
 
         return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
-                parseNpRes(res1,calcEntity.getCardType1()),
-                parseNpRes(res2,calcEntity.getCardType2()),
-                parseNpRes(res3,calcEntity.getCardType3()),
-                parseNpRes(res4,calcEntity.getCardType4()),
+                parseNpRes(res1, calcEntity.getCardType1()),
+                parseNpRes(res2, calcEntity.getCardType2()),
+                parseNpRes(res3, calcEntity.getCardType3()),
+                parseNpRes(res4, calcEntity.getCardType4()),
                 ParamsUtil.npGenResFormat(sum)
         );
     }
@@ -814,7 +818,7 @@ public class CalcViewModel extends AndroidViewModel {
     private String parseNpRes(double[] res, String cardType) {
         if (ParamsUtil.isNp(cardType)) {
             StringBuilder builder = new StringBuilder();
-            String sum = ParamsUtil.npGenResFormat(getNpRes(res,cardType));
+            String sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType));
             builder.append("获得np:")
                     .append(sum)
                     .append(" ");
@@ -994,7 +998,7 @@ public class CalcViewModel extends AndroidViewModel {
         //出星率
         double starRate = servant.starGeneration;
         //卡牌补正，受卡色、位置影响
-        double cardStarMultiplier = ParamsUtil.getCardStarMultiplier(cardType,position);
+        double cardStarMultiplier = ParamsUtil.getCardStarMultiplier(cardType, position);
         //魔放
         double quickBuff = 0;
         double artsBuff = 0;
@@ -1037,8 +1041,8 @@ public class CalcViewModel extends AndroidViewModel {
         boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
                 calcEntity.isOverkill3(), calcEntity.isOverkill4());
         double overkillAdd = ParamsUtil.getOverkillAdd(isOverkill);
-        return Formula.starDropRatePerHitFormula(starRate,cardStarMultiplier,effectiveBuff,firstCardMod,starRateBuff,
-                criticalMod,enemyStarBuff,enemyStarMod,overkillMultiplier,overkillAdd);
+        return Formula.starDropRatePerHitFormula(starRate, cardStarMultiplier, effectiveBuff, firstCardMod, starRateBuff,
+                criticalMod, enemyStarBuff, enemyStarMod, overkillMultiplier, overkillAdd);
     }
 
     //宝具每hit掉星率
@@ -1059,25 +1063,111 @@ public class CalcViewModel extends AndroidViewModel {
         boolean isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
                 calcEntity.isOverkill3(), calcEntity.isOverkill4());
         double overkillAdd = ParamsUtil.getOverkillAdd(isOverkill);
-        return Formula.npStarDropRatePerHitFormula(starRate,cardStarRate,effectiveBuff,starRateBuff,
-                enemyStarBuff,enemyStarMod,overkillMultiplier,overkillAdd);
+        return Formula.npStarDropRatePerHitFormula(starRate, cardStarRate, effectiveBuff, starRateBuff,
+                enemyStarBuff, enemyStarMod, overkillMultiplier, overkillAdd);
     }
 
     //计算产星数量
-    private double calcStarDropNumber(String cardType, int position, double enemyStarMod) {
-        double rate = ParamsUtil.isNp(cardType) ? npStarDropRatePerHit(cardType, position, enemyStarMod)
-                : starDropRatePerHit(cardType, position, enemyStarMod);
-        int hit = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
-        //产星率不能高于3
+    private double starDropNumber(double rate, int hit) {
         if (rate > 3d) {
             rate = 3d;
         }
-        double res = rate * hit;
+        return rate * hit;
+    }
+
+    //宝具打星多情况计算
+    private double[] npStarDropNumberDelegate(double rate, int hit) {
+        double[] res = new double[3];
+        //辅助宝具不用算直接为0
+        if (servant.npType.equals("support")) {
+            res[0] = 0;
+            return res;
+        }
+        //单体宝具只算第一个敌人
+        if (servant.npType.equals("one")) {
+            res[0] = starDropNumber(rate, hit);
+        }
+        //光炮宝具算整个敌人列表
+        if (servant.npType.equals("all")) {
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                //判断是否设置敌人
+                //计算
+                res[i] = starDropNumber(rate, hit);
+            }
+            return res;
+        }
         return res;
     }
 
-    private void fourCardsStar(){
-        double res1 = calcStarDropNumber(calcEntity.getCardType1(),1,)
+    //判断卡牌类型，分开计算
+    private double[] calcStarDropNumber(String cardType, int position, double enemyStarMod) {
+        double rate = ParamsUtil.isNp(cardType) ? npStarDropRatePerHit(cardType, position, enemyStarMod)
+                : starDropRatePerHit(cardType, position, enemyStarMod);
+        int hit = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
+        double[] res = new double[3];
+        if (ParamsUtil.isNp(cardType)) {
+            //宝具卡
+            res = npStarDropNumberDelegate(rate, hit);
+        } else {
+            //普攻
+            res[0] = starDropNumber(rate, hit);
+        }
+        return res;
+    }
+
+    private String fourCardsStar() {
+        double enemyStarMod = calcEntity.getEnemysStarMod()[0];
+        double[] res1 = calcStarDropNumber(calcEntity.getCardType1(), 1, enemyStarMod);
+        double[] res2 = calcStarDropNumber(calcEntity.getCardType2(), 2, enemyStarMod);
+        double[] res3 = calcStarDropNumber(calcEntity.getCardType3(), 3, enemyStarMod);
+        double[] res4 = calcStarDropNumber(calcEntity.getCardType4(), 4, enemyStarMod);
+        double sum = getStarRes(res1, calcEntity.getCardType1()) + getStarRes(res2, calcEntity.getCardType2())
+                + getStarRes(res3, calcEntity.getCardType3()) + getStarRes(res4, calcEntity.getCardType4());
+
+        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+                parseStarRes(res1, calcEntity.getCardType1()),
+                parseStarRes(res2, calcEntity.getCardType2()),
+                parseStarRes(res3, calcEntity.getCardType3()),
+                parseStarRes(res4, calcEntity.getCardType4()),
+                ParamsUtil.starDropResFormat(sum)
+        );
+    }
+
+    private double getStarRes(double[] res, String cardType) {
+        if (ParamsUtil.isNp(cardType)) {
+            double sum = 0;
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                sum += res[i];
+            }
+            return sum;
+        } else {
+            return res[0];
+        }
+    }
+
+    private String parseStarRes(double[] res, String cardType) {
+        if (ParamsUtil.isNp(cardType)) {
+            StringBuilder builder = new StringBuilder();
+            String sum = ParamsUtil.starDropResFormat(getNpRes(res, cardType));
+            builder.append("获得暴击星:")
+                    .append(sum)
+                    .append(" ");
+            for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
+                builder.append("打敌人")
+                        .append(i + 1)
+                        .append("获得暴击星:")
+                        .append(ParamsUtil.starDropResFormat(res[i]));
+            }
+            builder.append("\n");
+            return builder.toString();
+
+        } else {
+            StringBuilder builder = new StringBuilder();
+            builder.append("获得暴击星:")
+                    .append(ParamsUtil.starDropResFormat(res[0]))
+                    .append("\n");
+            return builder.toString();
+        }
     }
 
     String calcLogs = "";

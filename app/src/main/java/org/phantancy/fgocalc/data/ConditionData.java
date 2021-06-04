@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.data;
 
+import androidx.collection.SimpleArrayMap;
+
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -136,5 +138,38 @@ public class ConditionData {
 
     public static Double[] getEnemyNpModsValues() {
         return enemyNpMods.values().toArray(new Double[0]);
+    }
+
+    //敌方打星补正
+    public final static SimpleArrayMap<String,Double> enemyStarMods = new SimpleArrayMap<>();
+    static {
+        enemyStarMods.put("saber类型1",0.0);
+        enemyStarMods.put("archer类型1",0.05);
+        enemyStarMods.put("lancer类型1",-0.05);
+        enemyStarMods.put("rider类型1",0.1);
+        enemyStarMods.put("caster类型1",0.0);
+        enemyStarMods.put("assassin类型1",-0.1);
+        enemyStarMods.put("berserker类型1",0.0);
+        enemyStarMods.put("ruler类型1",0.0);
+        enemyStarMods.put("alterego类型1",0.05);
+        enemyStarMods.put("avenger类型1",-0.1);
+        enemyStarMods.put("beast类型1",0.0);
+        enemyStarMods.put("mooncancer类型1",0.0);
+        enemyStarMods.put("foreigner类型1",0.2);
+        enemyStarMods.put("saber类型2",0.0);
+        enemyStarMods.put("archer类型2",0.05);
+        enemyStarMods.put("lancer类型2",-0.05);
+        enemyStarMods.put("rider类型2",0.1);
+        enemyStarMods.put("caster类型2",0.0);
+        enemyStarMods.put("assassin类型2",-0.1);
+        enemyStarMods.put("berserker类型2",0.0);
+    }
+
+    public static Double[] getEnemyStarModsValues() {
+        Double[] array = new Double[enemyStarMods.size()];
+        for (int i = 0; i < enemyStarMods.size(); i++) {
+            array[i] = enemyStarMods.valueAt(i);
+        }
+        return array;
     }
 }

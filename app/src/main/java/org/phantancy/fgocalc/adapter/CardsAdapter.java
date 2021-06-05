@@ -64,8 +64,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder
         return mList.get(position);
     }
 
-//    int visibleCount = 6;
-    int visibleCount = 8;
+    int visibleCount = 6;
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         EntityCardPickBinding binding;

@@ -208,7 +208,7 @@
 
             <TextView
                 style="@style/ConditionTips"
-                android:text="敌方单位设置，用于计算NP、打星" />
+                android:text="用于计算NP、打星，平A/单体宝具目标敌人1" />
 
             <!--敌人数量-->
             <LinearLayout style="@style/ConditionContainer">

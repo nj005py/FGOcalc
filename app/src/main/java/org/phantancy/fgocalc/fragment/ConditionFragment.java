@@ -258,9 +258,10 @@ public class ConditionFragment extends BaseFragment {
                     if (npList != null) {
                         NoblePhantasmEntity it = npList.get(position);
                         vm.calcEntity.setNpEntity(it);
-                        //发现宝具切换，选择当前lv提交
+                        //发现宝具切换，选择当前lv提交，更新宝具卡色
                         if (preNpSelect != position) {
                             submitNpLv(preNpLvSelect);
+                            vm.parsePickCards();
                         }
                         preNpSelect = position;
                     }

@@ -141,21 +141,26 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/fnm_ll_input">
+        android:layout_below="@+id/fnm_ll_input"
+        android:layout_alignParentBottom="true">
 
-        <LinearLayout
-            style="@style/ll_match_width_horizontal">
+        <LinearLayout style="@style/ll_match_width_horizontal">
 
             <TextView
                 android:id="@+id/tv_calc_result"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLines = "99"
+                android:fadeScrollbars="false"
+                android:maxLines="99"
                 android:paddingLeft="9dp"
                 android:scrollbars="vertical"
-                android:fadeScrollbars="false"
-                android:text="@string/about_calc_result"
+                android:text="@string/about_calc_result" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_calc_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
 
         </LinearLayout>

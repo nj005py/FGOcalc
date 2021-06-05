@@ -28,6 +28,8 @@ import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.InfoEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.OneTurnResult;
+import org.phantancy.fgocalc.entity.ResultDmg;
+import org.phantancy.fgocalc.entity.ResultEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
 
@@ -143,7 +145,9 @@ public class CalcViewModel extends AndroidViewModel {
             id++;
         }
         //宝具
-        list.add(parseCardPickNp(id, servant.npColor));
+        if (calcEntity.getNpEntity() != null) {
+            list.add(parseCardPickNp(id, calcEntity.getNpEntity().npColor));
+        }
         cardPicks.setValue(list);
     }
 
@@ -517,72 +521,72 @@ public class CalcViewModel extends AndroidViewModel {
             //伤害随机
             double dmgRandomMax = 1.1;
             double dmgRandomMin = 0.9;
-            double dmgRandomAvg = 1.0;
             StringBuilder resBuilder = new StringBuilder();
             resBuilder.append("max:\n")
-                    .append(fourCardsDmg(dmgRandomMax))
+                    .append(fourCardsDmg(dmgRandomMax).getDes())
                     .append("min:\n")
-                    .append(fourCardsDmg(dmgRandomMin))
-                    .append("avg:\n")
-                    .append(fourCardsDmg(dmgRandomAvg));
+                    .append(fourCardsDmg(dmgRandomMin).getDes());
+            //res
+            ResultDmg max = fourCardsDmg(dmgRandomMax);
+            ResultDmg min = fourCardsDmg(dmgRandomMin);
 
             //计算Np np随机由敌人职阶决定
-            resBuilder.append(fourCardsNp())
+            resBuilder.append(fourCardsNp().getDes())
                     .append("\n");
+
+            ResultDmg np = fourCardsNp();
             //计算打星
-            resBuilder.append(fourCardsStar());
+            resBuilder.append(fourCardsStar().getDes());
+            ResultDmg star = fourCardsStar();
             //显示结果
             calcResult.setValue(resBuilder.toString());
+            handleResult(min,max,np,star);
         }
 
-        //计算打星
     }
 
-
-    //计算一张卡
-    //计算伤害，返回最大，最小，平均
-    //计算np，返回最大，最小，平均
-    //计算打星，返回最大，最小，平均
-
-
-    //calc dmg
-    private OneTurnResult oneTurnDmg(ServantEntity svt, CalcEntity data) {
-        //同色
-        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(data.getCardType1(), data.getCardType2(), data.getCardType3()));
-        //红链
-        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(data.getCardType1(), data.getCardType2(), data.getCardType3()));
-        //伤害随机
-        double dmgRandomMax = 1.1;
-        double dmgRandomMin = 0.9;
-        double dmgRandomAvg = 1.0;
-
-        //4 card dmg
-//        FullData minParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomMin);
-        double min1 = dmgCalc(data.getCardType1(), 1, dmgRandomMin);
-        double min2 = dmgCalc(data.getCardType2(), 2, dmgRandomMin);
-        double min3 = dmgCalc(data.getCardType3(), 3, dmgRandomMin);
-        double min4 = dmgCalc(data.getCardType4(), 4, dmgRandomMin);
-        double sumMin = min1 + min2 + min3 + min4;
-        //max
-//        FullData maxParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomMax);
-        double max1 = dmgCalc(data.getCardType1(), 1, dmgRandomMax);
-        double max2 = dmgCalc(data.getCardType2(), 2, dmgRandomMax);
-        double max3 = dmgCalc(data.getCardType3(), 3, dmgRandomMax);
-        double max4 = dmgCalc(data.getCardType4(), 4, dmgRandomMax);
-        double sumMax = max1 + max2 + max3 + max4;
-        //avg
-//        FullData avgParcel = pack(svt, data, cardType1, isSameColor, isBusterChain, dmgRandomAvg);
-        double avg1 = dmgCalc(data.getCardType1(), 1, dmgRandomAvg);
-        double avg2 = dmgCalc(data.getCardType2(), 2, dmgRandomAvg);
-        double avg3 = dmgCalc(data.getCardType3(), 3, dmgRandomAvg);
-        double avg4 = dmgCalc(data.getCardType4(), 4, dmgRandomAvg);
-        double sumAvg = avg1 + avg2 + avg3 + avg4;
-        return new OneTurnResult(min1, min2, min3, min4, sumMin,
-                max1, max2, max3, max4, sumMax,
-                avg1, avg2, avg3, avg4, sumAvg);
+    private MutableLiveData<List<ResultEntity>> resultList = new MutableLiveData<>();
+    public LiveData<List<ResultEntity>> getResultList(){
+        return resultList;
     }
 
-    private String fourCardsDmg(double random) {
+    //处理结果
+    private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
+
+        ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
+                min.getC1(), max.getC1(), np.getC1(), star.getC1(), null,calcEntity.getCardType1());
+        ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
+                min.getC2(), max.getC2(), np.getC2(), star.getC2(), null,calcEntity.getCardType2());
+        ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
+                min.getC3(), max.getC1(), np.getC1(), star.getC1(), null,calcEntity.getCardType3());
+        ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
+                min.getC4(), max.getC4(), np.getC4(), star.getC4(), null,calcEntity.getCardType4());
+
+        StringBuilder sumBuilder = new StringBuilder();
+        sumBuilder.append("伤害总计：")
+                .append(min.getSum())
+                .append("-")
+                .append(max.getSum())
+                .append("\n");
+        sumBuilder.append("np总计：")
+                .append(np.getSum())
+                .append("\n");
+        sumBuilder.append("打星总计：")
+                .append(star.getSum())
+                .append("\n");
+        ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
+                null,null,null,null,null,sumBuilder.toString());
+        List<ResultEntity> list = new ArrayList<>();
+        list.add(res1);
+        list.add(res2);
+        list.add(res3);
+        list.add(res4);
+        list.add(resSum);
+        resultList.setValue(list);
+    }
+
+    //计算4张卡的伤害
+    private ResultDmg fourCardsDmg(double random) {
         /**
          * 需要3张卡判断的参数
          */
@@ -600,12 +604,21 @@ public class CalcViewModel extends AndroidViewModel {
         res3 = Math.floor(res3);
         res4 = Math.floor(res4);
         double sum = res1 + res2 + res3 + res4;
-        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
+        String des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
                 ParamsUtil.dmgResFormat(res1),
                 ParamsUtil.dmgResFormat(res2),
                 ParamsUtil.dmgResFormat(res3),
                 ParamsUtil.dmgResFormat(res4),
                 ParamsUtil.dmgResFormat(sum));
+        ResultDmg result = new ResultDmg(
+                ParamsUtil.dmgResFormat(res1),
+                ParamsUtil.dmgResFormat(res2),
+                ParamsUtil.dmgResFormat(res3),
+                ParamsUtil.dmgResFormat(res4),
+                ParamsUtil.dmgResFormat(sum),
+                des
+        );
+        return result;
     }
 
     /**
@@ -797,7 +810,8 @@ public class CalcViewModel extends AndroidViewModel {
 //        double np4;
 //        return new OneTurnResult();
 //    }
-    private String fourCardsNp() {
+    //计算4张卡的np
+    private ResultDmg fourCardsNp() {
         double enemyNpMod = calcEntity.getEnemysNpMod()[0];
         double[] res1 = npGenCalc(calcEntity.getCardType1(), 1, enemyNpMod);
         double[] res2 = npGenCalc(calcEntity.getCardType2(), 2, enemyNpMod);
@@ -805,19 +819,26 @@ public class CalcViewModel extends AndroidViewModel {
         double[] res4 = npGenCalc(calcEntity.getCardType4(), 4, enemyNpMod);
         double sum = getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
                 + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4());
-
-        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+        String des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
                 parseNpRes(res1, calcEntity.getCardType1()),
                 parseNpRes(res2, calcEntity.getCardType2()),
                 parseNpRes(res3, calcEntity.getCardType3()),
                 parseNpRes(res4, calcEntity.getCardType4()),
-                ParamsUtil.npGenResFormat(sum)
+                ParamsUtil.npGenResFormat(sum));
+        ResultDmg result = new ResultDmg(
+                parseNpRes(res1, calcEntity.getCardType1()),
+                parseNpRes(res2, calcEntity.getCardType2()),
+                parseNpRes(res3, calcEntity.getCardType3()),
+                parseNpRes(res4, calcEntity.getCardType4()),
+                ParamsUtil.npGenResFormat(sum),
+                des
         );
+        return result;
     }
 
     private String parseNpRes(double[] res, String cardType) {
+        StringBuilder builder = new StringBuilder();
         if (ParamsUtil.isNp(cardType)) {
-            StringBuilder builder = new StringBuilder();
             String sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType));
             builder.append("获得np:")
                     .append(sum)
@@ -828,16 +849,12 @@ public class CalcViewModel extends AndroidViewModel {
                         .append("获得np:")
                         .append(ParamsUtil.npGenResFormat(res[i]));
             }
-            builder.append("\n");
-            return builder.toString();
 
         } else {
-            StringBuilder builder = new StringBuilder();
             builder.append("获得np:")
-                    .append(ParamsUtil.npGenResFormat(res[0]))
-                    .append("\n");
-            return builder.toString();
+                    .append(ParamsUtil.npGenResFormat(res[0]));
         }
+        return builder.toString();
     }
 
     private double getNpRes(double[] res, String cardType) {
@@ -1076,7 +1093,7 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //宝具打星多情况计算
-    private double[] npStarDropNumberDelegate(double rate, int hit) {
+    private double[] npStarDropNumberDelegate(String cardType, int position, int hit) {
         double[] res = new double[3];
         //辅助宝具不用算直接为0
         if (servant.npType.equals("support")) {
@@ -1085,14 +1102,13 @@ public class CalcViewModel extends AndroidViewModel {
         }
         //单体宝具只算第一个敌人
         if (servant.npType.equals("one")) {
-            res[0] = starDropNumber(rate, hit);
+            res[0] = starDropNumber(npStarDropRatePerHit(cardType, position, calcEntity.getEnemysStarMod()[0]), hit);
         }
         //光炮宝具算整个敌人列表
         if (servant.npType.equals("all")) {
             for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
-                //判断是否设置敌人
                 //计算
-                res[i] = starDropNumber(rate, hit);
+                res[i] = starDropNumber(npStarDropRatePerHit(cardType, position, calcEntity.getEnemysStarMod()[i]), hit);
             }
             return res;
         }
@@ -1101,21 +1117,20 @@ public class CalcViewModel extends AndroidViewModel {
 
     //判断卡牌类型，分开计算
     private double[] calcStarDropNumber(String cardType, int position, double enemyStarMod) {
-        double rate = ParamsUtil.isNp(cardType) ? npStarDropRatePerHit(cardType, position, enemyStarMod)
-                : starDropRatePerHit(cardType, position, enemyStarMod);
         int hit = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit);
         double[] res = new double[3];
         if (ParamsUtil.isNp(cardType)) {
             //宝具卡
-            res = npStarDropNumberDelegate(rate, hit);
+            res = npStarDropNumberDelegate(cardType, position, hit);
         } else {
             //普攻
-            res[0] = starDropNumber(rate, hit);
+            res[0] = starDropNumber(starDropRatePerHit(cardType, position, enemyStarMod), hit);
         }
         return res;
     }
 
-    private String fourCardsStar() {
+    //计算4张卡的暴击星
+    private ResultDmg fourCardsStar() {
         double enemyStarMod = calcEntity.getEnemysStarMod()[0];
         double[] res1 = calcStarDropNumber(calcEntity.getCardType1(), 1, enemyStarMod);
         double[] res2 = calcStarDropNumber(calcEntity.getCardType2(), 2, enemyStarMod);
@@ -1123,14 +1138,22 @@ public class CalcViewModel extends AndroidViewModel {
         double[] res4 = calcStarDropNumber(calcEntity.getCardType4(), 4, enemyStarMod);
         double sum = getStarRes(res1, calcEntity.getCardType1()) + getStarRes(res2, calcEntity.getCardType2())
                 + getStarRes(res3, calcEntity.getCardType3()) + getStarRes(res4, calcEntity.getCardType4());
-
-        return MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+        String des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
                 parseStarRes(res1, calcEntity.getCardType1()),
                 parseStarRes(res2, calcEntity.getCardType2()),
                 parseStarRes(res3, calcEntity.getCardType3()),
                 parseStarRes(res4, calcEntity.getCardType4()),
                 ParamsUtil.starDropResFormat(sum)
         );
+        ResultDmg result = new ResultDmg(
+                parseStarRes(res1, calcEntity.getCardType1()),
+                parseStarRes(res2, calcEntity.getCardType2()),
+                parseStarRes(res3, calcEntity.getCardType3()),
+                parseStarRes(res4, calcEntity.getCardType4()),
+                ParamsUtil.starDropResFormat(sum),
+                des
+        );
+        return result;
     }
 
     private double getStarRes(double[] res, String cardType) {
@@ -1158,14 +1181,12 @@ public class CalcViewModel extends AndroidViewModel {
                         .append("获得暴击星:")
                         .append(ParamsUtil.starDropResFormat(res[i]));
             }
-            builder.append("\n");
             return builder.toString();
 
         } else {
             StringBuilder builder = new StringBuilder();
             builder.append("获得暴击星:")
-                    .append(ParamsUtil.starDropResFormat(res[0]))
-                    .append("\n");
+                    .append(ParamsUtil.starDropResFormat(res[0]));
             return builder.toString();
         }
     }

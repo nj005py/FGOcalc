@@ -42,11 +42,11 @@
             app:tint="@color/blueWordDark" />
 
         <TextView
-            android:id="@+id/tv_load_wiki"
+            android:id="@+id/tv_search_svt"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:gravity="center_vertical"
-            android:text="点击加载"
+            android:text="搜索其他从者"
             android:textColor="@color/blueWordDark"
             android:textSize="16dp"
             android:layout_gravity="center_horizontal"

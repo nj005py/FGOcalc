@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +33,19 @@ public class MainFragment extends BaseFragment {
     private FragMainBinding binding;
     //    final String TAG = "MainFrag";
     private MainViewModel vm;
+    //入口，判断点击从者头像行为
+    //主界面
+    public final static int ENTRY_MAIN = 0X0;
+    //搜索界面
+    public final static int ENTRY_SEARCH = 0X1;
+    private int entry = ENTRY_MAIN;
+
+    public MainFragment() {
+    }
+
+    public MainFragment(int entry) {
+        this.entry = entry;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +62,7 @@ public class MainFragment extends BaseFragment {
         binding.rvList.setAdapter(adapter);
 
         //获取从者列表
-        Log.d(TAG,"获取从者列表");
+        Log.d(TAG, "获取从者列表");
         vm.getAllServants();
 
         //获得从者数据时，更新列表
@@ -118,13 +132,34 @@ public class MainFragment extends BaseFragment {
         adapter.setIServantClickListener(new ServantAdapter.IServantClickListener() {
             @Override
             public void openCalcPage(ServantEntity x, ImageView y) {
-                Intent i = new Intent(mActy, CalcActy.class);
-                ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActy, y, "avatar");
-                i.putExtra("servant", x);
-                startActivity(i, actyOptions.toBundle());
-//                startActivity(i);
+                switch (entry) {
+                    case ENTRY_MAIN:
+                        navigateCalc(x, y);
+                        break;
+                    case ENTRY_SEARCH:
+                        navigateSearch(x);
+                        break;
+                    default:
+                        navigateCalc(x, y);
+                        break;
+                }
+
             }
         });
+    }
+
+    private void navigateCalc(ServantEntity svt, ImageView imageView) {
+        Intent i = new Intent(mActy, CalcActy.class);
+        ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActy, imageView, "avatar");
+        i.putExtra("servant", svt);
+        startActivity(i, actyOptions.toBundle());
+    }
+
+    private void navigateSearch(ServantEntity svt) {
+        Intent i = new Intent();
+        i.putExtra("servant", svt);
+        mActy.setResult(Activity.RESULT_OK, i);
+        mActy.finish();
     }
 
 }

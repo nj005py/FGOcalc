@@ -50,20 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.CalcActy"/>
-
-        <!--
-        <activity android:name="org.phantancy.fgocalc.servant.ServantListActy"/>
-
-
-        <activity android:name="org.phantancy.fgocalc.metaphysics.MetaphysicsActy"/>
-        <activity android:name="org.phantancy.fgocalc.activity.BaseActy.CalcActy"
-            android:theme="@style/TransTheme"/>
-        <activity android:name="org.phantancy.fgocalc.calc.buff.BuffActy"
-            android:theme="@style/TransTheme"/>
-        <activity android:name="org.phantancy.fgocalc.web.WebviewActy"/>
-        <activity android:name=".activity.CompassActy"/>
-        <activity android:name=".activity.PartyActy"/>
-        -->
+        <activity android:name=".activity.SearchServantActy" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

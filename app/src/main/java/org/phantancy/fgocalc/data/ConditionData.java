@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.data;
 
+import androidx.collection.ArrayMap;
 import androidx.collection.SimpleArrayMap;
 
 import java.util.HashMap;
@@ -141,7 +142,7 @@ public class ConditionData {
     }
 
     //敌方打星补正
-    public final static SimpleArrayMap<String,Double> enemyStarMods = new SimpleArrayMap<>();
+    public final static Map<String,Double> enemyStarMods = new LinkedHashMap<>();
     static {
         enemyStarMods.put("saber类型1",0.0);
         enemyStarMods.put("archer类型1",0.05);
@@ -166,10 +167,7 @@ public class ConditionData {
     }
 
     public static Double[] getEnemyStarModsValues() {
-        Double[] array = new Double[enemyStarMods.size()];
-        for (int i = 0; i < enemyStarMods.size(); i++) {
-            array[i] = enemyStarMods.valueAt(i);
-        }
-        return array;
+        return enemyStarMods.values().toArray(new Double[enemyStarMods.size()]);
     }
+
 }

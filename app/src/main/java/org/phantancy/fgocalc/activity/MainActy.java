@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.activity;
+ package org.phantancy.fgocalc.activity;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -73,7 +73,7 @@ public class MainActy extends BaseActy {
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
-        fragments.add(new MainFragment());
+        fragments.add(new MainFragment(MainFragment.ENTRY_MAIN));
         fragments.add(new FilterFragment());
         fragments.add(new SettingFragment());
 

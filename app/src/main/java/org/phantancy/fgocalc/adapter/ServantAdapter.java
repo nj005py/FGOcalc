@@ -70,12 +70,6 @@ public class ServantAdapter extends ListAdapter<ServantEntity, ServantAdapter.Vi
                 @Override
                 public void onClick(View v) {
                     servantClickListener.openCalcPage(x,binding.ivAvatar);
-//                    Context ctx = v.getContext();
-//                    Intent i = new Intent(ctx, CalcActy.class);
-//                ActivityOptionsCompat actyOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActy,y,"avatar");
-//                    i.putExtra("servant",x);
-//                startActivity(i,actyOptions.toBundle());
-//                    ctx.startActivity(i);
                 }
             });
         }

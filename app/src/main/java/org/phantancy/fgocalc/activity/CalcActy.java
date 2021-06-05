@@ -51,21 +51,16 @@ public class CalcActy extends BaseActy {
         List<Fragment> fragments = new ArrayList<Fragment>() {
             {
                 add(new InfoFragment());
-                add(wikiFrag);
-//                add(new BuffFragment());
-//                add(new ConditionFragment());
-//                add(new CalcFragment());
                 add(new CalcContainerFragment());
+                add(wikiFrag);
             }
         };
 
         List<String> tabs = new ArrayList<String>() {
             {
                 add("从者信息");
-                add("wiki");
-//                add("Buff设置");
-//                add("条件设置");
                 add("计算");
+                add("wiki");
             }
         };
 

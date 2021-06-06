@@ -1,5 +1,7 @@
 package org.phantancy.fgocalc.common;
 
+import androidx.collection.SimpleArrayMap;
+
 import org.phantancy.fgocalc.R;
 
 import java.util.HashMap;
@@ -86,5 +88,20 @@ public class Constant {
     public final static String COLOR_QUICK = "q";
     public final static String COLOR_ARTS = "a";
     public final static String COLOR_BUSTER = "b";
+
+    private static SimpleArrayMap<String,Integer> cardDrawableMap = new SimpleArrayMap<>();
+    static {
+        cardDrawableMap.put(CARD_QUICK,R.drawable.quick);
+        cardDrawableMap.put(CARD_ARTS,R.drawable.arts);
+        cardDrawableMap.put(CARD_BUSTER,R.drawable.buster);
+        cardDrawableMap.put(CARD_EX,R.drawable.extra);
+        cardDrawableMap.put(NP_QUICK,R.drawable.np_q);
+        cardDrawableMap.put(NP_ARTS,R.drawable.np_a);
+        cardDrawableMap.put(NP_BUSTER,R.drawable.np_b);
+    }
+
+    public static int getCardDrawable(String cardType) {
+        return cardDrawableMap.get(cardType);
+    }
 
 }

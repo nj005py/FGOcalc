@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    app:cardCornerRadius="5dp">
+    android:padding="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_card"
@@ -17,15 +20,16 @@
             android:src="@drawable/quick"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             />
 
         <TextView
             android:id="@+id/tv_res"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:text="adfaljfljdflkajsfiowefjojfownfojwogfnwo"
+            android:text="adfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwo\nadfaljfljdflkajsfiowefjojfownfojwogfnwo"
             app:layout_constraintLeft_toRightOf="@id/iv_card"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,4 +38,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

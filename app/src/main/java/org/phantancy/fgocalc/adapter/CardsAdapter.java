@@ -50,6 +50,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder
 
     public void submitList(List<CardPickEntity> x) {
         mList = x;
+        visibleCount = 6;
         notifyDataSetChanged();
     }
 

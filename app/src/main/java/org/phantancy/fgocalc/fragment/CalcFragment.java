@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.adapter.CardsAdapter;
 import org.phantancy.fgocalc.adapter.PickAdapter;
+import org.phantancy.fgocalc.adapter.ResultAdapter;
 import org.phantancy.fgocalc.databinding.FragCalcBinding;
 import org.phantancy.fgocalc.entity.CardPickEntity;
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration;
+import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.List;
@@ -46,7 +48,7 @@ public class CalcFragment extends BaseFragment {
         binding.rvPicked.addItemDecoration(new LinearItemDecoration((int) (60 * scale + 0.5f)));
         binding.rvCards.setAdapter(cardsAdapter);
 
-        //选卡
+        //已选卡
         pickAdapter.setEntityListenr(new PickAdapter.IEntityListener() {
             @Override
             public void handleClickEvent(CardPickEntity x) {
@@ -62,7 +64,7 @@ public class CalcFragment extends BaseFragment {
             }
         });
 
-        vm.getCardPicks().observe(getViewLifecycleOwner(), new Observer<List<CardPickEntity>>() {
+        vm.cardPicks.observe(getViewLifecycleOwner(), new Observer<List<CardPickEntity>>() {
             @Override
             public void onChanged(List<CardPickEntity> x) {
                 cardsAdapter.submitList(x);
@@ -80,6 +82,15 @@ public class CalcFragment extends BaseFragment {
             }
         });
 
+        //清理结果
+        binding.btnClean.setOnClickListener(v -> {
+            //恢复选卡
+            vm.parsePickCards();
+            pickAdapter.cleanList();
+            //清理结果
+            vm.cleanResult();
+        });
+
         vm.getCalcResult().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
@@ -89,6 +100,12 @@ public class CalcFragment extends BaseFragment {
 
         //解析配卡
         vm.parsePickCards();
+
+        ResultAdapter resultAdapter = new ResultAdapter();
+        binding.rvCalcResult.setAdapter(resultAdapter);
+        binding.rvCalcResult.addItemDecoration(new SpacesItemDecoration(15));
+        //设置结果
+        vm.resultList.observe(getViewLifecycleOwner(),result -> resultAdapter.submitList(result));
     }
 
     private void setOverkillCritical() {

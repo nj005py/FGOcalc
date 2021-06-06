@@ -27,7 +27,6 @@ import org.phantancy.fgocalc.entity.CardPickEntity;
 import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.InfoEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
-import org.phantancy.fgocalc.entity.OneTurnResult;
 import org.phantancy.fgocalc.entity.ResultDmg;
 import org.phantancy.fgocalc.entity.ResultEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
@@ -129,11 +128,9 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //获得可选配卡
-    private MutableLiveData<List<CardPickEntity>> cardPicks = new MutableLiveData<>();
+    private final MutableLiveData<List<CardPickEntity>> mCardPicks = new MutableLiveData<>();
 
-    public LiveData<List<CardPickEntity>> getCardPicks() {
-        return cardPicks;
-    }
+    public LiveData<List<CardPickEntity>> cardPicks = mCardPicks;
 
     public void parsePickCards() {
         String x = servant.cards;
@@ -148,7 +145,7 @@ public class CalcViewModel extends AndroidViewModel {
         if (calcEntity.getNpEntity() != null) {
             list.add(parseCardPickNp(id, calcEntity.getNpEntity().npColor));
         }
-        cardPicks.setValue(list);
+        mCardPicks.setValue(list);
     }
 
     //更新宝具
@@ -163,7 +160,7 @@ public class CalcViewModel extends AndroidViewModel {
         }
         //宝具
         list.add(parseCardPickNp(id, np.npColor));
-        cardPicks.setValue(list);
+        mCardPicks.setValue(list);
     }
 
     //解析指令卡
@@ -521,46 +518,44 @@ public class CalcViewModel extends AndroidViewModel {
             //伤害随机
             double dmgRandomMax = 1.1;
             double dmgRandomMin = 0.9;
-            StringBuilder resBuilder = new StringBuilder();
-            resBuilder.append("max:\n")
-                    .append(fourCardsDmg(dmgRandomMax).getDes())
-                    .append("min:\n")
-                    .append(fourCardsDmg(dmgRandomMin).getDes());
+//            StringBuilder resBuilder = new StringBuilder();
+//            resBuilder.append("max:\n")
+//                    .append(fourCardsDmg(dmgRandomMax).getDes())
+//                    .append("min:\n")
+//                    .append(fourCardsDmg(dmgRandomMin).getDes());
             //res
             ResultDmg max = fourCardsDmg(dmgRandomMax);
             ResultDmg min = fourCardsDmg(dmgRandomMin);
 
             //计算Np np随机由敌人职阶决定
-            resBuilder.append(fourCardsNp().getDes())
-                    .append("\n");
+//            resBuilder.append(fourCardsNp().getDes())
+//                    .append("\n");
 
             ResultDmg np = fourCardsNp();
             //计算打星
-            resBuilder.append(fourCardsStar().getDes());
+//            resBuilder.append(fourCardsStar().getDes());
             ResultDmg star = fourCardsStar();
             //显示结果
-            calcResult.setValue(resBuilder.toString());
+//            calcResult.setValue(resBuilder.toString());
             handleResult(min,max,np,star);
         }
 
     }
 
-    private MutableLiveData<List<ResultEntity>> resultList = new MutableLiveData<>();
-    public LiveData<List<ResultEntity>> getResultList(){
-        return resultList;
-    }
+    private MutableLiveData<List<ResultEntity>> mResultList = new MutableLiveData<>();
+    public LiveData<List<ResultEntity>> resultList = mResultList;
 
     //处理结果
     private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
 
         ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                min.getC1(), max.getC1(), np.getC1(), star.getC1(), null,calcEntity.getCardType1());
+                calcEntity.getCardType1(),min.getC1(), max.getC1(), np.getC1(), star.getC1(), "");
         ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                min.getC2(), max.getC2(), np.getC2(), star.getC2(), null,calcEntity.getCardType2());
+                calcEntity.getCardType2(),min.getC2(), max.getC2(), np.getC2(), star.getC2(), "");
         ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                min.getC3(), max.getC1(), np.getC1(), star.getC1(), null,calcEntity.getCardType3());
+                calcEntity.getCardType3(),min.getC3(), max.getC3(), np.getC3(), star.getC3(), "");
         ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                min.getC4(), max.getC4(), np.getC4(), star.getC4(), null,calcEntity.getCardType4());
+                calcEntity.getCardType4(),min.getC4(), max.getC4(), np.getC4(), star.getC4(), "");
 
         StringBuilder sumBuilder = new StringBuilder();
         sumBuilder.append("伤害总计：")
@@ -575,14 +570,20 @@ public class CalcViewModel extends AndroidViewModel {
                 .append(star.getSum())
                 .append("\n");
         ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
-                null,null,null,null,null,sumBuilder.toString());
+                "","","","","",sumBuilder.toString());
         List<ResultEntity> list = new ArrayList<>();
         list.add(res1);
         list.add(res2);
         list.add(res3);
         list.add(res4);
         list.add(resSum);
-        resultList.setValue(list);
+        mResultList.setValue(list);
+    }
+
+    //清理结果
+    public void cleanResult() {
+        List<ResultEntity> list = new ArrayList<>();
+        mResultList.setValue(list);
     }
 
     //计算4张卡的伤害
@@ -840,19 +841,17 @@ public class CalcViewModel extends AndroidViewModel {
         StringBuilder builder = new StringBuilder();
         if (ParamsUtil.isNp(cardType)) {
             String sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType));
-            builder.append("获得np:")
-                    .append(sum)
-                    .append(" ");
+            builder.append(sum)
+                    .append(" (");
             for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
-                builder.append("打敌人")
-                        .append(i + 1)
-                        .append("获得np:")
-                        .append(ParamsUtil.npGenResFormat(res[i]));
+                builder.append(ParamsUtil.npGenResFormat(res[i]));
+                if (i < calcEntity.getEnemyCount() - 1) {
+                    builder.append(", ");
+                }
             }
-
+            builder.append(")");
         } else {
-            builder.append("获得np:")
-                    .append(ParamsUtil.npGenResFormat(res[0]));
+            builder.append(ParamsUtil.npGenResFormat(res[0]));
         }
         return builder.toString();
     }
@@ -1089,7 +1088,11 @@ public class CalcViewModel extends AndroidViewModel {
         if (rate > 3d) {
             rate = 3d;
         }
-        return rate * hit;
+        double count = rate * hit;
+        if (count < 0d) {
+            count = 0d;
+        }
+        return count;
     }
 
     //宝具打星多情况计算
@@ -1169,26 +1172,23 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     private String parseStarRes(double[] res, String cardType) {
+        StringBuilder builder = new StringBuilder();
         if (ParamsUtil.isNp(cardType)) {
-            StringBuilder builder = new StringBuilder();
             String sum = ParamsUtil.starDropResFormat(getNpRes(res, cardType));
-            builder.append("获得暴击星:")
-                    .append(sum)
-                    .append(" ");
+            builder.append(sum)
+                    .append(" (");
             for (int i = 0; i < calcEntity.getEnemyCount(); i++) {
-                builder.append("打敌人")
-                        .append(i + 1)
-                        .append("获得暴击星:")
-                        .append(ParamsUtil.starDropResFormat(res[i]));
+                builder.append(ParamsUtil.starDropResFormat(res[i]));
+                if (i < calcEntity.getEnemyCount() - 1) {
+                    builder.append(", ");
+                }
             }
-            return builder.toString();
+            builder.append(")");
 
         } else {
-            StringBuilder builder = new StringBuilder();
-            builder.append("获得暴击星:")
-                    .append(ParamsUtil.starDropResFormat(res[0]));
-            return builder.toString();
+            builder.append(ParamsUtil.starDropResFormat(res[0]));
         }
+        return builder.toString();
     }
 
     String calcLogs = "";

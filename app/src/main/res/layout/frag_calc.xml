@@ -140,20 +140,19 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/fnm_ll_input"
-        android:layout_alignParentBottom="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout style="@style/ll_match_width_horizontal">
+        <LinearLayout style="@style/ll_match_width_vertical">
 
             <TextView
                 android:id="@+id/tv_calc_result"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fadeScrollbars="false"
                 android:maxLines="99"
                 android:paddingLeft="9dp"
                 android:scrollbars="vertical"
+                android:visibility="gone"
                 android:text="@string/about_calc_result" />
 
             <androidx.recyclerview.widget.RecyclerView

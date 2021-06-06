@@ -30,6 +30,11 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.MyViewHolder> 
         return mList;
     }
 
+    public void cleanList() {
+        mList.clear();
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

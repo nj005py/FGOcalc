@@ -55,7 +55,6 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((CategoryViewHolder) holder).bindView(getItem(position));
         } else {
             ((InputViewHolder) holder).binding.etBuff.setTag(position);
-            ((InputViewHolder) holder).binding.etBuff.clearFocus();
             ((InputViewHolder) holder).bindView(getItem(position));
         }
     }

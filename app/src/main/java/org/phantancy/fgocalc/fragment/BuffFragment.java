@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.BuffInputAdapter;
+import org.phantancy.fgocalc.data.BuffData;
 import org.phantancy.fgocalc.entity.IBuffShortCut;
 import org.phantancy.fgocalc.databinding.FragBuffBinding;
 import org.phantancy.fgocalc.dialog.ShortcutMstEquipmentDialog;
@@ -23,6 +24,9 @@ import org.phantancy.fgocalc.dialog.ShortcutSupportDialog;
 import org.phantancy.fgocalc.entity.ShortcutBuffEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class BuffFragment extends BaseFragment {
     private FragBuffBinding binding;
@@ -117,6 +121,23 @@ public class BuffFragment extends BaseFragment {
                 });
                 x.getWindow().setLayout((int) (width * 0.9), (int) (height * 0.7));
                 x.show();
+            }
+        });
+
+        //从者buff
+        binding.btnSetBuff.setOnClickListener(v -> {
+            //161 土方岁三
+            if (vm.getServant().id == 161) {
+                double value = vm.getHijiKataCriticalBuff();
+                ShortcutBuffEntity buff = new ShortcutBuffEntity() {
+                    @Override
+                    public Map<String, Double> getBuffMap() {
+                        Map<String, Double> x = new HashMap<>();
+                        x.put(BuffData.CRITICAL_UP, value * 100);
+                        return x;
+                    }
+                };
+                adapter.addBuff(buff);
             }
         });
 

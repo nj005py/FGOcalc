@@ -21,7 +21,6 @@ import org.phantancy.fgocalc.dialog.LoadingDialog;
 public class BaseActy extends AppCompatActivity {
     protected Context ctx;
     protected final String TAG = getClass().getName();
-    protected LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class BaseActy extends AppCompatActivity {
         this.ctx = this;
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         ActivityCollector.addActy(this);
         PushAgent.getInstance(ctx).onAppStart();
     }
@@ -52,16 +50,4 @@ public class BaseActy extends AppCompatActivity {
         ActivityCollector.removeActy(this);
     }
 
-    protected void showLoading(){
-        if (loadingDialog == null) {
-            loadingDialog = new LoadingDialog(ctx);
-        }
-        loadingDialog.show();
-    }
-
-    protected void stopLoading(){
-        if (loadingDialog != null) {
-            loadingDialog.stopAnim();
-        }
-    }
 }

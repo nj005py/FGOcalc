@@ -1203,7 +1203,8 @@ public class CalcViewModel extends AndroidViewModel {
 
     //宝具倍率处理
     public double getNpMultiplier(int svtId, double npDmgMultiplier, double npMultiplierUp, double hpLeft, double hp) {
-        if (svtId == 66) {
+        if (svtId == 66 || svtId == 161) {
+            //骑双子,土方岁三
             npDmgMultiplier = npDmgMultiplier + (npMultiplierUp * (1 - (hpLeft / hp)));
         } else if (svtId == 131) {
             //弓双子
@@ -1214,4 +1215,9 @@ public class CalcViewModel extends AndroidViewModel {
         return npDmgMultiplier;
     }
 
+    //土方岁三 技能3buff
+    public double getHijiKataCriticalBuff() {
+        double buff = 0.2 + 0.8 * (1 - (calcEntity.getHpLeft() / calcEntity.getHp()));
+        return buff;
+    }
 }

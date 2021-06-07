@@ -55,6 +55,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((CategoryViewHolder) holder).bindView(getItem(position));
         } else {
             ((InputViewHolder) holder).binding.etBuff.setTag(position);
+            ((InputViewHolder) holder).binding.etBuff.clearFocus();
             ((InputViewHolder) holder).bindView(getItem(position));
         }
     }
@@ -211,7 +212,6 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     int position = (int)binding.etBuff.getTag();
                     if (TextUtils.isEmpty(s)) {
                         mList.get(position).setValue(0d);
-//                        x.setValue(0d);
                     } else {
                         if (checkInput(s.toString())) {
                             mList.get(position).setValue(Double.parseDouble(s.toString()));

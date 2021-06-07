@@ -3,9 +3,9 @@
     package="org.phantancy.fgocalc">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -20,16 +20,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
+        android:usesCleartextTraffic="true">
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="e3bdf0f988fbbab4ed131fbc08181198" />
 
 
-        <meta-data android:value="5a61306b8f4a9d420400090e" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="Umeng" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a61306b8f4a9d420400090e" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="635f1a6fb0fe4b7fff7e18bfe4af9a77" />
@@ -37,9 +40,8 @@
         <activity
             android:name="org.phantancy.fgocalc.activity.MainActy"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:theme="@style/SplashTheme"
-            >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,8 +51,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CalcActy"/>
-        <activity android:name=".activity.SearchServantActy" />
+        <activity
+            android:name=".activity.CalcActy"/>
+        <activity
+            android:name=".activity.SearchServantActy" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -13,6 +13,7 @@
 
     <ImageView
         android:id="@+id/iv_buff_icon"
+        android:focusable="false"
         style="@style/LogoBuff" />
 
     <org.phantancy.fgocalc.view.ClearEditText
@@ -26,6 +27,7 @@
 
     <TextView
         android:id="@+id/tv_percent_icon"
+        android:focusable="false"
         style="@style/tv_percent"
         />
 

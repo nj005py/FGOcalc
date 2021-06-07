@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.common;
 
 import androidx.collection.SimpleArrayMap;
 
+import org.phantancy.fgocalc.data.BuffData;
 import org.phantancy.fgocalc.entity.ServantEntity;
 
 import java.text.DecimalFormat;
@@ -30,33 +31,6 @@ public class ParamsUtil {
         return starFormatter.format(x);
     }
 
-    /**
-     * 伤害计算
-     * double atk,
-     * double cardDmgMultiplier,
-     * double postitionMod,
-     * double effectiveBuff,
-     * double firstCardMod,
-     * double classAtkMod,
-     * double affinityMod,
-     * double attributeMod,
-     * double randomMod,
-     * double atkBuff,
-     * double defBuff,
-     * double specialBuff,
-     * double specialDefBuff,
-     * double criticalBuff,
-     * double criticalMod,
-     * double exDmgBuff,
-     * double selfDmgBuff,
-     * double selfDmgDefBuff,
-     * double busterChainMod
-     * double npDmgMultiplier,
-     * double npPowerBuff,
-     * double npSpecialBuff,
-     * double selfDmgDefBuff
-     */
-
     // 卡牌倍率 cardDmgMultiplier
     public static Map<String, Double> cardDmgMultiplierMap = new HashMap<String, Double>() {{
         put(Constant.CARD_QUICK, 0.8);
@@ -73,13 +47,14 @@ public class ParamsUtil {
         return cardDmgMultiplierMap.get(cardType);
     }
 
-    // double postitionMod,
-    public static Map<Integer, Double> dmgPositionModMap = new HashMap<Integer, Double>() {{
-        put(1, 1.0);
-        put(2, 1.2);
-        put(3, 1.4);
-        put(4, 1.0);
-    }};
+    //伤害位置补正
+    public static Map<Integer, Double> dmgPositionModMap = new HashMap<Integer, Double>();
+    static {
+        dmgPositionModMap.put(1, 1.0);
+        dmgPositionModMap.put(2, 1.2);
+        dmgPositionModMap.put(3, 1.4);
+        dmgPositionModMap.put(4, 1.0);
+    }
 
     //位置补正
     public static double getDmgPositionMod(int position) {

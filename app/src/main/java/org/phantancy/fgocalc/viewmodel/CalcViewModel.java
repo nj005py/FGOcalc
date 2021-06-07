@@ -537,7 +537,7 @@ public class CalcViewModel extends AndroidViewModel {
             ResultDmg star = fourCardsStar();
             //显示结果
 //            calcResult.setValue(resBuilder.toString());
-            handleResult(min,max,np,star);
+            handleResult(min, max, np, star);
         }
 
     }
@@ -549,13 +549,13 @@ public class CalcViewModel extends AndroidViewModel {
     private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
 
         ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType1(),min.getC1(), max.getC1(), np.getC1(), star.getC1(), "");
+                calcEntity.getCardType1(), min.getC1(), max.getC1(), np.getC1(), star.getC1(), "");
         ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType2(),min.getC2(), max.getC2(), np.getC2(), star.getC2(), "");
+                calcEntity.getCardType2(), min.getC2(), max.getC2(), np.getC2(), star.getC2(), "");
         ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType3(),min.getC3(), max.getC3(), np.getC3(), star.getC3(), "");
+                calcEntity.getCardType3(), min.getC3(), max.getC3(), np.getC3(), star.getC3(), "");
         ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType4(),min.getC4(), max.getC4(), np.getC4(), star.getC4(), "");
+                calcEntity.getCardType4(), min.getC4(), max.getC4(), np.getC4(), star.getC4(), "");
 
         StringBuilder sumBuilder = new StringBuilder();
         sumBuilder.append("伤害总计：")
@@ -570,7 +570,7 @@ public class CalcViewModel extends AndroidViewModel {
                 .append(star.getSum())
                 .append("\n");
         ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
-                "","","","","",sumBuilder.toString());
+                "", "", "", "", "", sumBuilder.toString());
         List<ResultEntity> list = new ArrayList<>();
         list.add(res1);
         list.add(res2);
@@ -752,7 +752,8 @@ public class CalcViewModel extends AndroidViewModel {
         //atk
         double atk = calcEntity.getAtk();
         //宝具倍率
-        double npDmgMultiplier = calcEntity.getNpDmgMultiplier();
+        double npDmgMultiplier = getNpMultiplier(servant.id, calcEntity.getNpDmgMultiplier(),
+                safeGetBuffMap(BuffData.NP_MULTIPLIER_UP_BE), (double) (calcEntity.getHpLeft()), (double) (calcEntity.getHp()));
         //卡牌伤害倍率
         double cardDmgMultiplier = getCardDmgMultiplier(cardType);
         /**
@@ -1191,18 +1192,6 @@ public class CalcViewModel extends AndroidViewModel {
         return builder.toString();
     }
 
-    String calcLogs = "";
-
-    String infoLog = "";
-
-    private void dataToInfoLog(String svtName, String svtClass) {
-        infoLog = LogManager.logInfo(svtName, svtClass);
-    }
-
-    private String dataToFinalLog() {
-        return LogManager.logFinal(infoLog, calcLogs);
-    }
-
     //安全取buff
     public double safeGetBuffMap(String key) {
         if (calcEntity.getBuffMap().get(key) == null) {
@@ -1210,6 +1199,19 @@ public class CalcViewModel extends AndroidViewModel {
         } else {
             return calcEntity.getBuffMap().get(key);
         }
+    }
+
+    //宝具倍率处理
+    public double getNpMultiplier(int svtId, double npDmgMultiplier, double npMultiplierUp, double hpLeft, double hp) {
+        if (svtId == 66) {
+            npDmgMultiplier = npDmgMultiplier + (npMultiplierUp * (1 - (hpLeft / hp)));
+        } else if (svtId == 131) {
+            //弓双子
+            npDmgMultiplier = npDmgMultiplier + (6 * (1 - (hpLeft / hp)));
+        } else {
+            npDmgMultiplier = npDmgMultiplier + npMultiplierUp;
+        }
+        return npDmgMultiplier;
     }
 
 }

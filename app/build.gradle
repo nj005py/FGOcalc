@@ -94,6 +94,7 @@ android {
 
 
 dependencies {
+    implementation project(path: ':flutter')
     def lifecycle_version = "2.1.0"
     def room_version = "2.2.5"
     def material = "1.2.1";

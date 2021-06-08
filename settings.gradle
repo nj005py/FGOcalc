@@ -1,1 +1,9 @@
 include ':app',':push'
+setBinding(new Binding([gradle: this]))
+evaluate(new File(
+  settingsDir,
+  '../fgocalc_flutter_module/.android/include_flutter.groovy'
+))
+
+include ':fgocalc_flutter_module'
+project(':fgocalc_flutter_module').projectDir = new File('../fgocalc_flutter_module')

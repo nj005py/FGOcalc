@@ -63,11 +63,11 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <org.phantancy.fgocalc.view.RecyclerViewAtViewPager2
         android:id="@+id/rv_buff_input"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:spanCount="2"
         />
+
 
 </LinearLayout>

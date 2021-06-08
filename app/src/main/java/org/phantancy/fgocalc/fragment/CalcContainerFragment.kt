@@ -32,34 +32,34 @@ class CalcContainerFragment : LazyFragment() {
         binding.vpCalc.adapter = adapter
         binding.vpCalc.orientation = ORIENTATION_VERTICAL
         //true:滑动，false：禁止滑动
-        binding.vpCalc.isUserInputEnabled = false
-        binding.vpCalc.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                when {
-                    position == 0 -> {
-                        //首页
-                        binding.btnUp.isEnabled = false
-                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.gray400))
-                        binding.btnDown.isEnabled = true
-                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
-                    }
-                    position == (fragments.size - 1) -> {
-                        //尾页
-                        binding.btnUp.isEnabled = true
-                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
-                        binding.btnDown.isEnabled = false
-                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.gray400))
-
-                    }
-                    else -> {
-                        binding.btnUp.isEnabled = true
-                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
-                        binding.btnDown.isEnabled = true
-                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
-                    }
-                }
-            }
-        })
+        binding.vpCalc.isUserInputEnabled = true
+//        binding.vpCalc.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//            override fun onPageSelected(position: Int) {
+//                when {
+//                    position == 0 -> {
+//                        //首页
+//                        binding.btnUp.isEnabled = false
+//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.gray400))
+//                        binding.btnDown.isEnabled = true
+//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
+//                    }
+//                    position == (fragments.size - 1) -> {
+//                        //尾页
+//                        binding.btnUp.isEnabled = true
+//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
+//                        binding.btnDown.isEnabled = false
+//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.gray400))
+//
+//                    }
+//                    else -> {
+//                        binding.btnUp.isEnabled = true
+//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
+//                        binding.btnDown.isEnabled = true
+//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
+//                    }
+//                }
+//            }
+//        })
         binding.btnUp.setOnClickListener {
             val curPage = binding.vpCalc.currentItem
             binding.vpCalc.setCurrentItem(curPage - 1)

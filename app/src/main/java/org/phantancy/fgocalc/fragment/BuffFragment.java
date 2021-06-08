@@ -13,6 +13,7 @@ import androidx.collection.SimpleArrayMap;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.BuffInputAdapter;
@@ -57,6 +58,7 @@ public class BuffFragment extends BaseFragment {
                 }
             }
         });
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(ctx);
         binding.rvBuffInput.setAdapter(adapter);
         binding.rvBuffInput.setLayoutManager(layoutManager);
 

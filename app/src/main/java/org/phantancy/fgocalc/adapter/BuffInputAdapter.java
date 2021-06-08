@@ -53,9 +53,11 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == 2) {
             ((CategoryViewHolder) holder).bindView(getItem(position));
+            ((CategoryViewHolder) holder).setIsRecyclable(false);
         } else {
             ((InputViewHolder) holder).binding.etBuff.setTag(position);
             ((InputViewHolder) holder).bindView(getItem(position));
+            ((InputViewHolder) holder).setIsRecyclable(false);
         }
     }
 
@@ -189,6 +191,7 @@ public class BuffInputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             binding.ivBuffIcon.setImageDrawable(icon);
             binding.etBuff.setHint(x.getKey());
             binding.etBuff.setText(x.getValueDisplay());
+            binding.etBuff.clearFocus();
             int type = x.getType();
             if (type == 0) {
                 binding.tvPercentIcon.setVisibility(View.INVISIBLE);

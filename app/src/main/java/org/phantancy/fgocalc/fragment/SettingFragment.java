@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,48 +12,66 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import org.phantancy.fgocalc.adapter.BuffInputAdapter;
+import org.phantancy.fgocalc.adapter.SettingAdapter;
 import org.phantancy.fgocalc.databinding.FragBuffBinding;
 import org.phantancy.fgocalc.databinding.FragSettingBinding;
+import org.phantancy.fgocalc.entity.SettingEntity;
+import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
-public class SettingFragment extends BaseFragment {
-//    private MainViewModel vm;
-//    private FragSettingBinding binding;
+import java.util.ArrayList;
+import java.util.List;
 
-    private FragBuffBinding binding;
-    private CalcViewModel vm;
-    private BuffInputAdapter adapter;
+import io.flutter.embedding.android.FlutterActivity;
+
+public class SettingFragment extends BaseFragment {
+    private MainViewModel vm;
+    private FragSettingBinding binding;
+    final static int FLUTTER_VIEW = 0X0;
+    final static int RELOAD_DATABASE = 0X1;
+    final static int JOIN_GROUP = 0X2;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        binding = FragSettingBinding.inflate(getLayoutInflater());
-        binding = FragBuffBinding.inflate(inflater,container,false);
+        binding = FragSettingBinding.inflate(inflater,container,false);
         return binding.getRoot();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        vm = new ViewModelProvider(mActy).get(MainViewModel.class);
-        vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
-        adapter = new BuffInputAdapter(ctx);
-        GridLayoutManager layoutManager = new GridLayoutManager(ctx,2);
-        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+        vm = new ViewModelProvider(mActy).get(MainViewModel.class);
+
+        SettingAdapter adapter = new SettingAdapter();
+        binding.rvSetting.setAdapter(adapter);
+        binding.rvSetting.addItemDecoration(new SpacesItemDecoration(15));
+        adapter.setSettingInterface(new SettingAdapter.SettingInterface() {
             @Override
-            public int getSpanSize(int position) {
-                int type = adapter.getItemViewType(position);
-                if (type == 2) {
-                    return 2;
-                } else {
-                    return 1;
+            public void handleClick(int code) {
+                Intent intent = new Intent();
+                switch (code) {
+                    case FLUTTER_VIEW:
+                        intent.setClass(mActy, FlutterActivity.class);
+                        startActivity(intent);
+                        break;
+                    case RELOAD_DATABASE:
+                        break;
+                    case JOIN_GROUP:
+                        break;
                 }
             }
         });
-        binding.rvBuffInput.setAdapter(adapter);
-        binding.rvBuffInput.setLayoutManager(layoutManager);
+        adapter.submitList(getSettings());
+    }
 
-        adapter.submitList(vm.getBuffInputList());
+    private List<SettingEntity> getSettings() {
+        List<SettingEntity> list = new ArrayList<>();
+        list.add(new SettingEntity(FLUTTER_VIEW,"flutter view"));
+        list.add(new SettingEntity(RELOAD_DATABASE,"重载数据库"));
+        list.add(new SettingEntity(JOIN_GROUP,"加QQ群"));
+        return list;
     }
 }

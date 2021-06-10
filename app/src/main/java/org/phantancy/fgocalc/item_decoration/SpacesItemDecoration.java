@@ -1,5 +1,6 @@
 package org.phantancy.fgocalc.item_decoration;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 
@@ -22,5 +23,10 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildPosition(view) == 0)
             outRect.top = space;
+    }
+
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

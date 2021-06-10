@@ -12,11 +12,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import org.phantancy.fgocalc.data.CalcDatabase;
 import org.phantancy.fgocalc.data.CalcRepository;
 import org.phantancy.fgocalc.data.ServantAvatar;
 import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 
+import java.io.File;
 import java.util.List;
 
 public class MainViewModel extends AndroidViewModel {
@@ -182,6 +184,15 @@ public class MainViewModel extends AndroidViewModel {
     //排序
     private String handleOrderType(String x) {
         return " ORDER BY " + x;
+    }
+
+    public void reloadDatabase() {
+        File dbFile = getApplication().getDatabasePath(CalcDatabase.DB_NAME);
+        if (dbFile.exists()) {
+            dbFile.delete();
+        }
+        calcRepository = null;
+        calcRepository = new CalcRepository(getApplication());
     }
 
 }

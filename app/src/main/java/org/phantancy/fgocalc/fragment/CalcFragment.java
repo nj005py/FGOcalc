@@ -103,7 +103,7 @@ public class CalcFragment extends BaseFragment {
 
         ResultAdapter resultAdapter = new ResultAdapter();
         binding.rvCalcResult.setAdapter(resultAdapter);
-        binding.rvCalcResult.addItemDecoration(new SpacesItemDecoration(15));
+        binding.rvCalcResult.addItemDecoration(new SpacesItemDecoration(SpacesItemDecoration.dip2px(ctx,5)));
         //设置结果
         vm.resultList.observe(getViewLifecycleOwner(),result -> resultAdapter.submitList(result));
     }

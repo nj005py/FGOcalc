@@ -5,6 +5,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.Log;
+
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
@@ -28,6 +30,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         appCtx = getApplicationContext();
+        LiveEventBus.config()
+                .autoClear(true)
+                .lifecycleObserverAlwaysActive(true);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

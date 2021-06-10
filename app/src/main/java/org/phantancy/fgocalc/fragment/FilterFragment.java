@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.phantancy.fgocalc.adapter.FilterAdapter;
 import org.phantancy.fgocalc.databinding.FragFilterBinding;
 import org.phantancy.fgocalc.entity.FilterEntity;
+import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
 import java.util.List;
@@ -37,6 +38,7 @@ public class FilterFragment extends BaseFragment {
 
         FilterAdapter adapter = new FilterAdapter(ctx,null);
         binding.rvFilter.setAdapter(adapter);
+        binding.rvFilter.addItemDecoration(new SpacesItemDecoration(SpacesItemDecoration.dip2px(ctx,5)));
 
         //获取筛选项
         Log.d(TAG,"获取筛选内容");

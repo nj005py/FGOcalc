@@ -9,7 +9,7 @@ android {
     buildToolsVersion '29.0.2'
     defaultConfig {
         applicationId "org.phantancy.fgocalc"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 50
         versionName "2.0.0"
@@ -159,4 +159,5 @@ dependencies {
     implementation 'com.permissionx.guolindev:permissionx:1.2.2'
     //滑动刷新
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
 }

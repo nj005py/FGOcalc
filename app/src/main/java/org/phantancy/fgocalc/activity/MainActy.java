@@ -1,8 +1,9 @@
- package org.phantancy.fgocalc.activity;
+package org.phantancy.fgocalc.activity;
 
 import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -14,16 +15,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.RequestCallback;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
+import org.phantancy.fgocalc.character_factory.DatabaseCharacter;
 import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.databinding.ActyMainBinding;
+import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.fragment.FilterFragment;
 import org.phantancy.fgocalc.fragment.MainFragment;
 import org.phantancy.fgocalc.fragment.SettingFragment;
+import org.phantancy.fgocalc.util.DisplayUtil;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
@@ -40,7 +45,9 @@ public class MainActy extends BaseActy {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
-        getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        //初始化窗口宽高
+        initDisplay();
         super.onCreate(savedInstanceState);
 
         /**
@@ -69,9 +76,21 @@ public class MainActy extends BaseActy {
     }
 
     private void init() {
-
+        LiveEventBus.get(DatabaseEvent.class)
+                .observe(this,(x) -> {
+                    if (x.getCode() == DatabaseEvent.SUCCESS){
+                        new DatabaseCharacter(MainActy.this).onSuccess();
+                    }
+                    if (x.getCode() == DatabaseEvent.ERROR) {
+                        new DatabaseCharacter(MainActy.this).onError();
+                    }
+                    if (x.getCode() == DatabaseEvent.RELOAD) {
+                        if (vm != null) {
+                            vm.reloadDatabase();
+                        }
+                    }
+                });
         vm = new ViewModelProvider(this).get(MainViewModel.class);
-
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
@@ -85,7 +104,7 @@ public class MainActy extends BaseActy {
         tabs.add("筛选");
         tabs.add("设置");
         //set viewpager
-        CalcViewPagerAdapter pagerAdapter = new CalcViewPagerAdapter(this,fragments);
+        CalcViewPagerAdapter pagerAdapter = new CalcViewPagerAdapter(this, fragments);
         binding.vpPager.setAdapter(pagerAdapter);
         new TabLayoutMediator(binding.tlTab, binding.vpPager, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
@@ -100,6 +119,7 @@ public class MainActy extends BaseActy {
                 binding.vpPager.setCurrentItem(page);
             }
         });
+
     }
 
     //重载返回键
@@ -114,11 +134,17 @@ public class MainActy extends BaseActy {
                 } else {
                     ActivityCollector.finishAll();
                 }
-            }else{
+            } else {
                 vm.clearKeyword();
             }
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void initDisplay() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        DisplayUtil.INSTANCE.init(metrics.widthPixels, metrics.heightPixels);
     }
 }

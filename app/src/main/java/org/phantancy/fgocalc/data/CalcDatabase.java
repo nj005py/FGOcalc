@@ -1,16 +1,20 @@
 package org.phantancy.fgocalc.data;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.jeremyliao.liveeventbus.LiveEventBus;
+
+import org.phantancy.fgocalc.character_factory.DatabaseCharacter;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
+import org.phantancy.fgocalc.event.DatabaseEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,13 +51,19 @@ public abstract class CalcDatabase extends RoomDatabase {
                     fos.write(buffer, 0, count);
                 }
                 Log.d(TAG,"db copy success");
+                LiveEventBus.get(DatabaseEvent.class)
+                        .post(new DatabaseEvent(DatabaseEvent.SUCCESS));
                 fos.close();//关闭输出流
                 is.close();//关闭输入流
             } catch (FileNotFoundException e) {
                 Log.d(TAG,"db copy error");
+                LiveEventBus.get(DatabaseEvent.class)
+                        .post(new DatabaseEvent(DatabaseEvent.ERROR));
                 e.printStackTrace();
             } catch (IOException e) {
                 Log.d(TAG,"db copy error");
+                LiveEventBus.get(DatabaseEvent.class)
+                        .post(new DatabaseEvent(DatabaseEvent.ERROR));
                 e.printStackTrace();
             }
         }

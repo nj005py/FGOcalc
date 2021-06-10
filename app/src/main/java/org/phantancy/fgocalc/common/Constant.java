@@ -29,6 +29,7 @@ public class Constant {
     public static final String AVATAR_BASE_URL = "https://gitee.com/nj005py/fgocalc/raw/master/svt/";
     //默认wiki地址
     public static String WIKI_URL = "http://fgo.vgtime.com/servant/";
+    public static String MOONCELL_URL = "https://fgo.wiki/w/";
 
     public static final Map<String, Integer> NP_COLOR_MAP = new HashMap<String, Integer>() {
         {

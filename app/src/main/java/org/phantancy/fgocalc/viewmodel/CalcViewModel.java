@@ -193,14 +193,17 @@ public class CalcViewModel extends AndroidViewModel {
         this.pickedCards = pickedCards;
     }
 
-    //获取从者链接
-    public String getServantWiki() {
-        int id = servant.id;
-        String url = new StringBuilder()
-                .append(Constant.WIKI_URL)
+    //获取fgowiki链接
+    public String getServantWiki(int id) {
+        return new StringBuilder(Constant.WIKI_URL)
                 .append(id)
                 .toString();
-        return url;
+    }
+
+    public String getServantMooncell(int id) {
+        return new StringBuilder(Constant.MOONCELL_URL)
+                .append(id)
+                .toString();
     }
 
     /**

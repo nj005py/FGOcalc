@@ -20,12 +20,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
+import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.SearchServantActy;
 import org.phantancy.fgocalc.databinding.FragWikiBinding;
 import org.phantancy.fgocalc.databinding.LayoutWebviewBinding;
+import org.phantancy.fgocalc.dialog.CharacterDialog;
+import org.phantancy.fgocalc.entity.CharacterEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WikiFragment extends LazyFragment {
     private FragWikiBinding binding;
@@ -36,14 +42,14 @@ public class WikiFragment extends LazyFragment {
     public static int SEARCH_SERVANT = 0X0;
     private ActivityResultLauncher<Intent> resultLauncher;
 
-    public void setParentPager(ViewPager2 parentPager){
+    public void setParentPager(ViewPager2 parentPager) {
         this.parentPager = parentPager;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragWikiBinding.inflate(inflater,container,false);
+        binding = FragWikiBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -64,18 +70,20 @@ public class WikiFragment extends LazyFragment {
     @Override
     protected void init() {
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
-        url = vm.getServantWiki();
-
+        //搜索
         binding.tvSearchSvt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                binding.vsWebview.inflate();
-//                startActivityForResult(i,SEARCH_SERVANT);
                 if (resultLauncher != null) {
                     Intent i = new Intent(ctx, SearchServantActy.class);
                     resultLauncher.launch(i);
                 }
             }
+        });
+
+        //加载
+        binding.tvLoad.setOnClickListener(v -> {
+            selectWiki(vm.getServant().id);
         });
 
 
@@ -100,10 +108,39 @@ public class WikiFragment extends LazyFragment {
                         if (data != null) {
                             ServantEntity svt = (ServantEntity) data.getParcelableExtra("servant");
                             ToastUtils.showToast(svt.name);
+                            selectWiki(svt.id);
                         }
                     }
                 }
         );
+    }
+
+    //选wiki来源
+    private void selectWiki(int id) {
+        CharacterDialog d = new CharacterDialog(ctx);
+        CharacterEntity e = new CharacterEntity("选个", R.drawable.doctor);
+        e.options = Stream.of(
+                new CharacterEntity.OptionEntity("fgowiki", () -> {
+                    url = vm.getServantWiki(id);
+                    if (webviewBinding == null) {
+                        binding.vsWebview.inflate();
+                    } else {
+                        loadWebview();
+                    }
+                    d.dismiss();
+                }),
+                new CharacterEntity.OptionEntity("mooncell", () -> {
+                    url = vm.getServantMooncell(id);
+                    if (webviewBinding == null) {
+                        binding.vsWebview.inflate();
+                    } else{
+                        loadWebview();
+                    }
+                    d.dismiss();
+                })
+        ).collect(Collectors.toList());
+        d.setEntity(e);
+        d.show();
     }
 
     private void loadUrl() {
@@ -126,7 +163,7 @@ public class WikiFragment extends LazyFragment {
                         webviewBinding.wvWiki.loadUrl(url);
                         webviewBinding.srlWiki.setRefreshing(false);
                     }
-                },1000);
+                }, 1000);
             }
         });
 

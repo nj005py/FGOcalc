@@ -17,12 +17,7 @@
         app:layout_constraintBottom_toTopOf="@+id/fl_wiki_controller"
         />
 
-    <include
-        layout="@layout/layout_empty_wiki"
-        />
-
-
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/fl_wiki_controller"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -36,17 +31,32 @@
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_weight="1.0"
             android:src="@drawable/sh_back"
             android:layout_gravity="start"
             app:tint="@color/blueWordDark" />
 
         <TextView
             android:id="@+id/tv_search_svt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:gravity="center_vertical"
+            android:layout_weight="3.0"
+            android:gravity="center"
+            android:drawableLeft="@android:drawable/ic_menu_search"
             android:text="搜索其他从者"
+            android:textColor="@color/blueWordDark"
+            android:textSize="16dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_blue"
+            />
+
+        <TextView
+            android:id="@+id/tv_load"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="2.0"
+            android:gravity="center"
+            android:text="加载wiki"
             android:textColor="@color/blueWordDark"
             android:textSize="16dp"
             android:layout_gravity="center_horizontal"
@@ -57,11 +67,11 @@
             android:id="@+id/iv_forward"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_weight="1.0"
             android:src="@drawable/sh_forward"
             android:layout_gravity="end"
             app:tint="@color/blueWordDark" />
 
-    </FrameLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

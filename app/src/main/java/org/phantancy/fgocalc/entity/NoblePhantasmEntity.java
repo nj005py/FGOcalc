@@ -42,20 +42,20 @@ public class NoblePhantasmEntity implements Parcelable {
     public double npLv5;
 
     //宝具buff随宝具等级
-    @ColumnInfo(name = "buff_lv1")
-    public String buffLv1;
+    @ColumnInfo(name = "oc_buff_lv1")
+    public String ocBuffLv1;
 
-    @ColumnInfo(name = "buff_lv2")
-    public String buffLv2;
+    @ColumnInfo(name = "oc_buff_lv2")
+    public String ocBuffLv2;
 
-    @ColumnInfo(name = "buff_lv3")
-    public String buffLv3;
+    @ColumnInfo(name = "oc_buff_lv3")
+    public String ocBuffLv3;
 
-    @ColumnInfo(name = "buff_lv4")
-    public String buffLv4;
+    @ColumnInfo(name = "oc_buff_lv4")
+    public String ocBuffLv4;
 
-    @ColumnInfo(name = "buff_lv5")
-    public String buffLv5;
+    @ColumnInfo(name = "oc_buff_lv5")
+    public String ocBuffLv5;
 
     //宝具buff随oc
     @ColumnInfo(name = "oc_buff")
@@ -78,11 +78,11 @@ public class NoblePhantasmEntity implements Parcelable {
         npLv3 = in.readDouble();
         npLv4 = in.readDouble();
         npLv5 = in.readDouble();
-        buffLv1 = in.readString();
-        buffLv2 = in.readString();
-        buffLv3 = in.readString();
-        buffLv4 = in.readString();
-        buffLv5 = in.readString();
+        ocBuffLv1 = in.readString();
+        ocBuffLv2 = in.readString();
+        ocBuffLv3 = in.readString();
+        ocBuffLv4 = in.readString();
+        ocBuffLv5 = in.readString();
         oc_buff = in.readString();
         npDes = in.readString();
     }
@@ -115,11 +115,11 @@ public class NoblePhantasmEntity implements Parcelable {
         dest.writeDouble(npLv3);
         dest.writeDouble(npLv4);
         dest.writeDouble(npLv5);
-        dest.writeString(buffLv1);
-        dest.writeString(buffLv2);
-        dest.writeString(buffLv3);
-        dest.writeString(buffLv4);
-        dest.writeString(buffLv5);
+        dest.writeString(ocBuffLv1);
+        dest.writeString(ocBuffLv2);
+        dest.writeString(ocBuffLv3);
+        dest.writeString(ocBuffLv4);
+        dest.writeString(ocBuffLv5);
         dest.writeString(oc_buff);
         dest.writeString(npDes);
     }

@@ -7,7 +7,8 @@ data class ResultEntity(
         var dmgMax: String?,
         var np: String?,
         var star: String?,
-        var sum: String? = "x"
+        var sum: String? = "x",
+        var avatar:Int? = 0
 ) {
     companion object {
         val TYPE_CARD = 0x0;

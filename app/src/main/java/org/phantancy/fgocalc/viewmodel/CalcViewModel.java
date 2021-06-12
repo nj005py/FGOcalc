@@ -16,12 +16,12 @@ import com.google.gson.JsonParser;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
-import org.phantancy.fgocalc.common.LogManager;
 import org.phantancy.fgocalc.common.ParamsUtil;
 import org.phantancy.fgocalc.data.BuffData;
 import org.phantancy.fgocalc.data.CalcRepository;
 import org.phantancy.fgocalc.data.InfoBuilder;
 import org.phantancy.fgocalc.data.NoblePhantasmRepository;
+import org.phantancy.fgocalc.data.ServantAvatar;
 import org.phantancy.fgocalc.entity.BuffInputEntity;
 import org.phantancy.fgocalc.entity.CardPickEntity;
 import org.phantancy.fgocalc.entity.CalcEntity;
@@ -194,15 +194,15 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //获取fgowiki链接
-    public String getServantWiki(int id) {
+    public String getServantWiki(ServantEntity svt) {
         return new StringBuilder(Constant.WIKI_URL)
-                .append(id)
+                .append(svt.id)
                 .toString();
     }
 
-    public String getServantMooncell(int id) {
+    public String getServantMooncell(ServantEntity svt) {
         return new StringBuilder(Constant.MOONCELL_URL)
-                .append(id)
+                .append(svt.nameLink)
                 .toString();
     }
 
@@ -384,19 +384,19 @@ public class CalcViewModel extends AndroidViewModel {
         String lvBuff = "";
         switch (lv) {
             case "一宝":
-                lvBuff = it.buffLv1;
+                lvBuff = it.ocBuffLv1;
                 break;
             case "二宝":
-                lvBuff = it.buffLv2;
+                lvBuff = it.ocBuffLv2;
                 break;
             case "三宝":
-                lvBuff = it.buffLv3;
+                lvBuff = it.ocBuffLv3;
                 break;
             case "四宝":
-                lvBuff = it.buffLv4;
+                lvBuff = it.ocBuffLv4;
                 break;
             case "五宝":
-                lvBuff = it.buffLv5;
+                lvBuff = it.ocBuffLv5;
                 break;
 
         }
@@ -552,13 +552,14 @@ public class CalcViewModel extends AndroidViewModel {
     private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
 
         ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType1(), min.getC1(), max.getC1(), np.getC1(), star.getC1(), "");
+                calcEntity.getCardType1(), min.getC1(), max.getC1(), np.getC1(), star.getC1(),
+                "", ServantAvatar.getServantAvatar(servant.id));
         ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType2(), min.getC2(), max.getC2(), np.getC2(), star.getC2(), "");
+                calcEntity.getCardType2(), min.getC2(), max.getC2(), np.getC2(), star.getC2(), "", ServantAvatar.getServantAvatar(servant.id));
         ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType3(), min.getC3(), max.getC3(), np.getC3(), star.getC3(), "");
+                calcEntity.getCardType3(), min.getC3(), max.getC3(), np.getC3(), star.getC3(), "", ServantAvatar.getServantAvatar(servant.id));
         ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType4(), min.getC4(), max.getC4(), np.getC4(), star.getC4(), "");
+                calcEntity.getCardType4(), min.getC4(), max.getC4(), np.getC4(), star.getC4(), "", ServantAvatar.getServantAvatar(servant.id));
 
         StringBuilder sumBuilder = new StringBuilder();
         sumBuilder.append("伤害总计：")
@@ -573,7 +574,7 @@ public class CalcViewModel extends AndroidViewModel {
                 .append(star.getSum())
                 .append("\n");
         ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
-                "", "", "", "", "", sumBuilder.toString());
+                "", "", "", "", "", sumBuilder.toString(), ServantAvatar.getServantAvatar(servant.id));
         List<ResultEntity> list = new ArrayList<>();
         list.add(res1);
         list.add(res2);

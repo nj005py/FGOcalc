@@ -57,7 +57,6 @@ public class InfoBuilder {
                 //8
                 add(new InfoEntity("被动蓝魔放",getPercent(servant.artsBuffN)));
                 add(new InfoEntity("被动红魔放",getPercent(servant.busterBuffN)));
-                add(new InfoEntity("被动特攻",getPercent(servant.specialBuffN)));
                 add(new InfoEntity("被动暴击",getPercent(servant.criticalBuffN)));
 
                 //9

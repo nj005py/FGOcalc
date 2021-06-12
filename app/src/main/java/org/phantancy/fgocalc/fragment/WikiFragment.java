@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
@@ -67,6 +69,7 @@ public class WikiFragment extends LazyFragment {
         super.onDestroy();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void init() {
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
@@ -83,7 +86,7 @@ public class WikiFragment extends LazyFragment {
 
         //加载
         binding.tvLoad.setOnClickListener(v -> {
-            selectWiki(vm.getServant().id);
+            selectWiki(vm.getServant());
         });
 
 
@@ -97,6 +100,7 @@ public class WikiFragment extends LazyFragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +112,7 @@ public class WikiFragment extends LazyFragment {
                         if (data != null) {
                             ServantEntity svt = (ServantEntity) data.getParcelableExtra("servant");
                             ToastUtils.showToast(svt.name);
-                            selectWiki(svt.id);
+                            selectWiki(svt);
                         }
                     }
                 }
@@ -116,12 +120,13 @@ public class WikiFragment extends LazyFragment {
     }
 
     //选wiki来源
-    private void selectWiki(int id) {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void selectWiki(ServantEntity svt) {
         CharacterDialog d = new CharacterDialog(ctx);
         CharacterEntity e = new CharacterEntity("选个", R.drawable.doctor);
         e.options = Stream.of(
                 new CharacterEntity.OptionEntity("fgowiki", () -> {
-                    url = vm.getServantWiki(id);
+                    url = vm.getServantWiki(svt);
                     if (webviewBinding == null) {
                         binding.vsWebview.inflate();
                     } else {
@@ -130,7 +135,7 @@ public class WikiFragment extends LazyFragment {
                     d.dismiss();
                 }),
                 new CharacterEntity.OptionEntity("mooncell", () -> {
-                    url = vm.getServantMooncell(id);
+                    url = vm.getServantMooncell(svt);
                     if (webviewBinding == null) {
                         binding.vsWebview.inflate();
                     } else{

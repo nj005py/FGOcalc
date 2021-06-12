@@ -39,6 +39,9 @@ public class ServantEntity implements Parcelable {
     //星
     @ColumnInfo(name = "star")
     public int star;
+    //mc用的name_link
+    @ColumnInfo(name = "name_link")
+    public String nameLink;
     //阵营（天地人星兽）
     @ColumnInfo(name = "attribute")
     public String attribute;
@@ -145,44 +148,6 @@ public class ServantEntity implements Parcelable {
      * 宝具倍率
      * 宝具信息补充
      */
-    //1宝倍率
-    @ColumnInfo(name = "np_lv1")
-    public double npLv1;
-    //2宝倍率
-    @ColumnInfo(name = "np_lv2")
-    public double npLv2;
-    //3宝倍率
-    @ColumnInfo(name = "np_lv3")
-    public double np_lv3;
-    //4宝倍率
-    @ColumnInfo(name = "np_lv4")
-    public double npLv4;
-    //5宝倍率
-    @ColumnInfo(name = "np_lv5")
-    public double npLv5;
-
-    //1宝倍率（宝具本）
-    @ColumnInfo(name = "np_lv1_updated")
-    public double npLv1Updated;
-    //2宝倍率（宝具本）
-    @ColumnInfo(name = "np_lv2_updated")
-    public double npLv2Updated;
-    //3宝倍率（宝具本）
-    @ColumnInfo(name = "np_lv3_updated")
-    public double npLv3Updated;
-    //4宝倍率（宝具本）
-    @ColumnInfo(name = "np_lv4_updated")
-    public double npLv4Updated;
-    //5宝倍率（宝具本）
-    @ColumnInfo(name = "np_lv5_updated")
-    public double npLv5Updated;
-
-    //有无宝具本
-    @ColumnInfo(name = "np_upgraded")
-    public int npUpgraded;
-    //宝具卡色
-    @ColumnInfo(name = "np_color")
-    public String npColor;
     //宝具类型（单体，群体，辅助）
     @ColumnInfo(name = "np_type")
     public String npType;
@@ -199,9 +164,6 @@ public class ServantEntity implements Parcelable {
     //被动红魔放
     @ColumnInfo(name = "buster_buff")
     public double busterBuffN;
-    //特攻buff
-    @ColumnInfo(name = "special_buff")
-    public double specialBuffN;
     //被动暴击buff
     @ColumnInfo(name = "critical_buff")
     public double criticalBuffN;
@@ -223,6 +185,7 @@ public class ServantEntity implements Parcelable {
         nickname = in.readString();
         classType = in.readString();
         star = in.readInt();
+        nameLink = in.readString();
         attribute = in.readString();
         traits = in.readString();
         alignments = in.readString();
@@ -250,23 +213,10 @@ public class ServantEntity implements Parcelable {
         exNa = in.readDouble();
         npNa = in.readDouble();
         nd = in.readDouble();
-        npLv1 = in.readDouble();
-        npLv2 = in.readDouble();
-        np_lv3 = in.readDouble();
-        npLv4 = in.readDouble();
-        npLv5 = in.readDouble();
-        npLv1Updated = in.readDouble();
-        npLv2Updated = in.readDouble();
-        npLv3Updated = in.readDouble();
-        npLv4Updated = in.readDouble();
-        npLv5Updated = in.readDouble();
-        npUpgraded = in.readInt();
-        npColor = in.readString();
         npType = in.readString();
         quickBuffN = in.readDouble();
         artsBuffN = in.readDouble();
         busterBuffN = in.readDouble();
-        specialBuffN = in.readDouble();
         criticalBuffN = in.readDouble();
         selfDamageN = in.readDouble();
         starGenerationN = in.readDouble();
@@ -281,6 +231,7 @@ public class ServantEntity implements Parcelable {
         dest.writeString(nickname);
         dest.writeString(classType);
         dest.writeInt(star);
+        dest.writeString(nameLink);
         dest.writeString(attribute);
         dest.writeString(traits);
         dest.writeString(alignments);
@@ -308,23 +259,10 @@ public class ServantEntity implements Parcelable {
         dest.writeDouble(exNa);
         dest.writeDouble(npNa);
         dest.writeDouble(nd);
-        dest.writeDouble(npLv1);
-        dest.writeDouble(npLv2);
-        dest.writeDouble(np_lv3);
-        dest.writeDouble(npLv4);
-        dest.writeDouble(npLv5);
-        dest.writeDouble(npLv1Updated);
-        dest.writeDouble(npLv2Updated);
-        dest.writeDouble(npLv3Updated);
-        dest.writeDouble(npLv4Updated);
-        dest.writeDouble(npLv5Updated);
-        dest.writeInt(npUpgraded);
-        dest.writeString(npColor);
         dest.writeString(npType);
         dest.writeDouble(quickBuffN);
         dest.writeDouble(artsBuffN);
         dest.writeDouble(busterBuffN);
-        dest.writeDouble(specialBuffN);
         dest.writeDouble(criticalBuffN);
         dest.writeDouble(selfDamageN);
         dest.writeDouble(starGenerationN);

@@ -8,7 +8,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="toolbarColor">@color/gray300</item>
+        <item name="toolbarColor">@color/colorPrimary</item>
         <item name="android:listDivider">@drawable/divider_colorful</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>

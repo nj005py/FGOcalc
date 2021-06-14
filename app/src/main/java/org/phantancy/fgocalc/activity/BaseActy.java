@@ -9,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.PushAgent;
 
 import org.phantancy.fgocalc.common.ActivityCollector;
 import org.phantancy.fgocalc.dialog.LoadingDialog;
@@ -29,7 +28,6 @@ public class BaseActy extends AppCompatActivity {
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         ActivityCollector.addActy(this);
-        PushAgent.getInstance(ctx).onAppStart();
     }
 
     @Override

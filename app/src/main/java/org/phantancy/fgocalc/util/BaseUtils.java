@@ -4,15 +4,8 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
-import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.phantancy.fgocalc.common.Constant;
 
 /**
  * Created by PY on 2017/7/19.

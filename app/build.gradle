@@ -11,16 +11,20 @@ android {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 50
+        versionCode 56
         versionName "2.0.0"
         // Enabling multidex support.
         multiDexEnabled false
         resConfigs "zh"
+        setProperty("archivesBaseName","fgocalc_v$versionName")
         //指定room.schemaLocation生成的文件路径
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+        ndk {
+            abiFilters 'arm64-v8a', 'armeabi-v7a'
         }
     }
 
@@ -115,17 +119,13 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
     //友盟
-    implementation files('libs/umeng-analytics-7.5.3.jar')
-//    api files('libs/umeng-common-1.5.3.jar')
-    //PushSDK必须依赖基础组件库，所以需要加入对
-    // 应依赖
-    implementation 'com.umeng.umsdk:common:1.5.4'
-    //PushSDK必须依赖utdid库，所以需要加入对应依赖
-    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
-    //PushSDK
-    implementation 'com.umeng.umsdk:push:6.0.1'
+    // 友盟统计SDK
+    implementation  'com.umeng.umsdk:common:9.4.0'// 必选
+    implementation  'com.umeng.umsdk:asms:1.2.3'// 必选
+    //下列组件可选用
+    implementation 'com.umeng.umsdk:apm:1.2.0'//推荐，错误分析升级为U-APM产品，关注crash
     //html解析
-    implementation 'org.jsoup:jsoup:1.11.3'
+//    implementation 'org.jsoup:jsoup:1.11.3'
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

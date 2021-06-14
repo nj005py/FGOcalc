@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,11 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="e3bdf0f988fbbab4ed131fbc08181198" />
-
 
         <meta-data
             android:name="UMENG_APPKEY"
@@ -55,6 +49,7 @@
             android:name=".activity.CalcActy"/>
         <activity
             android:name=".activity.SearchServantActy" />
+        <activity android:name=".activity.AboutActy"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

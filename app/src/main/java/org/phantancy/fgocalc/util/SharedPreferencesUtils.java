@@ -3,6 +3,8 @@ package org.phantancy.fgocalc.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import org.phantancy.fgocalc.common.App;
+
 /**
  * Created by PY on 2016/10/27.
  */
@@ -73,5 +75,13 @@ public class SharedPreferencesUtils {
         }
 
         return null;
+    }
+
+    public static void setDatabaseVersion(int version){
+        setParam(App.getAppContext(),"database_version",version);
+    }
+
+    public static int getDatabaseVersion(){
+        return (int)getParam(App.getAppContext(),"database_version",0);
     }
 }

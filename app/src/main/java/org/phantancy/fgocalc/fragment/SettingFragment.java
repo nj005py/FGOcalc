@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.activity.AboutActy;
 import org.phantancy.fgocalc.adapter.BuffInputAdapter;
 import org.phantancy.fgocalc.adapter.SettingAdapter;
 import org.phantancy.fgocalc.character_factory.NetCharacter;
@@ -45,6 +46,7 @@ public class SettingFragment extends BaseFragment {
     final static int RELOAD_DATABASE = 0X1;
     final static int JOIN_GROUP = 0X2;
     final static int FOLLOW = 0X3;
+    final static int ABOUT = 0X4;
 
 
     @Nullable
@@ -66,6 +68,9 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void handleClick(int code) {
                 switch (code) {
+                    case ABOUT:
+                        about();
+                        break;
                     case RELOAD_DATABASE:
                         vm.reloadDatabase();
                         break;
@@ -86,6 +91,7 @@ public class SettingFragment extends BaseFragment {
         list.add(new SettingEntity(RELOAD_DATABASE, "重载数据库"));
         list.add(new SettingEntity(FOLLOW, "关注作者"));
         list.add(new SettingEntity(JOIN_GROUP, "加QQ群"));
+        list.add(new SettingEntity(ABOUT, "关于"));
         return list;
     }
 
@@ -129,6 +135,12 @@ public class SettingFragment extends BaseFragment {
             cd.setEntity(en);
             cd.show();
         }
+    }
+
+    //关于
+    private void about(){
+        Intent i = new Intent(mActy, AboutActy.class);
+        startActivity(i);
     }
 
     private Bitmap editCharacter(int resId, double widthMultiplier, double heightMultiplier) {

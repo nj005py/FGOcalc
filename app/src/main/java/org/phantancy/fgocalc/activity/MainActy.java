@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -18,11 +19,14 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.jeremyliao.liveeventbus.LiveEventBus;
 import com.permissionx.guolindev.PermissionX;
 import com.permissionx.guolindev.callback.RequestCallback;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
 import org.phantancy.fgocalc.character_factory.DatabaseCharacter;
 import org.phantancy.fgocalc.common.ActivityCollector;
+import org.phantancy.fgocalc.common.App;
 import org.phantancy.fgocalc.databinding.ActyMainBinding;
 import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.fragment.FilterFragment;
@@ -32,6 +36,7 @@ import org.phantancy.fgocalc.util.DisplayUtil;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,10 +65,18 @@ public class MainActy extends BaseActy {
                 .permissions(Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .onExplainRequestReason((scope, deniedList) -> {
+                    String msg = "电话状态仅用于统计APP安装数量\n存储权限用于数据库加载、图片缓存";
+                    scope.showRequestReasonDialog(deniedList,msg,"确定");
+                })
                 .request(new RequestCallback() {
                     @Override
                     public void onResult(boolean allGranted, List<String> grantedList, List<String> deniedList) {
                         if (allGranted) {
+                            //初始化友盟统计
+                            UMConfigure.init(App.getAppContext(), "5a61306b8f4a9d420400090e", "Umeng", UMConfigure.DEVICE_TYPE_PHONE, "635f1a6fb0fe4b7fff7e18bfe4af9a77");
+                            MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
+                            //初始化UI
                             binding = ActyMainBinding.inflate(getLayoutInflater());
                             setContentView(binding.getRoot());
                             init();

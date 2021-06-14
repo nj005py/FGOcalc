@@ -12,11 +12,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.data.CalcDatabase;
 import org.phantancy.fgocalc.data.CalcRepository;
 import org.phantancy.fgocalc.data.ServantAvatar;
 import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
+import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 
 import java.io.File;
 import java.util.List;
@@ -50,6 +52,7 @@ public class MainViewModel extends AndroidViewModel {
 
     //清理搜索框
     private MutableLiveData<Boolean> clearSearch = new MutableLiveData<>();
+
     public LiveData<Boolean> getClearSearch() {
         return clearSearch;
     }
@@ -70,11 +73,42 @@ public class MainViewModel extends AndroidViewModel {
 
     public MainViewModel(Application app) {
         super(app);
-        calcRepository = new CalcRepository(app);
-//        getAllServants();
-//        getFilters();
+        initDatabase(app);
     }
 
+    //初始化数据库
+    private void initDatabase(Application app){
+        if (isDatabaseUpdated()) {
+            deleteDbfile();
+        }
+        calcRepository = new CalcRepository(app);
+    }
+
+    //删除数据库文件
+    private void deleteDbfile(){
+        File dbFile = getApplication().getDatabasePath(CalcDatabase.DB_NAME);
+        if (dbFile.exists()) {
+            dbFile.delete();
+        }
+    }
+
+    //重新加载数据库
+    public void reloadDatabase() {
+        deleteDbfile();
+        calcRepository = null;
+        calcRepository = new CalcRepository(getApplication());
+    }
+
+    //检查更新数据库
+    public boolean isDatabaseUpdated() {
+        int installVersion = Constant.DATABASE_VERSION;
+        int cachedVersion = SharedPreferencesUtils.getDatabaseVersion();
+        if (installVersion > cachedVersion) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //获取所有从者
     public void getAllServants() {
@@ -83,7 +117,7 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 List<ServantEntity> svts = calcRepository.getAllServants();
-                Log.d(TAG,"size:" + svts.size());
+                Log.d(TAG, "size:" + svts.size());
                 mServants.postValue(ServantAvatar.setAvatars(svts));
             }
         }).start();
@@ -94,15 +128,15 @@ public class MainViewModel extends AndroidViewModel {
      * 搜索
      */
     public void getServantsByKeyword(String keyword) {
-      Log.d(TAG,"searchServant");
+        Log.d(TAG, "searchServant");
 
         new Thread(new Runnable() {
-          @Override
-          public void run() {
-              List<ServantEntity> svts = calcRepository.getServantsByKeyWord(keyword);
-              mServants.postValue(ServantAvatar.setAvatars(svts));
-          }
-      }).start();
+            @Override
+            public void run() {
+                List<ServantEntity> svts = calcRepository.getServantsByKeyWord(keyword);
+                mServants.postValue(ServantAvatar.setAvatars(svts));
+            }
+        }).start();
     }
 
     //清空搜索栏
@@ -134,11 +168,11 @@ public class MainViewModel extends AndroidViewModel {
                 String cards = handleCards(filters.get(7).getValue0());
                 String orderType = handleOrderType(filters.get(3).getValue0());
 
-                Log.d(TAG,classType + " " + star + " " + attribute + " " + orderType + " " + traits + " "
-                        +  npColor + " " + npType + " " + cards);
+                Log.d(TAG, classType + " " + star + " " + attribute + " " + orderType + " " + traits + " "
+                        + npColor + " " + npType + " " + cards);
 
                 sql += classType + star + attribute + traits + npColor + npType + cards + orderType;
-                Log.d(TAG,"sql:" + sql);
+                Log.d(TAG, "sql:" + sql);
                 SimpleSQLiteQuery query = new SimpleSQLiteQuery(sql);
                 List<ServantEntity> svts = calcRepository.getServantsByFilter(query);
                 mServants.postValue(ServantAvatar.setAvatars(svts));
@@ -184,15 +218,6 @@ public class MainViewModel extends AndroidViewModel {
     //排序
     private String handleOrderType(String x) {
         return " ORDER BY " + x;
-    }
-
-    public void reloadDatabase() {
-        File dbFile = getApplication().getDatabasePath(CalcDatabase.DB_NAME);
-        if (dbFile.exists()) {
-            dbFile.delete();
-        }
-        calcRepository = null;
-        calcRepository = new CalcRepository(getApplication());
     }
 
 }

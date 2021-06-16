@@ -15,6 +15,7 @@ import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
 import org.phantancy.fgocalc.event.DatabaseEvent;
+import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -51,8 +52,12 @@ public abstract class CalcDatabase extends RoomDatabase {
                     fos.write(buffer, 0, count);
                 }
                 Log.d(TAG,"db copy success");
-                LiveEventBus.get(DatabaseEvent.class)
-                        .post(new DatabaseEvent(DatabaseEvent.SUCCESS));
+                boolean isFirstLoad = SharedPreferencesUtils.isFirstLoad();
+                if (isFirstLoad) {
+                    LiveEventBus.get(DatabaseEvent.class)
+                            .post(new DatabaseEvent(DatabaseEvent.SUCCESS));
+                    SharedPreferencesUtils.setFirstLoad();
+                }
                 fos.close();//关闭输出流
                 is.close();//关闭输入流
             } catch (FileNotFoundException e) {

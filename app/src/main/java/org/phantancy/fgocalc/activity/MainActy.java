@@ -33,6 +33,7 @@ import org.phantancy.fgocalc.fragment.FilterFragment;
 import org.phantancy.fgocalc.fragment.MainFragment;
 import org.phantancy.fgocalc.fragment.SettingFragment;
 import org.phantancy.fgocalc.util.DisplayUtil;
+import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 

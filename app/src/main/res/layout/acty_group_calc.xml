@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--控制按钮-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_calc"
+            style="@style/ButtonBlue"
+            android:text="@string/calc"/>
+
+        <Button
+            android:id="@+id/btn_clean"
+            style="@style/ButtonBlue"
+            android:text="@string/clean_result"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:id="@+id/iv_svt1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@drawable/loading"
+                />
+
+            <ImageView
+                android:id="@+id/iv_svt2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@drawable/loading"
+                android:layout_marginTop="5dp"
+                />
+
+            <ImageView
+                android:id="@+id/iv_svt3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:src="@drawable/loading"
+                android:layout_marginTop="5dp"
+                />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cards"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_picked"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <ImageView
+            android:id="@+id/iv_card_ex"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="3.0"
+            android:src="@drawable/extra"
+            />
+
+    </LinearLayout>
+
+
+
+    <!--OverKill-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_ok1"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/overkill"/>
+
+        <CheckBox
+            android:id="@+id/cb_ok2"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/overkill"/>
+
+        <CheckBox
+            android:id="@+id/cb_ok3"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/overkill"/>
+
+        <CheckBox
+            android:id="@+id/cb_ok4"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/overkill"/>
+
+    </LinearLayout>
+
+    <!--暴击-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_cr1"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/critical"/>
+
+        <CheckBox
+            android:id="@+id/cb_cr2"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/critical"/>
+
+        <CheckBox
+            android:id="@+id/cb_cr3"
+            style="@style/CheckBoxCalc"
+            android:layout_weight="1.0"
+            android:text="@string/critical"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            />
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:gravity="center"
+        android:background="@color/blueWordAccent"
+        android:text="@string/calc_result"
+        android:textColor="@color/blueWordDark"
+
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout style="@style/ll_match_width_vertical">
+
+            <TextView
+                android:id="@+id/tv_calc_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="false"
+                android:maxLines="99"
+                android:paddingLeft="9dp"
+                android:scrollbars="vertical"
+                android:visibility="gone"
+                android:text="@string/about_calc_result" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_calc_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

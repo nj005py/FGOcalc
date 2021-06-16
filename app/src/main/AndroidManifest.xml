@@ -35,7 +35,8 @@
             android:name="org.phantancy.fgocalc.activity.MainActy"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,10 +47,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.CalcActy"/>
+            android:name=".activity.CalcActy"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.SearchServantActy" />
-        <activity android:name=".activity.AboutActy"/>
+            android:name=".activity.SearchServantActy"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.AboutActy"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GroupCalcActy"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

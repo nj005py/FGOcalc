@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import org.phantancy.fgocalc.R;
+import org.phantancy.fgocalc.common.CardLogic;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
 import org.phantancy.fgocalc.common.ParamsUtil;
@@ -138,12 +139,12 @@ public class CalcViewModel extends AndroidViewModel {
         List<CardPickEntity> list = new ArrayList<>();
         //平A
         for (char y : x.toCharArray()) {
-            list.add(parseCardPickEntity(id, y));
+            list.add(CardLogic.parseCardPickEntity(id, y));
             id++;
         }
         //宝具
         if (calcEntity.getNpEntity() != null) {
-            list.add(parseCardPickNp(id, calcEntity.getNpEntity().npColor));
+            list.add(CardLogic.parseCardPickNp(id, calcEntity.getNpEntity().npColor));
         }
         mCardPicks.setValue(list);
     }
@@ -155,37 +156,17 @@ public class CalcViewModel extends AndroidViewModel {
         List<CardPickEntity> list = new ArrayList<>();
         //平A
         for (char y : x.toCharArray()) {
-            list.add(parseCardPickEntity(id, y));
+            list.add(CardLogic.parseCardPickEntity(id, y));
             id++;
         }
         //宝具
-        list.add(parseCardPickNp(id, np.npColor));
+        list.add(CardLogic.parseCardPickNp(id, np.npColor));
         mCardPicks.setValue(list);
     }
 
-    //解析指令卡
-    private CardPickEntity parseCardPickEntity(int id, char color) {
-        if (color == 'q') {
-            return new CardPickEntity(id, "q", R.drawable.quick);
-        }
-        if (color == 'a') {
-            return new CardPickEntity(id, "a", R.drawable.arts);
-        }
-        return new CardPickEntity(id, "b", R.drawable.buster);
 
-    }
 
-    //解析宝具卡
-    private CardPickEntity parseCardPickNp(int id, String color) {
-        if (color.equals("np_q")) {
-            return new CardPickEntity(id, color, R.drawable.np_q);
-        }
-        if (color.equals("np_a")) {
-            return new CardPickEntity(id, color, R.drawable.np_a);
-        }
-        return new CardPickEntity(id, color, R.drawable.np_b);
 
-    }
 
     private List<CardPickEntity> pickedCards = new ArrayList<>();
 

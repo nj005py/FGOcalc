@@ -84,4 +84,12 @@ public class SharedPreferencesUtils {
     public static int getDatabaseVersion(){
         return (int)getParam(App.getAppContext(),"database_version",0);
     }
+
+    public static boolean isFirstLoad(){
+        return (boolean)getParam(App.getAppContext(),"isFirstLoad",true);
+    }
+
+    public static void setFirstLoad(){
+        setParam(App.getAppContext(),"isFirstLoad",false);
+    }
 }

@@ -20,6 +20,7 @@ import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.AboutActy;
+import org.phantancy.fgocalc.activity.GroupCalcActy;
 import org.phantancy.fgocalc.adapter.BuffInputAdapter;
 import org.phantancy.fgocalc.adapter.SettingAdapter;
 import org.phantancy.fgocalc.character_factory.NetCharacter;
@@ -47,6 +48,8 @@ public class SettingFragment extends BaseFragment {
     final static int JOIN_GROUP = 0X2;
     final static int FOLLOW = 0X3;
     final static int ABOUT = 0X4;
+    //组队计算
+    final static int GROUP_CALC = 0X5;
 
 
     @Nullable
@@ -80,6 +83,9 @@ public class SettingFragment extends BaseFragment {
                     case JOIN_GROUP:
                         joinGroup();
                         break;
+                    case GROUP_CALC:
+                        groupCalc();
+                        break;
                 }
             }
         });
@@ -92,6 +98,7 @@ public class SettingFragment extends BaseFragment {
         list.add(new SettingEntity(FOLLOW, "关注作者"));
         list.add(new SettingEntity(JOIN_GROUP, "加QQ群"));
         list.add(new SettingEntity(ABOUT, "关于"));
+        list.add(new SettingEntity(GROUP_CALC, "编队计算"));
         return list;
     }
 
@@ -140,6 +147,11 @@ public class SettingFragment extends BaseFragment {
     //关于
     private void about(){
         Intent i = new Intent(mActy, AboutActy.class);
+        startActivity(i);
+    }
+
+    private void groupCalc(){
+        Intent i = new Intent(mActy, GroupCalcActy.class);
         startActivity(i);
     }
 

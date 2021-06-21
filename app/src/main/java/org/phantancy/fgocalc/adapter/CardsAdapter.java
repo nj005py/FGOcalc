@@ -16,6 +16,7 @@ import java.util.List;
 
 public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder> {
     private List<CardPickEntity> mList;
+    int visibleCount = 6;
 
     public CardsAdapter() {
         mList = new ArrayList<>();
@@ -65,7 +66,7 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.MyViewHolder
         return mList.get(position);
     }
 
-    int visibleCount = 6;
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         EntityCardPickBinding binding;

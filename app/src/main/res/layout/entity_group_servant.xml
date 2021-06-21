@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="50dp"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <!--头像-->
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="50dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:transitionName="avatar"
+        />
+
+    <Button
+        android:id="@+id/btn_setting"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_blue"
+        android:text="设置"
+        android:textColor="@color/blueWordPrimary"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

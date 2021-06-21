@@ -24,4 +24,8 @@ public class NoblePhantasmRepository {
     public LiveData<List<NoblePhantasmEntity>> getNoblePhantasmEntities(int svtId) {
         return npDao.getNoblePhantasmEntities(svtId);
     }
+
+    public List<NoblePhantasmEntity> getNoblePhantasmEntitiesList(int svtId) {
+        return npDao.getNoblePhantasmEntitiesList(svtId);
+    }
 }

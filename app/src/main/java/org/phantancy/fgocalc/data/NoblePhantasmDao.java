@@ -12,4 +12,7 @@ import java.util.List;
 public interface NoblePhantasmDao {
     @Query("SELECT * FROM noble_phantasm WHERE sid=:sid")
     public LiveData<List<NoblePhantasmEntity>> getNoblePhantasmEntities(int sid);
+
+    @Query("SELECT * FROM noble_phantasm WHERE sid=:sid")
+    public List<NoblePhantasmEntity> getNoblePhantasmEntitiesList(int sid);
 }

@@ -58,13 +58,10 @@ public class CalcActy extends BaseActy {
             }
         };
 
-        List<String> tabs = new ArrayList<String>() {
-            {
-                add("从者信息");
-                add("计算");
-                add("wiki");
-            }
-        };
+        List<String> tabs = new ArrayList<String>();
+        tabs.add("从者信息");
+        tabs.add("计算");
+        tabs.add("wiki");
 
         //set viewpager
         CalcViewPagerAdapter pagerAdapter = new CalcViewPagerAdapter(this, fragments);

@@ -42,7 +42,7 @@ class GroupCalcActy :BaseActy() {
         }
         val cardAdapter = CardsAdapter()
         binding.rvCards.adapter = cardAdapter
-        binding.rvCards.addItemDecoration(VerticalItemDecoration(this,40f))
+        binding.rvCards.addItemDecoration(VerticalItemDecoration(this,30f))
 
         val svtAdapter = GroupServantAdapter()
         binding.rvSvts.adapter = svtAdapter

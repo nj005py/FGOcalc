@@ -56,6 +56,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.GroupCalcActy"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.GroupSettingActy"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

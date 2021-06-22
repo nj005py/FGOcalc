@@ -15,8 +15,7 @@ class VerticalItemDecoration(val context:Context,val space:Float): RecyclerView.
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.bottom = _space
-        if (parent.getChildPosition(view) == 0) {
+        if (parent.getChildAdapterPosition(view) > 5) {
             outRect.top = _space
         }
     }

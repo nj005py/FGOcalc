@@ -1,14 +1,18 @@
 package org.phantancy.fgocalc.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.collection.SimpleArrayMap;
 
 import org.phantancy.fgocalc.common.Constant;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 //用于计算的数据
-public class CalcEntity {
+public class CalcEntity implements Parcelable {
     /**
      * 条件
      */
@@ -67,6 +71,89 @@ public class CalcEntity {
     private boolean isSameColor;
     private boolean isBusterChain;
     private double random;
+
+    public CalcEntity() {
+    }
+
+    protected CalcEntity(Parcel in) {
+        affinityMod = in.readDouble();
+        attributeMod = in.readDouble();
+        npEntity = in.readParcelable(NoblePhantasmEntity.class.getClassLoader());
+        npDmgMultiplier = in.readDouble();
+        atk = in.readDouble();
+        hp = in.readDouble();
+        hpLeft = in.readDouble();
+        cardType1 = in.readString();
+        cardType2 = in.readString();
+        cardType3 = in.readString();
+        cardType4 = in.readString();
+        isCritical1 = in.readByte() != 0;
+        isCritical2 = in.readByte() != 0;
+        isCritical3 = in.readByte() != 0;
+        isOverkill1 = in.readByte() != 0;
+        isOverkill2 = in.readByte() != 0;
+        isOverkill3 = in.readByte() != 0;
+        isOverkill4 = in.readByte() != 0;
+        enemyCount = in.readInt();
+        enemysNpMod = in.createDoubleArray();
+        enemysStarMod = in.createDoubleArray();
+        isSavedCondition = in.readByte() != 0;
+        isSavedBuff = in.readByte() != 0;
+        svt = in.readParcelable(ServantEntity.class.getClassLoader());
+        firstCardType = in.readString();
+        isSameColor = in.readByte() != 0;
+        isBusterChain = in.readByte() != 0;
+        random = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeDouble(affinityMod);
+        dest.writeDouble(attributeMod);
+        dest.writeParcelable(npEntity, flags);
+        dest.writeDouble(npDmgMultiplier);
+        dest.writeDouble(atk);
+        dest.writeDouble(hp);
+        dest.writeDouble(hpLeft);
+        dest.writeString(cardType1);
+        dest.writeString(cardType2);
+        dest.writeString(cardType3);
+        dest.writeString(cardType4);
+        dest.writeByte((byte) (isCritical1 ? 1 : 0));
+        dest.writeByte((byte) (isCritical2 ? 1 : 0));
+        dest.writeByte((byte) (isCritical3 ? 1 : 0));
+        dest.writeByte((byte) (isOverkill1 ? 1 : 0));
+        dest.writeByte((byte) (isOverkill2 ? 1 : 0));
+        dest.writeByte((byte) (isOverkill3 ? 1 : 0));
+        dest.writeByte((byte) (isOverkill4 ? 1 : 0));
+        dest.writeInt(enemyCount);
+        dest.writeDoubleArray(enemysNpMod);
+        dest.writeDoubleArray(enemysStarMod);
+        dest.writeByte((byte) (isSavedCondition ? 1 : 0));
+        dest.writeByte((byte) (isSavedBuff ? 1 : 0));
+        dest.writeParcelable(svt, flags);
+        dest.writeString(firstCardType);
+        dest.writeByte((byte) (isSameColor ? 1 : 0));
+        dest.writeByte((byte) (isBusterChain ? 1 : 0));
+        dest.writeDouble(random);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CalcEntity> CREATOR = new Creator<CalcEntity>() {
+        @Override
+        public CalcEntity createFromParcel(Parcel in) {
+            return new CalcEntity(in);
+        }
+
+        @Override
+        public CalcEntity[] newArray(int size) {
+            return new CalcEntity[size];
+        }
+    };
 
     public double[] getEnemysStarMod() {
         return enemysStarMod;

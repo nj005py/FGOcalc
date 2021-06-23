@@ -3,17 +3,14 @@ package org.phantancy.fgocalc.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import org.phantancy.fgocalc.adapter.CardsAdapter
 import org.phantancy.fgocalc.adapter.GroupServantAdapter
-import org.phantancy.fgocalc.data.ServantAvatar
 import org.phantancy.fgocalc.databinding.ActyGroupCalcBinding
+import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.ServantEntity
-import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
 import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
 
@@ -28,14 +25,27 @@ class GroupCalcActy :BaseActy() {
         setContentView(binding.root)
         vm = ViewModelProvider(GroupCalcActy@this).get(GroupCalcViewModel::class.java)
 
-        val resultLauncher = registerForActivityResult(
+        //搜索从者
+        val searchServantLauncher = registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                val data = result.data
-                if (data != null) {
-                    val svt = data.getParcelableExtra<ServantEntity>("servant")
+                result.data?.let {
+                    val svt = it.getParcelableExtra<ServantEntity>("servant")
                     vm.addServant(svt,svtPosition)
+                    svtPosition = 0
+                }
+            }
+        }
+        //设置条件、buff
+        val settingLauncher = registerForActivityResult(
+                ActivityResultContracts.StartActivityForResult()
+        ){
+            result ->
+            if (result.resultCode == RESULT_OK){
+                result.data?.let {
+                    val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
+                    calcEntity?.let { Log.i(TAG,"count: ${calcEntity.enemyCount}") }
                     svtPosition = 0
                 }
             }
@@ -55,7 +65,7 @@ class GroupCalcActy :BaseActy() {
             override fun addSvt(position: Int) {
                 Log.i(TAG,"addSvt position: $position")
                 svtPosition = position
-                resultLauncher.launch(Intent(ctx,SearchServantActy::class.java))
+                searchServantLauncher.launch(Intent(ctx,SearchServantActy::class.java))
             }
 
             override fun removeSvt(svt: ServantEntity) {
@@ -63,6 +73,11 @@ class GroupCalcActy :BaseActy() {
             }
 
             override fun setSetting(position: Int) {
+                val intent = Intent(this@GroupCalcActy,GroupSettingActy::class.java).apply {
+                    putExtra("servant", svtAdapter.mList[position])
+                }
+                svtPosition = position
+                settingLauncher.launch(intent)
             }
         }
 

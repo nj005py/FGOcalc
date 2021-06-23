@@ -102,6 +102,6 @@ public class CalcActy extends BaseActy {
     @Override
     protected void onStart() {
         super.onStart();
-        binding.vpCalcPager.setOffscreenPageLimit(5);
+        binding.vpCalcPager.setOffscreenPageLimit(3);
     }
 }

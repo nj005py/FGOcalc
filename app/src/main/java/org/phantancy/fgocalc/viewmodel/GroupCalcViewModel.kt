@@ -24,7 +24,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     val servants = ArrayList<ServantEntity>()
 
-    fun addServant(svt: ServantEntity,svtPosition: Int) {
+    fun addServant(svt: ServantEntity, svtPosition: Int) {
         if (servants?.size < 3) {
             servants.add(svt)
         } else {
@@ -34,7 +34,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 //        parseServantsCards(servants)
     }
 
-    fun removeServant(svt: ServantEntity){
+    fun removeServant(svt: ServantEntity) {
         servants?.remove(svt)
         _svtGroup.value = servants
     }
@@ -46,8 +46,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     fun parseServantsCards(svts: ArrayList<ServantEntity>) {
         viewModelScope.launch {
             val list = ArrayList<CardPickEntity>()
+            var id = 0
             for (svt in svts) {
-                list.addAll(parsePickCards(svt))
+                list.addAll(parsePickCards(svt, id))
+                id++
             }
             _cardPicks.value = list
         }
@@ -62,14 +64,12 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
      * 4 配卡+第一张宝具卡组成卡片列表
      * 5 更新livedata
      */
-    suspend fun parsePickCards(svt: ServantEntity): ArrayList<CardPickEntity> {
+    suspend fun parsePickCards(svt: ServantEntity, id: Int): ArrayList<CardPickEntity> {
         val x: String = svt.cards
-        var id = 0
         val list = ArrayList<CardPickEntity>()
         //解析配卡
         for (y in x.toCharArray()) {
             CardLogic.parseCardPickEntity(id, y)?.let { list.add(it) }
-            id++
         }
         //宝具卡
         val npEntityList = queryNPEntitiesList(svt.id);
@@ -80,7 +80,35 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 //        _cardPicks.setValue(list as ArrayList<CardPickEntity>?)
     }
 
+    fun updateServantCards(pos: Int, npEntity: NoblePhantasmEntity) {
+        var count = 0;
+        val list = ArrayList<CardPickEntity>()
+        var id = 0
+        viewModelScope.launch {
+            for (i in servants) {
+                if (count == pos) {
+                    //宝具卡色从条件里取
+                    list.addAll(updatePickCards(pos, npEntity, id))
+                } else {
+                    //宝具卡色从数据库里取
+                    list.addAll(parsePickCards(i, id))
+                }
+                count++
+                id++
+            }
+            _cardPicks.value = list
+        }
+    }
 
+    fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, id: Int): ArrayList<CardPickEntity> {
+        return ArrayList<CardPickEntity>().apply {
+            val svt = servants[pos]
+            for (y in svt.cards.toCharArray()) {
+                CardLogic.parseCardPickEntity(id, y)?.let { add(it) }
+            }
+            CardLogic.parseCardPickNp(id, npEntity.npColor)?.let { add(it) }
+        }
+    }
 
     //数据库查询宝具信息
     fun getNPEntities(svtId: Int): LiveData<List<NoblePhantasmEntity>> {
@@ -88,10 +116,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private val _npEntities = MutableLiveData<List<NoblePhantasmEntity>>()
-    val npEntities:LiveData<List<NoblePhantasmEntity>> = _npEntities
+    val npEntities: LiveData<List<NoblePhantasmEntity>> = _npEntities
 
-    private suspend fun queryNPEntitiesList(id: Int): List<NoblePhantasmEntity>{
-        return coroutineScope  {
+    private suspend fun queryNPEntitiesList(id: Int): List<NoblePhantasmEntity> {
+        return coroutineScope {
             val npList = async(Dispatchers.IO) {
                 npRepository.getNoblePhantasmEntitiesList(id)
             }

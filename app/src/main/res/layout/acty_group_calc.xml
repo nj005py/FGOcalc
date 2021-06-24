@@ -13,12 +13,12 @@
 
         <Button
             android:id="@+id/btn_calc"
-            style="@style/ButtonBlue"
+            style="@style/ButtonBlueWhite"
             android:text="@string/calc"/>
 
         <Button
             android:id="@+id/btn_clean"
-            style="@style/ButtonBlue"
+            style="@style/ButtonBlueWhite"
             android:text="@string/clean_result"/>
 
     </LinearLayout>
@@ -67,10 +67,10 @@
         <ImageView
             android:id="@+id/iv_card_ex"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:layout_weight="3.0"
             android:src="@drawable/extra"
-            />
+            android:visibility="invisible" />
 
     </LinearLayout>
 
@@ -104,7 +104,9 @@
             android:id="@+id/cb_ok4"
             style="@style/CheckBoxCalc"
             android:layout_weight="1.0"
-            android:text="@string/overkill"/>
+            android:text="@string/overkill"
+            android:visibility="invisible"
+            />
 
     </LinearLayout>
 

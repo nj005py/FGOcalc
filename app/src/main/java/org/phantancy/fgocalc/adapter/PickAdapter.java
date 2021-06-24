@@ -16,13 +16,26 @@ import java.util.List;
 
 public class PickAdapter extends RecyclerView.Adapter<PickAdapter.MyViewHolder> {
     private List<CardPickEntity> mList;
-
+    private IEntityListener entityListener;
     public PickAdapter() {
         mList = new ArrayList<>();
     }
 
     public void addEntity(CardPickEntity x) {
         mList.add(x);
+        if (mList.size() == 3) {
+            //判断组合拳
+            final int id1 = mList.get(0).getId();
+            final int id2 = mList.get(1).getId();
+            final int id3 = mList.get(2).getId();
+            if (id1 == id2 && id2 == id3) {
+                entityListener.handleBraveChain(true);
+            } else {
+                entityListener.handleBraveChain(false);
+            }
+        } else{
+            entityListener.handleBraveChain(false);
+        }
         notifyDataSetChanged();
     }
 
@@ -56,7 +69,7 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.MyViewHolder> 
         return mList.get(position);
     }
 
-    IEntityListener entityListener;
+
 
     public void setEntityListenr(IEntityListener x) {
         this.entityListener = x;
@@ -88,6 +101,8 @@ public class PickAdapter extends RecyclerView.Adapter<PickAdapter.MyViewHolder> 
 
     public interface IEntityListener {
         void handleClickEvent(CardPickEntity x);
+        //是否是同个从者组合拳
+        void handleBraveChain(boolean isBraveChain);
     }
 
 

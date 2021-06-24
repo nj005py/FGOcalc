@@ -54,9 +54,14 @@ public class CalcFragment extends BaseFragment {
             public void handleClickEvent(CardPickEntity x) {
                 cardsAdapter.returnEntity(x);
             }
+
+            @Override
+            public void handleBraveChain(boolean isBraveChain) {
+
+            }
         });
 
-        //备选卡
+        //备选卡/卡池
         cardsAdapter.setEntityListenr(new CardsAdapter.IEntityListener() {
             @Override
             public void handleClickEvent(CardPickEntity x) {

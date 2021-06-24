@@ -34,9 +34,9 @@ public class CalcEntity implements Parcelable {
 
     //ui数据
     //选卡类型，
-    private String cardType1;
-    private String cardType2;
-    private String cardType3;
+    private String cardType1 = Constant.CARD_QUICK;
+    private String cardType2 = Constant.CARD_QUICK;
+    private String cardType3 = Constant.CARD_QUICK;
     private String cardType4 = Constant.CARD_EX;
 
     //1-3位置是否暴击
@@ -67,10 +67,9 @@ public class CalcEntity implements Parcelable {
     /**
      * 加工数据
      */
-    private String firstCardType;
-    private boolean isSameColor;
-    private boolean isBusterChain;
-    private double random;
+    private String firstCardType = Constant.CARD_QUICK;
+    private boolean isSameColor = false;
+    private boolean isBusterChain = false;
 
     public CalcEntity() {
     }
@@ -103,7 +102,6 @@ public class CalcEntity implements Parcelable {
         firstCardType = in.readString();
         isSameColor = in.readByte() != 0;
         isBusterChain = in.readByte() != 0;
-        random = in.readDouble();
     }
 
     @Override
@@ -135,7 +133,6 @@ public class CalcEntity implements Parcelable {
         dest.writeString(firstCardType);
         dest.writeByte((byte) (isSameColor ? 1 : 0));
         dest.writeByte((byte) (isBusterChain ? 1 : 0));
-        dest.writeDouble(random);
     }
 
     @Override
@@ -360,14 +357,6 @@ public class CalcEntity implements Parcelable {
 
     public void setBusterChain(boolean busterChain) {
         isBusterChain = busterChain;
-    }
-
-    public double getRandom() {
-        return random;
-    }
-
-    public void setRandom(double random) {
-        this.random = random;
     }
 
     public double[] getEnemysNpMod() {

@@ -66,7 +66,7 @@ class GroupCalcActy : BaseActy() {
         val pickedAdapter = PickAdapter()
         binding.rvPicked.adapter = pickedAdapter
         val scale = resources.displayMetrics.density
-        binding.rvPicked.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f) as Int))
+        binding.rvPicked.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
 
         vm.cardPicks.observe(this, Observer { list ->
             cardAdapter.submitList(list)
@@ -97,10 +97,12 @@ class GroupCalcActy : BaseActy() {
             vm.parseServantsCards(list)
         })
 
+        //点击卡池
         cardAdapter.setEntityListenr { x ->
             pickedAdapter.addEntity(x)
         }
 
+        //点击已选卡
         pickedAdapter.setEntityListenr(object : PickAdapter.IEntityListener{
             override fun handleClickEvent(x: CardPickEntity?) {
                 cardAdapter.returnEntity(x)

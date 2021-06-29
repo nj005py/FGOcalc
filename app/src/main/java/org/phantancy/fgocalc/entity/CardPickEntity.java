@@ -5,11 +5,20 @@ public class CardPickEntity {
     private String name;
     private int img;
     private boolean isVisible = true;
+    //归属
+    private int svtSource;
 
     public CardPickEntity(int id, String name, int img) {
         this.id = id;
         this.name = name;
         this.img = img;
+    }
+
+    public CardPickEntity(int id, String name, int img, int svtSource) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.svtSource = svtSource;
     }
 
     public int getId() {
@@ -42,5 +51,13 @@ public class CardPickEntity {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public int getSvtSource() {
+        return svtSource;
+    }
+
+    public void setSvtSource(int svtSource) {
+        this.svtSource = svtSource;
     }
 }

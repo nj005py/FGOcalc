@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.phantancy.fgocalc.databinding.EntityCardPickBinding
+import org.phantancy.fgocalc.databinding.EntityCardPickGroupBinding
 import org.phantancy.fgocalc.entity.CardPickEntity
 import java.util.*
 
-class PickAdapter : RecyclerView.Adapter<PickAdapter.MyViewHolder>() {
+class PickAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val mList: MutableList<CardPickEntity>
     private var entityListener: IEntityListener? = null
+
     fun addEntity(x: CardPickEntity) {
         mList.add(x)
         if (mList.size == 3) {
@@ -37,13 +39,18 @@ class PickAdapter : RecyclerView.Adapter<PickAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = EntityCardPickBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MyViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            CardPickEntity.SINGLE_CALC -> SingleViewHolder(EntityCardPickBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            else -> GroupViewHolder(EntityCardPickGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        }
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindView(position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            CardPickEntity.SINGLE_CALC -> (holder as SingleViewHolder).bindView(position)
+            else -> (holder as GroupViewHolder).bindView(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -62,18 +69,38 @@ class PickAdapter : RecyclerView.Adapter<PickAdapter.MyViewHolder>() {
         entityListener = x
     }
 
-    inner class MyViewHolder(var binding: EntityCardPickBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class SingleViewHolder(var binding: EntityCardPickBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(position: Int) {
             val x = getItem(position)
             binding.ivPickCard.setImageDrawable(ContextCompat.getDrawable(binding.root.context, x.img))
             binding.ivPickCard.setOnClickListener {
-                entityListener!!.handleClickEvent(x)
-                notifyItemRemoved(position)
-                mList.remove(x)
-                notifyItemRangeChanged(position, itemCount - 1)
+                entityListener?.let {
+                    it.handleClickEvent(x)
+                    notifyItemRemoved(position)
+                    mList.remove(x)
+                    notifyItemRangeChanged(position, itemCount - 1)
+                }
             }
         }
 
+    }
+
+    inner class GroupViewHolder(var binding: EntityCardPickGroupBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindView(position: Int) {
+            val x = getItem(position)
+            //卡片
+            binding.ivPickCard.setImageDrawable(ContextCompat.getDrawable(binding.root.context, x.img))
+            //头像
+            binding.ivSvtAvatar.setImageDrawable(ContextCompat.getDrawable(binding.root.context, x.svtAvatar))
+            binding.ivPickCard.setOnClickListener {
+                entityListener?.let {
+                    it.handleClickEvent(x)
+                    notifyItemRemoved(position)
+                    mList.remove(x)
+                    notifyItemRangeChanged(position, itemCount - 1)
+                }
+            }
+        }
     }
 
     interface IEntityListener {

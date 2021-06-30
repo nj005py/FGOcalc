@@ -106,6 +106,9 @@ class GroupCalcActy : BaseActy() {
         pickedAdapter.setEntityListenr(object : PickAdapter.IEntityListener{
             override fun handleClickEvent(x: CardPickEntity?) {
                 cardAdapter.returnEntity(x)
+                //去ex卡
+                binding.ivCardEx.visibility = View.INVISIBLE
+                binding.cbOk4.visibility = View.INVISIBLE
             }
 
             override fun handleBraveChain(isBraveChain: Boolean) {
@@ -119,4 +122,5 @@ class GroupCalcActy : BaseActy() {
             }
         })
     }
+
 }

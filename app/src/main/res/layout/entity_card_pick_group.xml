@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/iv_svt_avatar"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
         android:layout_gravity="bottom|right"
         />
 

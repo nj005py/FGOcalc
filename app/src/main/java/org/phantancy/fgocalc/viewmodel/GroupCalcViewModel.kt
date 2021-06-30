@@ -55,7 +55,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             //位置id
             var id = 0
             for (svt in svts) {
-                list.addAll(parsePickCards(svt, svtSource,id))
+                list.addAll(parsePickCards(svt, svtSource, id))
                 id += 6
                 svtSource++
             }
@@ -78,7 +78,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         var id = start
         //解析配卡
         for (card in x.toCharArray()) {
-            CardLogic.parseGroupCardPickEntity(id, card,svtSource,ServantAvatar.getServantAvatar(svt.id))?.let {
+            CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }
@@ -86,46 +86,50 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         //宝具卡
         val npEntityList = queryNPEntitiesList(svt.id);
         npEntityList?.let {
-            CardLogic.parseGroupCardPickNp(id, it[0]?.npColor,svtSource,ServantAvatar.getServantAvatar(svt.id))?.let {
+            CardLogic.parseGroupCardPickNp(id, it[0]?.npColor, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }
         }
         return list
-//        _cardPicks.setValue(list as ArrayList<CardPickEntity>?)
     }
 
     /**
      * pos 从者位置
      * npEntity 宝具信息
+     *
      */
     fun updateServantCards(pos: Int, npEntity: NoblePhantasmEntity) {
         var count = 0;
         val list = ArrayList<CardPickEntity>()
         var id = 0
+        var svtSource = 0
         viewModelScope.launch {
-            for (i in servants) {
+            for (svt in servants) {
                 if (count == pos) {
                     //宝具卡色从条件里取
-                    list.addAll(updatePickCards(pos, npEntity, id))
+                    list.addAll(updatePickCards(pos, npEntity,svtSource, id))
                 } else {
                     //宝具卡色从数据库里取
-                    list.addAll(parsePickCards(i, id))
+                    list.addAll(parsePickCards(svt, svtSource, id))
                 }
                 count++
-                id++
+                id += 6
+                svtSource++
             }
             _cardPicks.value = list
         }
     }
 
-    fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, id: Int): ArrayList<CardPickEntity> {
+    fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
         return ArrayList<CardPickEntity>().apply {
             val svt = servants[pos]
-            for (y in svt.cards.toCharArray()) {
-                CardLogic.parseCardPickEntity(id, y)?.let { add(it) }
+            var id = start
+            for (card in svt.cards.toCharArray()) {
+                CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let { add(it) }
+                id++
             }
-            CardLogic.parseCardPickNp(id, npEntity.npColor)?.let { add(it) }
+            CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let { add(it) }
         }
     }
 

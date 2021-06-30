@@ -10,8 +10,8 @@ public class CardPickEntity {
     //从者头像
     private int svtAvatar;
     //编队计算
-    final static int SINGLE_CALC = 0;
-    final static int GROUP_CALC = 1;
+    public final static int SINGLE_CALC = 0;
+    public final static int GROUP_CALC = 1;
     private int calcType = SINGLE_CALC;
 
     public CardPickEntity(int id, String name, int img) {

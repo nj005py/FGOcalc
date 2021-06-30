@@ -11,6 +11,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.phantancy.fgocalc.common.CardLogic
 import org.phantancy.fgocalc.data.NoblePhantasmRepository
+import org.phantancy.fgocalc.data.ServantAvatar
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.entity.ServantEntity
@@ -42,12 +43,16 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val _cardPicks = MutableLiveData<ArrayList<CardPickEntity>>()
     val cardPicks: LiveData<ArrayList<CardPickEntity>> = _cardPicks
 
+    /**
+     * 卡片，包含归属从者，卡片位置id，编队时贴上从者头像区分卡片
+     */
     //解析从者列表
     fun parseServantsCards(svts: ArrayList<ServantEntity>) {
         viewModelScope.launch {
             val list = ArrayList<CardPickEntity>()
             //归属从者
             var svtSource = 0
+            //位置id
             var id = 0
             for (svt in svts) {
                 list.addAll(parsePickCards(svt, svtSource,id))
@@ -72,8 +77,8 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         val list = ArrayList<CardPickEntity>()
         var id = start
         //解析配卡
-        for (y in x.toCharArray()) {
-            CardLogic.parseCardPickEntity(id, y)?.let {
+        for (card in x.toCharArray()) {
+            CardLogic.parseGroupCardPickEntity(id, card,svtSource,ServantAvatar.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }
@@ -81,7 +86,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         //宝具卡
         val npEntityList = queryNPEntitiesList(svt.id);
         npEntityList?.let {
-            CardLogic.parseCardPickNp(id, it[0]?.npColor)?.let {
+            CardLogic.parseGroupCardPickNp(id, it[0]?.npColor,svtSource,ServantAvatar.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }

@@ -23,7 +23,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val _svtGroup = MutableLiveData<ArrayList<ServantEntity>>()
     val svtGroup: LiveData<ArrayList<ServantEntity>> = _svtGroup
 
-    val servants = ArrayList<ServantEntity>()
+    private val servants = ArrayList<ServantEntity>()
 
     fun addServant(svt: ServantEntity, svtPosition: Int) {
         if (servants?.size < 3) {
@@ -72,7 +72,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
      * 4 配卡+第一张宝具卡组成卡片列表
      * 5 更新livedata
      */
-    suspend fun parsePickCards(svt: ServantEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
+    private suspend fun parsePickCards(svt: ServantEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
         val x: String = svt.cards
         val list = ArrayList<CardPickEntity>()
         var id = start
@@ -121,7 +121,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
+    private fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
         return ArrayList<CardPickEntity>().apply {
             val svt = servants[pos]
             var id = start
@@ -132,14 +132,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let { add(it) }
         }
     }
-
-    //数据库查询宝具信息
-    fun getNPEntities(svtId: Int): LiveData<List<NoblePhantasmEntity>> {
-        return npRepository.getNoblePhantasmEntities(svtId)
-    }
-
-    private val _npEntities = MutableLiveData<List<NoblePhantasmEntity>>()
-    val npEntities: LiveData<List<NoblePhantasmEntity>> = _npEntities
 
     private suspend fun queryNPEntitiesList(id: Int): List<NoblePhantasmEntity> {
         return coroutineScope {

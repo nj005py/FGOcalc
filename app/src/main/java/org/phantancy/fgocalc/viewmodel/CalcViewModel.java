@@ -13,8 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.phantancy.fgocalc.R;
-import org.phantancy.fgocalc.common.CardLogic;
+import org.phantancy.fgocalc.logic.CardLogic;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
 import org.phantancy.fgocalc.common.ParamsUtil;

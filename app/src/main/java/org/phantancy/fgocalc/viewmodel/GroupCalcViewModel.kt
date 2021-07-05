@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,15 +10,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.phantancy.fgocalc.common.CardLogic
 import org.phantancy.fgocalc.data.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatar
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.entity.ServantEntity
-import kotlin.coroutines.coroutineContext
+import org.phantancy.fgocalc.logic.CalcLogic
+import org.phantancy.fgocalc.logic.CardLogic
 
 class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
+    private val TAG = "GroupCalcViewModel"
     private val npRepository: NoblePhantasmRepository = NoblePhantasmRepository(app)
 
     private val _svtGroup = MutableLiveData<ArrayList<ServantEntity>>()
@@ -32,7 +34,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             servants[svtPosition] = svt;
         }
         _svtGroup.value = servants
-//        parseServantsCards(servants)
     }
 
     fun removeServant(svt: ServantEntity) {
@@ -142,4 +143,24 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+
+    private val pickedCards = ArrayList<CardPickEntity>()
+    //点击计算
+    fun clickCalc(pickedCards: ArrayList<CardPickEntity>){
+        pickedCards.clear()
+        this.pickedCards.addAll(pickedCards)
+
+        if (pickedCards.size == 3) {
+            //计算伤害
+            //伤害随机
+            val dmgRandomMax = 1.1
+            val dmgRandomMin = 0.9
+            val calcLogic = CalcLogic()
+            //res
+            val max = calcLogic.fourCardsDmg(dmgRandomMax)
+            val min = calcLogic.fourCardsDmg(dmgRandomMin)
+            Log.d(TAG,"max: $max min: $min")
+        }
+    }
+    //伤害计算
 }

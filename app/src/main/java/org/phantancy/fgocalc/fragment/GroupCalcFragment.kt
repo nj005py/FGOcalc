@@ -129,5 +129,10 @@ class GroupCalcFragment: BaseFragment() {
                 }
             }
         })
+
+        //计算
+        binding.btnCalc.setOnClickListener {
+            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>)
+        }
     }
 }

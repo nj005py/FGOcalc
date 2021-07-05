@@ -56,4 +56,9 @@ public class Constant {
         return cardDrawableMap.get(cardType);
     }
 
+    //单从者入口
+    public final static int ENTRY_SINGLE = 0;
+    //编队计算入口
+    public final static int ENTRY_GROUP = 1;
+
 }

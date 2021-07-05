@@ -27,7 +27,10 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE;
+
 public class CalcActy extends BaseActy {
+
     private ActyCalcBinding binding;
     private CalcViewModel vm;
 
@@ -53,7 +56,7 @@ public class CalcActy extends BaseActy {
         List<Fragment> fragments = new ArrayList<Fragment>() {
             {
                 add(new InfoFragment());
-                add(new CalcContainerFragment());
+                add(new CalcContainerFragment(ENTRY_SINGLE));
                 add(wikiFrag);
             }
         };

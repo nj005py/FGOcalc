@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.common
+package org.phantancy.fgocalc.logic
 
 import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.entity.CardPickEntity

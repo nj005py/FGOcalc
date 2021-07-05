@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
+import org.phantancy.fgocalc.common.Constant.ENTRY_GROUP
 import org.phantancy.fgocalc.databinding.ActyCalcBinding
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
@@ -36,7 +37,7 @@ class GroupSettingActy : BaseActy() {
         val wikiFragment = WikiFragment()
         wikiFragment.setParentPager(binding.vpCalcPager)
         //碎片页列表
-        val fragments = arrayListOf<Fragment>(InfoFragment(), CalcContainerFragment(), wikiFragment)
+        val fragments = arrayListOf<Fragment>(InfoFragment(), CalcContainerFragment(ENTRY_GROUP), wikiFragment)
 
         val pagerAdapter = CalcViewPagerAdapter(this, fragments)
         binding.vpCalcPager.adapter = pagerAdapter

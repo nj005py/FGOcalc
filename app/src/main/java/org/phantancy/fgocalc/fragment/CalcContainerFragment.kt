@@ -11,9 +11,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.*
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE
 import org.phantancy.fgocalc.databinding.FragmentCalcContainerBinding
 
-class CalcContainerFragment : LazyFragment() {
+class CalcContainerFragment(val entry: Int) : LazyFragment() {
     private lateinit var binding: FragmentCalcContainerBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,40 +27,15 @@ class CalcContainerFragment : LazyFragment() {
         val fragments = ArrayList<Fragment>().apply {
             add(ConditionFragment())
             add(BuffFragment())
-            add(CalcFragment())
+            if (entry == ENTRY_SINGLE) {
+                add(CalcFragment())
+            }
         }
         val adapter = CalcPagerAdapter(mActy, fragments)
         binding.vpCalc.adapter = adapter
         binding.vpCalc.orientation = ORIENTATION_VERTICAL
         //true:滑动，false：禁止滑动
         binding.vpCalc.isUserInputEnabled = true
-//        binding.vpCalc.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                when {
-//                    position == 0 -> {
-//                        //首页
-//                        binding.btnUp.isEnabled = false
-//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.gray400))
-//                        binding.btnDown.isEnabled = true
-//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
-//                    }
-//                    position == (fragments.size - 1) -> {
-//                        //尾页
-//                        binding.btnUp.isEnabled = true
-//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
-//                        binding.btnDown.isEnabled = false
-//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.gray400))
-//
-//                    }
-//                    else -> {
-//                        binding.btnUp.isEnabled = true
-//                        binding.btnUp.setTextColor(ContextCompat.getColor(mActy, R.color.blueWordDark))
-//                        binding.btnDown.isEnabled = true
-//                        binding.btnDown.setTextColor(ContextCompat.getColor(mActy,R.color.blueWordDark))
-//                    }
-//                }
-//            }
-//        })
         binding.btnUp.setOnClickListener {
             val curPage = binding.vpCalc.currentItem
             binding.vpCalc.setCurrentItem(curPage - 1)

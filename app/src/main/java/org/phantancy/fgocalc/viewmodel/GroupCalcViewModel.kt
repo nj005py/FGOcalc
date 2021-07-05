@@ -12,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.phantancy.fgocalc.data.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatar
+import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.entity.ServantEntity
@@ -26,6 +27,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     val svtGroup: LiveData<ArrayList<ServantEntity>> = _svtGroup
 
     private val servants = ArrayList<ServantEntity>()
+    private val calcEntites = ArrayList<CalcEntity>()
 
     fun addServant(svt: ServantEntity, svtPosition: Int) {
         if (servants?.size < 3) {

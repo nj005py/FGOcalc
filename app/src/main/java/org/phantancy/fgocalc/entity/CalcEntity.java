@@ -39,12 +39,12 @@ public class CalcEntity implements Parcelable {
     private String cardType3 = Constant.CARD_QUICK;
     private String cardType4 = Constant.CARD_EX;
 
-    //1-3位置是否暴击
+    //1-3位置是否暴击 依据计算页
     private boolean isCritical1 = false;
     private boolean isCritical2 = false;
     private boolean isCritical3 = false;
 
-    //1-4位置是否过量伤害
+    //1-4位置是否过量伤害 依据计算页
     private boolean isOverkill1 = false;
     private boolean isOverkill2 = false;
     private boolean isOverkill3 = false;

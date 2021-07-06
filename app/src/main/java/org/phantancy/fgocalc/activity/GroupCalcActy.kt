@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.phantancy.fgocalc.R
@@ -31,9 +33,9 @@ class GroupCalcActy : BaseActy() {
         setContentView(binding.root)
 //        vm = ViewModelProvider(GroupCalcActy@ this).get(GroupCalcViewModel::class.java)
         supportFragmentManager.commit {
-            add(R.id.container,GroupCalcFragment())
+            replace<GroupCalcFragment>(R.id.container)
+            setReorderingAllowed(false)
         }
-
 //        //搜索从者
 //        val searchServantLauncher = registerForActivityResult(
 //                ActivityResultContracts.StartActivityForResult()

@@ -14,6 +14,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_to_calc"
+                style="@style/tv_common"
+                android:layout_margin="5dp"
+                android:gravity="start|center_vertical"
+                android:text="跳到计算"
+                android:textColor="@color/black"
+                android:drawableRight="@drawable/ic_baseline_chevron_right"
+                android:background="@drawable/btn_white"
+                />
+
             <!--阶职相性-->
             <LinearLayout style="@style/ConditionContainer">
 

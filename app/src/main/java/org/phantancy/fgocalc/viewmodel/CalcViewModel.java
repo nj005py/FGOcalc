@@ -77,11 +77,20 @@ public class CalcViewModel extends AndroidViewModel {
         return hpLeft + "";
     }
 
-    //当前页
+    //当前页(横向page)
     private MutableLiveData<Integer> mCurrentPage = new MutableLiveData<>();
+    public LiveData<Integer> currentPage = mCurrentPage;
 
-    public LiveData<Integer> getCurrentPage() {
-        return mCurrentPage;
+    public void setCurrentPage(int index) {
+        mCurrentPage.setValue(index);
+    }
+
+    //纵向page 计算条件
+    private MutableLiveData<Integer> mConditionPage = new MutableLiveData<>();
+    public LiveData<Integer> conditionPage = mConditionPage;
+
+    public void setConditionPage(int index) {
+        mConditionPage.setValue(index);
     }
 
     //数据源

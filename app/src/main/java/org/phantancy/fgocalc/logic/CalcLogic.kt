@@ -9,11 +9,31 @@ import org.phantancy.fgocalc.entity.ResultDmg
 import org.phantancy.fgocalc.entity.ServantEntity
 import java.text.MessageFormat
 
+/**
+ * 每个从者独立信息
+ * 职阶相性
+ * 阵营相性
+ * 选择宝具
+ * 宝具lv
+ * 芙芙atk
+ * 礼装atk
+ * 等级
+ * atk
+ * 总hp
+ * 剩余hp
+ * 各种buff
+ *
+ * 多个从者共享信息
+ * 敌人数量
+ * 敌方1
+ * 敌方2
+ * 敌方3
+ */
 class CalcLogic {
     val TAG = "CalcLogic"
 
     //计算4张卡的伤害
-    fun fourCardsDmg(random: Double): ResultDmg? {
+    fun fourCardsDmg(random: Double,calcEntity: CalcEntity,servant: ServantEntity): ResultDmg? {
         /**
          * 需要3张卡判断的参数
          */
@@ -22,10 +42,10 @@ class CalcLogic {
         //是否红链
         calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
         //每张卡伤害结果
-        var res1: Double = dmgCalc(calcEntity.getCardType1(), 1, random)
-        var res2: Double = dmgCalc(calcEntity.getCardType2(), 2, random)
-        var res3: Double = dmgCalc(calcEntity.getCardType3(), 3, random)
-        var res4: Double = dmgCalc(calcEntity.getCardType4(), 4, random)
+        var res1: Double = dmgCalc(calcEntity.getCardType1(), 1, random,calcEntity,servant)
+        var res2: Double = dmgCalc(calcEntity.getCardType2(), 2, random,calcEntity,servant)
+        var res3: Double = dmgCalc(calcEntity.getCardType3(), 3, random,calcEntity,servant)
+        var res4: Double = dmgCalc(calcEntity.getCardType4(), 4, random,calcEntity,servant)
         res1 = Math.floor(res1)
         res2 = Math.floor(res2)
         res3 = Math.floor(res3)
@@ -55,9 +75,11 @@ class CalcLogic {
      * @param random
      * @return
      */
-    private fun dmgCalc(cardType: String, position: Int, random: Double): Double {
+    private fun dmgCalc(cardType: String, position: Int, random: Double,calcEntity: CalcEntity,servant: ServantEntity): Double {
         //判断卡片类型，宝具卡或普攻卡
-        return if (ParamsUtil.isNp(cardType)) npDmg(cardType, random) else dmg(cardType, position, random)
+        return if (ParamsUtil.isNp(cardType))
+            npDmg(cardType, random, calcEntity,servant)
+        else dmg(cardType, position, random,calcEntity,servant)
     }
 
     private fun dmg(cardType: String, position: Int, random: Double, calcEntity: CalcEntity,

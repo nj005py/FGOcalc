@@ -159,9 +159,9 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val dmgRandomMin = 0.9
             val calcLogic = CalcLogic()
             //res
-            val max = calcLogic.fourCardsDmg(dmgRandomMax)
-            val min = calcLogic.fourCardsDmg(dmgRandomMin)
-            Log.d(TAG,"max: $max min: $min")
+//            val max = calcLogic.fourCardsDmg(dmgRandomMax)
+//            val min = calcLogic.fourCardsDmg(dmgRandomMin)
+//            Log.d(TAG,"max: $max min: $min")
         }
     }
     //伤害计算

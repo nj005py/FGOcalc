@@ -16,10 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter;
 import org.phantancy.fgocalc.databinding.ActyCalcBinding;
 import org.phantancy.fgocalc.entity.ServantEntity;
-import org.phantancy.fgocalc.fragment.BuffFragment;
 import org.phantancy.fgocalc.fragment.CalcContainerFragment;
-import org.phantancy.fgocalc.fragment.CalcFragment;
-import org.phantancy.fgocalc.fragment.ConditionFragment;
 import org.phantancy.fgocalc.fragment.InfoFragment;
 import org.phantancy.fgocalc.fragment.WikiFragment;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
@@ -77,7 +74,7 @@ public class CalcActy extends BaseActy {
             }
         }).attach();
 
-        vm.getCurrentPage().observe(this, new Observer<Integer>() {
+        vm.currentPage.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer page) {
                 binding.vpCalcPager.setCurrentItem(page);

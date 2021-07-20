@@ -79,6 +79,9 @@ public class ConditionFragment extends BaseFragment {
     }
 
     private void initView() {
+        binding.tvToCalc.setOnClickListener(v -> {
+            vm.setConditionPage(2);
+        });
         //职阶相性
         setSpAdapter(binding.spAffinity, ConditionData.getAffinityKeys());
         binding.spAffinity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

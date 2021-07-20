@@ -147,6 +147,12 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
 
     private val pickedCards = ArrayList<CardPickEntity>()
+
+    //清理结果
+    fun cleanResult() {
+        parseServantsCards(servants)
+    }
+
     //点击计算
     fun clickCalc(pickedCards: ArrayList<CardPickEntity>){
         pickedCards.clear()

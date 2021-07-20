@@ -16,14 +16,4 @@
         android:transitionName="avatar"
         />
 
-    <Button
-        android:id="@+id/btn_setting"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:background="@drawable/btn_blue"
-        android:text="设置"
-        android:textColor="@color/blueWordPrimary"
-        android:visibility="gone"
-        />
-
 </LinearLayout>

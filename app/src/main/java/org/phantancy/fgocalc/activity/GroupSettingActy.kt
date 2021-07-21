@@ -12,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
 import org.phantancy.fgocalc.common.Constant.ENTRY_GROUP
 import org.phantancy.fgocalc.databinding.ActyCalcBinding
+import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
@@ -28,8 +29,13 @@ class GroupSettingActy : BaseActy() {
         setContentView(binding.root)
 
         val servant = intent.getParcelableExtra<Parcelable>("servant") as ServantEntity
+        val calcEntity = intent.getParcelableExtra<Parcelable>("calcEntity") as CalcEntity
+
         vm = ViewModelProvider(this).get(CalcViewModel::class.java)
+        //设置编队计算
+        vm.entry = ENTRY_GROUP
         servant?.let { vm.servant = servant }
+        calcEntity?.let { vm.calcEntity = calcEntity }
 
         //tab标题列表
         val tabs = arrayListOf<String>("从者信息", "设置", "wiki")
@@ -45,6 +51,8 @@ class GroupSettingActy : BaseActy() {
         TabLayoutMediator(binding.tlCalcTab, binding.vpCalcPager) { tab, position ->
             tab.text = tabs[position]
         }.attach()
+        //跳到条件页，很重要，不然获取不到宝具信息
+        binding.vpCalcPager.setCurrentItem(1)
     }
 
     override fun onStart() {

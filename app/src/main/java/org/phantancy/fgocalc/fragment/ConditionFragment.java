@@ -19,12 +19,15 @@ import com.xw.repo.BubbleSeekBar;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
+import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE;
 
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
@@ -46,6 +49,9 @@ public class ConditionFragment extends BaseFragment {
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
         initView();
         initNp();
+        if (vm.calcEntity.getSource() == 1) {
+            initData(vm.calcEntity);
+        }
     }
 
     @Override
@@ -79,9 +85,12 @@ public class ConditionFragment extends BaseFragment {
     }
 
     private void initView() {
-        binding.tvToCalc.setOnClickListener(v -> {
-            vm.setConditionPage(2);
-        });
+        if (vm.entry == ENTRY_SINGLE) {
+            binding.tvToCalc.setOnClickListener(v -> {
+                vm.setConditionPage(2);
+            });
+        }
+
         //职阶相性
         setSpAdapter(binding.spAffinity, ConditionData.getAffinityKeys());
         binding.spAffinity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -329,6 +338,38 @@ public class ConditionFragment extends BaseFragment {
             binding.llEnemySetting2.setVisibility(View.VISIBLE);
             binding.llEnemySetting3.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void initData(CalcEntity x){
+        //职阶相性
+        int affinityPosition = getSelectionPosition(x.getAffinityMod(),ConditionData.getAffinityValues());
+        binding.spAffinity.setSelection(affinityPosition);
+        //阵营相性
+        int attributePosition = getSelectionPosition(x.getAttributeMod(),ConditionData.getAttributeValues());
+        binding.spAttribute.setSelection(attributePosition);
+        //宝具选择
+        //宝具lv
+        //芙芙atk
+        //礼装atk
+        //等级
+        //atk
+        //总hp
+        //剩余hp
+        //敌人数量
+        //敌方1
+        //敌方2
+        //敌方3
+    }
+
+    private int getSelectionPosition(double value,Double[] values){
+        int position = 0;
+        for (double i : values){
+            if (i == value) {
+                break;
+            }
+            position++;
+        }
+        return position;
     }
 
     @Override

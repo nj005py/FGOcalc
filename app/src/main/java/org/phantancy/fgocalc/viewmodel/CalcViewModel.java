@@ -37,11 +37,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE;
 import static org.phantancy.fgocalc.common.ParamsUtil.getCardDmgMultiplier;
 
 //计算Activity ViewModel
 public class CalcViewModel extends AndroidViewModel {
     final String TAG = "CalcViewModel";
+    public int entry = ENTRY_SINGLE;
     private ServantEntity servant;
     //经验列表
     List<SvtExpEntity> svtExpEntities;
@@ -171,10 +173,6 @@ public class CalcViewModel extends AndroidViewModel {
         list.add(CardLogic.parseCardPickNp(id, np.npColor));
         mCardPicks.setValue(list);
     }
-
-
-
-
 
     private List<CardPickEntity> pickedCards = new ArrayList<>();
 

@@ -27,7 +27,15 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     val svtGroup: LiveData<ArrayList<ServantEntity>> = _svtGroup
 
     private val servants = ArrayList<ServantEntity>()
-    private val calcEntites = ArrayList<CalcEntity>()
+    val calcEntites = ArrayList<CalcEntity>()
+
+    init {
+        calcEntites.apply {
+            add(CalcEntity())
+            add(CalcEntity())
+            add(CalcEntity())
+        }
+    }
 
     fun addServant(svt: ServantEntity, svtPosition: Int) {
         if (servants?.size < 3) {
@@ -102,16 +110,17 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
      * npEntity 宝具信息
      *
      */
-    fun updateServantCards(pos: Int, npEntity: NoblePhantasmEntity) {
+    fun updateServantCards(pos: Int, calcEntity: CalcEntity) {
         var count = 0;
         val list = ArrayList<CardPickEntity>()
         var id = 0
         var svtSource = 0
+        calcEntites[pos] = calcEntity
         viewModelScope.launch {
             for (svt in servants) {
                 if (count == pos) {
                     //宝具卡色从条件里取
-                    list.addAll(updatePickCards(pos, npEntity,svtSource, id))
+                    list.addAll(updatePickCards(pos, calcEntity.npEntity,svtSource, id))
                 } else {
                     //宝具卡色从数据库里取
                     list.addAll(parsePickCards(svt, svtSource, id))

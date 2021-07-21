@@ -13,6 +13,8 @@ import java.util.Map;
 
 //用于计算的数据
 public class CalcEntity implements Parcelable {
+    //0: 默认，1: 读取
+    private int source = 0;
     /**
      * 条件
      */
@@ -75,6 +77,7 @@ public class CalcEntity implements Parcelable {
     }
 
     protected CalcEntity(Parcel in) {
+        source = in.readInt();
         affinityMod = in.readDouble();
         attributeMod = in.readDouble();
         npEntity = in.readParcelable(NoblePhantasmEntity.class.getClassLoader());
@@ -106,6 +109,7 @@ public class CalcEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(source);
         dest.writeDouble(affinityMod);
         dest.writeDouble(attributeMod);
         dest.writeParcelable(npEntity, flags);
@@ -151,6 +155,14 @@ public class CalcEntity implements Parcelable {
             return new CalcEntity[size];
         }
     };
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
+    }
 
     public double[] getEnemysStarMod() {
         return enemysStarMod;

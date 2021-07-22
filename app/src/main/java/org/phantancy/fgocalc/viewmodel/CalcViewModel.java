@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.phantancy.fgocalc.entity.CalcConditionVO;
 import org.phantancy.fgocalc.logic.CardLogic;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
@@ -308,7 +309,8 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 保存条件数据
-    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyNpMods, double[] enemyStarMods) {
+    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyNpMods,
+                              double[] enemyStarMods, CalcConditionVO conditionVO) {
         calcEntity.setSavedCondition(true);
         //职阶相性
         Log.d(TAG, "职阶相性：" + calcEntity.getAffinityMod());
@@ -338,6 +340,10 @@ public class CalcViewModel extends AndroidViewModel {
         //敌人
         calcEntity.setEnemysNpMod(enemyNpMods);
         calcEntity.setEnemysStarMod(enemyStarMods);
+        /**
+         * 保存UI信息
+         */
+        calcEntity.setCalcConditionVO(conditionVO);
     }
 
     //保存职阶克制

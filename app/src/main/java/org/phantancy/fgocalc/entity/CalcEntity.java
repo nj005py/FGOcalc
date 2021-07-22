@@ -73,6 +73,11 @@ public class CalcEntity implements Parcelable {
     private boolean isSameColor = false;
     private boolean isBusterChain = false;
 
+    /**
+     * 条件页UI数据信息
+     */
+    private CalcConditionVO calcConditionVO;
+
     public CalcEntity() {
     }
 
@@ -105,6 +110,7 @@ public class CalcEntity implements Parcelable {
         firstCardType = in.readString();
         isSameColor = in.readByte() != 0;
         isBusterChain = in.readByte() != 0;
+        calcConditionVO = in.readParcelable(CalcConditionVO.class.getClassLoader());
     }
 
     @Override
@@ -137,6 +143,7 @@ public class CalcEntity implements Parcelable {
         dest.writeString(firstCardType);
         dest.writeByte((byte) (isSameColor ? 1 : 0));
         dest.writeByte((byte) (isBusterChain ? 1 : 0));
+        dest.writeParcelable(calcConditionVO, flags);
     }
 
     @Override
@@ -155,6 +162,14 @@ public class CalcEntity implements Parcelable {
             return new CalcEntity[size];
         }
     };
+
+    public CalcConditionVO getCalcConditionVO() {
+        return calcConditionVO;
+    }
+
+    public void setCalcConditionVO(CalcConditionVO calcConditionVO) {
+        this.calcConditionVO = calcConditionVO;
+    }
 
     public int getSource() {
         return source;

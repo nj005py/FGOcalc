@@ -19,6 +19,7 @@ import com.xw.repo.BubbleSeekBar;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
+import org.phantancy.fgocalc.entity.CalcConditionVO;
 import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
@@ -49,8 +50,8 @@ public class ConditionFragment extends BaseFragment {
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
         initView();
         initNp();
-        if (vm.calcEntity.getSource() == 1) {
-            initData(vm.calcEntity);
+        if (vm.calcEntity.getSource() == 1 && vm.calcEntity.getCalcConditionVO() != null) {
+            initData(vm.calcEntity.getCalcConditionVO());
         }
     }
 
@@ -60,10 +61,54 @@ public class ConditionFragment extends BaseFragment {
         //保存UI数据
         Log.d(TAG, "保存条件数据");
         if (check()) {
+            /**
+             * UI信息
+             */
+            //职阶相性
+            int affinityPosition = binding.spAffinity.getSelectedItemPosition();
+            //阵营相性
+            int attributePosition = binding.spAttribute.getSelectedItemPosition();
+            //宝具选择
+            int npSelectPosition = binding.spNpSelect.getSelectedItemPosition();
+            //宝具lv
+            int npLvPosition = binding.spNpLv.getSelectedItemPosition();
+            //芙芙atk
+            int fouAtkPosition = binding.spFouAtk.getSelectedItemPosition();
+            //礼装atk
+            int essenceAtkPosition = binding.spEssenceAtk.getSelectedItemPosition();
+            //等级
+            int servantLv = binding.famSbLvSvt.getProgress();
+            //atk
             String atk = binding.etAtkTotal.getText().toString();
+            //总hp
             String hp = binding.etHpTotal.getText().toString();
+            //剩余hp
             String hpLeft = binding.etHpLeft.getText().toString();
-            vm.saveCondition(atk, hp, hpLeft, enemyNpMods,enemyStarMods);
+            //敌人数量
+            int enemyCountPosition = binding.spEnemyCount.getSelectedItemPosition();
+            //敌方1
+            int enemyClass1Position = binding.spEnemyClass1.getSelectedItemPosition();
+            //敌方2
+            int enemyClass2Position = binding.spEnemyClass2.getSelectedItemPosition();
+            //敌方3
+            int enemyClass3Position = binding.spEnemyClass3.getSelectedItemPosition();
+            CalcConditionVO conditionVO = new CalcConditionVO(
+                    affinityPosition,
+                    attributePosition,
+                    npSelectPosition,
+                    npLvPosition,
+                    fouAtkPosition,
+                    essenceAtkPosition,
+                    servantLv,
+                    atk,
+                    hp,
+                    hpLeft,
+                    enemyCountPosition,
+                    enemyClass1Position,
+                    enemyClass2Position,
+                    enemyClass3Position
+            );
+            vm.saveCondition(atk, hp, hpLeft, enemyNpMods, enemyStarMods,conditionVO);
         }
 
     }
@@ -340,30 +385,40 @@ public class ConditionFragment extends BaseFragment {
         }
     }
 
-    private void initData(CalcEntity x){
+    private void initData(CalcConditionVO x) {
         //职阶相性
-        int affinityPosition = getSelectionPosition(x.getAffinityMod(),ConditionData.getAffinityValues());
-        binding.spAffinity.setSelection(affinityPosition);
+        binding.spAffinity.setSelection(x.getAffinityPosition());
         //阵营相性
-        int attributePosition = getSelectionPosition(x.getAttributeMod(),ConditionData.getAttributeValues());
-        binding.spAttribute.setSelection(attributePosition);
+        binding.spAttribute.setSelection(x.getAttributePosition());
         //宝具选择
+        binding.spNpSelect.setSelection(x.getNpSelectPosition());
         //宝具lv
+        binding.spNpLv.setSelection(x.getNpLvPosition());
         //芙芙atk
+        binding.spFouAtk.setSelection(x.getFouAtkPosition());
         //礼装atk
+        binding.spEssenceAtk.setSelection(x.getEssenceAtkPosition());
         //等级
+        binding.famSbLvSvt.setProgress(x.getServantLv());
         //atk
+        binding.etAtkTotal.setText(x.getAtk());
         //总hp
+        binding.etHpTotal.setText(x.getHp());
         //剩余hp
+        binding.etHpLeft.setText(x.getHpLeft());
         //敌人数量
+        binding.spEnemyCount.setSelection(x.getEnemyCountPosition());
         //敌方1
+        binding.spEnemyClass1.setSelection(x.getEnemyClass1Position());
         //敌方2
+        binding.spEnemyClass2.setSelection(x.getEnemyClass2Position());
         //敌方3
+        binding.spEnemyClass3.setSelection(x.getEnemyClass3Position());
     }
 
-    private int getSelectionPosition(double value,Double[] values){
+    private int getSelectionPosition(double value, Double[] values) {
         int position = 0;
-        for (double i : values){
+        for (double i : values) {
             if (i == value) {
                 break;
             }

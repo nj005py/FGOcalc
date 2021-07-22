@@ -20,6 +20,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel
 class CalcContainerFragment(val entry: Int) : LazyFragment() {
     private lateinit var binding: FragmentCalcContainerBinding
     private lateinit var vm: CalcViewModel
+    private lateinit var conditionFragment: ConditionFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCalcContainerBinding.inflate(inflater,container,false)
@@ -29,8 +30,9 @@ class CalcContainerFragment(val entry: Int) : LazyFragment() {
     override fun init() {
         super.init()
         vm = ViewModelProvider(mActy).get(CalcViewModel::class.java)
+        conditionFragment = ConditionFragment()
         val fragments = ArrayList<Fragment>().apply {
-            add(ConditionFragment())
+            add(conditionFragment)
             add(BuffFragment())
             if (entry == ENTRY_SINGLE) {
                 add(CalcFragment())
@@ -53,6 +55,10 @@ class CalcContainerFragment(val entry: Int) : LazyFragment() {
 
         //跳页
         vm.conditionPage.observe(viewLifecycleOwner, Observer { index -> binding.vpCalc.currentItem = index })
+    }
+
+    fun save(){
+        conditionFragment.save()
     }
 
     inner class CalcPagerAdapter(fa: FragmentActivity, val fragments: List<Fragment>) : FragmentStateAdapter(fa) {

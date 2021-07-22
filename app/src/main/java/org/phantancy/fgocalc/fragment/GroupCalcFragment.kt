@@ -64,7 +64,6 @@ class GroupCalcFragment : BaseFragment() {
                 result.data?.let {
                     val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
                     calcEntity?.let {
-                        Log.i(TAG, "count: ${calcEntity.enemyCount}")
                         vm.updateServantCards(svtPosition, calcEntity)
                     }
                     svtPosition = 0

@@ -20,7 +20,6 @@ import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
 import org.phantancy.fgocalc.entity.CalcConditionVO;
-import org.phantancy.fgocalc.entity.CalcEntity;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
@@ -35,6 +34,16 @@ public class ConditionFragment extends BaseFragment {
     private CalcViewModel vm;
     private final double[] enemyNpMods = new double[3];
     private final double[] enemyStarMods = new double[3];
+    //等级变化
+    private boolean isRestoreServantLv = false;
+    private boolean isRestoreAtk = false;
+    private boolean isRestoreNpSelect = false;
+    private boolean isRestoreNpLv = false;
+    //芙芙变化
+    private boolean isRestoreFou = false;
+    //礼装变化
+    private boolean isRestoreEssence = false;
+    private CalcConditionVO restoreVO;
 
 
     @Nullable
@@ -51,14 +60,22 @@ public class ConditionFragment extends BaseFragment {
         initView();
         initNp();
         if (vm.calcEntity.getSource() == 1 && vm.calcEntity.getCalcConditionVO() != null) {
-            initData(vm.calcEntity.getCalcConditionVO());
+            isRestoreServantLv = true;
+            isRestoreAtk = true;
+            isRestoreNpSelect = true;
+            isRestoreNpLv = true;
+            restoreVO = vm.calcEntity.getCalcConditionVO();
+            initData(restoreVO);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //保存UI数据
+        save();
+    }
+    //保存UI数据
+    public void save(){
         Log.d(TAG, "保存条件数据");
         if (check()) {
             /**
@@ -110,7 +127,6 @@ public class ConditionFragment extends BaseFragment {
             );
             vm.saveCondition(atk, hp, hpLeft, enemyNpMods, enemyStarMods,conditionVO);
         }
-
     }
 
     private boolean check() {
@@ -131,9 +147,12 @@ public class ConditionFragment extends BaseFragment {
 
     private void initView() {
         if (vm.entry == ENTRY_SINGLE) {
+            binding.tvToCalc.setVisibility(View.VISIBLE);
             binding.tvToCalc.setOnClickListener(v -> {
                 vm.setConditionPage(2);
             });
+        } else {
+            binding.tvToCalc.setVisibility(View.GONE);
         }
 
         //职阶相性
@@ -171,6 +190,7 @@ public class ConditionFragment extends BaseFragment {
         binding.spFouAtk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                isRestoreFou = true;
                 binding.etAtkTotal.setText(vm.onFouAtkChanged(ConditionData.getFouAtkValues()[position]));
             }
 
@@ -184,6 +204,7 @@ public class ConditionFragment extends BaseFragment {
         binding.spEssenceAtk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                isRestoreEssence = true;
                 binding.etAtkTotal.setText(vm.onEssenceAtkChanged(ConditionData.getEssenceAtkValues()[position]));
             }
 
@@ -214,6 +235,10 @@ public class ConditionFragment extends BaseFragment {
 
                 }
             });
+            if (isRestoreServantLv) {
+                binding.famSbLvSvt.setProgress(restoreVO.getServantLv());
+                isRestoreServantLv = false;
+            }
         }));
 
         //atk
@@ -347,6 +372,14 @@ public class ConditionFragment extends BaseFragment {
                 }
             });
 
+            if (isRestoreNpSelect) {
+                binding.spNpSelect.setSelection(restoreVO.getNpSelectPosition());
+                isRestoreNpSelect = false;
+            }
+            if (isRestoreNpLv) {
+                binding.spNpLv.setSelection(restoreVO.getNpLvPosition());
+                isRestoreNpLv = false;
+            }
         });
 
     }
@@ -390,18 +423,17 @@ public class ConditionFragment extends BaseFragment {
         binding.spAffinity.setSelection(x.getAffinityPosition());
         //阵营相性
         binding.spAttribute.setSelection(x.getAttributePosition());
-        //宝具选择
-        binding.spNpSelect.setSelection(x.getNpSelectPosition());
-        //宝具lv
-        binding.spNpLv.setSelection(x.getNpLvPosition());
+        //宝具选择 todo 失败
+//        binding.spNpSelect.setSelection(x.getNpSelectPosition());
+        //宝具lv todo 失败
+//        binding.spNpLv.setSelection(x.getNpLvPosition());
         //芙芙atk
         binding.spFouAtk.setSelection(x.getFouAtkPosition());
         //礼装atk
         binding.spEssenceAtk.setSelection(x.getEssenceAtkPosition());
-        //等级
-        binding.famSbLvSvt.setProgress(x.getServantLv());
-        //atk
-        binding.etAtkTotal.setText(x.getAtk());
+        //等级 todo 失败
+//        binding.famSbLvSvt.setProgress(x.getServantLv());
+        //atk todo 失败
         //总hp
         binding.etHpTotal.setText(x.getHp());
         //剩余hp
@@ -425,6 +457,15 @@ public class ConditionFragment extends BaseFragment {
             position++;
         }
         return position;
+    }
+
+    private void setSolidAtk(){
+        if (isRestoreFou && isRestoreEssence && isRestoreServantLv) {
+            binding.etAtkTotal.setText(restoreVO.getAtk());
+            isRestoreFou = false;
+            isRestoreEssence = false;
+            isRestoreServantLv = false;
+        }
     }
 
     @Override

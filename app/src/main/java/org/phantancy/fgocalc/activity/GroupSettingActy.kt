@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import org.phantancy.fgocalc.databinding.ActyCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
+import org.phantancy.fgocalc.fragment.ConditionFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
 import org.phantancy.fgocalc.viewmodel.CalcViewModel
@@ -22,6 +24,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel
 class GroupSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
     private lateinit var vm: CalcViewModel
+    private lateinit var containerFragment: CalcContainerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +45,9 @@ class GroupSettingActy : BaseActy() {
         //wiki页初始化
         val wikiFragment = WikiFragment()
         wikiFragment.setParentPager(binding.vpCalcPager)
+        containerFragment = CalcContainerFragment(ENTRY_GROUP)
         //碎片页列表
-        val fragments = arrayListOf<Fragment>(InfoFragment(), CalcContainerFragment(ENTRY_GROUP), wikiFragment)
+        val fragments = arrayListOf<Fragment>(InfoFragment(), containerFragment, wikiFragment)
 
         val pagerAdapter = CalcViewPagerAdapter(this, fragments)
         binding.vpCalcPager.adapter = pagerAdapter
@@ -61,14 +65,25 @@ class GroupSettingActy : BaseActy() {
     }
 
     //重写返回键保存条件、buff
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
-            val intent = Intent().apply {
-                putExtra("calcEntity",vm.calcEntity)
-            }
-            setResult(Activity.RESULT_OK,intent)
-            finish()
+//    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+//        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
+//            Log.d(TAG,"点击返回键")
+//            val intent = Intent().apply {
+//                putExtra("calcEntity",vm.calcEntity)
+//            }
+//            setResult(Activity.RESULT_OK,intent)
+//            finish()
+//        }
+//        return super.onKeyDown(keyCode, event)
+//    }
+
+    override fun onBackPressed() {
+        //保存条件、buff
+        containerFragment.save()
+        val intent = Intent().apply {
+            putExtra("calcEntity",vm.calcEntity)
         }
-        return super.onKeyDown(keyCode, event)
+        setResult(Activity.RESULT_OK,intent)
+        super.onBackPressed()
     }
 }

@@ -7,9 +7,7 @@ import androidx.collection.SimpleArrayMap;
 
 import org.phantancy.fgocalc.common.Constant;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 //用于计算的数据
 public class CalcEntity implements Parcelable {
@@ -77,9 +75,16 @@ public class CalcEntity implements Parcelable {
      * 条件页UI数据信息
      */
     private CalcConditionVO calcConditionVO;
+    /**
+     * Buff页UI数据信息
+     */
+    private List<BuffInputEntity> uiBuffs;
+    //输入buff数据
+    private SimpleArrayMap<String,Double> buffMap;
 
     public CalcEntity() {
     }
+
 
     protected CalcEntity(Parcel in) {
         source = in.readInt();
@@ -111,6 +116,7 @@ public class CalcEntity implements Parcelable {
         isSameColor = in.readByte() != 0;
         isBusterChain = in.readByte() != 0;
         calcConditionVO = in.readParcelable(CalcConditionVO.class.getClassLoader());
+        uiBuffs = in.createTypedArrayList(BuffInputEntity.CREATOR);
     }
 
     @Override
@@ -144,6 +150,7 @@ public class CalcEntity implements Parcelable {
         dest.writeByte((byte) (isSameColor ? 1 : 0));
         dest.writeByte((byte) (isBusterChain ? 1 : 0));
         dest.writeParcelable(calcConditionVO, flags);
+        dest.writeTypedList(uiBuffs);
     }
 
     @Override
@@ -162,6 +169,14 @@ public class CalcEntity implements Parcelable {
             return new CalcEntity[size];
         }
     };
+
+    public List<BuffInputEntity> getUiBuffs() {
+        return uiBuffs;
+    }
+
+    public void setUiBuffs(List<BuffInputEntity> uiBuffs) {
+        this.uiBuffs = uiBuffs;
+    }
 
     public CalcConditionVO getCalcConditionVO() {
         return calcConditionVO;
@@ -186,9 +201,6 @@ public class CalcEntity implements Parcelable {
     public void setEnemysStarMod(double[] enemysStarMod) {
         this.enemysStarMod = enemysStarMod;
     }
-
-    //输入buff数据
-    private SimpleArrayMap<String,Double> buffMap;
 
     public int getEnemyCount() {
         return enemyCount;

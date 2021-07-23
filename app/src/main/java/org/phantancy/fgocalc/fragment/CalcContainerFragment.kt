@@ -21,6 +21,7 @@ class CalcContainerFragment(val entry: Int) : LazyFragment() {
     private lateinit var binding: FragmentCalcContainerBinding
     private lateinit var vm: CalcViewModel
     private lateinit var conditionFragment: ConditionFragment
+    private lateinit var buffFragment: BuffFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentCalcContainerBinding.inflate(inflater,container,false)
@@ -31,9 +32,10 @@ class CalcContainerFragment(val entry: Int) : LazyFragment() {
         super.init()
         vm = ViewModelProvider(mActy).get(CalcViewModel::class.java)
         conditionFragment = ConditionFragment()
+        buffFragment = BuffFragment()
         val fragments = ArrayList<Fragment>().apply {
             add(conditionFragment)
-            add(BuffFragment())
+            add(buffFragment)
             if (entry == ENTRY_SINGLE) {
                 add(CalcFragment())
             }
@@ -59,6 +61,7 @@ class CalcContainerFragment(val entry: Int) : LazyFragment() {
 
     fun save(){
         conditionFragment.save()
+        buffFragment.save()
     }
 
     inner class CalcPagerAdapter(fa: FragmentActivity, val fragments: List<Fragment>) : FragmentStateAdapter(fa) {

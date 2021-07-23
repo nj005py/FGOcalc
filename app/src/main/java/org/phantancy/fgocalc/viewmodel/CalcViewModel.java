@@ -474,6 +474,7 @@ public class CalcViewModel extends AndroidViewModel {
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
         calcEntity.setSavedBuff(true);
+        calcEntity.setUiBuffs(buffs);
         SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String, Double>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));

@@ -36,13 +36,14 @@ public class ConditionFragment extends BaseFragment {
     private final double[] enemyStarMods = new double[3];
     //等级变化
     private boolean isRestoreServantLv = false;
+    private boolean isLockServantLv = false;
     private boolean isRestoreAtk = false;
     private boolean isRestoreNpSelect = false;
     private boolean isRestoreNpLv = false;
     //芙芙变化
-    private boolean isRestoreFou = false;
+    private boolean isLockFou = false;
     //礼装变化
-    private boolean isRestoreEssence = false;
+    private boolean isLockEssence = false;
     private CalcConditionVO restoreVO;
 
 
@@ -190,8 +191,11 @@ public class ConditionFragment extends BaseFragment {
         binding.spFouAtk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                isRestoreFou = true;
                 binding.etAtkTotal.setText(vm.onFouAtkChanged(ConditionData.getFouAtkValues()[position]));
+                if (isRestoreAtk) {
+                    isLockFou = true;
+                    setSolidAtk();
+                }
             }
 
             @Override
@@ -204,8 +208,11 @@ public class ConditionFragment extends BaseFragment {
         binding.spEssenceAtk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                isRestoreEssence = true;
                 binding.etAtkTotal.setText(vm.onEssenceAtkChanged(ConditionData.getEssenceAtkValues()[position]));
+                if (isRestoreAtk) {
+                    isLockEssence = true;
+                    setSolidAtk();
+                }
             }
 
             @Override
@@ -228,6 +235,7 @@ public class ConditionFragment extends BaseFragment {
                 public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
                     binding.etAtkTotal.setText(vm.onAtkLvChanged(progress));
                     binding.etHpTotal.setText(vm.onHpLvChanged(progress));
+
                 }
 
                 @Override
@@ -238,6 +246,10 @@ public class ConditionFragment extends BaseFragment {
             if (isRestoreServantLv) {
                 binding.famSbLvSvt.setProgress(restoreVO.getServantLv());
                 isRestoreServantLv = false;
+            }
+            if (isRestoreAtk) {
+                isLockServantLv = true;
+                setSolidAtk();
             }
         }));
 
@@ -423,17 +435,10 @@ public class ConditionFragment extends BaseFragment {
         binding.spAffinity.setSelection(x.getAffinityPosition());
         //阵营相性
         binding.spAttribute.setSelection(x.getAttributePosition());
-        //宝具选择 todo 失败
-//        binding.spNpSelect.setSelection(x.getNpSelectPosition());
-        //宝具lv todo 失败
-//        binding.spNpLv.setSelection(x.getNpLvPosition());
         //芙芙atk
         binding.spFouAtk.setSelection(x.getFouAtkPosition());
         //礼装atk
         binding.spEssenceAtk.setSelection(x.getEssenceAtkPosition());
-        //等级 todo 失败
-//        binding.famSbLvSvt.setProgress(x.getServantLv());
-        //atk todo 失败
         //总hp
         binding.etHpTotal.setText(x.getHp());
         //剩余hp
@@ -460,11 +465,12 @@ public class ConditionFragment extends BaseFragment {
     }
 
     private void setSolidAtk(){
-        if (isRestoreFou && isRestoreEssence && isRestoreServantLv) {
+        if (isLockServantLv && isLockFou && isLockEssence) {
             binding.etAtkTotal.setText(restoreVO.getAtk());
-            isRestoreFou = false;
-            isRestoreEssence = false;
-            isRestoreServantLv = false;
+            isLockServantLv = false;
+            isLockFou = false;
+            isLockEssence = false;
+            isRestoreAtk = false;
         }
     }
 

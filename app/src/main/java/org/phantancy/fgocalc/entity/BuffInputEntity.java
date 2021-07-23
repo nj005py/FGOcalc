@@ -1,6 +1,9 @@
 package org.phantancy.fgocalc.entity;
 
-public class BuffInputEntity {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BuffInputEntity implements Parcelable {
     //buff图标
     private int icon;
     //buff名称
@@ -25,6 +28,41 @@ public class BuffInputEntity {
         this.key = key;
         this.type = type;
     }
+
+
+    protected BuffInputEntity(Parcel in) {
+        icon = in.readInt();
+        key = in.readString();
+        value = in.readDouble();
+        valueDisplay = in.readString();
+        type = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(icon);
+        dest.writeString(key);
+        dest.writeDouble(value);
+        dest.writeString(valueDisplay);
+        dest.writeInt(type);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<BuffInputEntity> CREATOR = new Creator<BuffInputEntity>() {
+        @Override
+        public BuffInputEntity createFromParcel(Parcel in) {
+            return new BuffInputEntity(in);
+        }
+
+        @Override
+        public BuffInputEntity[] newArray(int size) {
+            return new BuffInputEntity[size];
+        }
+    };
 
     public String getKey() {
         return key;

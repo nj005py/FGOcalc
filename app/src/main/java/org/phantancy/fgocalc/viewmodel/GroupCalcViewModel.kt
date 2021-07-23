@@ -12,10 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.phantancy.fgocalc.data.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatar
-import org.phantancy.fgocalc.entity.CalcEntity
-import org.phantancy.fgocalc.entity.CardPickEntity
-import org.phantancy.fgocalc.entity.NoblePhantasmEntity
-import org.phantancy.fgocalc.entity.ServantEntity
+import org.phantancy.fgocalc.entity.*
 import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
@@ -29,6 +26,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val servants = ArrayList<ServantEntity>()
     val calcEntites = ArrayList<CalcEntity>()
 
+    val groupCalcEntity = GroupCalcEntity()
     init {
         calcEntites.apply {
             add(CalcEntity())
@@ -163,16 +161,31 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(pickedCards: ArrayList<CardPickEntity>){
-        pickedCards.clear()
+    fun clickCalc(pickedCards: ArrayList<CardPickEntity>,isBraveChain: Boolean){
+        this.pickedCards.clear()
         this.pickedCards.addAll(pickedCards)
 
         if (pickedCards.size == 3) {
+            //设置卡片
+            groupCalcEntity.cardType1 = pickedCards[0].name
+            groupCalcEntity.cardType2 = pickedCards[1].name
+            groupCalcEntity.cardType3 = pickedCards[2].name
             //计算伤害
             //伤害随机
             val dmgRandomMax = 1.1
             val dmgRandomMin = 0.9
             val calcLogic = CalcLogic()
+            val card1 = pickedCards[0];
+            val card2 = pickedCards[1];
+            val card3 = pickedCards[2];
+            val calcEntity1 = calcEntites[card1.svtSource]
+            val calcEntity2 = calcEntites[card2.svtSource]
+            val calcEntity3 = calcEntites[card3.svtSource]
+            var calcEntity4:CalcEntity? = null
+            if (isBraveChain) {
+                calcEntity4 = calcEntity1
+            }
+
             //res
 //            val max = calcLogic.fourCardsDmg(dmgRandomMax)
 //            val min = calcLogic.fourCardsDmg(dmgRandomMin)

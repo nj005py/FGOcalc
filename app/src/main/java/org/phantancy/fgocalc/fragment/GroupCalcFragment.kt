@@ -25,11 +25,15 @@ import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
 import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
 
+/**
+ * 编队计算UI
+ */
 class GroupCalcFragment : BaseFragment() {
     private lateinit var binding: FragmentGroupCalcBinding
     private var svtPosition = 0
     private lateinit var vm: GroupCalcViewModel
     private lateinit var settingButtons: List<View>
+    private var isBraveChain = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupCalcBinding.inflate(layoutInflater)
@@ -109,13 +113,6 @@ class GroupCalcFragment : BaseFragment() {
                 displaySettingServants(svtAdapter.mList)
             }
 
-//            override fun setSetting(position: Int) {
-//                val intent = Intent(ctx, GroupSettingActy::class.java).apply {
-//                    putExtra("servant", svtAdapter.mList[position])
-//                }
-//                svtPosition = position
-//                settingLauncher.launch(intent)
-//            }
         }
 
         vm.svtGroup.observe(viewLifecycleOwner, Observer { list ->
@@ -138,6 +135,7 @@ class GroupCalcFragment : BaseFragment() {
             }
 
             override fun handleBraveChain(isBraveChain: Boolean) {
+                this@GroupCalcFragment.isBraveChain = isBraveChain
                 if (isBraveChain) {
                     binding.ivCardEx.visibility = View.VISIBLE
                     binding.cbOk4.visibility = View.VISIBLE
@@ -148,9 +146,12 @@ class GroupCalcFragment : BaseFragment() {
             }
         })
 
+        //监听overkill 暴击
+        setOverkillCritical()
+
         //计算
         binding.btnCalc.setOnClickListener {
-            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>)
+            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>,isBraveChain)
         }
 
         binding.btnSetting1.setOnClickListener { v -> launchSetting(svtAdapter.mList[0],0,safeGetCalcEntity(0,vm.calcEntites),settingLauncher) }
@@ -188,5 +189,16 @@ class GroupCalcFragment : BaseFragment() {
             x.source = 1
             return x
         }
+    }
+
+    //监听过量伤害、暴击
+    private fun setOverkillCritical() {
+        binding.cbOk1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill1 = isChecked }
+        binding.cbOk2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill2 = isChecked }
+        binding.cbOk3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill3 = isChecked }
+        binding.cbOk4.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill4 = isChecked }
+        binding.cbCr1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical1 = isChecked }
+        binding.cbCr2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical2 = isChecked }
+        binding.cbCr3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical3 = isChecked }
     }
 }

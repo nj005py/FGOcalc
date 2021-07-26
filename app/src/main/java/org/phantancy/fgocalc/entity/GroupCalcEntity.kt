@@ -13,5 +13,11 @@ data class GroupCalcEntity(
         var isOverkill1: Boolean = false,
         var isOverkill2: Boolean = false,
         var isOverkill3: Boolean = false,
-        var isOverkill4: Boolean = false
+        var isOverkill4: Boolean = false,
+        /**
+         * 需要判断的数据
+         */
+        var firstCardType: String = Constant.CARD_QUICK,
+        var isSameColor: Boolean = false,
+        var isBusterChain: Boolean = false
 )

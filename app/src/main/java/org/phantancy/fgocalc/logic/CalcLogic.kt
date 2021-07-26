@@ -5,6 +5,7 @@ import org.phantancy.fgocalc.common.Formula
 import org.phantancy.fgocalc.common.ParamsUtil
 import org.phantancy.fgocalc.data.BuffData
 import org.phantancy.fgocalc.entity.CalcEntity
+import org.phantancy.fgocalc.entity.GroupCalcEntity
 import org.phantancy.fgocalc.entity.ResultDmg
 import org.phantancy.fgocalc.entity.ServantEntity
 import java.text.MessageFormat
@@ -33,24 +34,36 @@ class CalcLogic {
     val TAG = "CalcLogic"
 
     //计算4张卡的伤害
-    fun fourCardsDmg(random: Double,calcEntity: CalcEntity,servant: ServantEntity): ResultDmg? {
+    fun fourCardsDmg(random: Double, calcEntities: List<CalcEntity>, groupCalcEntity: GroupCalcEntity,
+                     servants: List<ServantEntity>, isBraveChain: Boolean): ResultDmg {
         /**
          * 需要3张卡判断的参数
          */
         //是否同色
-        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
+        groupCalcEntity.isSameColor = ParamsUtil.isCardsSameColor(groupCalcEntity.cardType1,
+                groupCalcEntity.cardType2, groupCalcEntity.cardType3)
         //是否红链
-        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
+        groupCalcEntity.isBusterChain = ParamsUtil.isCardsBusterChain(groupCalcEntity.cardType1,
+                groupCalcEntity.cardType2, groupCalcEntity.cardType3)
         //每张卡伤害结果
-        var res1: Double = dmgCalc(calcEntity.getCardType1(), 1, random,calcEntity,servant)
-        var res2: Double = dmgCalc(calcEntity.getCardType2(), 2, random,calcEntity,servant)
-        var res3: Double = dmgCalc(calcEntity.getCardType3(), 3, random,calcEntity,servant)
-        var res4: Double = dmgCalc(calcEntity.getCardType4(), 4, random,calcEntity,servant)
+        /**
+         * 每张卡都有cardEntity与对应的servant
+         */
+        var res1: Double = dmgCalc(groupCalcEntity.cardType1, 1, random, calcEntities[0], groupCalcEntity, servants[0])
+        var res2: Double = dmgCalc(groupCalcEntity.cardType2, 2, random, calcEntities[1], groupCalcEntity, servants[1])
+        var res3: Double = dmgCalc(groupCalcEntity.cardType3, 3, random, calcEntities[2], groupCalcEntity, servants[2])
+        var res4: Double = 0.0
         res1 = Math.floor(res1)
         res2 = Math.floor(res2)
         res3 = Math.floor(res3)
-        res4 = Math.floor(res4)
-        val sum = res1 + res2 + res3 + res4
+        if (isBraveChain) {
+            res4 = dmgCalc(groupCalcEntity.cardType4, 4, random, calcEntities[0], groupCalcEntity, servants[0])
+            res4 = Math.floor(res4)
+        }
+        var sum = res1 + res2 + res3
+        if (isBraveChain) {
+            sum += res4
+        }
         val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
                 ParamsUtil.dmgResFormat(res1),
                 ParamsUtil.dmgResFormat(res2),
@@ -75,26 +88,28 @@ class CalcLogic {
      * @param random
      * @return
      */
-    private fun dmgCalc(cardType: String, position: Int, random: Double,calcEntity: CalcEntity,servant: ServantEntity): Double {
+    private fun dmgCalc(cardType: String, position: Int, random: Double, calcEntity: CalcEntity,
+                        groupCalcEntity: GroupCalcEntity, servant: ServantEntity): Double {
         //判断卡片类型，宝具卡或普攻卡
         return if (ParamsUtil.isNp(cardType))
-            npDmg(cardType, random, calcEntity,servant)
-        else dmg(cardType, position, random,calcEntity,servant)
+            npDmg(cardType, random, calcEntity, servant)
+        else dmg(cardType, position, random, calcEntity, groupCalcEntity, servant)
     }
 
     private fun dmg(cardType: String, position: Int, random: Double, calcEntity: CalcEntity,
-                    servant: ServantEntity): Double {
+                    groupCalcEntity: GroupCalcEntity, servant: ServantEntity): Double {
         /**
          * 准备条件
          */
         //首卡类型，看染色
-        val cardType1: String = calcEntity.getCardType1()
+        val cardType1: String = groupCalcEntity.cardType1
         //看看是不是同色卡链
-        val isSameColor: Boolean = calcEntity.isSameColor()
+        val isSameColor: Boolean = groupCalcEntity.isSameColor
         //看看是不是三红加固伤
-        val isBusterChain: Boolean = calcEntity.isBusterChain()
+        val isBusterChain: Boolean = groupCalcEntity.isBusterChain
         //宝具卡位置
-        val npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3())
+        val npPosition = ParamsUtil.getNpPosition(groupCalcEntity.cardType1, groupCalcEntity.cardType2,
+                groupCalcEntity.cardType3)
 
         /**
          * 单独卡计算的部分
@@ -117,9 +132,9 @@ class CalcLogic {
         var busterBuff = 0.0
         var effectiveBuff = 0.0
         if (!ParamsUtil.isEx(cardType)) {
-            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP,calcEntity)
-            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP,calcEntity)
-            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP,calcEntity)
+            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP, calcEntity)
+            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP, calcEntity)
+            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP, calcEntity)
             //宝具前buff
             if (position > npPosition) {
                 //宝具后buff
@@ -140,14 +155,14 @@ class CalcLogic {
         //阵营克制
         val attributeMod: Double = calcEntity.getAttributeMod()
         //攻击buff
-        var atkBuff: Double = safeGetBuffMap(BuffData.ATK_UP,calcEntity)
+        var atkBuff: Double = safeGetBuffMap(BuffData.ATK_UP, calcEntity)
         if (position > npPosition) {
             atkBuff += safeGetBuffMap(BuffData.ATK_UP_BE, calcEntity) + safeGetBuffMap(BuffData.ATK_UP_AF, calcEntity)
         }
         //防御buff
         val defBuff = 0.0
         //特攻
-        val specialBuff: Double = safeGetBuffMap(BuffData.SPECIAL_UP,calcEntity)
+        val specialBuff: Double = safeGetBuffMap(BuffData.SPECIAL_UP, calcEntity)
         //特防
         val specialDefBuff = 0.0
 
@@ -155,16 +170,16 @@ class CalcLogic {
          * 暴击buff
          */
         //判断暴击
-        val isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(),
-                calcEntity.isCritical2(),
-                calcEntity.isCritical3())
+        val isCritical = ParamsUtil.isCritical(position, groupCalcEntity.isCritical1,
+                groupCalcEntity.isCritical2,
+                groupCalcEntity.isCritical3)
         var criticalBuff = ParamsUtil.getCriticalBuff(isCritical, cardType,
-                safeGetBuffMap(BuffData.CRITICAL_UP,calcEntity),
+                safeGetBuffMap(BuffData.CRITICAL_UP, calcEntity),
                 0.0,
-                safeGetBuffMap(BuffData.CRITICAL_QUICK_UP,calcEntity),
-                safeGetBuffMap(BuffData.CRITICAL_ARTS_UP,calcEntity),
-                safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP,calcEntity))
-        criticalBuff = criticalBuff + servant.criticalBuffN
+                safeGetBuffMap(BuffData.CRITICAL_QUICK_UP, calcEntity),
+                safeGetBuffMap(BuffData.CRITICAL_ARTS_UP, calcEntity),
+                safeGetBuffMap(BuffData.CRITICAL_BUSTER_UP, calcEntity))
+        criticalBuff += servant.criticalBuffN
         //宝具卡后
         if (position > npPosition) {
             criticalBuff += ParamsUtil.getCriticalBuff(isCritical, cardType,
@@ -178,7 +193,7 @@ class CalcLogic {
         //ex卡补正
         val exDmgBouns = ParamsUtil.getExDmgBouns(cardType, isSameColor)
         //固伤
-        val selfDmgBuff: Double = safeGetBuffMap(BuffData.SELF_DAMAGE_UP,calcEntity)
+        val selfDmgBuff: Double = safeGetBuffMap(BuffData.SELF_DAMAGE_UP, calcEntity)
         //固防
         val selfDmgDefBuff = 0.0
         //红链
@@ -200,7 +215,7 @@ class CalcLogic {
         val atk: Double = calcEntity.getAtk()
         //宝具倍率
         val npDmgMultiplier: Double = getNpMultiplier(servant.id, calcEntity.getNpDmgMultiplier(),
-                safeGetBuffMap(BuffData.NP_MULTIPLIER_UP_BE,calcEntity), calcEntity.getHpLeft(), calcEntity.getHp())
+                safeGetBuffMap(BuffData.NP_MULTIPLIER_UP_BE, calcEntity), calcEntity.getHpLeft(), calcEntity.getHp())
         //卡牌伤害倍率
         val cardDmgMultiplier = ParamsUtil.getCardDmgMultiplier(cardType)
         /**
@@ -209,9 +224,9 @@ class CalcLogic {
         /**
          * 卡牌buff(魔放)
          */
-        val quickBuff: Double = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP,calcEntity) + safeGetBuffMap(BuffData.QUICK_UP_BE,calcEntity)
-        val artsBuff: Double = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP,calcEntity) + safeGetBuffMap(BuffData.ARTS_UP_BE,calcEntity)
-        val busterBuff: Double = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP,calcEntity) + safeGetBuffMap(BuffData.BUSTER_UP_BE,calcEntity)
+        val quickBuff: Double = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP, calcEntity) + safeGetBuffMap(BuffData.QUICK_UP_BE, calcEntity)
+        val artsBuff: Double = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP, calcEntity) + safeGetBuffMap(BuffData.ARTS_UP_BE, calcEntity)
+        val busterBuff: Double = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP, calcEntity) + safeGetBuffMap(BuffData.BUSTER_UP_BE, calcEntity)
         //最终用于计算的魔放结果
         val effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff)
         //职阶系数
@@ -221,23 +236,23 @@ class CalcLogic {
         //阵营克制
         val attributeMod: Double = calcEntity.getAttributeMod()
         //攻击buff
-        val atkBuff = safeGetBuffMap(BuffData.ATK_UP,calcEntity) + safeGetBuffMap(BuffData.ATK_UP_BE,calcEntity)
+        val atkBuff = safeGetBuffMap(BuffData.ATK_UP, calcEntity) + safeGetBuffMap(BuffData.ATK_UP_BE, calcEntity)
         //防御buff
         val defBuff = 0.0
         //特攻
-        val specialBuff = safeGetBuffMap(BuffData.SPECIAL_UP,calcEntity)
+        val specialBuff = safeGetBuffMap(BuffData.SPECIAL_UP, calcEntity)
         //特防
         val specialDefBuff = 0.0
         //宝具威力
-        val npPowerBuff = safeGetBuffMap(BuffData.NP_POWER_UP,calcEntity)
+        val npPowerBuff = safeGetBuffMap(BuffData.NP_POWER_UP, calcEntity)
         //宝具特攻
-        var npSpecialBuff = safeGetBuffMap(BuffData.NP_SPECICAL_UP_BE,calcEntity)
+        var npSpecialBuff = safeGetBuffMap(BuffData.NP_SPECICAL_UP_BE, calcEntity)
         //宝具特攻不能为0
         if (npSpecialBuff == 0.0) {
             npSpecialBuff = 1.0
         }
         //固伤
-        val selfDmgBuff = safeGetBuffMap(BuffData.SELF_DAMAGE_UP,calcEntity)
+        val selfDmgBuff = safeGetBuffMap(BuffData.SELF_DAMAGE_UP, calcEntity)
         //固防
         val selfDmgDefBuff = 0.0
         Log.d(TAG, MessageFormat.format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} ", atk, npDmgMultiplier, cardDmgMultiplier, effectiveBuff, classAtkMod,

@@ -165,6 +165,8 @@ public class BuffFragment extends BaseFragment {
     public void save() {
         //保存UI数据
         Log.d(TAG,"保存buff数据");
-        vm.saveBuff(adapter.getList());
+        if (adapter != null) {
+            vm.saveBuff(adapter.getList());
+        }
     }
 }

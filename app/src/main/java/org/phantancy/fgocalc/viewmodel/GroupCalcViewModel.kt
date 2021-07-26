@@ -1,7 +1,6 @@
 package org.phantancy.fgocalc.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -155,6 +154,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     private val pickedCards = ArrayList<CardPickEntity>()
 
+    //结果列表
+    val mResultList = MutableLiveData<List<ResultEntity>>()
+    val resultList:LiveData<List<ResultEntity>> = mResultList
+
     //清理结果
     fun cleanResult() {
         parseServantsCards(servants)
@@ -175,22 +178,52 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val dmgRandomMax = 1.1
             val dmgRandomMin = 0.9
             val calcLogic = CalcLogic()
-            val card1 = pickedCards[0];
-            val card2 = pickedCards[1];
-            val card3 = pickedCards[2];
-            val calcEntity1 = calcEntites[card1.svtSource]
-            val calcEntity2 = calcEntites[card2.svtSource]
-            val calcEntity3 = calcEntites[card3.svtSource]
-            var calcEntity4:CalcEntity? = null
-            if (isBraveChain) {
-                calcEntity4 = calcEntity1
-            }
-
+            //选中卡片对应的从者
+            val pickedServants = listOf(servants[pickedCards[0].svtSource],servants[pickedCards[1].svtSource],
+            servants[pickedCards[2].svtSource])
             //res
-//            val max = calcLogic.fourCardsDmg(dmgRandomMax)
-//            val min = calcLogic.fourCardsDmg(dmgRandomMin)
+            val max = calcLogic.fourCardsDmg(dmgRandomMax,calcEntites,groupCalcEntity,pickedServants,isBraveChain)
+            val min = calcLogic.fourCardsDmg(dmgRandomMin,calcEntites,groupCalcEntity,pickedServants,isBraveChain)
 //            Log.d(TAG,"max: $max min: $min")
+            handleResult(min,max,pickedServants)
+
         }
     }
     //伤害计算
+
+    fun handleResult(min: ResultDmg,max: ResultDmg,pickedServants:List<ServantEntity>){
+        val res1 = ResultEntity(ResultEntity.TYPE_CARD,
+                groupCalcEntity.cardType1, min.c1, max.c1, "np", "star",
+                "", ServantAvatar.getServantAvatar(pickedServants[0].id))
+        val res2 = ResultEntity(ResultEntity.TYPE_CARD,
+                groupCalcEntity.cardType2, min.c2, max.c2, "np", "star",
+                "", ServantAvatar.getServantAvatar(pickedServants[1].id))
+        val res3 = ResultEntity(ResultEntity.TYPE_CARD,
+                groupCalcEntity.cardType3, min.c3, max.c3, "np", "star",
+                "", ServantAvatar.getServantAvatar(pickedServants[2].id))
+        val res4 = ResultEntity(ResultEntity.TYPE_CARD,
+                groupCalcEntity.cardType4, min.c4, max.c4, "np", "star",
+                "", ServantAvatar.getServantAvatar(pickedServants[0].id))
+        val sumBuilder = StringBuilder()
+        sumBuilder.append("伤害总计：")
+                .append(min.sum)
+                .append("-")
+                .append(max.sum)
+                .append("\n")
+        sumBuilder.append("np总计：")
+                .append("np")
+                .append("\n")
+        sumBuilder.append("打星总计：")
+                .append("star.sum")
+                .append("\n")
+        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
+                "", "", "", "", "", sumBuilder.toString(), ServantAvatar.getServantAvatar(pickedServants[0].id));
+        val list:ArrayList<ResultEntity> = ArrayList()
+        list.add(res1)
+        list.add(res2)
+        list.add(res3)
+        list.add(res4)
+        list.add(resSum)
+        mResultList.value = list
+    }
 }

@@ -30,9 +30,23 @@ public class CalcEntity implements Parcelable {
     private double hp = 0;
     //剩余hp
     private double hpLeft = 0;
+    //敌人
+    private int enemyCount = 1;
+    //np敌补正
+    private double[] enemysNpMod;
+    //打星敌补正
+    private double[] enemysStarMod;
 
+    //是否保存条件
+    private boolean isSavedCondition = false;
+    //是否保存buff
+    private boolean isSavedBuff = false;
 
-    //ui数据
+    //数据库获取
+    private ServantEntity svt;
+    /**
+     * 计算页UI数据，单从者计算用
+     */
     //选卡类型，
     private String cardType1 = Constant.CARD_QUICK;
     private String cardType2 = Constant.CARD_QUICK;
@@ -49,23 +63,8 @@ public class CalcEntity implements Parcelable {
     private boolean isOverkill2 = false;
     private boolean isOverkill3 = false;
     private boolean isOverkill4 = false;
-
-    //敌人
-    private int enemyCount = 1;
-    //np敌补正
-    private double[] enemysNpMod;
-    //打星敌补正
-    private double[] enemysStarMod;
-
-    //是否保存条件
-    private boolean isSavedCondition = false;
-    //是否保存buff
-    private boolean isSavedBuff = false;
-
-    //数据库获取
-    private ServantEntity svt;
     /**
-     * 加工数据
+     * 需要判断的数据，单从者计算用
      */
     private String firstCardType = Constant.CARD_QUICK;
     private boolean isSameColor = false;
@@ -86,6 +85,7 @@ public class CalcEntity implements Parcelable {
     }
 
 
+    //todo buffMap没有被支持
     protected CalcEntity(Parcel in) {
         source = in.readInt();
         affinityMod = in.readDouble();
@@ -95,6 +95,12 @@ public class CalcEntity implements Parcelable {
         atk = in.readDouble();
         hp = in.readDouble();
         hpLeft = in.readDouble();
+        enemyCount = in.readInt();
+        enemysNpMod = in.createDoubleArray();
+        enemysStarMod = in.createDoubleArray();
+        isSavedCondition = in.readByte() != 0;
+        isSavedBuff = in.readByte() != 0;
+        svt = in.readParcelable(ServantEntity.class.getClassLoader());
         cardType1 = in.readString();
         cardType2 = in.readString();
         cardType3 = in.readString();
@@ -106,12 +112,6 @@ public class CalcEntity implements Parcelable {
         isOverkill2 = in.readByte() != 0;
         isOverkill3 = in.readByte() != 0;
         isOverkill4 = in.readByte() != 0;
-        enemyCount = in.readInt();
-        enemysNpMod = in.createDoubleArray();
-        enemysStarMod = in.createDoubleArray();
-        isSavedCondition = in.readByte() != 0;
-        isSavedBuff = in.readByte() != 0;
-        svt = in.readParcelable(ServantEntity.class.getClassLoader());
         firstCardType = in.readString();
         isSameColor = in.readByte() != 0;
         isBusterChain = in.readByte() != 0;
@@ -129,6 +129,12 @@ public class CalcEntity implements Parcelable {
         dest.writeDouble(atk);
         dest.writeDouble(hp);
         dest.writeDouble(hpLeft);
+        dest.writeInt(enemyCount);
+        dest.writeDoubleArray(enemysNpMod);
+        dest.writeDoubleArray(enemysStarMod);
+        dest.writeByte((byte) (isSavedCondition ? 1 : 0));
+        dest.writeByte((byte) (isSavedBuff ? 1 : 0));
+        dest.writeParcelable(svt, flags);
         dest.writeString(cardType1);
         dest.writeString(cardType2);
         dest.writeString(cardType3);
@@ -140,12 +146,6 @@ public class CalcEntity implements Parcelable {
         dest.writeByte((byte) (isOverkill2 ? 1 : 0));
         dest.writeByte((byte) (isOverkill3 ? 1 : 0));
         dest.writeByte((byte) (isOverkill4 ? 1 : 0));
-        dest.writeInt(enemyCount);
-        dest.writeDoubleArray(enemysNpMod);
-        dest.writeDoubleArray(enemysStarMod);
-        dest.writeByte((byte) (isSavedCondition ? 1 : 0));
-        dest.writeByte((byte) (isSavedBuff ? 1 : 0));
-        dest.writeParcelable(svt, flags);
         dest.writeString(firstCardType);
         dest.writeByte((byte) (isSameColor ? 1 : 0));
         dest.writeByte((byte) (isBusterChain ? 1 : 0));

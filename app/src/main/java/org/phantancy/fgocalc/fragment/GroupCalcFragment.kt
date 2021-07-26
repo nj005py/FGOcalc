@@ -16,12 +16,14 @@ import org.phantancy.fgocalc.activity.SearchServantActy
 import org.phantancy.fgocalc.adapter.CardsAdapter
 import org.phantancy.fgocalc.adapter.GroupServantAdapter
 import org.phantancy.fgocalc.adapter.PickAdapter
+import org.phantancy.fgocalc.adapter.ResultAdapter
 import org.phantancy.fgocalc.databinding.FragmentGroupCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
 import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
+import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
 import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
 
@@ -157,6 +159,15 @@ class GroupCalcFragment : BaseFragment() {
         binding.btnSetting1.setOnClickListener { v -> launchSetting(svtAdapter.mList[0],0,safeGetCalcEntity(0,vm.calcEntites),settingLauncher) }
         binding.btnSetting2.setOnClickListener { v -> launchSetting(svtAdapter.mList[1],1,safeGetCalcEntity(1,vm.calcEntites),settingLauncher) }
         binding.btnSetting3.setOnClickListener { v -> launchSetting(svtAdapter.mList[2],2,safeGetCalcEntity(2,vm.calcEntites),settingLauncher) }
+
+
+        //结果
+        val resultAdapter = ResultAdapter()
+        binding.rvCalcResult.adapter = resultAdapter
+        binding.rvCalcResult.addItemDecoration(SpacesItemDecoration(SpacesItemDecoration.dip2px(ctx,5.0f)))
+        vm.resultList.observe(viewLifecycleOwner, Observer { result ->
+            resultAdapter.submitList(result)
+        })
     }
 
     fun displaySettingServants(list: List<ServantEntity>) {

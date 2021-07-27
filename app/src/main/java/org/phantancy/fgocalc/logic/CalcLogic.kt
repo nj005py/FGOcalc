@@ -278,6 +278,203 @@ class CalcLogic {
         return npDmgMultiplier
     }
 
+    /**
+     * np计算
+     */
+    //计算4张卡的np
+    fun fourCardsNp(calcEntities: List<CalcEntity>, groupCalcEntity: GroupCalcEntity,
+                    servants: List<ServantEntity>, isBraveChain: Boolean): ResultDmg {
+//        val enemyNpMod: Double = calcEntity.getEnemysNpMod().get(0)
+        val res1 = npGenCalc(groupCalcEntity.cardType1, 1, calcEntities[0].enemysNpMod[0],calcEntities[0],groupCalcEntity,servants[0])
+        val res2 = npGenCalc(groupCalcEntity.cardType2, 2, enemyNpMod)
+        val res3 = npGenCalc(groupCalcEntity.cardType3, 3, enemyNpMod)
+        var res4:Double = 0.0
+        if (isBraveChain){
+            res4 = npGenCalc(groupCalcEntity.cardType4, 4, enemyNpMod)
+        }
+        val sum = (getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
+                + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4()))
+        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+                parseNpRes(res1, calcEntity.getCardType1()),
+                parseNpRes(res2, calcEntity.getCardType2()),
+                parseNpRes(res3, calcEntity.getCardType3()),
+                parseNpRes(res4, calcEntity.getCardType4()),
+                ParamsUtil.npGenResFormat(sum))
+        return ResultDmg(
+                parseNpRes(res1, calcEntity.getCardType1())!!,
+                parseNpRes(res2, calcEntity.getCardType2())!!,
+                parseNpRes(res3, calcEntity.getCardType3())!!,
+                parseNpRes(res4, calcEntity.getCardType4())!!,
+                ParamsUtil.npGenResFormat(sum),
+                des
+        )
+    }
+
+    private fun parseNpRes(res: DoubleArray, cardType: String, calcEntity: CalcEntity): String {
+        val builder = StringBuilder()
+        if (ParamsUtil.isNp(cardType)) {
+            val sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType))
+            builder.append(sum)
+                    .append(" (")
+            for (i in 0 until calcEntity.getEnemyCount()) {
+                builder.append(ParamsUtil.npGenResFormat(res[i]))
+                if (i < calcEntity.getEnemyCount() - 1) {
+                    builder.append(", ")
+                }
+            }
+            builder.append(")")
+        } else {
+            builder.append(ParamsUtil.npGenResFormat(res[0]))
+        }
+        return builder.toString()
+    }
+
+    private fun getNpRes(res: DoubleArray, cardType: String, calcEntity: CalcEntity): Double {
+        return if (ParamsUtil.isNp(cardType)) {
+            var sum = 0.0
+            for (i in 0 until calcEntity.getEnemyCount()) {
+                sum += res[i]
+            }
+            sum
+        } else {
+            res[0]
+        }
+    }
+
+    private fun npGenCalc(cardType: String, position: Int, enemyNpMod: Double,calcEntity: CalcEntity,
+                          groupCalcEntity: GroupCalcEntity, servant: ServantEntity): DoubleArray {
+        return if (ParamsUtil.isNp(cardType)) npNpGenDelegate(cardType, position, enemyNpMod,calcEntity,
+                groupCalcEntity, servant) else npGen(cardType, position, enemyNpMod,calcEntity,
+                groupCalcEntity, servant)
+    }
+    //普攻np
+    fun npGen(cardType: String, position: Int, enemyNpMod: Double, calcEntity: CalcEntity,
+              groupCalcEntity: GroupCalcEntity, servant: ServantEntity): DoubleArray {
+        /**
+         * 准备条件
+         */
+        //首卡类型，看染色
+        val cardType1: String = calcEntity.getCardType1()
+        //宝具卡位置
+        val npPosition = ParamsUtil.getNpPosition(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3())
+
+        /**
+         * 单独卡计算的部分
+         */
+        //np获取率
+        val na = ParamsUtil.getNa(cardType, servant.quickNa, servant.artsNa, servant.busterNa, servant.exNa, servant.npHit.toDouble())
+        //hit数
+        val hits = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit).toDouble()
+        //卡牌np倍率
+        val cardNpMultiplier = ParamsUtil.getCardNpMultiplier(cardType)
+        //位置加成
+        val positionMod = ParamsUtil.getNpPositionMod(position)
+
+        /**
+         * 宝具前，平A需要考虑:全buff+被动buff
+         * 宝具，平A不考虑
+         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
+         */
+        //魔放
+        var quickBuff = 0.0
+        var artsBuff = 0.0
+        var busterBuff = 0.0
+        var effectiveBuff = 0.0
+        if (!ParamsUtil.isEx(cardType)) {
+            quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP,calcEntity)
+            artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP,calcEntity)
+            busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP,calcEntity)
+            //宝具前buff
+            if (position > npPosition) {
+                //宝具后buff
+                quickBuff += safeGetBuffMap(BuffData.QUICK_UP_BE, calcEntity) + safeGetBuffMap(BuffData.QUICK_UP_AF, calcEntity)
+                artsBuff += safeGetBuffMap(BuffData.ARTS_UP_BE, calcEntity) + safeGetBuffMap(BuffData.ARTS_UP_AF, calcEntity)
+                busterBuff += safeGetBuffMap(BuffData.BUSTER_UP_BE, calcEntity) + safeGetBuffMap(BuffData.BUSTER_UP_AF, calcEntity)
+            }
+            //最终用于计算的魔放结果
+            effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff)
+        }
+        //首卡加成
+        val firstCardMod = ParamsUtil.getNpFirstCardMod(cardType1)
+        //黄金率
+        var npBuff = safeGetBuffMap(BuffData.NPC_UP,calcEntity)
+        if (position > npPosition) {
+            //宝具后
+            npBuff += safeGetBuffMap(BuffData.NPC_UP_BE, calcEntity) + safeGetBuffMap(BuffData.NPC_UP_AF, calcEntity)
+        }
+        //暴击补正
+        //判断暴击
+        val isCritical = ParamsUtil.isCritical(position, calcEntity.isCritical1(),
+                calcEntity.isCritical2(),
+                calcEntity.isCritical3())
+        val criticalMod = ParamsUtil.getNpCriticalMod(isCritical, cardType)
+        //overkill补正
+        val isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4())
+        val overkillMod = ParamsUtil.getNpOverkillMod(isOverkill)
+        val res = DoubleArray(3)
+        res[0] = Formula.npGenerationFormula(na, hits, cardNpMultiplier, positionMod, effectiveBuff, firstCardMod,
+                npBuff, criticalMod, overkillMod, enemyNpMod)
+        return res
+    }
+
+    //宝具np多情况计算
+    private fun npNpGenDelegate(cardType: String, position: Int, enemyNpMod: Double, calcEntity: CalcEntity,
+                                groupCalcEntity: GroupCalcEntity, servant: ServantEntity): DoubleArray {
+        var enemyNpMod = enemyNpMod
+        val res = DoubleArray(3)
+        //辅助宝具不用算直接为0
+        if (servant.npType == "support") {
+            res[0] = 0.0
+            return res
+        }
+        //单体宝具只算第一个敌人
+        if (servant.npType == "one") {
+            res[0] = npNpGen(cardType, position, enemyNpMod,calcEntity, groupCalcEntity, servant)
+        }
+        //光炮宝具算整个敌人列表
+        if (servant.npType == "all") {
+            for (i in 0 until calcEntity.getEnemyCount()) {
+                //判断是否设置敌人
+                enemyNpMod = calcEntity.getEnemysNpMod().get(i)
+                //计算
+                res[i] = npNpGen(cardType, position, enemyNpMod,calcEntity, groupCalcEntity, servant)
+            }
+            return res
+        }
+        return res
+    }
+
+    //宝具np计算
+    private fun npNpGen(cardType: String, position: Int, enemyNpMod: Double, calcEntity: CalcEntity,
+                        groupCalcEntity: GroupCalcEntity, servant: ServantEntity): Double {
+        //np获取率
+        val na = ParamsUtil.getNa(cardType, servant.quickNa, servant.artsNa, servant.busterNa, servant.exNa, servant.npNa)
+        //hit数
+        val hits = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit).toDouble()
+        //卡牌np倍率
+        val cardNpMultiplier = ParamsUtil.getCardNpMultiplier(cardType)
+
+        /**
+         * 宝具前，平A需要考虑:全buff+被动buff
+         * 宝具，平A不考虑
+         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
+         */
+        //魔放
+        val quickBuff: Double = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP,calcEntity) + safeGetBuffMap(BuffData.QUICK_UP_BE,calcEntity)
+        val artsBuff: Double = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP,calcEntity) + safeGetBuffMap(BuffData.ARTS_UP_BE,calcEntity)
+        val busterBuff: Double = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP,calcEntity) + safeGetBuffMap(BuffData.BUSTER_UP_BE,calcEntity)
+        //最终用于计算的魔放结果
+        val effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff)
+        //黄金率
+        val npBuff = safeGetBuffMap(BuffData.NPC_UP,calcEntity) + safeGetBuffMap(BuffData.NPC_UP_BE,calcEntity)
+        //overkill补正
+        val isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
+                calcEntity.isOverkill3(), calcEntity.isOverkill4())
+        val overkillMod = ParamsUtil.getNpOverkillMod(isOverkill)
+        return Formula.npNpGenerationFormula(na, hits, cardNpMultiplier, effectiveBuff, npBuff, overkillMod, enemyNpMod)
+    }
+
     //安全取buff
     fun safeGetBuffMap(key: String, calcEntity: CalcEntity): Double {
         return if (calcEntity.buffMap.get(key) == null) 0.0

@@ -18,14 +18,14 @@ class CalcLogic {
          * 需要3张卡判断的参数
          */
         //是否同色
-        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
-        //是否红链
-        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
+//        calcEntity.setSameColor(ParamsUtil.isCardsSameColor(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
+//        //是否红链
+//        calcEntity.setBusterChain(ParamsUtil.isCardsBusterChain(calcEntity.getCardType1(), calcEntity.getCardType2(), calcEntity.getCardType3()))
         //每张卡伤害结果
-        var res1: Double = dmgCalc(calcEntity.getCardType1(), 1, random)
-        var res2: Double = dmgCalc(calcEntity.getCardType2(), 2, random)
-        var res3: Double = dmgCalc(calcEntity.getCardType3(), 3, random)
-        var res4: Double = dmgCalc(calcEntity.getCardType4(), 4, random)
+        var res1: Double = dmgCalc("calcEntity.getCardType1()", 1, random)
+        var res2: Double = dmgCalc("calcEntity.getCardType2()", 2, random)
+        var res3: Double = dmgCalc("calcEntity.getCardType3()", 3, random)
+        var res4: Double = dmgCalc("calcEntity.getCardType4()", 4, random)
         res1 = Math.floor(res1)
         res2 = Math.floor(res2)
         res3 = Math.floor(res3)
@@ -57,7 +57,8 @@ class CalcLogic {
      */
     private fun dmgCalc(cardType: String, position: Int, random: Double): Double {
         //判断卡片类型，宝具卡或普攻卡
-        return if (ParamsUtil.isNp(cardType)) npDmg(cardType, random) else dmg(cardType, position, random)
+//        return if (ParamsUtil.isNp(cardType)) {npDmg(cardType, random)} else dmg(cardType, position, random)
+        return 0.0
     }
 
     private fun dmg(cardType: String, position: Int, random: Double, calcEntity: CalcEntity,

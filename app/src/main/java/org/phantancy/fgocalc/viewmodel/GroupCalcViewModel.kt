@@ -25,7 +25,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val servants = ArrayList<ServantEntity>()
     val calcEntites = ArrayList<CalcEntity>()
 
-    val groupCalcEntity = GroupCalcEntity()
+    val groupCalcEntity = GroupCalcObject()
     init {
         calcEntites.apply {
             add(CalcEntity())

@@ -8,6 +8,7 @@ import androidx.collection.SimpleArrayMap;
 import org.phantancy.fgocalc.common.Constant;
 
 import java.util.List;
+import java.util.Map;
 
 //用于计算的数据
 public class CalcEntity implements Parcelable {
@@ -86,6 +87,8 @@ public class CalcEntity implements Parcelable {
 
 
     //todo buffMap没有被支持
+
+
     protected CalcEntity(Parcel in) {
         source = in.readInt();
         affinityMod = in.readDouble();

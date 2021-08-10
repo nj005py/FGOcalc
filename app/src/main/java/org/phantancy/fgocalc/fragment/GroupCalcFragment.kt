@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
@@ -13,10 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.activity.GroupSettingActy
 import org.phantancy.fgocalc.activity.SearchServantActy
-import org.phantancy.fgocalc.adapter.CardsAdapter
-import org.phantancy.fgocalc.adapter.GroupServantAdapter
-import org.phantancy.fgocalc.adapter.PickAdapter
-import org.phantancy.fgocalc.adapter.ResultAdapter
+import org.phantancy.fgocalc.adapter.*
 import org.phantancy.fgocalc.databinding.FragmentGroupCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.CardPickEntity
@@ -25,6 +23,7 @@ import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
 import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
+import org.phantancy.fgocalc.util.ToastUtils
 import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
 
 /**
@@ -76,6 +75,14 @@ class GroupCalcFragment : BaseFragment() {
                 }
             }
         }
+        binding.viewEnemy.setTitle("设置敌方")
+        binding.viewEnemy.setOnClickListener {
+            ToastUtils.showToast("click")
+        }
+        //成员
+        val memberAdapter = GroupMemberAdapter();
+        binding.rvMembers.adapter = memberAdapter
+        binding.rvMembers.addItemDecoration(PickCardItemDecoration(ctx, 1f))
         //可以选的卡
         val cardAdapter = CardsAdapter()
         binding.rvCards.adapter = cardAdapter

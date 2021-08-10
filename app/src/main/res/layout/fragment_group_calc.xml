@@ -23,6 +23,19 @@
 
     </LinearLayout>
 
+    <org.phantancy.fgocalc.view.ListItemView
+        android:id="@+id/view_enemy"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_members"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

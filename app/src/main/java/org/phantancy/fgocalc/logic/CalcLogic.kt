@@ -285,35 +285,36 @@ class CalcLogic {
     fun fourCardsNp(calcEntities: List<CalcEntity>, groupCalcObject: GroupCalcObject,
                     servants: List<ServantEntity>, isBraveChain: Boolean): ResultDmg {
 //        val enemyNpMod: Double = calcEntity.getEnemysNpMod().get(0)
-        val res1 = npGenCalc(groupCalcObject.cardType1, 1, calcEntities[0].enemysNpMod[0],calcEntities[0],groupCalcObject,servants[0])
-        val res2 = npGenCalc(groupCalcObject.cardType2, 2, enemyNpMod)
-        val res3 = npGenCalc(groupCalcObject.cardType3, 3, enemyNpMod)
-        var res4:Double = 0.0
-        if (isBraveChain){
-            res4 = npGenCalc(groupCalcObject.cardType4, 4, enemyNpMod)
-        }
-        val sum = (getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
-                + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4()))
-        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
-                parseNpRes(res1, calcEntity.getCardType1()),
-                parseNpRes(res2, calcEntity.getCardType2()),
-                parseNpRes(res3, calcEntity.getCardType3()),
-                parseNpRes(res4, calcEntity.getCardType4()),
-                ParamsUtil.npGenResFormat(sum))
-        return ResultDmg(
-                parseNpRes(res1, calcEntity.getCardType1())!!,
-                parseNpRes(res2, calcEntity.getCardType2())!!,
-                parseNpRes(res3, calcEntity.getCardType3())!!,
-                parseNpRes(res4, calcEntity.getCardType4())!!,
-                ParamsUtil.npGenResFormat(sum),
-                des
-        )
+//        val res1 = npGenCalc(groupCalcObject.cardType1, 1, calcEntities[0].enemysNpMod[0],calcEntities[0],groupCalcObject,servants[0])
+//        val res2 = npGenCalc(groupCalcObject.cardType2, 2, enemyNpMod)
+//        val res3 = npGenCalc(groupCalcObject.cardType3, 3, enemyNpMod)
+//        var res4:Double = 0.0
+//        if (isBraveChain){
+//            res4 = npGenCalc(groupCalcObject.cardType4, 4, enemyNpMod)
+//        }
+//        val sum = (getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
+//                + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4()))
+//        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
+//                parseNpRes(res1, calcEntity.getCardType1()),
+//                parseNpRes(res2, calcEntity.getCardType2()),
+//                parseNpRes(res3, calcEntity.getCardType3()),
+//                parseNpRes(res4, calcEntity.getCardType4()),
+//                ParamsUtil.npGenResFormat(sum))
+//        return ResultDmg(
+//                parseNpRes(res1, calcEntity.getCardType1())!!,
+//                parseNpRes(res2, calcEntity.getCardType2())!!,
+//                parseNpRes(res3, calcEntity.getCardType3())!!,
+//                parseNpRes(res4, calcEntity.getCardType4())!!,
+//                ParamsUtil.npGenResFormat(sum),
+//                des
+//        )
+        return ResultDmg("","","","","","")
     }
 
     private fun parseNpRes(res: DoubleArray, cardType: String, calcEntity: CalcEntity): String {
         val builder = StringBuilder()
         if (ParamsUtil.isNp(cardType)) {
-            val sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType))
+            val sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType,calcEntity))
             builder.append(sum)
                     .append(" (")
             for (i in 0 until calcEntity.getEnemyCount()) {

@@ -341,6 +341,7 @@ public class ServantAvatar {
         servantAvatar.put(313, R.drawable.image313);
         servantAvatar.put(314, R.drawable.image314);
         servantAvatar.put(315, R.drawable.image315);
+        servantAvatar.put(316, R.drawable.image316);
     }
 
     public static int getServantAvatar(int id) {

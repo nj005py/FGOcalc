@@ -55,7 +55,7 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class AddViewHolder(val binding: EntityGroupServantBinding) : RecyclerView.ViewHolder(binding.root){
         fun bindView(position: Int){
             Glide.with(binding.ivAvatar)
-                    .load(R.drawable.loading)
+                    .load(R.drawable.add_circle)
                     .into(binding.ivAvatar)
             binding.ivAvatar.setOnClickListener {
                 mListener?.addMember(position)

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.collection.SimpleArrayMap;
 
 import org.phantancy.fgocalc.common.Constant;
+import org.phantancy.fgocalc.util.ParcelableUtilsKt;
 
 import java.util.List;
 import java.util.Map;
@@ -80,7 +81,7 @@ public class CalcEntity implements Parcelable {
      */
     private List<BuffInputEntity> uiBuffs;
     //输入buff数据
-    private SimpleArrayMap<String,Double> buffMap;
+    private SimpleArrayMap<String,Double> buffMap = new SimpleArrayMap<>();
 
     public CalcEntity() {
     }
@@ -120,6 +121,7 @@ public class CalcEntity implements Parcelable {
         isBusterChain = in.readByte() != 0;
         calcConditionVO = in.readParcelable(CalcConditionVO.class.getClassLoader());
         uiBuffs = in.createTypedArrayList(BuffInputEntity.CREATOR);
+        ParcelableUtilsKt.readSimpleArrayMap(in,buffMap);
     }
 
     @Override
@@ -154,6 +156,7 @@ public class CalcEntity implements Parcelable {
         dest.writeByte((byte) (isBusterChain ? 1 : 0));
         dest.writeParcelable(calcConditionVO, flags);
         dest.writeTypedList(uiBuffs);
+        ParcelableUtilsKt.writeSimpleArrayMap(dest,buffMap);
     }
 
     @Override

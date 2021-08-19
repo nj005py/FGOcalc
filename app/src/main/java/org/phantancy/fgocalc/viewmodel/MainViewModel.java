@@ -201,8 +201,9 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     //宝具卡色
+    // AND id in (SELECT sid FROM noble_phantasm WHERE np_color = 'np_b')
     private String handleNpColor(String x) {
-        return x.equals("any") ? "" : " AND np_color = '" + x + "'";
+        return x.equals("any") ? "" : " AND id in (SELECT sid FROM noble_phantasm WHERE np_color = '" + x + "')";
     }
 
     //宝具类型

@@ -101,6 +101,7 @@ public class ParamsUtil {
         put("beast", 1.0);
         put("mooncancer", 1.0);
         put("foreigner", 1.0);
+        put("pretender", 1.0);
     }};
 
     public static double getClassAtkMod(String svtClass) {

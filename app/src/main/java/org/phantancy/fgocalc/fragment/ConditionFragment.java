@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.warkiz.widget.IndicatorSeekBar;
 import com.warkiz.widget.OnSeekChangeListener;
 import com.warkiz.widget.SeekParams;
-import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;

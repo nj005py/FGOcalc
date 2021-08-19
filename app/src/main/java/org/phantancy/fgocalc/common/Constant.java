@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class Constant {
     //数据库版本
-    public static final int DATABASE_VERSION= 68;
+    public static final int DATABASE_VERSION= 71;
 
     //handler
     public static final int CHECK_APP_VERSION = 666;

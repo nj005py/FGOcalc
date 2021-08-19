@@ -14,6 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 import com.xw.repo.BubbleSeekBar;
 
 import org.phantancy.fgocalc.R;
@@ -225,24 +228,41 @@ public class ConditionFragment extends BaseFragment {
             //进度条最大值
             binding.famSbLvSvt.setProgress(vm.getRewardLv());
             vm.setSvtExpEntities(svtExpEntities);
-            binding.famSbLvSvt.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
+            binding.famSbLvSvt.setOnSeekChangeListener(new OnSeekChangeListener() {
                 @Override
-                public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+                public void onSeeking(SeekParams seekParams) {
+                    binding.etAtkTotal.setText(vm.onAtkLvChanged(seekParams.progress));
+                    binding.etHpTotal.setText(vm.onHpLvChanged(seekParams.progress));
+                }
+
+                @Override
+                public void onStartTrackingTouch(IndicatorSeekBar seekBar) {
 
                 }
 
                 @Override
-                public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
-                    binding.etAtkTotal.setText(vm.onAtkLvChanged(progress));
-                    binding.etHpTotal.setText(vm.onHpLvChanged(progress));
-
-                }
-
-                @Override
-                public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+                public void onStopTrackingTouch(IndicatorSeekBar seekBar) {
 
                 }
             });
+//            binding.famSbLvSvt.setOnProgressChangedListener(new BubbleSeekBar.OnProgressChangedListener() {
+//                @Override
+//                public void onProgressChanged(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+//
+//                }
+//
+//                @Override
+//                public void getProgressOnActionUp(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat) {
+//                    binding.etAtkTotal.setText(vm.onAtkLvChanged(progress));
+//                    binding.etHpTotal.setText(vm.onHpLvChanged(progress));
+//
+//                }
+//
+//                @Override
+//                public void getProgressOnFinally(BubbleSeekBar bubbleSeekBar, int progress, float progressFloat, boolean fromUser) {
+//
+//                }
+//            });
             if (isRestoreServantLv) {
                 binding.famSbLvSvt.setProgress(restoreVO.getServantLv());
                 isRestoreServantLv = false;

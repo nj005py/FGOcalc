@@ -147,23 +147,50 @@
                     style="@style/ConditionName"
                     android:text="等级" />
 
-                <com.xw.repo.BubbleSeekBar
+<!--                <com.xw.repo.BubbleSeekBar-->
+<!--                    android:id="@+id/fam_sb_lv_svt"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1.0"-->
+<!--                    android:max="100"-->
+<!--                    android:progress="80"-->
+<!--                    app:bsb_bubble_text_color="@color/white"-->
+<!--                    app:bsb_min="1"-->
+<!--                    app:bsb_second_track_color="@color/blueWordPrimary"-->
+<!--                    app:bsb_section_count="10"-->
+<!--                    app:bsb_section_text_position="bottom_sides"-->
+<!--                    app:bsb_show_section_mark="true"-->
+<!--                    app:bsb_show_section_text="true"-->
+<!--                    app:bsb_show_thumb_text="true"-->
+<!--                    app:bsb_touch_to_seek="true"-->
+<!--                    app:bsb_track_color="@color/blueWordAccent" />-->
+
+                <com.warkiz.widget.IndicatorSeekBar
                     android:id="@+id/fam_sb_lv_svt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1.0"
-                    android:max="100"
-                    android:progress="80"
-                    app:bsb_bubble_text_color="@color/white"
-                    app:bsb_min="1"
-                    app:bsb_second_track_color="@color/blueWordPrimary"
-                    app:bsb_section_count="10"
-                    app:bsb_section_text_position="bottom_sides"
-                    app:bsb_show_section_mark="true"
-                    app:bsb_show_section_text="true"
-                    app:bsb_show_thumb_text="true"
-                    app:bsb_touch_to_seek="true"
-                    app:bsb_track_color="@color/blueWordAccent" />
+                    app:isb_max="100"
+                    app:isb_min="1"
+                    app:isb_progress="25"
+                    app:isb_seek_smoothly="true"
+                    app:isb_show_tick_marks_type="oval"
+                    app:isb_tick_marks_size="13dp"
+                    app:isb_show_tick_texts="true"
+                    app:isb_tick_texts_size="15sp"
+                    app:isb_tick_texts_color="@color/blueWordPrimary"
+                    app:isb_tick_marks_color="@drawable/selector_tick_marks_color"
+                    app:isb_thumb_color="@color/blueWordPrimary"
+                    app:isb_thumb_size="15dp"
+                    app:isb_thumb_text_color="@color/blueWordPrimary"
+                    app:isb_show_thumb_text="true"
+                    app:isb_show_indicator="rounded_rectangle"
+                    app:isb_indicator_color="@color/blueWordPrimary"
+                    app:isb_indicator_text_color="@color/white"
+                    app:isb_indicator_text_size="18sp"
+                    app:isb_track_progress_color="@color/blueWordAccent"
+                    app:isb_track_progress_size="4dp"
+                    app:isb_only_thumb_draggable="false"/>
 
             </LinearLayout>
 

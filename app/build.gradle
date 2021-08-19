@@ -11,8 +11,8 @@ android {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 59
-        versionName "2.0.3"
+        versionCode 60
+        versionName "2.0.4"
         // Enabling multidex support.
         multiDexEnabled false
         resConfigs "zh"
@@ -137,7 +137,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     //有提示的seekbar
-    implementation 'com.xw.repo:bubbleseekbar:3.19-lite'
+    implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
     //rxjava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.8'

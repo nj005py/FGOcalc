@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.data;
+package org.phantancy.fgocalc.data.repository;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -10,6 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.commons.io.IOUtils;
+import org.phantancy.fgocalc.data.CalcDatabase;
+import org.phantancy.fgocalc.data.InfoBuilder;
+import org.phantancy.fgocalc.data.dao.ServantDao;
+import org.phantancy.fgocalc.data.dao.SvtExpDao;
 import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.entity.InfoEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;

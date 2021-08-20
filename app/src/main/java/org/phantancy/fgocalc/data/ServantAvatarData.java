@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ServantAvatar {
+public class ServantAvatarData {
     static String BASE_URL = "http://fgo-cdn.vgtime.com/media/fgo/servant/head/";
     public static String AVATAR_URL = "https://gitee.com/nj005py/fgocalc/raw/master/svt/";
 

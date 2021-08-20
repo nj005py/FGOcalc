@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.adapter
+package org.phantancy.fgocalc.groupcalc.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.databinding.EntityGroupAddMemberBinding
 import org.phantancy.fgocalc.databinding.EntityGroupMemberBinding
-import org.phantancy.fgocalc.databinding.EntityGroupServantBinding
-import org.phantancy.fgocalc.entity.GroupMemberEntity
-import org.phantancy.fgocalc.entity.ServantEntity
+import org.phantancy.fgocalc.groupcalc.entity.GroupMemberEntity
 
 /**
  * 编队计算：编队成员适配器
@@ -18,7 +16,7 @@ import org.phantancy.fgocalc.entity.ServantEntity
 class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val mList : ArrayList<GroupMemberEntity> = ArrayList()
     val maxSize = 3
-    var mListener: GroupMemberAdapter.GroupMemberListener? = null
+    var mListener: GroupMemberListener? = null
 
     companion object {
         @JvmStatic

@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.entity
+package org.phantancy.fgocalc.groupcalc.entity
 
 import org.phantancy.fgocalc.common.Constant
 

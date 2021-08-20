@@ -1,14 +1,13 @@
-package org.phantancy.fgocalc.adapter
+package org.phantancy.fgocalc.groupcalc.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import org.phantancy.fgocalc.data.ServantAvatar
+import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.databinding.EntityCardPickBinding
-import org.phantancy.fgocalc.entity.CardObject
-import org.phantancy.fgocalc.entity.CardPickEntity
+import org.phantancy.fgocalc.groupcalc.entity.CardObject
 
 /**
  * 编队计算：成员配卡
@@ -26,7 +25,7 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
                 val visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivPickCard.setVisibility(visibility)
                 binding.ivPickCard.setImageDrawable(ContextCompat.getDrawable(binding.getRoot().getContext(),
-                        ServantAvatar.getServantAvatar(x.svtId)))
+                        ServantAvatarData.getServantAvatar(x.svtId)))
                 binding.ivPickCard.setOnClickListener(View.OnClickListener {
                     if (visibleCount > 3) {
                         entityListener?.handleClickEvent(x)

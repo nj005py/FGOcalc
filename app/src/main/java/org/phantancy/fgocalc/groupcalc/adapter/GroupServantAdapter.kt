@@ -1,8 +1,6 @@
-package org.phantancy.fgocalc.adapter
+package org.phantancy.fgocalc.groupcalc.adapter
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide

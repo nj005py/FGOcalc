@@ -1,11 +1,7 @@
 package org.phantancy.fgocalc.viewmodel;
 
 import android.app.Application;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.widget.TextView;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -14,8 +10,8 @@ import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.data.CalcDatabase;
-import org.phantancy.fgocalc.data.CalcRepository;
-import org.phantancy.fgocalc.data.ServantAvatar;
+import org.phantancy.fgocalc.data.repository.CalcRepository;
+import org.phantancy.fgocalc.data.ServantAvatarData;
 import org.phantancy.fgocalc.entity.FilterEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.util.SharedPreferencesUtils;
@@ -118,7 +114,7 @@ public class MainViewModel extends AndroidViewModel {
             public void run() {
                 List<ServantEntity> svts = calcRepository.getAllServants();
                 Log.d(TAG, "size:" + svts.size());
-                mServants.postValue(ServantAvatar.setAvatars(svts));
+                mServants.postValue(ServantAvatarData.setAvatars(svts));
             }
         }).start();
 
@@ -134,7 +130,7 @@ public class MainViewModel extends AndroidViewModel {
             @Override
             public void run() {
                 List<ServantEntity> svts = calcRepository.getServantsByKeyWord(keyword);
-                mServants.postValue(ServantAvatar.setAvatars(svts));
+                mServants.postValue(ServantAvatarData.setAvatars(svts));
             }
         }).start();
     }
@@ -175,7 +171,7 @@ public class MainViewModel extends AndroidViewModel {
                 Log.d(TAG, "sql:" + sql);
                 SimpleSQLiteQuery query = new SimpleSQLiteQuery(sql);
                 List<ServantEntity> svts = calcRepository.getServantsByFilter(query);
-                mServants.postValue(ServantAvatar.setAvatars(svts));
+                mServants.postValue(ServantAvatarData.setAvatars(svts));
             }
         }).start();
     }

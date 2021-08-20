@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.fragment
+package org.phantancy.fgocalc.groupcalc.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,25 +6,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.phantancy.fgocalc.activity.BaseActy
-import org.phantancy.fgocalc.activity.GroupSettingActy
+import org.phantancy.fgocalc.groupcalc.activity.GroupSettingActy
 import org.phantancy.fgocalc.activity.SearchServantActy
 import org.phantancy.fgocalc.adapter.*
 import org.phantancy.fgocalc.databinding.FragmentGroupCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.ServantEntity
+import org.phantancy.fgocalc.fragment.BaseFragment
+import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberAdapter
+import org.phantancy.fgocalc.groupcalc.adapter.GroupServantAdapter
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
 import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
 import org.phantancy.fgocalc.util.ToastUtils
-import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
+import org.phantancy.fgocalc.groupcalc.viewmodel.GroupCalcViewModel
 
 /**
  * 编队计算UI

@@ -5,7 +5,7 @@ import org.phantancy.fgocalc.common.Formula
 import org.phantancy.fgocalc.common.ParamsUtil
 import org.phantancy.fgocalc.data.BuffData
 import org.phantancy.fgocalc.entity.CalcEntity
-import org.phantancy.fgocalc.entity.GroupCalcObject
+import org.phantancy.fgocalc.groupcalc.entity.GroupCalcObject
 import org.phantancy.fgocalc.entity.ResultDmg
 import org.phantancy.fgocalc.entity.ServantEntity
 import java.text.MessageFormat

@@ -1,22 +1,20 @@
-package org.phantancy.fgocalc.activity
+package org.phantancy.fgocalc.groupcalc.activity
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
-import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
 import org.phantancy.fgocalc.common.Constant.ENTRY_GROUP
 import org.phantancy.fgocalc.databinding.ActyCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
-import org.phantancy.fgocalc.fragment.ConditionFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
 import org.phantancy.fgocalc.viewmodel.CalcViewModel

@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.data;
+package org.phantancy.fgocalc.data.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

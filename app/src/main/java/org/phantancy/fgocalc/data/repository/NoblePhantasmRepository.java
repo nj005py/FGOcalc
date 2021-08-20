@@ -1,9 +1,11 @@
-package org.phantancy.fgocalc.data;
+package org.phantancy.fgocalc.data.repository;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import org.phantancy.fgocalc.data.CalcDatabase;
+import org.phantancy.fgocalc.data.dao.NoblePhantasmDao;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 
 import java.util.List;

@@ -3,14 +3,15 @@ package org.phantancy.fgocalc.data;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
-import org.phantancy.fgocalc.character_factory.DatabaseCharacter;
+import org.phantancy.fgocalc.data.dao.NoblePhantasmDao;
+import org.phantancy.fgocalc.data.dao.ServantDao;
+import org.phantancy.fgocalc.data.dao.SvtExpDao;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.entity.SvtExpEntity;
@@ -35,7 +36,7 @@ public abstract class CalcDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "fgocalc.db"; //保存的数据库文件名
 
-    static CalcDatabase getDatabase(final Context ctx) {
+    public static CalcDatabase getDatabase(final Context ctx) {
         /**
          * 判断本地数据库是否存在
          * 不存在就将数据库文件复制到安装目录

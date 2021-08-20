@@ -1,6 +1,7 @@
-package org.phantancy.fgocalc.entity
+package org.phantancy.fgocalc.groupcalc.entity
 
 import androidx.collection.SimpleArrayMap
+import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import java.io.Serializable
 
 data class CalcObject(

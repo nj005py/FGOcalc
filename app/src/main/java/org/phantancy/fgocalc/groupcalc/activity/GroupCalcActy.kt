@@ -1,12 +1,13 @@
-package org.phantancy.fgocalc.activity
+package org.phantancy.fgocalc.groupcalc.activity
 
 import android.os.Bundle
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.databinding.ActyGroupCalcBinding
-import org.phantancy.fgocalc.fragment.GroupCalcFragment
-import org.phantancy.fgocalc.viewmodel.GroupCalcViewModel
+import org.phantancy.fgocalc.groupcalc.fragment.GroupCalcFragment
+import org.phantancy.fgocalc.groupcalc.viewmodel.GroupCalcViewModel
 
 class GroupCalcActy : BaseActy() {
     private lateinit var binding: ActyGroupCalcBinding

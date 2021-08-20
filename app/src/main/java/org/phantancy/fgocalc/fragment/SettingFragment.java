@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-
-import com.jeremyliao.liveeventbus.LiveEventBus;
 
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.activity.AboutActy;
-import org.phantancy.fgocalc.activity.GroupCalcActy;
-import org.phantancy.fgocalc.adapter.BuffInputAdapter;
+import org.phantancy.fgocalc.groupcalc.activity.GroupCalcActy;
 import org.phantancy.fgocalc.adapter.SettingAdapter;
 import org.phantancy.fgocalc.character_factory.NetCharacter;
-import org.phantancy.fgocalc.databinding.FragBuffBinding;
 import org.phantancy.fgocalc.databinding.FragSettingBinding;
 import org.phantancy.fgocalc.dialog.CharacterDialog;
 import org.phantancy.fgocalc.entity.CharacterEntity;
 import org.phantancy.fgocalc.entity.SettingEntity;
-import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration;
 import org.phantancy.fgocalc.util.ToolCase;
-import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
 import java.util.ArrayList;

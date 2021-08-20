@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.viewmodel
+package org.phantancy.fgocalc.groupcalc.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -9,9 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import org.phantancy.fgocalc.data.NoblePhantasmRepository
-import org.phantancy.fgocalc.data.ServantAvatar
+import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
+import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.entity.*
+import org.phantancy.fgocalc.groupcalc.entity.GroupCalcObject
 import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
@@ -86,7 +87,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         var id = start
         //解析配卡
         for (card in x.toCharArray()) {
-            CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let {
+            CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }
@@ -94,7 +95,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         //宝具卡
         val npEntityList = queryNPEntitiesList(svt.id);
         npEntityList?.let {
-            CardLogic.parseGroupCardPickNp(id, it[0]?.npColor, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let {
+            CardLogic.parseGroupCardPickNp(id, it[0]?.npColor, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let {
                 list.add(it)
                 id++
             }
@@ -135,10 +136,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val svt = servants[pos]
             var id = start
             for (card in svt.cards.toCharArray()) {
-                CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let { add(it) }
+                CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
                 id++
             }
-            CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatar.getServantAvatar(svt.id))?.let { add(it) }
+            CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
         }
     }
 
@@ -194,16 +195,16 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     fun handleResult(min: ResultDmg,max: ResultDmg,pickedServants:List<ServantEntity>){
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcEntity.cardType1, min.c1, max.c1, "np", "star",
-                "", ServantAvatar.getServantAvatar(pickedServants[0].id))
+                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
         val res2 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcEntity.cardType2, min.c2, max.c2, "np", "star",
-                "", ServantAvatar.getServantAvatar(pickedServants[1].id))
+                "", ServantAvatarData.getServantAvatar(pickedServants[1].id))
         val res3 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcEntity.cardType3, min.c3, max.c3, "np", "star",
-                "", ServantAvatar.getServantAvatar(pickedServants[2].id))
+                "", ServantAvatarData.getServantAvatar(pickedServants[2].id))
         val res4 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcEntity.cardType4, min.c4, max.c4, "np", "star",
-                "", ServantAvatar.getServantAvatar(pickedServants[0].id))
+                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
         val sumBuilder = StringBuilder()
         sumBuilder.append("伤害总计：")
                 .append(min.sum)
@@ -217,7 +218,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                 .append("star.sum")
                 .append("\n")
         val resSum = ResultEntity(ResultEntity.TYEP_SUM,
-                "", "", "", "", "", sumBuilder.toString(), ServantAvatar.getServantAvatar(pickedServants[0].id));
+                "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(pickedServants[0].id));
         val list:ArrayList<ResultEntity> = ArrayList()
         list.add(res1)
         list.add(res2)

@@ -2,7 +2,10 @@ package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.collection.SimpleArrayMap
 import org.phantancy.fgocalc.common.Constant.CARD_QUICK
+import org.phantancy.fgocalc.util.readSimpleArrayMap
+import org.phantancy.fgocalc.util.writeSimpleArrayMap
 
 //指令卡
 data class CardBO(
@@ -17,7 +20,7 @@ data class CardBO(
         //野兽足迹
         var extraAtk: Double = 0.0,
         //纹章buff
-        var buffMap: Map<String, String>? = null
+        var buffMap: SimpleArrayMap<String,Double> = SimpleArrayMap()
 ):Parcelable {
     //ui是否显示
     var isVisible = true
@@ -27,8 +30,7 @@ data class CardBO(
         belongId = parcel.readInt()
         position = parcel.readInt()
         extraAtk = parcel.readDouble()
-        buffMap = LinkedHashMap()
-        parcel.readMap(buffMap ,javaClass.classLoader)
+        readSimpleArrayMap(parcel,buffMap)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -36,7 +38,7 @@ data class CardBO(
         parcel.writeInt(belongId)
         parcel.writeInt(position)
         parcel.writeDouble(extraAtk)
-        parcel.writeMap(buffMap)
+        writeSimpleArrayMap(parcel,buffMap)
     }
 
     override fun describeContents(): Int {

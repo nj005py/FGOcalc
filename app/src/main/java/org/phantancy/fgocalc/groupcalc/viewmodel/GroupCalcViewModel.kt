@@ -13,6 +13,7 @@ import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.entity.*
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
@@ -27,6 +28,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     val calcEntites = ArrayList<CalcEntity>()
 
     val groupCalcEntity = GroupCalcBO()
+
+    private val _memberGroup = MutableLiveData<ArrayList<GroupMemberVO>>()
+    val memberGroup: LiveData<ArrayList<GroupMemberVO>> = _memberGroup
+
     init {
         calcEntites.apply {
             add(CalcEntity())
@@ -154,6 +159,20 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
 
     private val pickedCards = ArrayList<CardPickEntity>()
+
+    //添加编队成员
+    fun addGroupMember(vo : GroupMemberVO){
+        if (_memberGroup.value == null) {
+            val list = arrayListOf<GroupMemberVO>(vo)
+            _memberGroup.value = list
+        } else {
+            _memberGroup.value!!.add(vo)
+        }
+    }
+
+    //移除编队成员
+    fun removeMember(vo: GroupMemberVO) {
+    }
 
     //结果列表
     val mResultList = MutableLiveData<List<ResultEntity>>()

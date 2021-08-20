@@ -21,16 +21,19 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.phantancy.fgocalc.activity.CalcActy;
 import org.phantancy.fgocalc.adapter.ServantAdapter;
-import org.phantancy.fgocalc.databinding.FragMainBinding;
+import org.phantancy.fgocalc.databinding.FragServantListBinding;
 import org.phantancy.fgocalc.entity.ServantEntity;
 import org.phantancy.fgocalc.util.ToolCase;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
 import java.util.List;
 
-public class MainFragment extends BaseFragment {
+/**
+ * 从者搜索+从者列表
+ */
+public class ServantListFragment extends BaseFragment {
 
-    private FragMainBinding binding;
+    private FragServantListBinding binding;
     //    final String TAG = "MainFrag";
     private MainViewModel vm;
     //入口，判断点击从者头像行为
@@ -40,16 +43,16 @@ public class MainFragment extends BaseFragment {
     public final static int ENTRY_SEARCH = 0X1;
     private int entry = ENTRY_MAIN;
 
-    public MainFragment() {
+    public ServantListFragment() {
     }
 
-    public MainFragment(int entry) {
+    public ServantListFragment(int entry) {
         this.entry = entry;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragMainBinding.inflate(getLayoutInflater());
+        binding = FragServantListBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 

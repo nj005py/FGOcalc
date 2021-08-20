@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.groupcalc.activity.GroupSettingActy
 import org.phantancy.fgocalc.activity.SearchServantActy
@@ -21,6 +22,7 @@ import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.BaseFragment
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberAdapter
 import org.phantancy.fgocalc.groupcalc.adapter.GroupServantAdapter
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
 import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
@@ -55,11 +57,15 @@ class GroupCalcFragment : BaseFragment() {
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
                     val svt = it.getParcelableExtra<ServantEntity>("servant")
-                    vm.addServant(svt, svtPosition)
+//                    vm.addServant(svt, svtPosition)
                     //显示从者设置按钮
-                    settingButtons[svtPosition].visibility = View.VISIBLE
+//                    settingButtons[svtPosition].visibility = View.VISIBLE
 //                    displaySettingServants(svtAdapter.mList)
                     svtPosition = 0
+                    //新逻辑 todo
+                    val memberVo = GroupMemberVO()
+                    memberVo.svtEntity = svt
+                    vm.addGroupMember(memberVo)
                 }
             }
         }
@@ -85,6 +91,23 @@ class GroupCalcFragment : BaseFragment() {
         val memberAdapter = GroupMemberAdapter();
         binding.rvMembers.adapter = memberAdapter
         binding.rvMembers.addItemDecoration(PickCardItemDecoration(ctx, 1f))
+        memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener{
+            override fun addMember(position: Int) {
+                svtPosition = position
+                val intent = Intent(ctx, SearchServantActy::class.java)
+                searchServantLauncher.launch(intent)
+            }
+
+            override fun removeMember(member: GroupMemberVO, position: Int) {
+                vm.removeMember(member)
+                binding.ivCardEx.visibility = View.INVISIBLE
+                binding.cbOk4.visibility = View.INVISIBLE
+                vm.cleanResult()
+            }
+        }
+        vm.memberGroup.observe(viewLifecycleOwner){
+            memberAdapter.submitList(it)
+        }
         //可以选的卡
         val cardAdapter = CardsAdapter()
         binding.rvCards.adapter = cardAdapter

@@ -81,6 +81,12 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
+    fun submitList(list : ArrayList<GroupMemberVO>){
+        this.mList.clear()
+        this.mList.addAll(list)
+        notifyDataSetChanged()
+    }
+
     interface GroupMemberListener {
         fun addMember(position: Int)
         fun removeMember(member: GroupMemberVO, position: Int)

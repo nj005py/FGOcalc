@@ -30,7 +30,7 @@ import org.phantancy.fgocalc.databinding.ActyMainBinding;
 import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.fragment.FilterFragment;
 import org.phantancy.fgocalc.groupcalc.fragment.GroupCalcFragment;
-import org.phantancy.fgocalc.fragment.MainFragment;
+import org.phantancy.fgocalc.fragment.ServantListFragment;
 import org.phantancy.fgocalc.fragment.SettingFragment;
 import org.phantancy.fgocalc.util.DisplayUtil;
 import org.phantancy.fgocalc.util.ToastUtils;
@@ -106,7 +106,7 @@ public class MainActy extends BaseActy {
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
-        fragments.add(new MainFragment(MainFragment.ENTRY_MAIN));
+        fragments.add(new ServantListFragment(ServantListFragment.ENTRY_MAIN));
         fragments.add(new FilterFragment());
         fragments.add(new GroupCalcFragment());
         fragments.add(new SettingFragment());

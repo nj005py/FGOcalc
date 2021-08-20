@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.databinding.EntityGroupAddMemberBinding
 import org.phantancy.fgocalc.databinding.EntityGroupMemberBinding
 import org.phantancy.fgocalc.databinding.EntityGroupServantBinding
 import org.phantancy.fgocalc.entity.GroupMemberEntity
@@ -52,12 +53,9 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class AddViewHolder(val binding: EntityGroupServantBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class AddViewHolder(val binding: EntityGroupAddMemberBinding) : RecyclerView.ViewHolder(binding.root){
         fun bindView(position: Int){
-            Glide.with(binding.ivAvatar)
-                    .load(R.drawable.add_circle)
-                    .into(binding.ivAvatar)
-            binding.ivAvatar.setOnClickListener {
+            binding.cvAddMember.setOnClickListener {
                 mListener?.addMember(position)
             }
 //            binding.btnSetting.visibility = View.GONE
@@ -69,7 +67,7 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return if (viewType == GroupServantAdapter.VIEW) {
             MemberViewHolder(EntityGroupMemberBinding.inflate(layoutInflater,parent,false))
         } else {
-            AddViewHolder(EntityGroupServantBinding.inflate(layoutInflater,parent,false))
+            AddViewHolder(EntityGroupAddMemberBinding.inflate(layoutInflater,parent,false))
         }
     }
 

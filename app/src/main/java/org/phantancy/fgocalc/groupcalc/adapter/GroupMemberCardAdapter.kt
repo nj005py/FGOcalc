@@ -7,20 +7,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.databinding.EntityCardPickBinding
-import org.phantancy.fgocalc.groupcalc.entity.CardObject
+import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 
 /**
  * 编队计算：成员配卡
  */
 class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyViewHolder>() {
-    private var mList: List<CardObject>? = null
+    private var mList: List<CardBO>? = null
     var visibleCount = 6
 
     inner class MyViewHolder(binding: EntityCardPickBinding) : RecyclerView.ViewHolder(binding.getRoot()) {
         var binding: EntityCardPickBinding
         fun bindView(position: Int) {
             getItem(position)?.let {
-                val x: CardObject = getItem(position)!!
+                val x: CardBO = getItem(position)!!
                 val isVisible = x.isVisible
                 val visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivPickCard.setVisibility(visibility)
@@ -42,7 +42,7 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
         }
     }
 
-    fun submitList(x: List<CardObject>?) {
+    fun submitList(x: List<CardBO>?) {
         x?.let {
             mList = x
             visibleCount = 6
@@ -50,14 +50,14 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
         }
     }
 
-    fun returnEntity(x: CardObject) {
+    fun returnEntity(x: CardBO) {
         val position = x.position
         mList!![position].isVisible = true
         visibleCount++
         notifyItemChanged(position)
     }
 
-    fun getItem(position: Int): CardObject? {
+    fun getItem(position: Int): CardBO? {
         return mList!![position]
     }
 
@@ -75,7 +75,7 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
     }
 
     interface IEntityListener {
-        fun handleClickEvent(x: CardObject)
+        fun handleClickEvent(x: CardBO)
     }
 
     var entityListener: IEntityListener? = null

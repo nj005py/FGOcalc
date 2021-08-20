@@ -1,10 +1,10 @@
-package org.phantancy.fgocalc.groupcalc.entity
+package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import androidx.collection.SimpleArrayMap
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import java.io.Serializable
 
-data class CalcObject(
+data class CalcBO(
         //职阶克制
         var affinityMod: Double = 2.0,
         //阵营克制

@@ -8,13 +8,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.databinding.EntityGroupAddMemberBinding
 import org.phantancy.fgocalc.databinding.EntityGroupMemberBinding
-import org.phantancy.fgocalc.groupcalc.entity.GroupMemberEntity
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 
 /**
  * 编队计算：编队成员适配器
  */
 class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val mList : ArrayList<GroupMemberEntity> = ArrayList()
+    val mList : ArrayList<GroupMemberVO> = ArrayList()
     val maxSize = 3
     var mListener: GroupMemberListener? = null
 
@@ -27,7 +27,7 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     inner class MemberViewHolder(val binding: EntityGroupMemberBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bindView(member: GroupMemberEntity, position: Int){
+        fun bindView(member: GroupMemberVO, position: Int){
             val svt = member.svtEntity
             if (svt.avatarRes != -1) {
                 Glide.with(binding.root.context)
@@ -83,7 +83,7 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface GroupMemberListener {
         fun addMember(position: Int)
-        fun removeMember(member: GroupMemberEntity, position: Int)
+        fun removeMember(member: GroupMemberVO, position: Int)
 //        fun setSetting(position: Int)
     }
 }

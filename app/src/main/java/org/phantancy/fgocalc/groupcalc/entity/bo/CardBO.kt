@@ -1,11 +1,11 @@
-package org.phantancy.fgocalc.groupcalc.entity
+package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import android.os.Parcel
 import android.os.Parcelable
 import org.phantancy.fgocalc.common.Constant.CARD_QUICK
 
 //指令卡
-data class CardObject(
+data class CardBO(
         //卡色
         var type: String = CARD_QUICK,
         //从者id
@@ -43,12 +43,12 @@ data class CardObject(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<CardObject> {
-        override fun createFromParcel(parcel: Parcel): CardObject {
-            return CardObject(parcel)
+    companion object CREATOR : Parcelable.Creator<CardBO> {
+        override fun createFromParcel(parcel: Parcel): CardBO {
+            return CardBO(parcel)
         }
 
-        override fun newArray(size: Int): Array<CardObject?> {
+        override fun newArray(size: Int): Array<CardBO?> {
             return arrayOfNulls(size)
         }
     }

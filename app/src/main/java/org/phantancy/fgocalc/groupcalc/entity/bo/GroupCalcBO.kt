@@ -1,9 +1,9 @@
-package org.phantancy.fgocalc.groupcalc.entity
+package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import org.phantancy.fgocalc.common.Constant
 
 //计算用公共数据
-data class GroupCalcObject(
+data class GroupCalcBO(
         /**
          * 选的卡
          */

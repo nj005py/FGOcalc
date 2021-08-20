@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.entity.*
-import org.phantancy.fgocalc.groupcalc.entity.GroupCalcObject
+import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
@@ -26,7 +26,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val servants = ArrayList<ServantEntity>()
     val calcEntites = ArrayList<CalcEntity>()
 
-    val groupCalcEntity = GroupCalcObject()
+    val groupCalcEntity = GroupCalcBO()
     init {
         calcEntites.apply {
             add(CalcEntity())

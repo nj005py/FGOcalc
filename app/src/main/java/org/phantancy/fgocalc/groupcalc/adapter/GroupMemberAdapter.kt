@@ -45,8 +45,8 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.ivSvtAvatar.setOnClickListener{
                 mListener?.removeMember(member,position)
             }
-            val adapter = GroupMemberCardAdapter()
-            binding.rvCards.adapter = adapter
+//            val adapter = GroupMemberCardAdapter()
+//            binding.rvCards.adapter = adapter
 
         }
     }
@@ -56,13 +56,12 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.cvAddMember.setOnClickListener {
                 mListener?.addMember(position)
             }
-//            binding.btnSetting.visibility = View.GONE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return if (viewType == GroupServantAdapter.VIEW) {
+        return if (viewType == VIEW) {
             MemberViewHolder(EntityGroupMemberBinding.inflate(layoutInflater,parent,false))
         } else {
             AddViewHolder(EntityGroupAddMemberBinding.inflate(layoutInflater,parent,false))
@@ -70,15 +69,24 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return if (mList.size < maxSize) mList.size + 1 else mList.size
+        return if (mList.size < maxSize) (mList.size + 1) else mList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == GroupServantAdapter.VIEW) {
+        if (getItemViewType(position) == VIEW) {
             (holder as MemberViewHolder).bindView(mList.get(position),position)
         } else {
             (holder as AddViewHolder).bindView(position)
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (isAdd(position)) ADD else VIEW
+    }
+
+    fun isAdd(position: Int): Boolean{
+        val size = if (mList.size == 0) 0 else mList.size
+        return (size == position)
     }
 
     fun submitList(list : ArrayList<GroupMemberVO>){

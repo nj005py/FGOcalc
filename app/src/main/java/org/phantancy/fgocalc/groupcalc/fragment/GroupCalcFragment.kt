@@ -90,7 +90,7 @@ class GroupCalcFragment : BaseFragment() {
         //成员
         val memberAdapter = GroupMemberAdapter();
         binding.rvMembers.adapter = memberAdapter
-        binding.rvMembers.addItemDecoration(PickCardItemDecoration(ctx, 1f))
+        binding.rvMembers.addItemDecoration(VerticalItemDecoration(ctx, 1f))
         memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener{
             override fun addMember(position: Int) {
                 svtPosition = position
@@ -130,29 +130,29 @@ class GroupCalcFragment : BaseFragment() {
         /**
          * 移除从者时，把已选的卡也清空
          */
-        svtAdapter.mListener = object : GroupServantAdapter.GroupSvtListener {
-            override fun addSvt(position: Int) {
-                Log.i(TAG, "addSvt position: $position")
-                svtPosition = position
-                searchServantLauncher.launch(Intent(ctx, SearchServantActy::class.java))
-            }
-
-            override fun removeSvt(svt: ServantEntity, position: Int) {
-                vm.removeServant(svt)
-                pickedAdapter.cleanList()
-                binding.ivCardEx.visibility = View.INVISIBLE
-                binding.cbOk4.visibility = View.INVISIBLE
-                vm.cleanResult()
-                //隐藏从者设置按钮
-                displaySettingServants(svtAdapter.mList)
-            }
-
-        }
-
-        vm.svtGroup.observe(viewLifecycleOwner, Observer { list ->
-            svtAdapter.submitList(list)
-            vm.parseServantsCards(list)
-        })
+//        svtAdapter.mListener = object : GroupServantAdapter.GroupSvtListener {
+//            override fun addSvt(position: Int) {
+//                Log.i(TAG, "addSvt position: $position")
+//                svtPosition = position
+//                searchServantLauncher.launch(Intent(ctx, SearchServantActy::class.java))
+//            }
+//
+//            override fun removeSvt(svt: ServantEntity, position: Int) {
+//                vm.removeServant(svt)
+//                pickedAdapter.cleanList()
+//                binding.ivCardEx.visibility = View.INVISIBLE
+//                binding.cbOk4.visibility = View.INVISIBLE
+//                vm.cleanResult()
+//                //隐藏从者设置按钮
+//                displaySettingServants(svtAdapter.mList)
+//            }
+//
+//        }
+//
+//        vm.svtGroup.observe(viewLifecycleOwner, Observer { list ->
+//            svtAdapter.submitList(list)
+//            vm.parseServantsCards(list)
+//        })
 
         //点击卡池
         cardAdapter.setEntityListenr { x ->

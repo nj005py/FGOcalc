@@ -134,6 +134,9 @@ public class MainActy extends BaseActy {
             }
         });
 
+        //默认显示编队计算
+        binding.vpPager.setCurrentItem(2);
+
     }
 
     //重载返回键

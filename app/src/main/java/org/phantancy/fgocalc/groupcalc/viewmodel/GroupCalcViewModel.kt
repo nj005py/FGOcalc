@@ -123,7 +123,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             for (svt in servants) {
                 if (count == pos) {
                     //宝具卡色从条件里取
-                    list.addAll(updatePickCards(pos, calcEntity.npEntity,svtSource, id))
+                    list.addAll(updatePickCards(pos, calcEntity.npEntity, svtSource, id))
                 } else {
                     //宝具卡色从数据库里取
                     list.addAll(parsePickCards(svt, svtSource, id))
@@ -161,22 +161,29 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val pickedCards = ArrayList<CardPickEntity>()
 
     //添加编队成员
-    fun addGroupMember(vo : GroupMemberVO){
+    fun addGroupMember(vo: GroupMemberVO) {
         if (_memberGroup.value == null) {
             val list = arrayListOf<GroupMemberVO>(vo)
             _memberGroup.value = list
         } else {
-            _memberGroup.value!!.add(vo)
+            _memberGroup.value = _memberGroup.value.run {
+                _memberGroup.value!!.add(vo)
+                this
+            }
         }
     }
 
     //移除编队成员
     fun removeMember(vo: GroupMemberVO) {
+        _memberGroup.value = _memberGroup.value?.run {
+            _memberGroup.value!!.remove(vo)
+            this
+        }
     }
 
     //结果列表
     val mResultList = MutableLiveData<List<ResultEntity>>()
-    val resultList:LiveData<List<ResultEntity>> = mResultList
+    val resultList: LiveData<List<ResultEntity>> = mResultList
 
     //清理结果
     fun cleanResult() {
@@ -184,7 +191,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(pickedCards: ArrayList<CardPickEntity>,isBraveChain: Boolean){
+    fun clickCalc(pickedCards: ArrayList<CardPickEntity>, isBraveChain: Boolean) {
         this.pickedCards.clear()
         this.pickedCards.addAll(pickedCards)
 
@@ -199,19 +206,19 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val dmgRandomMin = 0.9
             val calcLogic = CalcLogic()
             //选中卡片对应的从者
-            val pickedServants = listOf(servants[pickedCards[0].svtSource],servants[pickedCards[1].svtSource],
-            servants[pickedCards[2].svtSource])
+            val pickedServants = listOf(servants[pickedCards[0].svtSource], servants[pickedCards[1].svtSource],
+                    servants[pickedCards[2].svtSource])
             //res
-            val max = calcLogic.fourCardsDmg(dmgRandomMax,calcEntites,groupCalcEntity,pickedServants,isBraveChain)
-            val min = calcLogic.fourCardsDmg(dmgRandomMin,calcEntites,groupCalcEntity,pickedServants,isBraveChain)
+            val max = calcLogic.fourCardsDmg(dmgRandomMax, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
+            val min = calcLogic.fourCardsDmg(dmgRandomMin, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
 //            Log.d(TAG,"max: $max min: $min")
-            handleResult(min,max,pickedServants)
+            handleResult(min, max, pickedServants)
 
         }
     }
     //伤害计算
 
-    fun handleResult(min: ResultDmg,max: ResultDmg,pickedServants:List<ServantEntity>){
+    fun handleResult(min: ResultDmg, max: ResultDmg, pickedServants: List<ServantEntity>) {
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcEntity.cardType1, min.c1, max.c1, "np", "star",
                 "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
@@ -238,7 +245,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                 .append("\n")
         val resSum = ResultEntity(ResultEntity.TYEP_SUM,
                 "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(pickedServants[0].id));
-        val list:ArrayList<ResultEntity> = ArrayList()
+        val list: ArrayList<ResultEntity> = ArrayList()
         list.add(res1)
         list.add(res2)
         list.add(res3)

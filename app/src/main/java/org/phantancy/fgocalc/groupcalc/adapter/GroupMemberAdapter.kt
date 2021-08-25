@@ -45,9 +45,9 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.ivSvtAvatar.setOnClickListener{
                 mListener?.removeMember(member,position)
             }
-//            val adapter = GroupMemberCardAdapter()
-//            binding.rvCards.adapter = adapter
-
+            val adapter = GroupMemberCardAdapter()
+            binding.rvCards.adapter = adapter
+            adapter.submitList(member.cards)
         }
     }
 

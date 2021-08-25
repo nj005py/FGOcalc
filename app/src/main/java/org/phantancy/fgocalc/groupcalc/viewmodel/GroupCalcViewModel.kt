@@ -12,19 +12,18 @@ import kotlinx.coroutines.launch
 import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.entity.*
+import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
-import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
 class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     private val TAG = "GroupCalcViewModel"
     private val npRepository: NoblePhantasmRepository = NoblePhantasmRepository(app)
 
-    private val _svtGroup = MutableLiveData<ArrayList<ServantEntity>>()
-    val svtGroup: LiveData<ArrayList<ServantEntity>> = _svtGroup
+//    private val _svtGroup = MutableLiveData<ArrayList<ServantEntity>>()
+//    val svtGroup: LiveData<ArrayList<ServantEntity>> = _svtGroup
 
-    private val servants = ArrayList<ServantEntity>()
     val calcEntites = ArrayList<CalcEntity>()
 
     val groupCalcEntity = GroupCalcBO()
@@ -38,20 +37,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             add(CalcEntity())
             add(CalcEntity())
         }
-    }
-
-    fun addServant(svt: ServantEntity, svtPosition: Int) {
-        if (servants?.size < 3) {
-            servants.add(svt)
-        } else {
-            servants[svtPosition] = svt;
-        }
-        _svtGroup.value = servants
-    }
-
-    fun removeServant(svt: ServantEntity) {
-        servants?.remove(svt)
-        _svtGroup.value = servants
     }
 
     private val _cardPicks = MutableLiveData<ArrayList<CardPickEntity>>()
@@ -108,6 +93,28 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         return list
     }
 
+    private suspend fun parseServantCards(svt: ServantEntity, svtPosition: Int): ArrayList<CardBO> {
+        val cards: String = svt.cards
+        val cardBoList = ArrayList<CardBO>()
+        var position = 0
+        //解析配卡
+        for (card in cards.toCharArray()) {
+            CardLogic.parseGroupCardBO(svt.id, svtPosition, position, card)?.let {
+                cardBoList.add(it)
+                position++
+            }
+        }
+        //宝具卡
+        val npEntityList = queryNPEntitiesList(svt.id);
+        npEntityList?.let {
+            CardLogic.parseGroupCardBONp(svt.id,svtPosition,position,it[0]?.npColor)?.let {
+                cardBoList.add(it)
+                position++
+            }
+        }
+        return cardBoList
+    }
+
     /**
      * pos 从者位置
      * npEntity 宝具信息
@@ -119,34 +126,34 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         var id = 0
         var svtSource = 0
         calcEntites[pos] = calcEntity
-        viewModelScope.launch {
-            for (svt in servants) {
-                if (count == pos) {
-                    //宝具卡色从条件里取
-                    list.addAll(updatePickCards(pos, calcEntity.npEntity, svtSource, id))
-                } else {
-                    //宝具卡色从数据库里取
-                    list.addAll(parsePickCards(svt, svtSource, id))
-                }
-                count++
-                id += 6
-                svtSource++
-            }
-            _cardPicks.value = list
-        }
+//        viewModelScope.launch {
+//            for (svt in servants) {
+//                if (count == pos) {
+//                    //宝具卡色从条件里取
+//                    list.addAll(updatePickCards(pos, calcEntity.npEntity, svtSource, id))
+//                } else {
+//                    //宝具卡色从数据库里取
+//                    list.addAll(parsePickCards(svt, svtSource, id))
+//                }
+//                count++
+//                id += 6
+//                svtSource++
+//            }
+//            _cardPicks.value = list
+//        }
     }
 
-    private fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
-        return ArrayList<CardPickEntity>().apply {
-            val svt = servants[pos]
-            var id = start
-            for (card in svt.cards.toCharArray()) {
-                CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
-                id++
-            }
-            CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
-        }
-    }
+//    private fun updatePickCards(pos: Int, npEntity: NoblePhantasmEntity, svtSource: Int, start: Int): ArrayList<CardPickEntity> {
+//        return ArrayList<CardPickEntity>().apply {
+//            val svt = servants[pos]
+//            var id = start
+//            for (card in svt.cards.toCharArray()) {
+//                CardLogic.parseGroupCardPickEntity(id, card, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
+//                id++
+//            }
+//            CardLogic.parseGroupCardPickNp(id, npEntity.npColor, svtSource, ServantAvatarData.getServantAvatar(svt.id))?.let { add(it) }
+//        }
+//    }
 
     private suspend fun queryNPEntitiesList(id: Int): List<NoblePhantasmEntity> {
         return coroutineScope {
@@ -162,22 +169,46 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     //添加编队成员
     fun addGroupMember(vo: GroupMemberVO) {
-        if (_memberGroup.value == null) {
-            val list = arrayListOf<GroupMemberVO>(vo)
-            _memberGroup.value = list
-        } else {
-            _memberGroup.value = _memberGroup.value.run {
-                _memberGroup.value!!.add(vo)
-                this
+        viewModelScope.launch {
+            if (_memberGroup.value == null) {
+                vo.svtEntity?.let {
+                    vo.cards = parseServantCards(vo.svtEntity,0)
+                }
+                _memberGroup.value = arrayListOf<GroupMemberVO>(vo)
+            } else {
+                vo.svtEntity?.let {
+                    vo.cards = parseServantCards(vo.svtEntity,_memberGroup.value!!.size)
+                }
+                _memberGroup.value = _memberGroup.value.run {
+                    _memberGroup.value!!.add(vo)
+                    this
+                }
             }
+
         }
     }
 
     //移除编队成员
-    fun removeMember(vo: GroupMemberVO) {
+    fun removeMember(vo: GroupMemberVO,list: ArrayList<GroupMemberVO>) {
         _memberGroup.value = _memberGroup.value?.run {
             _memberGroup.value!!.remove(vo)
             this
+        }
+        list?.let {
+            list.remove(vo)
+            //从者位置重排列
+            var memberPosition = 0
+            //遍历成员
+            for (member in list){
+                //遍历成员卡
+                member.cards?.let {
+                    for (card in it){
+                        card.svtPosition = memberPosition
+                    }
+                }
+                //成员位置+1
+                memberPosition++
+            }
         }
     }
 
@@ -187,7 +218,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     //清理结果
     fun cleanResult() {
-        parseServantsCards(servants)
+//        parseServantsCards(servants)
     }
 
     //点击计算
@@ -195,26 +226,26 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         this.pickedCards.clear()
         this.pickedCards.addAll(pickedCards)
 
-        if (pickedCards.size == 3) {
-            //设置卡片
-            groupCalcEntity.cardType1 = pickedCards[0].name
-            groupCalcEntity.cardType2 = pickedCards[1].name
-            groupCalcEntity.cardType3 = pickedCards[2].name
-            //计算伤害
-            //伤害随机
-            val dmgRandomMax = 1.1
-            val dmgRandomMin = 0.9
-            val calcLogic = CalcLogic()
-            //选中卡片对应的从者
-            val pickedServants = listOf(servants[pickedCards[0].svtSource], servants[pickedCards[1].svtSource],
-                    servants[pickedCards[2].svtSource])
-            //res
-            val max = calcLogic.fourCardsDmg(dmgRandomMax, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
-            val min = calcLogic.fourCardsDmg(dmgRandomMin, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
-//            Log.d(TAG,"max: $max min: $min")
-            handleResult(min, max, pickedServants)
-
-        }
+//        if (pickedCards.size == 3) {
+//            //设置卡片
+//            groupCalcEntity.cardType1 = pickedCards[0].name
+//            groupCalcEntity.cardType2 = pickedCards[1].name
+//            groupCalcEntity.cardType3 = pickedCards[2].name
+//            //计算伤害
+//            //伤害随机
+//            val dmgRandomMax = 1.1
+//            val dmgRandomMin = 0.9
+//            val calcLogic = CalcLogic()
+//            //选中卡片对应的从者
+//            val pickedServants = listOf(servants[pickedCards[0].svtSource], servants[pickedCards[1].svtSource],
+//                    servants[pickedCards[2].svtSource])
+//            //res
+//            val max = calcLogic.fourCardsDmg(dmgRandomMax, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
+//            val min = calcLogic.fourCardsDmg(dmgRandomMin, calcEntites, groupCalcEntity, pickedServants, isBraveChain)
+////            Log.d(TAG,"max: $max min: $min")
+//            handleResult(min, max, pickedServants)
+//
+//        }
     }
     //伤害计算
 

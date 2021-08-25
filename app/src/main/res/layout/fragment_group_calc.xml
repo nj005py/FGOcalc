@@ -107,7 +107,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_picked"
+            android:id="@+id/rv_chosen_card"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1.0"

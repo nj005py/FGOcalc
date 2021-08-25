@@ -20,11 +20,11 @@ import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.BaseFragment
+import org.phantancy.fgocalc.groupcalc.adapter.GroupChosenCardAdapter
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberAdapter
-import org.phantancy.fgocalc.groupcalc.adapter.GroupServantAdapter
+import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
-import org.phantancy.fgocalc.item_decoration.PickCardItemDecoration
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
 import org.phantancy.fgocalc.util.ToastUtils
@@ -77,7 +77,7 @@ class GroupCalcFragment : BaseFragment() {
                 result.data?.let {
                     val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
                     calcEntity?.let {
-                        vm.updateServantCards(svtPosition, calcEntity)
+//                        vm.updateServantCards(svtPosition, calcEntity)
                     }
                     svtPosition = 0
                 }
@@ -99,32 +99,58 @@ class GroupCalcFragment : BaseFragment() {
             }
 
             override fun removeMember(member: GroupMemberVO, position: Int) {
-                vm.removeMember(member)
+                vm.removeMember(member,memberAdapter.mList)
                 binding.ivCardEx.visibility = View.INVISIBLE
                 binding.cbOk4.visibility = View.INVISIBLE
                 vm.cleanResult()
             }
+
+            override fun chooseCard(x: CardBO) {
+                //todo 选了卡
+            }
+
+
         }
         vm.memberGroup.observe(viewLifecycleOwner){
             memberAdapter.submitList(it)
         }
         //可以选的卡
-        val cardAdapter = CardsAdapter()
-        binding.rvCards.adapter = cardAdapter
-        binding.rvCards.addItemDecoration(PickCardItemDecoration(ctx, 1f))
+//        val cardAdapter = CardsAdapter()
+//        binding.rvCards.adapter = cardAdapter
+//        binding.rvCards.addItemDecoration(PickCardItemDecoration(ctx, 1f))
         //从者
-        val svtAdapter = GroupServantAdapter()
-        binding.rvSvts.adapter = svtAdapter
-        binding.rvSvts.addItemDecoration(VerticalItemDecoration(ctx, 5f))
+//        val svtAdapter = GroupServantAdapter()
+//        binding.rvSvts.adapter = svtAdapter
+//        binding.rvSvts.addItemDecoration(VerticalItemDecoration(ctx, 5f))
         //选了的卡
-        val pickedAdapter = PickAdapter()
-        binding.rvPicked.adapter = pickedAdapter
+        val chosenCardAdapter = GroupChosenCardAdapter()
+        binding.rvChosenCard.adapter = chosenCardAdapter
         val scale = resources.displayMetrics.density
-        binding.rvPicked.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
+        binding.rvChosenCard.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
+        //点击已选卡
+        chosenCardAdapter.groupChosenCardListener = object : GroupChosenCardAdapter.GroupChosenCardListener {
 
-        vm.cardPicks.observe(viewLifecycleOwner, Observer { list ->
-            cardAdapter.submitList(list)
-        })
+            override fun handleClickEvent(x: CardBO?) {
+//                memberAdapter.
+                //去ex卡
+                binding.ivCardEx.visibility = View.INVISIBLE
+                binding.cbOk4.visibility = View.INVISIBLE
+            }
+
+            override fun handleBraveChain(isBraveChain: Boolean) {
+                this@GroupCalcFragment.isBraveChain = isBraveChain
+                if (isBraveChain) {
+                    binding.ivCardEx.visibility = View.VISIBLE
+                    binding.cbOk4.visibility = View.VISIBLE
+                } else {
+                    binding.ivCardEx.visibility = View.INVISIBLE
+                    binding.cbOk4.visibility = View.INVISIBLE
+                }
+            }
+        }
+//        vm.cardPicks.observe(viewLifecycleOwner, Observer { list ->
+//            cardAdapter.submitList(list)
+//        })
 
 
         /**
@@ -155,42 +181,28 @@ class GroupCalcFragment : BaseFragment() {
 //        })
 
         //点击卡池
-        cardAdapter.setEntityListenr { x ->
-            pickedAdapter.addEntity(x)
-        }
+//        cardAdapter.setEntityListenr { x ->
+//            chosenCardAdapter.addEntity(x)
+//        }
 
-        //点击已选卡
-        pickedAdapter.setEntityListenr(object : PickAdapter.IEntityListener {
-            override fun handleClickEvent(x: CardPickEntity?) {
-                cardAdapter.returnEntity(x)
-                //去ex卡
-                binding.ivCardEx.visibility = View.INVISIBLE
-                binding.cbOk4.visibility = View.INVISIBLE
-            }
 
-            override fun handleBraveChain(isBraveChain: Boolean) {
-                this@GroupCalcFragment.isBraveChain = isBraveChain
-                if (isBraveChain) {
-                    binding.ivCardEx.visibility = View.VISIBLE
-                    binding.cbOk4.visibility = View.VISIBLE
-                } else {
-                    binding.ivCardEx.visibility = View.INVISIBLE
-                    binding.cbOk4.visibility = View.INVISIBLE
-                }
-            }
-        })
 
         //监听overkill 暴击
         setOverkillCritical()
 
         //计算
         binding.btnCalc.setOnClickListener {
-            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>,isBraveChain)
+//            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>,isBraveChain)
+            for (x in memberAdapter.mList){
+                val card = x.cards[0]
+                val out = "${x.svtEntity.name} ${card.svtId} ${card.svtPosition} ${card.position}"
+                Log.i(TAG,out)
+            }
         }
 
-        binding.btnSetting1.setOnClickListener { v -> launchSetting(svtAdapter.mList[0],0,safeGetCalcEntity(0,vm.calcEntites),settingLauncher) }
-        binding.btnSetting2.setOnClickListener { v -> launchSetting(svtAdapter.mList[1],1,safeGetCalcEntity(1,vm.calcEntites),settingLauncher) }
-        binding.btnSetting3.setOnClickListener { v -> launchSetting(svtAdapter.mList[2],2,safeGetCalcEntity(2,vm.calcEntites),settingLauncher) }
+//        binding.btnSetting1.setOnClickListener { v -> launchSetting(svtAdapter.mList[0],0,safeGetCalcEntity(0,vm.calcEntites),settingLauncher) }
+//        binding.btnSetting2.setOnClickListener { v -> launchSetting(svtAdapter.mList[1],1,safeGetCalcEntity(1,vm.calcEntites),settingLauncher) }
+//        binding.btnSetting3.setOnClickListener { v -> launchSetting(svtAdapter.mList[2],2,safeGetCalcEntity(2,vm.calcEntites),settingLauncher) }
 
 
         //结果

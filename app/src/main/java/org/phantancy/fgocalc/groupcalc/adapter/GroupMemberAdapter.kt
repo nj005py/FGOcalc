@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.databinding.EntityGroupAddMemberBinding
 import org.phantancy.fgocalc.databinding.EntityGroupMemberBinding
+import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 
 /**
@@ -48,6 +49,11 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val adapter = GroupMemberCardAdapter()
             binding.rvCards.adapter = adapter
             adapter.submitList(member.cards)
+            adapter.groupMemberCardListener = object : GroupMemberCardAdapter.GroupMemberCardListener{
+                override fun handleClickEvent(x: CardBO) {
+                    mListener?.chooseCard(x)
+                }
+            }
         }
     }
 
@@ -99,5 +105,6 @@ class GroupMemberAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun addMember(position: Int)
         fun removeMember(member: GroupMemberVO, position: Int)
 //        fun setSetting(position: Int)
+        fun chooseCard(x: CardBO)
     }
 }

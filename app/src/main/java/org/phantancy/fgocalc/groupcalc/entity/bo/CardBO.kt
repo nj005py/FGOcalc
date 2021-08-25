@@ -14,7 +14,7 @@ data class CardBO(
         //从者id
         var svtId: Int = 0,
         //属于某从者
-        var belongId: Int = 0,
+        var svtPosition: Int = 0,
         //第几张卡
         var position: Int = 0,
         //野兽足迹
@@ -27,7 +27,7 @@ data class CardBO(
 
     constructor(parcel: Parcel) : this() {
         type = parcel.readString()!!
-        belongId = parcel.readInt()
+        svtPosition = parcel.readInt()
         position = parcel.readInt()
         extraAtk = parcel.readDouble()
         readSimpleArrayMap(parcel,buffMap)
@@ -35,7 +35,7 @@ data class CardBO(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(type)
-        parcel.writeInt(belongId)
+        parcel.writeInt(svtPosition)
         parcel.writeInt(position)
         parcel.writeDouble(extraAtk)
         writeSimpleArrayMap(parcel,buffMap)

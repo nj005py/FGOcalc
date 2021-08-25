@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import org.phantancy.fgocalc.data.ServantAvatarData
+import org.phantancy.fgocalc.common.Constant
 import org.phantancy.fgocalc.databinding.EntityCardPickBinding
 import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 
@@ -20,15 +20,15 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
         var binding: EntityCardPickBinding
         fun bindView(position: Int) {
             getItem(position)?.let {
-                val x: CardBO = getItem(position)!!
-                val isVisible = x.isVisible
+                val isVisible = it.isVisible
                 val visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
                 binding.ivPickCard.setVisibility(visibility)
                 binding.ivPickCard.setImageDrawable(ContextCompat.getDrawable(binding.getRoot().getContext(),
-                        ServantAvatarData.getServantAvatar(x.svtId)))
+                        Constant.getCardDrawable(it.type)))
+
                 binding.ivPickCard.setOnClickListener(View.OnClickListener {
                     if (visibleCount > 3) {
-                        entityListener?.handleClickEvent(x)
+                        groupMemberCardListener?.handleClickEvent(getItem(position)!!)
                         binding.ivPickCard.setVisibility(View.INVISIBLE)
                         visibleCount--
                     }
@@ -74,13 +74,10 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
         holder.bindView(position)
     }
 
-    interface IEntityListener {
+    interface GroupMemberCardListener {
         fun handleClickEvent(x: CardBO)
     }
 
-    var entityListener: IEntityListener? = null
+    var groupMemberCardListener: GroupMemberCardListener? = null
 
-    fun setEntityListenr(x: IEntityListener?) {
-        entityListener = x
-    }
 }

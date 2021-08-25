@@ -1,7 +1,9 @@
 package org.phantancy.fgocalc.logic
 
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.common.Constant
 import org.phantancy.fgocalc.entity.CardPickEntity
+import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 
 class CardLogic {
     companion object{
@@ -47,6 +49,27 @@ class CardLogic {
             return if (color == "np_a") {
                 CardPickEntity(id, color, R.drawable.np_a, svtSource, svtAvatar)
             } else CardPickEntity(id, color, R.drawable.np_b, svtSource, svtAvatar)
+        }
+
+        @JvmStatic
+        fun parseGroupCardBO(svtId: Int, svtPosition: Int,position: Int, color: Char): CardBO? {
+            if (color == 'q') {
+                return CardBO(Constant.CARD_QUICK,svtId,svtPosition,position)
+            }
+            return if (color == 'a') {
+                CardBO(Constant.CARD_ARTS,svtId,svtPosition,position)
+            } else CardBO(Constant.CARD_BUSTER,svtId,svtPosition,position)
+        }
+
+        //解析编队宝具卡
+        @JvmStatic
+        fun parseGroupCardBONp(svtId: Int, svtPosition: Int,position: Int, color: String): CardBO? {
+            if (color == "np_q") {
+                return CardBO(color,svtId,svtPosition,position)
+            }
+            return if (color == "np_a") {
+                CardBO(color,svtId,svtPosition,position)
+            } else CardBO(color,svtId,svtPosition,position)
         }
     }
 

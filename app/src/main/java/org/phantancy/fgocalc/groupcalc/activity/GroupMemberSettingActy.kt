@@ -17,9 +17,13 @@ import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
+import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberSettingFragment
 import org.phantancy.fgocalc.viewmodel.CalcViewModel
 
-class GroupSettingActy : BaseActy() {
+/**
+ * 成员设置
+ */
+class GroupMemberSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
     private lateinit var vm: CalcViewModel
     private lateinit var containerFragment: CalcContainerFragment
@@ -29,23 +33,23 @@ class GroupSettingActy : BaseActy() {
         binding = ActyCalcBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val servant = intent.getParcelableExtra<Parcelable>("servant") as ServantEntity
-        val calcEntity = intent.getParcelableExtra<Parcelable>("calcEntity") as CalcEntity
+//        val servant = intent.getParcelableExtra<Parcelable>("servant") as ServantEntity
+//        val calcEntity = intent.getParcelableExtra<Parcelable>("calcEntity") as CalcEntity
 
         vm = ViewModelProvider(this).get(CalcViewModel::class.java)
         //设置编队计算
         vm.entry = ENTRY_GROUP
-        servant?.let { vm.servant = servant }
-        calcEntity?.let { vm.calcEntity = calcEntity }
+//        servant?.let { vm.servant = servant }
+//        calcEntity?.let { vm.calcEntity = calcEntity }
 
         //tab标题列表
         val tabs = arrayListOf<String>("从者信息", "设置", "wiki")
         //wiki页初始化
         val wikiFragment = WikiFragment()
         wikiFragment.setParentPager(binding.vpCalcPager)
-        containerFragment = CalcContainerFragment(ENTRY_GROUP)
+//        containerFragment = CalcContainerFragment(ENTRY_GROUP)
         //碎片页列表
-        val fragments = arrayListOf<Fragment>(InfoFragment(), containerFragment, wikiFragment)
+        val fragments = arrayListOf<Fragment>(InfoFragment(), GroupMemberSettingFragment(), wikiFragment)
 
         val pagerAdapter = CalcViewPagerAdapter(this, fragments)
         binding.vpCalcPager.adapter = pagerAdapter

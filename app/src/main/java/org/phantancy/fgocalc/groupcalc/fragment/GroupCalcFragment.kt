@@ -12,12 +12,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import org.phantancy.fgocalc.activity.BaseActy
-import org.phantancy.fgocalc.groupcalc.activity.GroupSettingActy
+import org.phantancy.fgocalc.groupcalc.activity.GroupMemberSettingActy
 import org.phantancy.fgocalc.activity.SearchServantActy
 import org.phantancy.fgocalc.adapter.*
 import org.phantancy.fgocalc.databinding.FragmentGroupCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
-import org.phantancy.fgocalc.entity.CardPickEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.BaseFragment
 import org.phantancy.fgocalc.groupcalc.adapter.GroupChosenCardAdapter
@@ -35,9 +34,7 @@ import org.phantancy.fgocalc.groupcalc.viewmodel.GroupCalcViewModel
  */
 class GroupCalcFragment : BaseFragment() {
     private lateinit var binding: FragmentGroupCalcBinding
-    private var svtPosition = 0
     private lateinit var vm: GroupCalcViewModel
-    private lateinit var settingButtons: List<View>
     private var isBraveChain = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,7 +45,6 @@ class GroupCalcFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(GroupCalcActy@ this).get(GroupCalcViewModel::class.java)
-        settingButtons = listOf(binding.btnSetting1, binding.btnSetting2, binding.btnSetting3)
 
         //搜索从者
         val searchServantLauncher = registerForActivityResult(
@@ -57,12 +53,7 @@ class GroupCalcFragment : BaseFragment() {
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
                     val svt = it.getParcelableExtra<ServantEntity>("servant")
-//                    vm.addServant(svt, svtPosition)
-                    //显示从者设置按钮
-//                    settingButtons[svtPosition].visibility = View.VISIBLE
-//                    displaySettingServants(svtAdapter.mList)
-                    svtPosition = 0
-                    //新逻辑 todo
+                    //新逻辑
                     val memberVo = GroupMemberVO()
                     memberVo.svtEntity = svt
                     vm.addGroupMember(memberVo)
@@ -79,7 +70,6 @@ class GroupCalcFragment : BaseFragment() {
                     calcEntity?.let {
 //                        vm.updateServantCards(svtPosition, calcEntity)
                     }
-                    svtPosition = 0
                 }
             }
         }
@@ -99,7 +89,6 @@ class GroupCalcFragment : BaseFragment() {
         //成员事件
         memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener{
             override fun addMember(position: Int) {
-                svtPosition = position
                 val intent = Intent(ctx, SearchServantActy::class.java)
                 searchServantLauncher.launch(intent)
             }
@@ -117,19 +106,16 @@ class GroupCalcFragment : BaseFragment() {
                 Log.i(TAG,"chosenCount: ${memberAdapter.chosenCardsCount}")
             }
 
-
+            override fun setSetting(member: GroupMemberVO, position: Int) {
+                //todo 去设置成员
+                settingLauncher.launch(Intent(mActy,GroupMemberSettingActy::class.java).apply {
+                    putExtra("GroupMemberVO",member)
+                })
+            }
         }
         vm.memberGroup.observe(viewLifecycleOwner){
             memberAdapter.submitList(it)
         }
-        //可以选的卡
-//        val cardAdapter = CardsAdapter()
-//        binding.rvCards.adapter = cardAdapter
-//        binding.rvCards.addItemDecoration(PickCardItemDecoration(ctx, 1f))
-        //从者
-//        val svtAdapter = GroupServantAdapter()
-//        binding.rvSvts.adapter = svtAdapter
-//        binding.rvSvts.addItemDecoration(VerticalItemDecoration(ctx, 5f))
         //已选卡事件
         chosenCardAdapter.groupChosenCardListener = object : GroupChosenCardAdapter.GroupChosenCardListener {
 
@@ -151,44 +137,6 @@ class GroupCalcFragment : BaseFragment() {
                 }
             }
         }
-//        vm.cardPicks.observe(viewLifecycleOwner, Observer { list ->
-//            cardAdapter.submitList(list)
-//        })
-
-
-        /**
-         * 移除从者时，把已选的卡也清空
-         */
-//        svtAdapter.mListener = object : GroupServantAdapter.GroupSvtListener {
-//            override fun addSvt(position: Int) {
-//                Log.i(TAG, "addSvt position: $position")
-//                svtPosition = position
-//                searchServantLauncher.launch(Intent(ctx, SearchServantActy::class.java))
-//            }
-//
-//            override fun removeSvt(svt: ServantEntity, position: Int) {
-//                vm.removeServant(svt)
-//                pickedAdapter.cleanList()
-//                binding.ivCardEx.visibility = View.INVISIBLE
-//                binding.cbOk4.visibility = View.INVISIBLE
-//                vm.cleanResult()
-//                //隐藏从者设置按钮
-//                displaySettingServants(svtAdapter.mList)
-//            }
-//
-//        }
-//
-//        vm.svtGroup.observe(viewLifecycleOwner, Observer { list ->
-//            svtAdapter.submitList(list)
-//            vm.parseServantsCards(list)
-//        })
-
-        //点击卡池
-//        cardAdapter.setEntityListenr { x ->
-//            chosenCardAdapter.addEntity(x)
-//        }
-
-
 
         //监听overkill 暴击
         setOverkillCritical()
@@ -203,11 +151,6 @@ class GroupCalcFragment : BaseFragment() {
             }
         }
 
-//        binding.btnSetting1.setOnClickListener { v -> launchSetting(svtAdapter.mList[0],0,safeGetCalcEntity(0,vm.calcEntites),settingLauncher) }
-//        binding.btnSetting2.setOnClickListener { v -> launchSetting(svtAdapter.mList[1],1,safeGetCalcEntity(1,vm.calcEntites),settingLauncher) }
-//        binding.btnSetting3.setOnClickListener { v -> launchSetting(svtAdapter.mList[2],2,safeGetCalcEntity(2,vm.calcEntites),settingLauncher) }
-
-
         //结果
         val resultAdapter = ResultAdapter()
         binding.rvCalcResult.adapter = resultAdapter
@@ -217,24 +160,12 @@ class GroupCalcFragment : BaseFragment() {
         })
     }
 
-    fun displaySettingServants(list: List<ServantEntity>) {
-        val size = list.size
-        for (i in 0 until settingButtons.size) {
-            settingButtons[i].visibility = View.GONE
-        }
-        for (i in 0 until size) {
-            settingButtons[i].visibility = View.VISIBLE
-        }
-
-    }
-
     fun launchSetting(svt: ServantEntity, position: Int, calcEntity: CalcEntity,
                       settingLauncher: ActivityResultLauncher<Intent>) {
-        val intent = Intent(ctx, GroupSettingActy::class.java).apply {
+        val intent = Intent(ctx, GroupMemberSettingActy::class.java).apply {
             putExtra("servant", svt)
             putExtra("calcEntity", calcEntity)
         }
-        svtPosition = position
         settingLauncher.launch(intent)
     }
 

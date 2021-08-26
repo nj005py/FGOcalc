@@ -20,10 +20,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/ll_setting"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="@drawable/btn_white"
             app:layout_constraintLeft_toRightOf="@id/iv_svt_avatar"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">

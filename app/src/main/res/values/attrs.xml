@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="toolbarColor" format="reference"/>
+    <!--条件录入-->
+    <attr name="itemTitle" format="string"/>
+    <attr name="itemNumber" format="string"/>
 </resources>

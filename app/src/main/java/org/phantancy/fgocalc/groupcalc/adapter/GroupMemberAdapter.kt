@@ -44,14 +44,19 @@ class GroupMemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(binding.ivSvtAvatar)
             }
+            //点击头像移除成员
             binding.ivSvtAvatar.setOnClickListener {
                 mListener?.removeMember(member, position)
+            }
+            //点击详细设置
+            binding.llSetting.setOnClickListener {
+                mListener?.setSetting(member, position)
             }
             val adapter = GroupMemberCardAdapter()
             binding.rvCards.adapter = adapter
             adapter.submitList(member.cards)
             adapter.groupMemberCardListener = object : GroupMemberCardAdapter.GroupMemberCardListener {
-                override fun handleClickEvent(x: CardBO,position: Int) {
+                override fun handleClickEvent(x: CardBO, position: Int) {
                     if (chosenCardsCount < 3) {
                         //未满3张，可以选
                         //隐藏选中的卡
@@ -109,7 +114,7 @@ class GroupMemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     //退回已选的卡
-    fun returnEntity(x: CardBO){
+    fun returnEntity(x: CardBO) {
         //成员表位置，卡片位置设置显示
         mList[x.svtPosition].cards[x.position].isVisible = true
         val list = mList
@@ -121,7 +126,7 @@ class GroupMemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun addMember(position: Int)
         fun removeMember(member: GroupMemberVO, position: Int)
 
-        //        fun setSetting(position: Int)
+        fun setSetting(member: GroupMemberVO, position: Int)
         fun chooseCard(x: CardBO)
     }
 }

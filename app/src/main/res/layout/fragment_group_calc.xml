@@ -41,66 +41,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_svts"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cards"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="6"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/btn_setting1"
-            style="@style/ButtonWhite"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
-            android:text="设置从者1"
-            android:visibility="gone"
-            />
-
-        <Button
-            android:id="@+id/btn_setting2"
-            style="@style/ButtonWhite"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
-            android:text="设置从者2"
-            android:visibility="gone"
-            />
-
-        <Button
-            android:id="@+id/btn_setting3"
-            style="@style/ButtonWhite"
-            android:layout_width="0dp"
-            android:layout_weight="1.0"
-            android:text="设置从者3"
-            android:visibility="gone"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal"

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="克制"
+                android:layout_marginTop="10dp"
+                />
+
+            <!--阶职相性-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="职阶相性" />
+
+                <Spinner
+                    android:id="@+id/sp_affinity"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--阵营相性-->
+
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="允许直接输入指定atk" />
+            <!--atk-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_atk_total"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                app:itemTitle="atk"
+                android:hint="atk"
+                />
+            <View style="@style/line_x"/>
+
+            <!--总hp-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_hp_total"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                app:itemTitle="hp"
+                android:hint="hp"
+                />
+            <View style="@style/line_x"/>
+
+            <!--剩余hp-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_hp_left"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                app:itemTitle="剩余hp"
+                android:hint="剩余hp"
+                />
+            <View style="@style/line_x"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

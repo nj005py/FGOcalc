@@ -56,7 +56,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".groupcalc.activity.GroupCalcActy"
             android:screenOrientation="portrait"/>
-        <activity android:name=".groupcalc.activity.GroupSettingActy"
+        <activity android:name=".groupcalc.activity.GroupMemberSettingActy"
             android:screenOrientation="portrait"/>
 
         <provider

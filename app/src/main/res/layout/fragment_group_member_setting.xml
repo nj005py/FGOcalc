@@ -20,29 +20,112 @@
                 />
 
             <!--阶职相性-->
-            <LinearLayout style="@style/ConditionContainer">
-
-                <TextView
-                    style="@style/ConditionName"
-                    android:text="职阶相性" />
-
-                <Spinner
-                    android:id="@+id/sp_affinity"
-                    style="@style/ConditionSpinner" />
-
-            </LinearLayout>
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_affinity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemTitle="阶职相性"
+                app:itemContent="1.0x"
+                />
+            <View style="@style/line_x"/>
 
             <!--阵营相性-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_attribute"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemTitle="阵营相性"
+                />
+            <View style="@style/line_x"/>
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="宝具设置" />
+
+            <!--选择宝具-->
+
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_np_select"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemTitle="选择宝具"
+                app:itemContent="强化后 2宝"
+                />
+            <View style="@style/line_x"/>
 
 
             <TextView
                 style="@style/ConditionTips"
                 android:text="允许直接输入指定atk" />
+            <!--芙芙atk-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="芙芙atk" />
+
+                <Spinner
+                    android:id="@+id/sp_fou_atk"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+
+            <!--礼装atk-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="礼装atk" />
+
+                <Spinner
+                    android:id="@+id/sp_essence_atk"
+                    style="@style/ConditionSpinner" />
+
+            </LinearLayout>
+
+            <!--    等级-->
+            <LinearLayout style="@style/ConditionContainer">
+
+                <TextView
+                    style="@style/ConditionName"
+                    android:text="等级" />
+
+
+                <com.warkiz.widget.IndicatorSeekBar
+                    android:id="@+id/fam_sb_lv_svt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    app:isb_max="100"
+                    app:isb_min="1"
+                    app:isb_progress="25"
+                    app:isb_seek_smoothly="true"
+                    app:isb_show_tick_marks_type="oval"
+                    app:isb_tick_marks_size="13dp"
+                    app:isb_show_tick_texts="true"
+                    app:isb_tick_texts_size="15sp"
+                    app:isb_tick_texts_color="@color/blueWordPrimary"
+                    app:isb_tick_marks_color="@drawable/selector_tick_marks_color"
+                    app:isb_thumb_color="@color/blueWordPrimary"
+                    app:isb_thumb_size="15dp"
+                    app:isb_thumb_text_color="@color/blueWordPrimary"
+                    app:isb_show_thumb_text="true"
+                    app:isb_show_indicator="rounded_rectangle"
+                    app:isb_indicator_color="@color/blueWordPrimary"
+                    app:isb_indicator_text_color="@color/white"
+                    app:isb_indicator_text_size="18sp"
+                    app:isb_track_progress_color="@color/blueWordAccent"
+                    app:isb_track_progress_size="4dp"
+                    app:isb_only_thumb_draggable="false"/>
+
+            </LinearLayout>
+
             <!--atk-->
             <org.phantancy.fgocalc.view.ListEditTextView
                 android:id="@+id/view_atk_total"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="40dp"
                 app:itemTitle="atk"
                 android:hint="atk"
                 />

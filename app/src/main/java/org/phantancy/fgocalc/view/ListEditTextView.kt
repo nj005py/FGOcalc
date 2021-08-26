@@ -47,4 +47,9 @@ class ListEditTextView: LinearLayout {
             etContent.hint = hint
         }
     }
+
+    fun setTitle(title: String) {
+        tvTitle.text = title
+    }
+
 }

@@ -13,8 +13,7 @@ import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
  * 编队计算：成员配卡
  */
 class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyViewHolder>() {
-    private var mList: List<CardBO>? = null
-    var visibleCount = 6
+    var mList: List<CardBO>? = null
 
     inner class MyViewHolder(binding: EntityCardPickBinding) : RecyclerView.ViewHolder(binding.getRoot()) {
         var binding: EntityCardPickBinding
@@ -27,11 +26,7 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
                         Constant.getCardDrawable(it.type)))
 
                 binding.ivPickCard.setOnClickListener(View.OnClickListener {
-                    if (visibleCount > 3) {
-                        groupMemberCardListener?.handleClickEvent(getItem(position)!!)
-                        binding.ivPickCard.setVisibility(View.INVISIBLE)
-                        visibleCount--
-                    }
+                    groupMemberCardListener?.handleClickEvent(getItem(position)!!,position)
                 })
             }
 
@@ -45,7 +40,6 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
     fun submitList(x: List<CardBO>?) {
         x?.let {
             mList = x
-            visibleCount = 6
             notifyDataSetChanged()
         }
     }
@@ -53,7 +47,6 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
     fun returnEntity(x: CardBO) {
         val position = x.position
         mList!![position].isVisible = true
-        visibleCount++
         notifyItemChanged(position)
     }
 
@@ -75,7 +68,7 @@ class GroupMemberCardAdapter: RecyclerView.Adapter<GroupMemberCardAdapter.MyView
     }
 
     interface GroupMemberCardListener {
-        fun handleClickEvent(x: CardBO)
+        fun handleClickEvent(x: CardBO,position: Int)
     }
 
     var groupMemberCardListener: GroupMemberCardListener? = null

@@ -91,6 +91,12 @@ class GroupCalcFragment : BaseFragment() {
         val memberAdapter = GroupMemberAdapter();
         binding.rvMembers.adapter = memberAdapter
         binding.rvMembers.addItemDecoration(VerticalItemDecoration(ctx, 1f))
+        //选了的卡
+        val chosenCardAdapter = GroupChosenCardAdapter()
+        binding.rvChosenCard.adapter = chosenCardAdapter
+        val scale = resources.displayMetrics.density
+        binding.rvChosenCard.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
+        //成员事件
         memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener{
             override fun addMember(position: Int) {
                 svtPosition = position
@@ -100,13 +106,15 @@ class GroupCalcFragment : BaseFragment() {
 
             override fun removeMember(member: GroupMemberVO, position: Int) {
                 vm.removeMember(member,memberAdapter.mList)
+                memberAdapter.chosenCardsCount = 0
                 binding.ivCardEx.visibility = View.INVISIBLE
                 binding.cbOk4.visibility = View.INVISIBLE
-                vm.cleanResult()
+                chosenCardAdapter.cleanList()
             }
 
             override fun chooseCard(x: CardBO) {
-                //todo 选了卡
+                chosenCardAdapter.addEntity(x)
+                Log.i(TAG,"chosenCount: ${memberAdapter.chosenCardsCount}")
             }
 
 
@@ -122,16 +130,11 @@ class GroupCalcFragment : BaseFragment() {
 //        val svtAdapter = GroupServantAdapter()
 //        binding.rvSvts.adapter = svtAdapter
 //        binding.rvSvts.addItemDecoration(VerticalItemDecoration(ctx, 5f))
-        //选了的卡
-        val chosenCardAdapter = GroupChosenCardAdapter()
-        binding.rvChosenCard.adapter = chosenCardAdapter
-        val scale = resources.displayMetrics.density
-        binding.rvChosenCard.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
-        //点击已选卡
+        //已选卡事件
         chosenCardAdapter.groupChosenCardListener = object : GroupChosenCardAdapter.GroupChosenCardListener {
 
-            override fun handleClickEvent(x: CardBO?) {
-//                memberAdapter.
+            override fun handleClickEvent(x: CardBO) {
+                memberAdapter.returnEntity(x)
                 //去ex卡
                 binding.ivCardEx.visibility = View.INVISIBLE
                 binding.cbOk4.visibility = View.INVISIBLE

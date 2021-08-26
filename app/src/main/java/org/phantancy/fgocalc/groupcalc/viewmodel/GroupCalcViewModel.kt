@@ -190,10 +190,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     //移除编队成员
     fun removeMember(vo: GroupMemberVO,list: ArrayList<GroupMemberVO>) {
-        _memberGroup.value = _memberGroup.value?.run {
-            _memberGroup.value!!.remove(vo)
-            this
-        }
         list?.let {
             list.remove(vo)
             //从者位置重排列
@@ -204,12 +200,19 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                 member.cards?.let {
                     for (card in it){
                         card.svtPosition = memberPosition
+                        card.isVisible = true
                     }
                 }
                 //成员位置+1
                 memberPosition++
             }
+            _memberGroup.value = list
         }
+    }
+
+    //清理选卡
+    fun cleanChosenCards(){
+
     }
 
     //结果列表

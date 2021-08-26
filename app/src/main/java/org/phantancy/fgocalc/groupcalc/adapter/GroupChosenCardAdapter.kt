@@ -47,10 +47,21 @@ class GroupChosenCardAdapter : RecyclerView.Adapter<GroupChosenCardAdapter.Group
         notifyDataSetChanged()
     }
 
+    fun addEntity(x: CardBO){
+        mList?.add(x)
+        groupChosenCardListener?.handleBraveChain((mList.size == 3) && checkBraveChain(mList[0],mList[1],mList[2]))
+        notifyDataSetChanged()
+    }
+
     var groupChosenCardListener:GroupChosenCardListener? = null
 
+    //检查组合拳
+    fun checkBraveChain(card1:CardBO,card2:CardBO,card3:CardBO): Boolean {
+        return card1.svtPosition == card2.svtPosition && card2.svtPosition == card3.svtPosition
+    }
+
     interface GroupChosenCardListener {
-        fun handleClickEvent(x: CardBO?)
+        fun handleClickEvent(x: CardBO)
 
         //是否是同个从者组合拳
         fun handleBraveChain(isBraveChain: Boolean)

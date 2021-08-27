@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:itemTitle="阶职相性"
-                app:itemContent="1.0x"
+                app:itemContent="请选择"
                 />
             <View style="@style/line_x"/>
 
@@ -35,6 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:itemTitle="阵营相性"
+                app:itemContent="请选择"
                 />
             <View style="@style/line_x"/>
 
@@ -43,13 +44,12 @@
                 android:text="宝具设置" />
 
             <!--选择宝具-->
-
             <org.phantancy.fgocalc.view.ListItemView
                 android:id="@+id/view_np_select"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 app:itemTitle="选择宝具"
-                app:itemContent="强化后 2宝"
+                app:itemContent="请选择"
                 />
             <View style="@style/line_x"/>
 
@@ -57,46 +57,30 @@
             <TextView
                 style="@style/ConditionTips"
                 android:text="允许直接输入指定atk" />
-            <!--芙芙atk-->
-            <LinearLayout style="@style/ConditionContainer">
+            <!--等级-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                >
 
                 <TextView
-                    style="@style/ConditionName"
-                    android:text="芙芙atk" />
-
-                <Spinner
-                    android:id="@+id/sp_fou_atk"
-                    style="@style/ConditionSpinner" />
-
-            </LinearLayout>
-
-
-            <!--礼装atk-->
-            <LinearLayout style="@style/ConditionContainer">
-
-                <TextView
-                    style="@style/ConditionName"
-                    android:text="礼装atk" />
-
-                <Spinner
-                    android:id="@+id/sp_essence_atk"
-                    style="@style/ConditionSpinner" />
-
-            </LinearLayout>
-
-            <!--    等级-->
-            <LinearLayout style="@style/ConditionContainer">
-
-                <TextView
-                    style="@style/ConditionName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:paddingLeft="15dp"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/blueWordDark"
+                    android:textSize="14dp"
                     android:text="等级" />
-
 
                 <com.warkiz.widget.IndicatorSeekBar
                     android:id="@+id/fam_sb_lv_svt"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.0"
+                    android:layout_weight="3.0"
                     app:isb_max="100"
                     app:isb_min="1"
                     app:isb_progress="25"
@@ -120,6 +104,28 @@
                     app:isb_only_thumb_draggable="false"/>
 
             </LinearLayout>
+            <View style="@style/line_x"/>
+
+            <!--芙芙atk-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_fou_atk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemTitle="芙芙atk"
+                app:itemContent="请选择"
+                />
+            <View style="@style/line_x"/>
+
+
+            <!--礼装atk-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_essence_atk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemTitle="礼装atk"
+                app:itemContent="请选择"
+                />
+            <View style="@style/line_x"/>
 
             <!--atk-->
             <org.phantancy.fgocalc.view.ListEditTextView

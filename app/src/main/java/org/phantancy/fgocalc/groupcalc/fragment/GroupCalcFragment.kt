@@ -109,7 +109,7 @@ class GroupCalcFragment : BaseFragment() {
             override fun setSetting(member: GroupMemberVO, position: Int) {
                 //todo 去设置成员
                 settingLauncher.launch(Intent(mActy,GroupMemberSettingActy::class.java).apply {
-                    putExtra("GroupMemberVO",member)
+                    putExtra("groupMemberVO",member)
                 })
             }
         }

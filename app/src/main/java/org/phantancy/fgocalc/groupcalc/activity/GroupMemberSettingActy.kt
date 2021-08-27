@@ -12,12 +12,12 @@ import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
 import org.phantancy.fgocalc.common.Constant.ENTRY_GROUP
 import org.phantancy.fgocalc.databinding.ActyCalcBinding
-import org.phantancy.fgocalc.entity.CalcEntity
-import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.CalcContainerFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberSettingFragment
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
+import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
 import org.phantancy.fgocalc.viewmodel.CalcViewModel
 
 /**
@@ -25,7 +25,8 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel
  */
 class GroupMemberSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
-    private lateinit var vm: CalcViewModel
+    private lateinit var calcViewModel: CalcViewModel
+    private lateinit var groupSettingViewModel:GroupSettingViewModel
     private lateinit var containerFragment: CalcContainerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +36,15 @@ class GroupMemberSettingActy : BaseActy() {
 
 //        val servant = intent.getParcelableExtra<Parcelable>("servant") as ServantEntity
 //        val calcEntity = intent.getParcelableExtra<Parcelable>("calcEntity") as CalcEntity
+        val groupMemberVO = intent.getParcelableExtra<GroupMemberVO>("groupMemberVO")
 
-        vm = ViewModelProvider(this).get(CalcViewModel::class.java)
+        calcViewModel = ViewModelProvider(this).get(CalcViewModel::class.java)
+        groupSettingViewModel = ViewModelProvider(this).get(GroupSettingViewModel::class.java)
         //设置编队计算
-        vm.entry = ENTRY_GROUP
+        calcViewModel.entry = ENTRY_GROUP
 //        servant?.let { vm.servant = servant }
 //        calcEntity?.let { vm.calcEntity = calcEntity }
+        groupMemberVO?.let { groupSettingViewModel.servant = groupMemberVO.svtEntity }
 
         //tab标题列表
         val tabs = arrayListOf<String>("从者信息", "设置", "wiki")
@@ -83,7 +87,7 @@ class GroupMemberSettingActy : BaseActy() {
         //保存条件、buff
         containerFragment.save()
         val intent = Intent().apply {
-            putExtra("calcEntity",vm.calcEntity)
+            putExtra("calcEntity",calcViewModel.calcEntity)
         }
         setResult(Activity.RESULT_OK,intent)
         super.onBackPressed()

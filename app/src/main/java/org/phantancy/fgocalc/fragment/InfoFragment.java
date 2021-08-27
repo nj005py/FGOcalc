@@ -63,25 +63,6 @@ public class InfoFragment extends LazyFragment {
                         }
                     })
                     .into(binding.ivInfoAvatar);
-        } else {
-            Glide.with(ctx)
-                    .load(svt.avatarUrl)
-                    .placeholder(R.drawable.loading)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .addListener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            scheduleStartPostonedTransition(binding.ivInfoAvatar);
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            scheduleStartPostonedTransition(binding.ivInfoAvatar);
-                            return false;
-                        }
-                    })
-                    .into(binding.ivInfoAvatar);
         }
         binding.tvInfoName.setText(svt.name);
         binding.tvInfoNickname.setText(svt.nickname);

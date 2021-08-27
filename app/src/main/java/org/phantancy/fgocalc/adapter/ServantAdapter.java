@@ -55,12 +55,6 @@ public class ServantAdapter extends ListAdapter<ServantEntity, ServantAdapter.Vi
                         .placeholder(R.drawable.loading)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(binding.ivAvatar);
-            } else {
-                Glide.with(binding.getRoot().getContext())
-                        .load(x.avatarUrl)
-                        .placeholder(R.drawable.loading)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .into(binding.ivAvatar);
             }
 
             binding.ivAvatar.setOnClickListener(new View.OnClickListener() {

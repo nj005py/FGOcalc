@@ -66,10 +66,10 @@ class GroupCalcFragment : BaseFragment() {
         ) { result ->
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
-                    val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
-                    calcEntity?.let {
-//                        vm.updateServantCards(svtPosition, calcEntity)
-                    }
+//                    val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
+//                    calcEntity?.let {
+////                        vm.updateServantCards(svtPosition, calcEntity)
+//                    }
                 }
             }
         }

@@ -37,12 +37,6 @@ class GroupMemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .placeholder(R.drawable.loading)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(binding.ivSvtAvatar)
-            } else {
-                Glide.with(binding.root.context)
-                        .load(svt.avatarUrl)
-                        .placeholder(R.drawable.loading)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .into(binding.ivSvtAvatar)
             }
             //点击头像移除成员
             binding.ivSvtAvatar.setOnClickListener {

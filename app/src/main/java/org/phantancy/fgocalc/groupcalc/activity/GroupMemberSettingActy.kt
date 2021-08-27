@@ -26,7 +26,7 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel
 class GroupMemberSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
     private lateinit var calcViewModel: CalcViewModel
-    private lateinit var groupSettingViewModel:GroupSettingViewModel
+    private lateinit var groupSettingViewModel: GroupSettingViewModel
     private lateinit var containerFragment: CalcContainerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,10 @@ class GroupMemberSettingActy : BaseActy() {
         calcViewModel.entry = ENTRY_GROUP
 //        servant?.let { vm.servant = servant }
 //        calcEntity?.let { vm.calcEntity = calcEntity }
-        groupMemberVO?.let { groupSettingViewModel.servant = groupMemberVO.svtEntity }
+        groupMemberVO?.let {
+            groupSettingViewModel.servant = groupMemberVO.svtEntity
+            calcViewModel.servant = groupMemberVO.svtEntity
+        }
 
         //tab标题列表
         val tabs = arrayListOf<String>("从者信息", "设置", "wiki")
@@ -87,9 +90,9 @@ class GroupMemberSettingActy : BaseActy() {
         //保存条件、buff
         containerFragment.save()
         val intent = Intent().apply {
-            putExtra("calcEntity",calcViewModel.calcEntity)
+            putExtra("calcEntity", calcViewModel.calcEntity)
         }
-        setResult(Activity.RESULT_OK,intent)
+        setResult(Activity.RESULT_OK, intent)
         super.onBackPressed()
     }
 }

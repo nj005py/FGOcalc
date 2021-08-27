@@ -52,4 +52,8 @@ class ListEditTextView: LinearLayout {
         tvTitle.text = title
     }
 
+    fun setContent(content:String) {
+        etContent.setText(content)
+    }
+
 }

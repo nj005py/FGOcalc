@@ -36,6 +36,12 @@ class GroupMemberSettingFragment : LazyFragment() {
         //保存数据
 
         //阶职相性
+        vm.servant?.let {
+            //atk hp
+            binding.viewAtkTotal.setContent("${it.atkDefault}")
+            binding.viewHpTotal.setContent("${it.hpDefault}")
+            binding.viewHpLeft.setContent("${it.hpDefault}")
+        }
         binding.viewAffinity.setOnClickListener {
             val picker = OptionPicker(mActy)
             picker.setData(ConditionData.affinityMap.keys.toList())

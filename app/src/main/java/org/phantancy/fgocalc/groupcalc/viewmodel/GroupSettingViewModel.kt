@@ -7,10 +7,12 @@ import androidx.lifecycle.LiveData
 import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.entity.ServantEntity
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 
 class GroupSettingViewModel(app: Application) : AndroidViewModel(app) {
     private lateinit var npRepository: NoblePhantasmRepository
     var servant : ServantEntity = ServantEntity()
+    var memberVO: GroupMemberVO = GroupMemberVO()
     init {
         npRepository = NoblePhantasmRepository(app)
     }

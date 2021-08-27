@@ -46,9 +46,9 @@ class GroupMemberSettingActy : BaseActy() {
 //        calcEntity?.let { vm.calcEntity = calcEntity }
         groupMemberVO?.let {
             groupSettingViewModel.servant = groupMemberVO.svtEntity
+            groupSettingViewModel.memberVO = groupMemberVO
             calcViewModel.servant = groupMemberVO.svtEntity
         }
-
         //tab标题列表
         val tabs = arrayListOf<String>("从者信息", "设置", "wiki")
         //wiki页初始化

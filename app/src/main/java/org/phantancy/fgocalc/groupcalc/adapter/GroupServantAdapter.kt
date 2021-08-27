@@ -29,12 +29,6 @@ class GroupServantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                         .placeholder(R.drawable.loading)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(binding.ivAvatar)
-            } else {
-                Glide.with(binding.root.context)
-                        .load(svt.avatarUrl)
-                        .placeholder(R.drawable.loading)
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .into(binding.ivAvatar)
             }
             binding.ivAvatar.setOnClickListener{
                 mListener?.removeSvt(svt,position)

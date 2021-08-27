@@ -20,8 +20,6 @@ public class ServantEntity implements Parcelable {
      * 基础信息
      */
     @Ignore
-    public String avatarUrl;
-    @Ignore
     public int avatarRes = -1;
     //从者id
     @PrimaryKey
@@ -178,7 +176,6 @@ public class ServantEntity implements Parcelable {
     }
 
     protected ServantEntity(Parcel in) {
-        avatarUrl = in.readString();
         avatarRes = in.readInt();
         id = in.readInt();
         name = in.readString();
@@ -224,7 +221,6 @@ public class ServantEntity implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(avatarUrl);
         dest.writeInt(avatarRes);
         dest.writeInt(id);
         dest.writeString(name);

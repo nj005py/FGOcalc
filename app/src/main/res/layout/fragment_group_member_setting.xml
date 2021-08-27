@@ -16,7 +16,6 @@
             <TextView
                 style="@style/ConditionTips"
                 android:text="克制"
-                android:layout_marginTop="10dp"
                 />
 
             <!--阶职相性-->
@@ -81,7 +80,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3.0"
-                    app:isb_max="100"
+                    app:isb_max="120"
                     app:isb_min="1"
                     app:isb_progress="25"
                     app:isb_seek_smoothly="true"
@@ -127,12 +126,12 @@
                 />
             <View style="@style/line_x"/>
 
-            <!--atk-->
+            <!--总atk-->
             <org.phantancy.fgocalc.view.ListEditTextView
                 android:id="@+id/view_atk_total"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                app:itemTitle="atk"
+                app:itemTitle="总atk"
                 android:hint="atk"
                 />
             <View style="@style/line_x"/>
@@ -143,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 app:itemTitle="hp"
-                android:hint="hp"
+                android:hint="总hp"
                 />
             <View style="@style/line_x"/>
 

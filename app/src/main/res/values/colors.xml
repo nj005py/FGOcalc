@@ -22,4 +22,6 @@
     <color name="blueWordPrimary">#2B579A</color>
     <color name="blueWordDark">#124078</color>
     <color name="blueWordAccent">#C2D5F2</color>
+    <color name="blue200">#BBDEFB</color>
+    <color name="lightBlue300">#4FC3F7</color>
 </resources>

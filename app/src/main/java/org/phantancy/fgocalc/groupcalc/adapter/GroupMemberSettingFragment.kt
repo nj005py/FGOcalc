@@ -15,6 +15,7 @@ import org.phantancy.fgocalc.databinding.FragmentGroupMemberSettingBinding
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.fragment.LazyFragment
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
+import org.phantancy.fgocalc.view.ListItemView
 
 /**
  * 编队从者条件
@@ -31,24 +32,40 @@ class GroupMemberSettingFragment : LazyFragment() {
     override fun init() {
         super.init()
         vm = ViewModelProvider(mActy).get(GroupSettingViewModel::class.java)
+        //回显数据
+        //保存数据
+
+        //阶职相性
         binding.viewAffinity.setOnClickListener {
             val picker = OptionPicker(mActy)
             picker.setData(ConditionData.affinityMap.keys.toList())
             picker.setOnOptionPickedListener { position, item ->
-                Log.i(TAG, "item : ${item as String} position: ${position}")
                 binding.viewAffinity.setContent(item as String)
             }
             picker.show()
         }
-
-        //获取宝具列表再初始化
+        //阵营相性
+        binding.viewAttribute.setOnClickListener {
+            val picker = OptionPicker(mActy)
+            picker.setData(ConditionData.attributeMap.keys.toList())
+            picker.setOnOptionPickedListener { position, item ->
+                binding.viewAttribute.setContent(item as String)
+            }
+            picker.show()
+        }
+        //选择宝具 获取宝具列表再初始化
         vm.getNpEntities().observe(viewLifecycleOwner, Observer { npList ->
             //宝具选择
             binding.viewNpSelect.setOnClickListener {
                 initNpSelectDialog(npList)
             }
         })
-
+        //等级
+        //芙芙atk
+        //礼装atk
+        //总atk
+        //总hp
+        //剩余hp
     }
 
     //宝具选择弹窗
@@ -67,7 +84,7 @@ class GroupMemberSettingFragment : LazyFragment() {
             override fun provideFirstData(): List<String> {
                 //宝具描述列表
                 val list = ArrayList<String>()
-                for (np in npList){
+                for (np in npList) {
                     list.add(np.npDes)
                 }
                 return list
@@ -123,7 +140,16 @@ class GroupMemberSettingFragment : LazyFragment() {
                 "四宝" -> npRate = npList[npPosition].npLv4
                 "五宝" -> npRate = npList[npPosition].npLv5
             }
-            Log.i(TAG,"宝具：${npPosition} 倍率：${npRate}")
+            Log.i(TAG, "宝具：${npPosition} 倍率：${npRate}")
+        }
+        picker.show()
+    }
+
+    private fun initSingleSelectionDialog(selections: List<String>, itemView: ListItemView){
+        val picker = OptionPicker(mActy)
+        picker.setData(selections)
+        picker.setOnOptionPickedListener { position, item ->
+            itemView.setContent(item as String)
         }
         picker.show()
     }

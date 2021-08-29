@@ -10,10 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.gzuliyujiang.wheelpicker.LinkagePicker
 import com.github.gzuliyujiang.wheelpicker.OptionPicker
 import com.github.gzuliyujiang.wheelpicker.contract.LinkageProvider
+import com.warkiz.widget.IndicatorSeekBar
+import com.warkiz.widget.OnSeekChangeListener
+import com.warkiz.widget.SeekParams
 import org.phantancy.fgocalc.data.ConditionData
 import org.phantancy.fgocalc.databinding.FragmentGroupMemberSettingBinding
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.fragment.LazyFragment
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberSettingVO
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
 import org.phantancy.fgocalc.view.ListItemView
 
@@ -23,6 +27,7 @@ import org.phantancy.fgocalc.view.ListItemView
 class GroupMemberSettingFragment : LazyFragment() {
     private lateinit var binding: FragmentGroupMemberSettingBinding
     private lateinit var vm: GroupSettingViewModel
+    private lateinit var settingVO: GroupMemberSettingVO
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupMemberSettingBinding.inflate(inflater, container, false)
@@ -32,21 +37,28 @@ class GroupMemberSettingFragment : LazyFragment() {
     override fun init() {
         super.init()
         vm = ViewModelProvider(mActy).get(GroupSettingViewModel::class.java)
+        settingVO = GroupMemberSettingVO()
         //回显数据
         //保存数据
 
-        //阶职相性
+
         vm.servant?.let {
             //atk hp
             binding.viewAtkTotal.setContent("${it.atkDefault}")
             binding.viewHpTotal.setContent("${it.hpDefault}")
             binding.viewHpLeft.setContent("${it.hpDefault}")
         }
+        //阶职相性
+        if (!settingVO?.affinity.isEmpty()) {
+            binding.viewAffinity.setContent(settingVO?.affinity)
+        }
         binding.viewAffinity.setOnClickListener {
             val picker = OptionPicker(mActy)
             picker.setData(ConditionData.affinityMap.keys.toList())
             picker.setOnOptionPickedListener { position, item ->
                 binding.viewAffinity.setContent(item as String)
+                settingVO.affinity = item as String
+
             }
             picker.show()
         }
@@ -56,6 +68,7 @@ class GroupMemberSettingFragment : LazyFragment() {
             picker.setData(ConditionData.attributeMap.keys.toList())
             picker.setOnOptionPickedListener { position, item ->
                 binding.viewAttribute.setContent(item as String)
+                settingVO.attribute = item
             }
             picker.show()
         }
@@ -67,6 +80,22 @@ class GroupMemberSettingFragment : LazyFragment() {
             }
         })
         //等级
+        vm.getSvtExpEntities().observe(viewLifecycleOwner, Observer { expList ->
+
+            //进度条最大值
+            binding.famSbLvSvt.setProgress(vm.memberVO.svtEntity.rewardLv.toFloat())
+            vm.svtExpEntities = expList
+            binding.famSbLvSvt.setOnSeekChangeListener(object : OnSeekChangeListener {
+                override fun onSeeking(seekParams: SeekParams) {
+//                    binding..setText(vm.onAtkLvChanged(seekParams.progress))
+//                    binding.viewAtkTotal.setContent()
+//                    binding.etHpTotal.setText(vm.onHpLvChanged(seekParams.progress))
+                }
+
+                override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
+                override fun onStopTrackingTouch(seekBar: IndicatorSeekBar) {}
+            })
+        })
         //芙芙atk
         //礼装atk
         //总atk

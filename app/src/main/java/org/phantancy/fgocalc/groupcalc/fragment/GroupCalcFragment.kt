@@ -70,6 +70,10 @@ class GroupCalcFragment : BaseFragment() {
 //                    calcEntity?.let {
 ////                        vm.updateServantCards(svtPosition, calcEntity)
 //                    }
+                    val memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
+                    memberVO?.let {
+                        //todo 更新vo
+                    }
                 }
             }
         }

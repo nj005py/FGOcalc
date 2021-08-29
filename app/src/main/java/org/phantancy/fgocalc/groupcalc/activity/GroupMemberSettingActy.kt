@@ -27,7 +27,6 @@ class GroupMemberSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
     private lateinit var calcViewModel: CalcViewModel
     private lateinit var groupSettingViewModel: GroupSettingViewModel
-    private lateinit var containerFragment: CalcContainerFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,9 +87,9 @@ class GroupMemberSettingActy : BaseActy() {
 
     override fun onBackPressed() {
         //保存条件、buff
-        containerFragment.save()
         val intent = Intent().apply {
-            putExtra("calcEntity", calcViewModel.calcEntity)
+//            putExtra("calcEntity", calcViewModel.calcEntity)
+            putExtra("groupMemberVO",groupSettingViewModel.memberVO)
         }
         setResult(Activity.RESULT_OK, intent)
         super.onBackPressed()

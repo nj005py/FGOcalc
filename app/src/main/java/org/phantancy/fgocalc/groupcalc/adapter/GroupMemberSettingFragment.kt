@@ -17,7 +17,6 @@ import org.phantancy.fgocalc.data.ConditionData
 import org.phantancy.fgocalc.databinding.FragmentGroupMemberSettingBinding
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.fragment.LazyFragment
-import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberSettingVO
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
 import org.phantancy.fgocalc.view.ListItemView
 
@@ -27,7 +26,6 @@ import org.phantancy.fgocalc.view.ListItemView
 class GroupMemberSettingFragment : LazyFragment() {
     private lateinit var binding: FragmentGroupMemberSettingBinding
     private lateinit var vm: GroupSettingViewModel
-    private lateinit var settingVO: GroupMemberSettingVO
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupMemberSettingBinding.inflate(inflater, container, false)
@@ -37,28 +35,71 @@ class GroupMemberSettingFragment : LazyFragment() {
     override fun init() {
         super.init()
         vm = ViewModelProvider(mActy).get(GroupSettingViewModel::class.java)
-        settingVO = GroupMemberSettingVO()
+        initView()
         //回显数据
+        initData()
         //保存数据
+    }
 
+    private fun initData() {
 
-        vm.servant?.let {
-            //atk hp
-            binding.viewAtkTotal.setContent("${it.atkDefault}")
-            binding.viewHpTotal.setContent("${it.hpDefault}")
-            binding.viewHpLeft.setContent("${it.hpDefault}")
+        vm.memberVO?.let {
+            //阶职相性
+            if (it.settingVO.affinity.isNotEmpty()) {
+                binding.viewAffinity.setContent(it.settingVO.affinity)
+            } else {
+                //默认值
+                val key = ConditionData.getAffinityKeys()[0]
+                val value = ConditionData.getAffinityValues()[0]
+                binding.viewAffinity.setContent(key)
+                it.settingVO.affinity = key
+                it.settingBO.affinityMod = value
+            }
+            //阵营相性
+            if (it.settingVO.attribute.isNotEmpty()) {
+                binding.viewAttribute.setContent(it.settingVO.attribute)
+            } else {
+                val key = ConditionData.getAttributeKeys()[0]
+                val value = ConditionData.getAffinityValues()[0]
+                binding.viewAttribute.setContent(key)
+                it.settingVO.attribute = key
+                it.settingBO.attributeMod = value
+            }
+            //选择宝具 获取宝具列表再初始化
+
+            //等级
+            //芙芙atk
+            //礼装atk
+            //总atk
+            if (it.settingVO.atkTotal != 0) {
+                binding.viewAtkTotal.setContent("${it.settingVO.atkTotal}")
+            } else {
+                vm.servant?.let {
+                    binding.viewAtkTotal.setContent("${it.atkDefault}")
+                    vm.memberVO.settingVO.atkTotal = it.atkDefault
+                    vm.memberVO.settingBO.atk = it.atkDefault.toDouble()
+                }
+            }
+            //总hp
+            //剩余hp
+            vm.servant?.let {
+                //atk hp
+                binding.viewHpTotal.setContent("${it.hpDefault}")
+                binding.viewHpLeft.setContent("${it.hpDefault}")
+            }
         }
+
+    }
+
+    private fun initView() {
         //阶职相性
-        if (!settingVO?.affinity.isEmpty()) {
-            binding.viewAffinity.setContent(settingVO?.affinity)
-        }
         binding.viewAffinity.setOnClickListener {
             val picker = OptionPicker(mActy)
             picker.setData(ConditionData.affinityMap.keys.toList())
             picker.setOnOptionPickedListener { position, item ->
                 binding.viewAffinity.setContent(item as String)
-                settingVO.affinity = item as String
-
+                vm.memberVO.settingVO.affinity = item as String
+                vm.memberVO.settingBO.affinityMod = ConditionData.affinityMap[item]!!
             }
             picker.show()
         }
@@ -68,12 +109,28 @@ class GroupMemberSettingFragment : LazyFragment() {
             picker.setData(ConditionData.attributeMap.keys.toList())
             picker.setOnOptionPickedListener { position, item ->
                 binding.viewAttribute.setContent(item as String)
-                settingVO.attribute = item
+                vm.memberVO?.settingVO?.attribute = item
+                vm.memberVO?.settingBO?.attributeMod = ConditionData.attributeMap[item]!!
             }
             picker.show()
         }
         //选择宝具 获取宝具列表再初始化
         vm.getNpEntities().observe(viewLifecycleOwner, Observer { npList ->
+            //回显
+            vm.memberVO?.let {
+                if (it.settingVO.npDes.isNotEmpty()) {
+                    binding.viewNpSelect.setContent(it.settingVO.npDes)
+                } else {
+                    //默认宝具1，lv1
+                    val np = npList[0]
+                    val content = genNpContent(np.npDes,"一宝")
+                    binding.viewNpSelect.setContent(content)
+                    vm.memberVO.settingVO.npDes = content
+                    vm.memberVO.settingBO.npEntity = np
+                    vm.memberVO.settingBO.npDmgMultiplier = np.npLv1
+                }
+            }
+
             //宝具选择
             binding.viewNpSelect.setOnClickListener {
                 initNpSelectDialog(npList)
@@ -81,15 +138,18 @@ class GroupMemberSettingFragment : LazyFragment() {
         })
         //等级
         vm.getSvtExpEntities().observe(viewLifecycleOwner, Observer { expList ->
-
             //进度条最大值
-            binding.famSbLvSvt.setProgress(vm.memberVO.svtEntity.rewardLv.toFloat())
+//            binding.famSbLvSvt.setProgress(vm.memberVO.svtEntity.rewardLv.toFloat())
+            vm.memberVO?.let {
+                binding.famSbLvSvt.setProgress(it.settingVO.lv)
+            }
             vm.svtExpEntities = expList
             binding.famSbLvSvt.setOnSeekChangeListener(object : OnSeekChangeListener {
                 override fun onSeeking(seekParams: SeekParams) {
 //                    binding..setText(vm.onAtkLvChanged(seekParams.progress))
 //                    binding.viewAtkTotal.setContent()
 //                    binding.etHpTotal.setText(vm.onHpLvChanged(seekParams.progress))
+                    vm.memberVO?.settingVO?.lv = seekParams.progressFloat
                 }
 
                 override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
@@ -163,29 +223,42 @@ class GroupMemberSettingFragment : LazyFragment() {
         })
         picker.setOnLinkagePickedListener { npDes, lv, _ ->
             //显示
-            val content = "${npDes} ${lv}"
+            val content = genNpContent(npDes as String,lv as String)
             binding.viewNpSelect.setContent(content)
+            vm.memberVO.settingVO.npDes = content
             //数据
             val npPosition = picker.firstWheelView.currentPosition
-            var npRate = 0.0
+            var npDmgMultiplier = 0.0
+            var np = npList[npPosition]
             when (lv) {
-                "一宝" -> npRate = npList[npPosition].npLv1
-                "二宝" -> npRate = npList[npPosition].npLv2
-                "三宝" -> npRate = npList[npPosition].npLv3
-                "四宝" -> npRate = npList[npPosition].npLv4
-                "五宝" -> npRate = npList[npPosition].npLv5
+                "一宝" -> npDmgMultiplier = np.npLv1
+                "二宝" -> npDmgMultiplier = np.npLv2
+                "三宝" -> npDmgMultiplier = np.npLv3
+                "四宝" -> npDmgMultiplier = np.npLv4
+                "五宝" -> npDmgMultiplier = np.npLv5
             }
-            Log.i(TAG, "宝具：${npPosition} 倍率：${npRate}")
+            vm.memberVO.settingBO.npEntity = np
+            vm.memberVO.settingBO.npDmgMultiplier = npDmgMultiplier
+            //更换宝具卡
+            val npCardPosition = vm.memberVO.cards.size - 1
+            val npCardBO = vm.memberVO.cards[npCardPosition]
+            npCardBO.type = np.npColor
+            vm.memberVO.cards[npCardPosition] = npCardBO
+            Log.i(TAG, "宝具：${npPosition} 倍率：${npDmgMultiplier}")
         }
         picker.show()
     }
 
-    private fun initSingleSelectionDialog(selections: List<String>, itemView: ListItemView){
+    private fun initSingleSelectionDialog(selections: List<String>, itemView: ListItemView) {
         val picker = OptionPicker(mActy)
         picker.setData(selections)
         picker.setOnOptionPickedListener { position, item ->
             itemView.setContent(item as String)
         }
         picker.show()
+    }
+
+    private fun genNpContent(npDes:String, lv: String): String{
+        return "$npDes ${lv}"
     }
 }

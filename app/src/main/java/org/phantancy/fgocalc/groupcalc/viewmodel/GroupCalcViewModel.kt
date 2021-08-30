@@ -193,9 +193,8 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         list?.let {
             list.remove(vo)
             //从者位置重排列
-            var memberPosition = 0
             //遍历成员
-            for (member in list){
+            for ((memberPosition, member) in list.withIndex()){
                 //遍历成员卡
                 member.cards?.let {
                     for (card in it){
@@ -204,10 +203,27 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                     }
                 }
                 //成员位置+1
-                memberPosition++
             }
             _memberGroup.value = list
         }
+    }
+
+    //更新编队成员
+    fun updateMember(vo: GroupMemberVO,list: ArrayList<GroupMemberVO>, memberPosition: Int){
+        list?.let {
+            //更新成员
+            list[memberPosition] = vo
+            for ((index,member) in list.withIndex()){
+                //遍历成员卡
+                member.cards?.let {
+                    for (card in it){
+                        card.svtPosition = index
+                        card.isVisible = true
+                    }
+                }
+            }
+        }
+        _memberGroup.value = list
     }
 
     //清理选卡

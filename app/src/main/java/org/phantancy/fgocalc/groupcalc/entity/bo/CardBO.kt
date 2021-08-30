@@ -27,6 +27,7 @@ data class CardBO(
 
     constructor(parcel: Parcel) : this() {
         type = parcel.readString()!!
+        svtId = parcel.readInt()
         svtPosition = parcel.readInt()
         position = parcel.readInt()
         extraAtk = parcel.readDouble()
@@ -35,6 +36,7 @@ data class CardBO(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(type)
+        parcel.writeInt(svtId)
         parcel.writeInt(svtPosition)
         parcel.writeInt(position)
         parcel.writeDouble(extraAtk)

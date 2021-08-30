@@ -6,15 +6,15 @@ import androidx.collection.SimpleArrayMap
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.util.readSimpleArrayMap
 import org.phantancy.fgocalc.util.writeSimpleArrayMap
-import java.io.Serializable
 
-data class CalcBO(
+//条件buff逻辑数据
+data class GroupMemberSettingBO(
         //职阶克制
         var affinityMod: Double = 2.0,
         //阵营克制
         var attributeMod: Double = 1.0,
         //选择宝具
-        var npEntity: NoblePhantasmEntity?,
+        var npEntity: NoblePhantasmEntity? = null,
         //宝具伤害倍率
         var npDmgMultiplier: Double = 0.0,
         //总atk
@@ -52,12 +52,12 @@ data class CalcBO(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<CalcBO> {
-        override fun createFromParcel(parcel: Parcel): CalcBO {
-            return CalcBO(parcel)
+    companion object CREATOR : Parcelable.Creator<GroupMemberSettingBO> {
+        override fun createFromParcel(parcel: Parcel): GroupMemberSettingBO {
+            return GroupMemberSettingBO(parcel)
         }
 
-        override fun newArray(size: Int): Array<CalcBO?> {
+        override fun newArray(size: Int): Array<GroupMemberSettingBO?> {
             return arrayOfNulls(size)
         }
     }

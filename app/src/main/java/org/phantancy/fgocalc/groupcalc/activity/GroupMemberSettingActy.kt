@@ -16,6 +16,8 @@ import org.phantancy.fgocalc.fragment.CalcContainerFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberSettingFragment
+import org.phantancy.fgocalc.groupcalc.entity.bo.GroupMemberSettingBO
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberSettingVO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
 import org.phantancy.fgocalc.viewmodel.CalcViewModel
@@ -27,6 +29,7 @@ class GroupMemberSettingActy : BaseActy() {
     private lateinit var binding: ActyCalcBinding
     private lateinit var calcViewModel: CalcViewModel
     private lateinit var groupSettingViewModel: GroupSettingViewModel
+    private var memberPosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class GroupMemberSettingActy : BaseActy() {
 //        val servant = intent.getParcelableExtra<Parcelable>("servant") as ServantEntity
 //        val calcEntity = intent.getParcelableExtra<Parcelable>("calcEntity") as CalcEntity
         val groupMemberVO = intent.getParcelableExtra<GroupMemberVO>("groupMemberVO")
+        memberPosition = intent.getIntExtra("memberPosition",0)
 
         calcViewModel = ViewModelProvider(this).get(CalcViewModel::class.java)
         groupSettingViewModel = ViewModelProvider(this).get(GroupSettingViewModel::class.java)
@@ -90,6 +94,7 @@ class GroupMemberSettingActy : BaseActy() {
         val intent = Intent().apply {
 //            putExtra("calcEntity", calcViewModel.calcEntity)
             putExtra("groupMemberVO",groupSettingViewModel.memberVO)
+            putExtra("memberPosition",memberPosition)
         }
         setResult(Activity.RESULT_OK, intent)
         super.onBackPressed()

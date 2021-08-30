@@ -45,7 +45,10 @@ class GroupCalcFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(GroupCalcActy@ this).get(GroupCalcViewModel::class.java)
-
+        //成员适配器
+        val memberAdapter = GroupMemberAdapter();
+        //选卡适配器
+        val chosenCardAdapter = GroupChosenCardAdapter()
         //搜索从者
         val searchServantLauncher = registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
@@ -66,39 +69,41 @@ class GroupCalcFragment : BaseFragment() {
         ) { result ->
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
-//                    val calcEntity = it.getParcelableExtra("calcEntity") as CalcEntity
-//                    calcEntity?.let {
-////                        vm.updateServantCards(svtPosition, calcEntity)
-//                    }
                     val memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
+                    val memberPosition = it.getIntExtra("memberPosition", 0)
                     memberVO?.let {
                         //todo 更新vo
+                        vm.updateMember(memberVO, memberAdapter.mList, memberPosition)
+                        //条件变动，卡片复位
+                        memberAdapter.chosenCardsCount = 0
+                        binding.ivCardEx.visibility = View.INVISIBLE
+                        binding.cbOk4.visibility = View.INVISIBLE
+                        chosenCardAdapter.cleanList()
                     }
                 }
             }
         }
+
         binding.viewEnemy.setTitle("设置敌方")
         binding.viewEnemy.setOnClickListener {
             ToastUtils.showToast("click")
         }
         //成员
-        val memberAdapter = GroupMemberAdapter();
         binding.rvMembers.adapter = memberAdapter
         binding.rvMembers.addItemDecoration(VerticalItemDecoration(ctx, 1f))
         //选了的卡
-        val chosenCardAdapter = GroupChosenCardAdapter()
         binding.rvChosenCard.adapter = chosenCardAdapter
         val scale = resources.displayMetrics.density
         binding.rvChosenCard.addItemDecoration(LinearItemDecoration((60 * scale + 0.5f).toInt()))
         //成员事件
-        memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener{
+        memberAdapter.mListener = object : GroupMemberAdapter.GroupMemberListener {
             override fun addMember(position: Int) {
                 val intent = Intent(ctx, SearchServantActy::class.java)
                 searchServantLauncher.launch(intent)
             }
 
             override fun removeMember(member: GroupMemberVO, position: Int) {
-                vm.removeMember(member,memberAdapter.mList)
+                vm.removeMember(member, memberAdapter.mList)
                 memberAdapter.chosenCardsCount = 0
                 binding.ivCardEx.visibility = View.INVISIBLE
                 binding.cbOk4.visibility = View.INVISIBLE
@@ -107,17 +112,18 @@ class GroupCalcFragment : BaseFragment() {
 
             override fun chooseCard(x: CardBO) {
                 chosenCardAdapter.addEntity(x)
-                Log.i(TAG,"chosenCount: ${memberAdapter.chosenCardsCount}")
+                Log.i(TAG, "chosenCount: ${memberAdapter.chosenCardsCount}")
             }
 
             override fun setSetting(member: GroupMemberVO, position: Int) {
                 //todo 去设置成员
-                settingLauncher.launch(Intent(mActy,GroupMemberSettingActy::class.java).apply {
-                    putExtra("groupMemberVO",member)
+                settingLauncher.launch(Intent(mActy, GroupMemberSettingActy::class.java).apply {
+                    putExtra("groupMemberVO", member)
+                    putExtra("memberPosition", position)
                 })
             }
         }
-        vm.memberGroup.observe(viewLifecycleOwner){
+        vm.memberGroup.observe(viewLifecycleOwner) {
             memberAdapter.submitList(it)
         }
         //已选卡事件
@@ -148,33 +154,26 @@ class GroupCalcFragment : BaseFragment() {
         //计算
         binding.btnCalc.setOnClickListener {
 //            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>,isBraveChain)
-            for (x in memberAdapter.mList){
+            for (x in memberAdapter.mList) {
                 val card = x.cards[0]
                 val out = "${x.svtEntity.name} ${card.svtId} ${card.svtPosition} ${card.position}"
-                Log.i(TAG,out)
+                Log.i(TAG, out)
             }
         }
 
         //结果
         val resultAdapter = ResultAdapter()
         binding.rvCalcResult.adapter = resultAdapter
-        binding.rvCalcResult.addItemDecoration(SpacesItemDecoration(SpacesItemDecoration.dip2px(ctx,5.0f)))
+        binding.rvCalcResult.addItemDecoration(SpacesItemDecoration(SpacesItemDecoration.dip2px(ctx, 5.0f)))
         vm.resultList.observe(viewLifecycleOwner, Observer { result ->
             resultAdapter.submitList(result)
         })
+
+
     }
 
-    fun launchSetting(svt: ServantEntity, position: Int, calcEntity: CalcEntity,
-                      settingLauncher: ActivityResultLauncher<Intent>) {
-        val intent = Intent(ctx, GroupMemberSettingActy::class.java).apply {
-            putExtra("servant", svt)
-            putExtra("calcEntity", calcEntity)
-        }
-        settingLauncher.launch(intent)
-    }
-
-    fun safeGetCalcEntity(position: Int, list: List<CalcEntity>): CalcEntity{
-        if (list?.size > 0){
+    fun safeGetCalcEntity(position: Int, list: List<CalcEntity>): CalcEntity {
+        if (list?.size > 0) {
             list[position].source = 1
             return list[position]
         } else {

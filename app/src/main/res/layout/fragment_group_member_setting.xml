@@ -26,7 +26,7 @@
                 app:itemTitle="阶职相性"
                 app:itemContent="请选择"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <!--阵营相性-->
             <org.phantancy.fgocalc.view.ListItemView
@@ -36,7 +36,7 @@
                 app:itemTitle="阵营相性"
                 app:itemContent="请选择"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <TextView
                 style="@style/ConditionTips"
@@ -50,7 +50,7 @@
                 app:itemTitle="选择宝具"
                 app:itemContent="请选择"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
 
             <TextView
@@ -82,6 +82,7 @@
                     android:layout_weight="3.0"
                     app:isb_max="120"
                     app:isb_min="1"
+                    app:isb_progress="90"
                     app:isb_seek_smoothly="true"
                     app:isb_show_tick_marks_type="oval"
                     app:isb_tick_marks_size="13dp"
@@ -102,7 +103,7 @@
                     app:isb_only_thumb_draggable="false"/>
 
             </LinearLayout>
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <!--芙芙atk-->
             <org.phantancy.fgocalc.view.ListItemView
@@ -112,7 +113,7 @@
                 app:itemTitle="芙芙atk"
                 app:itemContent="请选择"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
 
             <!--礼装atk-->
@@ -123,7 +124,7 @@
                 app:itemTitle="礼装atk"
                 app:itemContent="请选择"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <!--总atk-->
             <org.phantancy.fgocalc.view.ListEditTextView
@@ -133,7 +134,7 @@
                 app:itemTitle="总atk"
                 android:hint="atk"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <!--总hp-->
             <org.phantancy.fgocalc.view.ListEditTextView
@@ -143,7 +144,7 @@
                 app:itemTitle="hp"
                 android:hint="总hp"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
             <!--剩余hp-->
             <org.phantancy.fgocalc.view.ListEditTextView
@@ -153,7 +154,7 @@
                 app:itemTitle="剩余hp"
                 android:hint="剩余hp"
                 />
-            <View style="@style/line_x"/>
+            <View style="@style/line_x_left_15dp"/>
 
         </LinearLayout>
 

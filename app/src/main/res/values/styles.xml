@@ -28,7 +28,11 @@
     <style name="line_x">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="background">@color/gray400</item>
+        <item name="background">@color/gray500</item>
+    </style>
+
+    <style name="line_x_left_15dp" parent="line_x">
+        <item name="android:layout_marginLeft">15dp</item>
     </style>
 
     <!--竖线-->

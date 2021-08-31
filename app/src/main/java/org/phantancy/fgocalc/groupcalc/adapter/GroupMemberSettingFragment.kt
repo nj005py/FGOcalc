@@ -42,7 +42,6 @@ class GroupMemberSettingFragment : LazyFragment() {
     }
 
     private fun initData() {
-
         vm.memberVO?.let {
             //阶职相性
             if (it.settingVO.affinity.isNotEmpty()) {
@@ -82,6 +81,12 @@ class GroupMemberSettingFragment : LazyFragment() {
             }
             //总hp
             //剩余hp
+            if (it.settingVO.hpTotal != 0) {
+                binding.viewHpTotal.setContent("${it.settingVO.hpTotal}")
+            }
+            if (it.settingVO.hpLeft != 0){
+                binding.viewHpLeft.setContent("${it.settingVO.hpLeft}")
+            }
             vm.servant?.let {
                 //atk hp
                 binding.viewHpTotal.setContent("${it.hpDefault}")
@@ -140,27 +145,54 @@ class GroupMemberSettingFragment : LazyFragment() {
         vm.getSvtExpEntities().observe(viewLifecycleOwner, Observer { expList ->
             //进度条最大值
 //            binding.famSbLvSvt.setProgress(vm.memberVO.svtEntity.rewardLv.toFloat())
+            //回显
             vm.memberVO?.let {
+                if (it.settingVO.fouAtk != 0) {
+                    binding.viewFouAtk.setContent("${it.settingVO.fouAtk}")
+                }
+                if (it.settingVO.essenceAtk != 0) {
+                    binding.viewEssenceAtk.setContent("${it.settingVO.essenceAtk}")
+                }
                 binding.famSbLvSvt.setProgress(it.settingVO.lv)
             }
             vm.svtExpEntities = expList
             binding.famSbLvSvt.setOnSeekChangeListener(object : OnSeekChangeListener {
                 override fun onSeeking(seekParams: SeekParams) {
-//                    binding..setText(vm.onAtkLvChanged(seekParams.progress))
-//                    binding.viewAtkTotal.setContent()
-//                    binding.etHpTotal.setText(vm.onHpLvChanged(seekParams.progress))
                     vm.memberVO?.settingVO?.lv = seekParams.progressFloat
+                    binding.viewAtkTotal.setContent("${vm.onAtkLvChanged(seekParams.progress)}")
+                    binding.viewHpTotal.setContent("${vm.onHpLvChanged(seekParams.progress)}")
                 }
 
                 override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
                 override fun onStopTrackingTouch(seekBar: IndicatorSeekBar) {}
             })
+            //芙芙atk
+            binding.viewFouAtk.setOnClickListener {
+                val picker = OptionPicker(mActy)
+                picker.setData(ConditionData.fouAtkMap.keys.toList())
+                picker.setOnOptionPickedListener { position, item ->
+                    binding.viewFouAtk.setContent(item as String)
+                    val res = vm.onFouAtkChanged(ConditionData.getFouAtkValues()[position])
+                    binding.viewAtkTotal.setContent("$res")
+                }
+                picker.show()
+            }
+            //礼装atk
+            binding.viewEssenceAtk.setOnClickListener {
+                val picker = OptionPicker(mActy)
+                picker.setData(ConditionData.essenceAtkMap.keys.toList())
+                picker.setOnOptionPickedListener { position, item ->
+                    binding.viewEssenceAtk.setContent(item as String)
+                    val res = vm.onEssenceAtkChanged(ConditionData.getEssenceAtkValues()[position])
+                    binding.viewAtkTotal.setContent("$res")
+                }
+                picker.show()
+            }
+            //总atk
+            //总hp
+            //剩余hp
         })
-        //芙芙atk
-        //礼装atk
-        //总atk
-        //总hp
-        //剩余hp
+
     }
 
     //宝具选择弹窗

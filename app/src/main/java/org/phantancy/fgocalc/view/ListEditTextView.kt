@@ -3,57 +3,48 @@ package org.phantancy.fgocalc.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.databinding.LayoutEdittextItemBinding
 
-class ListEditTextView: LinearLayout {
-    lateinit var ctx:Context
-    lateinit var tvTitle: TextView
-    lateinit var etContent: EditText
+class ListEditTextView : LinearLayout {
+    private lateinit var binding: LayoutEdittextItemBinding
 
-    constructor(context: Context) : super(context){
-        ctx = context
-        init()
-    }
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs){
-        ctx = context
-        init()
-        parseAttrs(attrs)
+    constructor(context: Context) : super(context) {
+        initView(context, null, 0)
     }
 
-    fun init(){
-        val view = LayoutInflater.from(ctx).inflate(R.layout.layout_edittext_item,this)
-        tvTitle = view.findViewById(R.id.tv_title)
-        etContent = view.findViewById(R.id.et_content)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        initView(context, attrs, 0)
     }
 
-    fun parseAttrs(attrs: AttributeSet){
-        attrs?.let {
-            val count = attrs.attributeCount
-            var title = ""
-            var hint = "hint"
-            for (i in 0 until count){
-                val attrId = attrs.getAttributeNameResource(i)
-                when(attrId){
-                    R.attr.itemTitle -> { title = attrs.getAttributeValue(i)}
-                    android.R.attr.hint -> {
-                        hint = attrs.getAttributeValue(i)
-                    }
-                }
-            }
-            tvTitle.text = title
-            etContent.hint = hint
-        }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        initView(context, attrs, defStyleAttr)
+    }
+
+
+    private fun initView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+        binding = LayoutEdittextItemBinding.inflate(LayoutInflater.from(context), this, true)
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ListEditTextView, defStyleAttr, 0)
+        var title = typedArray.getString(R.styleable.ListEditTextView_itemTitle)
+        var content = typedArray.getString(R.styleable.ListEditTextView_itemContent)
+        var hint = typedArray.getString(R.styleable.ListEditTextView_itemHint)
+        binding.tvTitle.text = title
+        binding.etContent.hint = hint
+        binding.etContent.setText(content)
     }
 
     fun setTitle(title: String) {
-        tvTitle.text = title
+        binding.tvTitle.text = title
     }
 
-    fun setContent(content:String) {
-        etContent.setText(content)
+    fun setContent(content: String) {
+        binding.etContent.setText(content)
+    }
+
+    fun setHint(hint: String) {
+        binding.etContent.hint = hint
     }
 
 }

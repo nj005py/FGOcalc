@@ -34,6 +34,10 @@ class GroupMemberSettingVO():Parcelable {
     var hpTotal = 0
     //剩余hp
     var hpLeft = 0
+    //等级atk
+    var atkLv = 0
+    //等级hp
+    var hpLv = 0
 
     constructor(parcel: Parcel) : this() {
         affinity = parcel.readString().toString()
@@ -44,6 +48,8 @@ class GroupMemberSettingVO():Parcelable {
         essenceAtk = parcel.readInt()
         atkTotal = parcel.readInt()
         hpTotal = parcel.readInt()
+        hpLeft = parcel.readInt()
+        atkLv = parcel.readInt()
         hpLeft = parcel.readInt()
     }
 
@@ -57,6 +63,8 @@ class GroupMemberSettingVO():Parcelable {
         parcel.writeInt(atkTotal)
         parcel.writeInt(hpTotal)
         parcel.writeInt(hpLeft)
+        parcel.writeInt(atkLv)
+        parcel.writeInt(hpLv)
     }
 
     override fun describeContents(): Int {

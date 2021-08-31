@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.databinding.LayoutListItemBinding
 
 class ListItemView : LinearLayout {
-    lateinit var ctx: Context
-    lateinit var tvTitle: TextView
-    lateinit var tvContent: TextView
+    private lateinit var ctx: Context
+    private lateinit var binding: LayoutListItemBinding
 
     constructor(context: Context) : super(context) {
         ctx = context
@@ -25,8 +25,7 @@ class ListItemView : LinearLayout {
 
     fun init() {
         val view = LayoutInflater.from(ctx).inflate(R.layout.layout_list_item, this)
-        tvTitle = view.findViewById(R.id.tv_title)
-        tvContent = view.findViewById(R.id.tv_content)
+        binding = LayoutListItemBinding.bind(view)
     }
 
     fun parseAttrs(attrs: AttributeSet){
@@ -41,17 +40,17 @@ class ListItemView : LinearLayout {
                     R.attr.itemContent -> {content = attrs.getAttributeValue(i)}
                 }
             }
-            tvTitle.text = title
-            tvContent.text = content
+            binding.tvTitle.text = title
+            binding.tvContent.text = content
         }
     }
 
     fun setTitle(title: String) {
-        tvTitle.text = title
+        binding.tvTitle.text = title
     }
 
     fun setContent(content: String) {
-        tvContent.text = content
+        binding.tvContent.text = content
     }
 
 

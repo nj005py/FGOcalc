@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.groupcalc.adapter
+package org.phantancy.fgocalc.groupcalc.fragment
 
 import android.os.Bundle
 import android.util.Log

@@ -3,7 +3,6 @@ package org.phantancy.fgocalc.groupcalc.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
@@ -12,12 +11,9 @@ import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
 import org.phantancy.fgocalc.common.Constant.ENTRY_GROUP
 import org.phantancy.fgocalc.databinding.ActyCalcBinding
-import org.phantancy.fgocalc.fragment.CalcContainerFragment
 import org.phantancy.fgocalc.fragment.InfoFragment
 import org.phantancy.fgocalc.fragment.WikiFragment
-import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberSettingFragment
-import org.phantancy.fgocalc.groupcalc.entity.bo.GroupMemberSettingBO
-import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberSettingVO
+import org.phantancy.fgocalc.groupcalc.fragment.GroupMemberSettingFragment
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
 import org.phantancy.fgocalc.viewmodel.CalcViewModel

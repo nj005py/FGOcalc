@@ -1,6 +1,7 @@
 package org.phantancy.fgocalc.view
 
 import android.content.Context
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
@@ -45,6 +46,10 @@ class ListEditTextView : LinearLayout {
 
     fun setHint(hint: String) {
         binding.etContent.hint = hint
+    }
+
+    fun addWatcher(watcher: TextWatcher){
+        binding.etContent.addTextChangedListener(watcher)
     }
 
 }

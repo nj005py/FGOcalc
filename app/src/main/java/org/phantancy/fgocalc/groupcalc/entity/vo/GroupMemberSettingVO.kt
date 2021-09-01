@@ -23,7 +23,7 @@ class GroupMemberSettingVO():Parcelable {
     //选择宝具 哪个宝具？几宝？
     var npDes = ""
     //等级
-    var lv = 1f
+    var lv = 1
     //芙芙atk
     var fouAtk = 0
     //礼装atk
@@ -43,21 +43,21 @@ class GroupMemberSettingVO():Parcelable {
         affinity = parcel.readString().toString()
         attribute = parcel.readString().toString()
         npDes = parcel.readString().toString()
-        lv = parcel.readFloat()
+        lv = parcel.readInt()
         fouAtk = parcel.readInt()
         essenceAtk = parcel.readInt()
         atkTotal = parcel.readInt()
         hpTotal = parcel.readInt()
         hpLeft = parcel.readInt()
         atkLv = parcel.readInt()
-        hpLeft = parcel.readInt()
+        hpLv = parcel.readInt()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(affinity)
         parcel.writeString(attribute)
         parcel.writeString(npDes)
-        parcel.writeFloat(lv)
+        parcel.writeInt(lv)
         parcel.writeInt(fouAtk)
         parcel.writeInt(essenceAtk)
         parcel.writeInt(atkTotal)

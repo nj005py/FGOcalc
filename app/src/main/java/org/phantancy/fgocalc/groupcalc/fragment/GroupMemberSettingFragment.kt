@@ -1,6 +1,9 @@
 package org.phantancy.fgocalc.groupcalc.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -37,11 +40,20 @@ class GroupMemberSettingFragment : LazyFragment() {
         vm = ViewModelProvider(mActy).get(GroupSettingViewModel::class.java)
         initView()
         //回显数据
-        initData()
         //保存数据
     }
 
-    private fun initData() {
+    private fun initView() {
+        //缓存atktotal hptotal hpleft，会受lv fou esscen影响
+        var atkTotalCache = 0
+        var hpTotalCache = 0
+        var hpLeftCache = 0
+        vm.memberVO?.settingVO?.let {
+            atkTotalCache = it.atkTotal
+            hpTotalCache = it.hpTotal
+            hpLeftCache = it.hpLeft
+        }
+
         vm.memberVO?.let {
             //阶职相性
             if (it.settingVO.affinity.isNotEmpty()) {
@@ -64,39 +76,8 @@ class GroupMemberSettingFragment : LazyFragment() {
                 it.settingVO.attribute = key
                 it.settingBO.attributeMod = value
             }
-            //选择宝具 获取宝具列表再初始化
 
-            //等级
-            //芙芙atk
-            //礼装atk
-            //总atk
-            if (it.settingVO.atkTotal != 0) {
-                binding.viewAtkTotal.setContent("${it.settingVO.atkTotal}")
-            } else {
-                vm.servant?.let {
-                    binding.viewAtkTotal.setContent("${it.atkDefault}")
-                    vm.memberVO.settingVO.atkTotal = it.atkDefault
-                    vm.memberVO.settingBO.atk = it.atkDefault.toDouble()
-                }
-            }
-            //总hp
-            //剩余hp
-            if (it.settingVO.hpTotal != 0) {
-                binding.viewHpTotal.setContent("${it.settingVO.hpTotal}")
-            }
-            if (it.settingVO.hpLeft != 0){
-                binding.viewHpLeft.setContent("${it.settingVO.hpLeft}")
-            }
-            vm.servant?.let {
-                //atk hp
-                binding.viewHpTotal.setContent("${it.hpDefault}")
-                binding.viewHpLeft.setContent("${it.hpDefault}")
-            }
         }
-
-    }
-
-    private fun initView() {
         //阶职相性
         binding.viewAffinity.setOnClickListener {
             val picker = OptionPicker(mActy)
@@ -128,7 +109,7 @@ class GroupMemberSettingFragment : LazyFragment() {
                 } else {
                     //默认宝具1，lv1
                     val np = npList[0]
-                    val content = genNpContent(np.npDes,"一宝")
+                    val content = genNpContent(np.npDes, "一宝")
                     binding.viewNpSelect.setContent(content)
                     vm.memberVO.settingVO.npDes = content
                     vm.memberVO.settingBO.npEntity = np
@@ -141,24 +122,69 @@ class GroupMemberSettingFragment : LazyFragment() {
                 initNpSelectDialog(npList)
             }
         })
-        //等级
+        //等级 涉及atk hp的回显都要在这里设置，atkLv非常重要
         vm.getSvtExpEntities().observe(viewLifecycleOwner, Observer { expList ->
             //进度条最大值
 //            binding.famSbLvSvt.setProgress(vm.memberVO.svtEntity.rewardLv.toFloat())
+            vm.svtExpEntities = expList
             //回显
             vm.memberVO?.let {
                 if (it.settingVO.fouAtk != 0) {
                     binding.viewFouAtk.setContent("${it.settingVO.fouAtk}")
+                } else {
+                    //默认1000芙芙
+                    binding.viewFouAtk.setContent("${1000}")
+                    vm.memberVO.settingVO.fouAtk = 1000
+                    //处理总atk
+                    vm.servant?.let {
+                        val atk = it.atkDefault + 1000
+                        binding.viewAtkTotal.setContent("${atk}")
+                        vm.memberVO.settingVO.atkTotal = atk
+                        vm.memberVO.settingBO.atk = atk.toDouble()
+                    }
                 }
                 if (it.settingVO.essenceAtk != 0) {
                     binding.viewEssenceAtk.setContent("${it.settingVO.essenceAtk}")
+                } else {
+                    binding.viewEssenceAtk.setContent("${0}")
+                    vm.memberVO.settingVO.essenceAtk = 0
                 }
-                binding.famSbLvSvt.setProgress(it.settingVO.lv)
+                binding.famSbLvSvt.setProgress(it.settingVO.lv.toFloat())
+                vm.memberVO.settingVO.atkLv = vm.getAtkLv(vm.servant, it.settingVO.lv, expList)
+                //todo 检查hpLv
             }
-            vm.svtExpEntities = expList
+
+            //总atk
+            if (atkTotalCache != 0) {
+                vm.memberVO.settingVO.atkTotal = atkTotalCache
+                vm.memberVO.settingBO.atk = atkTotalCache.toDouble()
+                binding.viewAtkTotal.setContent("${atkTotalCache}")
+            } else {
+                //见芙芙处理
+            }
+            //总hp
+            if (hpTotalCache != 0) {
+                vm.memberVO.settingVO.hpTotal = hpTotalCache
+                vm.memberVO.settingBO.hp = hpTotalCache.toDouble()
+                binding.viewHpTotal.setContent("${hpTotalCache}")
+            } else {
+                binding.viewHpTotal.setContent("${vm.servant.hpDefault}")
+                vm.memberVO.settingVO.hpTotal = vm.servant.hpDefault
+                vm.memberVO.settingBO.hp = vm.servant.hpDefault.toDouble()
+            }
+            //剩余hp
+            if (hpLeftCache != 0) {
+                vm.memberVO.settingVO.hpLeft = hpLeftCache
+                vm.memberVO.settingBO.hpLeft = hpLeftCache.toDouble()
+                binding.viewHpLeft.setContent("${hpLeftCache}")
+            } else {
+                binding.viewHpLeft.setContent("${vm.servant.hpDefault}")
+                vm.memberVO.settingVO.hpLeft = vm.servant.hpDefault
+                vm.memberVO.settingBO.hpLeft = vm.servant.hpDefault.toDouble()
+            }
             binding.famSbLvSvt.setOnSeekChangeListener(object : OnSeekChangeListener {
                 override fun onSeeking(seekParams: SeekParams) {
-                    vm.memberVO?.settingVO?.lv = seekParams.progressFloat
+                    vm.memberVO?.settingVO?.lv = seekParams.progress
                     binding.viewAtkTotal.setContent("${vm.onAtkLvChanged(seekParams.progress)}")
                     binding.viewHpTotal.setContent("${vm.onHpLvChanged(seekParams.progress)}")
                 }
@@ -188,9 +214,54 @@ class GroupMemberSettingFragment : LazyFragment() {
                 }
                 picker.show()
             }
-            //总atk
-            //总hp
-            //剩余hp
+            //监听atk
+            binding.viewAtkTotal.addWatcher(object :TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (!TextUtils.isEmpty(s)) {
+                        vm.memberVO.settingVO.atkTotal = s.toString().toInt()
+                        vm.memberVO.settingBO.atk = s.toString().toDouble()
+                    }
+
+                }
+
+            })
+            //监听hp
+            binding.viewHpTotal.addWatcher(object :TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (!TextUtils.isEmpty(s)) {
+                        vm.memberVO.settingVO.hpTotal = s.toString().toInt()
+                        vm.memberVO.settingBO.hp = s.toString().toDouble()
+                    }
+                }
+            })
+            //监听剩余hp
+            binding.viewHpLeft.addWatcher(object :TextWatcher{
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    if (!TextUtils.isEmpty(s)) {
+                        vm.memberVO.settingVO.hpLeft = s.toString().toInt()
+                        vm.memberVO.settingBO.hpLeft = s.toString().toDouble()
+                    }
+                }
+            })
+
         })
 
     }
@@ -255,7 +326,7 @@ class GroupMemberSettingFragment : LazyFragment() {
         })
         picker.setOnLinkagePickedListener { npDes, lv, _ ->
             //显示
-            val content = genNpContent(npDes as String,lv as String)
+            val content = genNpContent(npDes as String, lv as String)
             binding.viewNpSelect.setContent(content)
             vm.memberVO.settingVO.npDes = content
             //数据
@@ -290,7 +361,7 @@ class GroupMemberSettingFragment : LazyFragment() {
         picker.show()
     }
 
-    private fun genNpContent(npDes:String, lv: String): String{
+    private fun genNpContent(npDes: String, lv: String): String {
         return "$npDes ${lv}"
     }
 }

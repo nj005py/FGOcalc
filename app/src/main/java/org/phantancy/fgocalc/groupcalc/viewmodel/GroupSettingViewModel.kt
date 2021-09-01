@@ -48,6 +48,7 @@ class GroupSettingViewModel(app: Application) : AndroidViewModel(app) {
     fun sumAtk(): Int {
         //等级atk+礼装atk+芙芙atk
         val res: Int = memberVO.settingVO.atkLv + memberVO.settingVO.essenceAtk + memberVO.settingVO.fouAtk
+        memberVO.settingVO.atkTotal = res
         memberVO.settingBO.atk = res.toDouble()
         return res
     }

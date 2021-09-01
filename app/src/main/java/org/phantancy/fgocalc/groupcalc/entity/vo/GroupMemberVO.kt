@@ -11,7 +11,7 @@ class GroupMemberVO() : Parcelable {
     var svtEntity: ServantEntity = ServantEntity()//从者数据
     set(value) {
         field = value
-        settingVO.lv = svtEntity.rewardLv.toFloat()
+        settingVO.lv = svtEntity.rewardLv
     }
     var cards: ArrayList<CardBO> = arrayListOf<CardBO>()//从者配卡
     var settingVO: GroupMemberSettingVO = GroupMemberSettingVO()//从者条件 UI数据

@@ -150,8 +150,8 @@ class GroupMemberSettingFragment : LazyFragment() {
                     vm.memberVO.settingVO.essenceAtk = 0
                 }
                 binding.famSbLvSvt.setProgress(it.settingVO.lv.toFloat())
-                vm.memberVO.settingVO.atkLv = vm.getAtkLv(vm.servant, it.settingVO.lv, expList)
-                //todo 检查hpLv
+                vm.getAtkLv(vm.servant, it.settingVO.lv, expList)
+                vm.getHpLv(vm.servant, it.settingVO.lv, expList)
             }
 
             //总atk

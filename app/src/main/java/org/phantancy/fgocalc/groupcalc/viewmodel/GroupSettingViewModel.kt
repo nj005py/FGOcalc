@@ -74,7 +74,7 @@ class GroupSettingViewModel(app: Application) : AndroidViewModel(app) {
     //等级变化，hp变化
     fun onHpLvChanged(lv: Int): Int {
         memberVO.settingVO.hpTotal = getHpLv(servant, lv, svtExpEntities)
-        return sumAtk()
+        return memberVO.settingVO.hpTotal
     }
 
     //依据等级获取atk

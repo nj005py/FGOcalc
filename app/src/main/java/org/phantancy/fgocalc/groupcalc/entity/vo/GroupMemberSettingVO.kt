@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.github.gzuliyujiang.wheelpicker.OptionPicker
 import org.phantancy.fgocalc.data.ConditionData
+import org.phantancy.fgocalc.entity.BuffInputEntity
 
 //阶职相性
 //阵营相性
@@ -38,6 +39,8 @@ class GroupMemberSettingVO():Parcelable {
     var atkLv = 0
     //等级hp
     var hpLv = 0
+    //buff UI list
+    var uiBuffs = ArrayList<BuffInputEntity>()
 
     constructor(parcel: Parcel) : this() {
         affinity = parcel.readString().toString()
@@ -51,6 +54,7 @@ class GroupMemberSettingVO():Parcelable {
         hpLeft = parcel.readInt()
         atkLv = parcel.readInt()
         hpLv = parcel.readInt()
+        uiBuffs = parcel.createTypedArrayList(BuffInputEntity.CREATOR)!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -65,6 +69,7 @@ class GroupMemberSettingVO():Parcelable {
         parcel.writeInt(hpLeft)
         parcel.writeInt(atkLv)
         parcel.writeInt(hpLv)
+        parcel.writeTypedList(uiBuffs)
     }
 
     override fun describeContents(): Int {

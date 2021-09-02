@@ -4,23 +4,34 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.collection.SimpleArrayMap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.github.gzuliyujiang.wheelpicker.LinkagePicker
 import com.github.gzuliyujiang.wheelpicker.OptionPicker
 import com.github.gzuliyujiang.wheelpicker.contract.LinkageProvider
 import com.warkiz.widget.IndicatorSeekBar
 import com.warkiz.widget.OnSeekChangeListener
 import com.warkiz.widget.SeekParams
+import org.phantancy.fgocalc.R
+import org.phantancy.fgocalc.adapter.BuffInputAdapter
 import org.phantancy.fgocalc.data.ConditionData
 import org.phantancy.fgocalc.databinding.FragmentGroupMemberSettingBinding
+import org.phantancy.fgocalc.dialog.ShortcutMstEquipmentDialog
+import org.phantancy.fgocalc.dialog.ShortcutSupportDialog
+import org.phantancy.fgocalc.entity.IBuffShortCut
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
+import org.phantancy.fgocalc.entity.ShortcutBuffEntity
 import org.phantancy.fgocalc.fragment.LazyFragment
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupSettingViewModel
+import org.phantancy.fgocalc.util.ToastUtils
 import org.phantancy.fgocalc.view.ListItemView
 
 /**
@@ -29,10 +40,15 @@ import org.phantancy.fgocalc.view.ListItemView
 class GroupMemberSettingFragment : LazyFragment() {
     private lateinit var binding: FragmentGroupMemberSettingBinding
     private lateinit var vm: GroupSettingViewModel
+    private lateinit var buffInputAdapter: BuffInputAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupMemberSettingBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
     override fun init() {
@@ -215,7 +231,7 @@ class GroupMemberSettingFragment : LazyFragment() {
                 picker.show()
             }
             //监听atk
-            binding.viewAtkTotal.addWatcher(object :TextWatcher{
+            binding.viewAtkTotal.addWatcher(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
 
@@ -232,7 +248,7 @@ class GroupMemberSettingFragment : LazyFragment() {
 
             })
             //监听hp
-            binding.viewHpTotal.addWatcher(object :TextWatcher{
+            binding.viewHpTotal.addWatcher(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
 
@@ -247,7 +263,7 @@ class GroupMemberSettingFragment : LazyFragment() {
                 }
             })
             //监听剩余hp
-            binding.viewHpLeft.addWatcher(object :TextWatcher{
+            binding.viewHpLeft.addWatcher(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 }
 
@@ -262,6 +278,82 @@ class GroupMemberSettingFragment : LazyFragment() {
                 }
             })
 
+        })
+
+        //buff
+        buffInputAdapter = BuffInputAdapter(ctx)
+        val layoutManager = GridLayoutManager(ctx, 2)
+        layoutManager.spanSizeLookup = object : SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val type: Int = buffInputAdapter.getItemViewType(position)
+                return if (type == 2) {
+                    2
+                } else {
+                    1
+                }
+            }
+        }
+        binding.rvBuffInput.adapter = buffInputAdapter
+        binding.rvBuffInput.layoutManager = layoutManager
+
+        if (vm.memberVO.settingVO.uiBuffs.size > 0) {
+            buffInputAdapter.submitList(vm.memberVO.settingVO.uiBuffs)
+        } else {
+            buffInputAdapter.submitList(vm.getBuffInputList())
+        }
+
+        //重置键
+        binding.btnReset.setOnClickListener { buffInputAdapter.resetBuff() }
+
+        //拐快捷键
+        binding.btnShortcutSupport.setOnClickListener {
+            val metrics = DisplayMetrics()
+            mActy.windowManager.defaultDisplay.getMetrics(metrics)
+            val width = metrics.widthPixels
+            val height = metrics.heightPixels
+            val x = ShortcutSupportDialog(ctx, object : IBuffShortCut {
+                override fun addBuffs(x: ShortcutBuffEntity) {
+                    ToastUtils.displayShortToast(ctx, x.buffDes)
+                    buffInputAdapter.addBuff(x)
+                }
+
+                override fun reduceBuffs(x: ShortcutBuffEntity) {
+                    ToastUtils.displayShortToast(ctx, ctx.resources.getString(R.string.reduce_buff))
+                    buffInputAdapter.reduceBuff(x)
+                }
+            })
+            x.window!!.setLayout((width * 0.9).toInt(), (height * 0.7).toInt())
+            x.show()
+        }
+
+        //御主服快捷键
+        binding.btnShortcutMstEquipment.setOnClickListener {
+            val metrics = DisplayMetrics()
+            mActy.windowManager.defaultDisplay.getMetrics(metrics)
+            val width = metrics.widthPixels
+            val height = metrics.heightPixels
+            val x = ShortcutMstEquipmentDialog(ctx, object : IBuffShortCut {
+                override fun addBuffs(x: ShortcutBuffEntity) {
+                    ToastUtils.displayShortToast(ctx, x.buffDes)
+                    buffInputAdapter.addBuff(x)
+                }
+
+                override fun reduceBuffs(x: ShortcutBuffEntity) {
+                    ToastUtils.displayShortToast(ctx, ctx.resources.getString(R.string.reduce_buff))
+                    buffInputAdapter.reduceBuff(x)
+                }
+            })
+            x.window!!.setLayout((width * 0.9).toInt(), (height * 0.7).toInt())
+            x.show()
+        }
+
+        //监听宝具自带buff变化
+
+        //监听宝具自带buff变化
+        vm.getBuffFromNp().observe(viewLifecycleOwner, Observer { buffMap: SimpleArrayMap<String, Double> ->
+            buffInputAdapter.addBuffFromNp(buffMap, vm.preNpBuff)
+            //缓存本次宝具buff
+            vm.preNpBuff = buffMap
         })
 
     }
@@ -363,5 +455,11 @@ class GroupMemberSettingFragment : LazyFragment() {
 
     private fun genNpContent(npDes: String, lv: String): String {
         return "$npDes ${lv}"
+    }
+
+    fun save() {
+        buffInputAdapter?.let {
+            vm.saveBuff(it.list)
+        }
     }
 }

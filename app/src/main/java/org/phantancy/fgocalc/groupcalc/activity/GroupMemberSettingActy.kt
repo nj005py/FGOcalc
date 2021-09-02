@@ -26,6 +26,7 @@ class GroupMemberSettingActy : BaseActy() {
     private lateinit var calcViewModel: CalcViewModel
     private lateinit var groupSettingViewModel: GroupSettingViewModel
     private var memberPosition = 0
+    private lateinit var groupMemberSettingFragment: GroupMemberSettingFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +54,10 @@ class GroupMemberSettingActy : BaseActy() {
         //wiki页初始化
         val wikiFragment = WikiFragment()
         wikiFragment.setParentPager(binding.vpCalcPager)
+        groupMemberSettingFragment = GroupMemberSettingFragment()
 //        containerFragment = CalcContainerFragment(ENTRY_GROUP)
         //碎片页列表
-        val fragments = arrayListOf<Fragment>(InfoFragment(), GroupMemberSettingFragment(), wikiFragment)
+        val fragments = arrayListOf<Fragment>(InfoFragment(), groupMemberSettingFragment, wikiFragment)
 
         val pagerAdapter = CalcViewPagerAdapter(this, fragments)
         binding.vpCalcPager.adapter = pagerAdapter
@@ -87,6 +89,7 @@ class GroupMemberSettingActy : BaseActy() {
 
     override fun onBackPressed() {
         //保存条件、buff
+        groupMemberSettingFragment.save()
         val intent = Intent().apply {
 //            putExtra("calcEntity", calcViewModel.calcEntity)
             putExtra("groupMemberVO",groupSettingViewModel.memberVO)

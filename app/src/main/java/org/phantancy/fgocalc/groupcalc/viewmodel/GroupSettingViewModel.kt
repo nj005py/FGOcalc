@@ -1,11 +1,14 @@
 package org.phantancy.fgocalc.groupcalc.viewmodel
 
 import android.app.Application
-import android.util.Log
+import androidx.collection.SimpleArrayMap
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import org.phantancy.fgocalc.data.BuffData
 import org.phantancy.fgocalc.data.repository.CalcRepository
 import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
+import org.phantancy.fgocalc.entity.BuffInputEntity
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.entity.SvtExpEntity
@@ -100,4 +103,38 @@ class GroupSettingViewModel(app: Application) : AndroidViewModel(app) {
         }
         return 0
     }
+
+    //宝具自带的buff
+    private val buffFromNp = MutableLiveData<SimpleArrayMap<String, Double>>()
+
+    fun getBuffFromNp(): LiveData<SimpleArrayMap<String, Double>> {
+        return buffFromNp
+    }
+
+    //获取buff表
+    fun getBuffInputList(): List<BuffInputEntity> {
+        return BuffData.buildBuffs()
+    }
+
+    //缓存上次buff
+    var preNpBuff = SimpleArrayMap<String, Double>()
+
+    fun saveBuff(buffs: List<BuffInputEntity>) {
+//        calcEntity.setSavedBuff(true)
+//        calcEntity.setUiBuffs(buffs)
+        val buffMap = SimpleArrayMap<String, Double>()
+        for (x in buffs) {
+//            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
+            when (x.type) {
+                0 -> buffMap.put(x.key, x.value)
+                1 -> buffMap.put(x.key, x.value / 100)
+            }
+        }
+//        calcEntity.setBuffMap(buffMap)
+        memberVO?.let {
+            it.settingVO.uiBuffs = buffs as ArrayList<BuffInputEntity>
+            it.settingBO.buffMap = buffMap
+        }
+    }
+    //todo 选宝具，buff影响
 }

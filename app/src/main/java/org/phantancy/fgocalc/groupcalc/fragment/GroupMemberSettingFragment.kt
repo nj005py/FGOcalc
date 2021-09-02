@@ -130,6 +130,7 @@ class GroupMemberSettingFragment : LazyFragment() {
                     vm.memberVO.settingVO.npDes = content
                     vm.memberVO.settingBO.npEntity = np
                     vm.memberVO.settingBO.npDmgMultiplier = np.npLv1
+                    vm.parseNpBuffs(np,"一宝")
                 }
             }
 
@@ -348,8 +349,6 @@ class GroupMemberSettingFragment : LazyFragment() {
         }
 
         //监听宝具自带buff变化
-
-        //监听宝具自带buff变化
         vm.getBuffFromNp().observe(viewLifecycleOwner, Observer { buffMap: SimpleArrayMap<String, Double> ->
             buffInputAdapter.addBuffFromNp(buffMap, vm.preNpBuff)
             //缓存本次宝具buff
@@ -440,6 +439,8 @@ class GroupMemberSettingFragment : LazyFragment() {
             npCardBO.type = np.npColor
             vm.memberVO.cards[npCardPosition] = npCardBO
             Log.i(TAG, "宝具：${npPosition} 倍率：${npDmgMultiplier}")
+            //宝具buff
+            vm.parseNpBuffs(np,lv)
         }
         picker.show()
     }

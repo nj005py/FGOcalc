@@ -16,11 +16,13 @@ class GroupMemberVO() : Parcelable {
     var cards: ArrayList<CardBO> = arrayListOf<CardBO>()//从者配卡
     var settingVO: GroupMemberSettingVO = GroupMemberSettingVO()//从者条件 UI数据
     var settingBO: GroupMemberSettingBO = GroupMemberSettingBO()//从者条件 逻辑数据
+    var groupEnemyVO: GroupEnemyVO = GroupEnemyVO()
     constructor(parcel: Parcel):this() {
         svtEntity = parcel.readParcelable(ServantEntity::class.java.classLoader)!!
         parcel.readTypedList(cards, CardBO.CREATOR)
         settingVO = parcel.readParcelable(GroupMemberSettingVO::class.java.classLoader)!!
         settingBO = parcel.readParcelable(GroupMemberSettingBO::class.java.classLoader)!!
+        groupEnemyVO = parcel.readParcelable(GroupEnemyVO::class.java.classLoader)!!
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -28,6 +30,7 @@ class GroupMemberVO() : Parcelable {
         parcel.writeTypedList(cards)
         parcel.writeParcelable(settingVO,flags)
         parcel.writeParcelable(settingBO,flags)
+        parcel.writeParcelable(groupEnemyVO,flags)
     }
 
     override fun describeContents(): Int {

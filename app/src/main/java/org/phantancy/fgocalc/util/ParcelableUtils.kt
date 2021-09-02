@@ -33,3 +33,31 @@ fun readSimpleArrayMap(parcel: Parcel, map: SimpleArrayMap<String, Double>) {
         map.put(key, value)
     }
 }
+
+fun writeDoubleList(parcel: Parcel, list: ArrayList<Double>){
+    parcel.writeInt(list.size)
+    for (i in 0 until list.size){
+        parcel.writeDouble(list[i])
+    }
+}
+
+fun readDoubleList(parcel: Parcel, list: ArrayList<Double>){
+    val size = parcel.readInt()
+    for (i in 0 until size){
+        list.add(parcel.readDouble())
+    }
+}
+
+fun writeIntList(parcel: Parcel, list: ArrayList<Int>){
+    parcel.writeInt(list.size)
+    for (i in 0 until list.size){
+        parcel.writeInt(list[i])
+    }
+}
+
+fun readIntList(parcel: Parcel, list: ArrayList<Int>){
+    val size = parcel.readInt()
+    for (i in 0 until size){
+        list.add(parcel.readInt())
+    }
+}

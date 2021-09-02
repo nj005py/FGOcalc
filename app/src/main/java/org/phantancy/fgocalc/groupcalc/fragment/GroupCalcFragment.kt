@@ -1,12 +1,12 @@
 package org.phantancy.fgocalc.groupcalc.fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,14 +19,15 @@ import org.phantancy.fgocalc.databinding.FragmentGroupCalcBinding
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.fragment.BaseFragment
+import org.phantancy.fgocalc.groupcalc.activity.GroupEnemyActivity
 import org.phantancy.fgocalc.groupcalc.adapter.GroupChosenCardAdapter
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberAdapter
 import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupEnemyVO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
 import org.phantancy.fgocalc.item_decoration.SpacesItemDecoration
 import org.phantancy.fgocalc.item_decoration.VerticalItemDecoration
-import org.phantancy.fgocalc.util.ToastUtils
 import org.phantancy.fgocalc.groupcalc.viewmodel.GroupCalcViewModel
 
 /**
@@ -36,6 +37,7 @@ class GroupCalcFragment : BaseFragment() {
     private lateinit var binding: FragmentGroupCalcBinding
     private lateinit var vm: GroupCalcViewModel
     private var isBraveChain = false
+    private var memberVO = GroupMemberVO()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupCalcBinding.inflate(layoutInflater)
@@ -57,9 +59,8 @@ class GroupCalcFragment : BaseFragment() {
                 result.data?.let {
                     val svt = it.getParcelableExtra<ServantEntity>("servant")
                     //新逻辑
-                    val memberVo = GroupMemberVO()
-                    memberVo.svtEntity = svt
-                    vm.addGroupMember(memberVo)
+                    memberVO.svtEntity = svt
+                    vm.addGroupMember(memberVO)
                 }
             }
         }
@@ -69,11 +70,10 @@ class GroupCalcFragment : BaseFragment() {
         ) { result ->
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
-                    val memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
+                    memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
                     val memberPosition = it.getIntExtra("memberPosition", 0)
                     memberVO?.let {
-                        //todo 更新vo
-                        vm.updateMember(memberVO, memberAdapter.mList, memberPosition)
+                        vm.updateMember(it, memberAdapter.mList, memberPosition)
                         //条件变动，卡片复位
                         memberAdapter.chosenCardsCount = 0
                         binding.ivCardEx.visibility = View.INVISIBLE
@@ -84,9 +84,21 @@ class GroupCalcFragment : BaseFragment() {
             }
         }
 
+        //跳敌方设置页
+        val enemyLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            result ->
+            if (result.resultCode == Activity.RESULT_OK){
+                result.data?.let {
+                    val groupEnemyVO = it.getParcelableExtra<GroupEnemyVO>("groupEnemyVO")
+                    //todo 更新敌方信息
+                    memberVO.groupEnemyVO = groupEnemyVO
+                }
+            }
+        }
+
         binding.viewEnemy.setTitle("设置敌方")
         binding.viewEnemy.setOnClickListener {
-            ToastUtils.showToast("click")
+            enemyLauncher.launch(Intent(mActy,GroupEnemyActivity::class.java).apply { putExtra("groupEnemyVO",memberVO.groupEnemyVO) })
         }
         //成员
         binding.rvMembers.adapter = memberAdapter

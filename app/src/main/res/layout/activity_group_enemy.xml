@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--敌人数量-->
+        <LinearLayout style="@style/ConditionContainer">
+
+            <TextView
+                style="@style/ConditionName"
+                android:text="敌人数量" />
+
+            <Spinner
+                android:id="@+id/sp_enemy_count"
+                style="@style/ConditionSpinner" />
+
+        </LinearLayout>
+
+        <!--敌人职阶-->
+        <LinearLayout style="@style/ConditionContainer">
+
+            <TextView
+                style="@style/ConditionName"
+                android:text="敌方1" />
+
+            <Spinner
+                android:id="@+id/sp_enemy_class1"
+                style="@style/ConditionSpinner" />
+
+        </LinearLayout>
+
+        <!--敌人职阶2-->
+        <LinearLayout
+            android:id="@+id/ll_enemy_setting2"
+            style="@style/ConditionContainer">
+
+            <TextView
+                style="@style/ConditionName"
+                android:text="敌方2" />
+
+            <Spinner
+                android:id="@+id/sp_enemy_class2"
+                style="@style/ConditionSpinner" />
+
+        </LinearLayout>
+
+        <!--敌人职阶3-->
+        <LinearLayout
+            android:id="@+id/ll_enemy_setting3"
+            style="@style/ConditionContainer">
+
+            <TextView
+                style="@style/ConditionName"
+                android:text="敌方3" />
+
+            <Spinner
+                android:id="@+id/sp_enemy_class3"
+                style="@style/ConditionSpinner" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_radius_blue"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

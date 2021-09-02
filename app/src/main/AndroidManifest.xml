@@ -58,6 +58,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".groupcalc.activity.GroupMemberSettingActy"
             android:screenOrientation="portrait"/>
+        <activity android:name=".groupcalc.activity.GroupEnemyActivity"
+            android:screenOrientation="portrait"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -67,4 +67,6 @@
     <string name="critical">暴击</string>
     <string name="calc_result">计算结果</string>
 
+    <string name="save">保存</string>
+
 </resources>

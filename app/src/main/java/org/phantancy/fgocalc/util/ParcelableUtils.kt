@@ -42,6 +42,7 @@ fun writeDoubleList(parcel: Parcel, list: ArrayList<Double>){
 }
 
 fun readDoubleList(parcel: Parcel, list: ArrayList<Double>){
+    list.clear()
     val size = parcel.readInt()
     for (i in 0 until size){
         list.add(parcel.readDouble())
@@ -56,6 +57,7 @@ fun writeIntList(parcel: Parcel, list: ArrayList<Int>){
 }
 
 fun readIntList(parcel: Parcel, list: ArrayList<Int>){
+    list.clear()
     val size = parcel.readInt()
     for (i in 0 until size){
         list.add(parcel.readInt())

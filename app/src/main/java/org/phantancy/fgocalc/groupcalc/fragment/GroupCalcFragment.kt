@@ -128,7 +128,6 @@ class GroupCalcFragment : BaseFragment() {
             }
 
             override fun setSetting(member: GroupMemberVO, position: Int) {
-                //todo 去设置成员
                 settingLauncher.launch(Intent(mActy, GroupMemberSettingActy::class.java).apply {
                     putExtra("groupMemberVO", member)
                     putExtra("memberPosition", position)
@@ -170,6 +169,12 @@ class GroupCalcFragment : BaseFragment() {
                 val card = x.cards[0]
                 val out = "${x.svtEntity.name} ${card.svtId} ${card.svtPosition} ${card.position}"
                 Log.i(TAG, out)
+            }
+            memberVO.groupEnemyVO?.let {
+                Log.i(TAG,"enemyCount: ${it.enemyCount}")
+                for (i in 0 until it.enemyCount){
+                    Log.i(TAG,"${it.enemysNpMod[i]} ${it.enemysStarMod[i]} ${it.enemysClassPosition[i]}")
+                }
             }
         }
 

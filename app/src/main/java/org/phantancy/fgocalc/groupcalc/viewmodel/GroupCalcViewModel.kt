@@ -165,7 +165,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
 
-    private val pickedCards = ArrayList<CardPickEntity>()
 
     //添加编队成员
     fun addGroupMember(vo: GroupMemberVO) {
@@ -241,9 +240,11 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(pickedCards: ArrayList<CardPickEntity>, isBraveChain: Boolean) {
-        this.pickedCards.clear()
-        this.pickedCards.addAll(pickedCards)
+    fun clickCalc(chosenCards: List<CardBO>, isBraveChain: Boolean) {
+        /**
+         * 选择的卡
+         * 一些公共条件：三连增益、染色、宝具卡位置
+         */
 
 //        if (pickedCards.size == 3) {
 //            //设置卡片

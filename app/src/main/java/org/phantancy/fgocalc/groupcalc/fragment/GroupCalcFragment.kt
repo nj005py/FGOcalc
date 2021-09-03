@@ -164,7 +164,7 @@ class GroupCalcFragment : BaseFragment() {
 
         //计算
         binding.btnCalc.setOnClickListener {
-//            vm.clickCalc(pickedAdapter.entities as ArrayList<CardPickEntity>,isBraveChain)
+
             for (x in memberAdapter.mList) {
                 val card = x.cards[0]
                 val out = "${x.svtEntity.name} ${card.svtId} ${card.svtPosition} ${card.position}"
@@ -176,6 +176,8 @@ class GroupCalcFragment : BaseFragment() {
                     Log.i(TAG,"${it.enemysNpMod[i]} ${it.enemysStarMod[i]} ${it.enemysClassPosition[i]}")
                 }
             }
+
+            vm.clickCalc(chosenCardAdapter.mList,isBraveChain)
         }
 
         //结果

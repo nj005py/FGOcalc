@@ -1,11 +1,11 @@
 package org.phantancy.fgocalc.entity
 
 data class ResultDmg(
-        val c1: String,
-        val c2: String,
-        val c3: String,
-        val c4: String,
-        val sum: String,
-        val des: String
+        var c1: String = "",
+        var c2: String = "",
+        var c3: String = "",
+        var c4: String = "",
+        var sum: String = "",
+        var des: String = ""
 ) {
 }

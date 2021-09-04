@@ -40,26 +40,23 @@ class CalcLogic {
         /**
          * 每张卡都有cardEntity与对应的servant
          */
+        val resList = arrayListOf<Double>()
         for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
             //todo 计算伤害
             var res: Double = dmgCalc(position, random, groupCalcBO)
             res = Math.floor(res)
+            resList.add(res)
         }
-//        var res1: Double = dmgCalc(groupCalcBO.cardType1, 1, random, calcEntities[0], groupCalcBO, servants[0])
-//        var res2: Double = dmgCalc(groupCalcBO.cardType2, 2, random, calcEntities[1], groupCalcBO, servants[1])
-//        var res3: Double = dmgCalc(groupCalcBO.cardType3, 3, random, calcEntities[2], groupCalcBO, servants[2])
-//        var res4: Double = 0.0
-//        res1 = Math.floor(res1)
-//        res2 = Math.floor(res2)
-//        res3 = Math.floor(res3)
-//        if (isBraveChain) {
-//            res4 = dmgCalc(groupCalcBO.cardType4, 4, random, calcEntities[0], groupCalcBO, servants[0])
-//            res4 = Math.floor(res4)
-//        }
-//        var sum = res1 + res2 + res3
-//        if (isBraveChain) {
-//            sum += res4
-//        }
+        var sum = 0.0
+        for (res in resList){
+            sum += res
+        }
+        resList.add(sum)
+        var des = ""
+        for ((index,res) in resList.withIndex()){
+            des += "c${index + 1}: ${ParamsUtil.dmgResFormat(res)}\n"
+        }
+        var resultDmg = ResultDmg()
 //        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
 //                ParamsUtil.dmgResFormat(res1),
 //                ParamsUtil.dmgResFormat(res2),

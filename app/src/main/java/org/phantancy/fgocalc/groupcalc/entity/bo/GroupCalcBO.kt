@@ -1,16 +1,18 @@
 package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import org.phantancy.fgocalc.common.Constant
+import org.phantancy.fgocalc.entity.ServantEntity
 
 //计算用公共数据
 data class GroupCalcBO(
         /**
          * 选的卡
          */
-        var cardType1: String = Constant.CARD_QUICK,
-        var cardType2: String = Constant.CARD_QUICK,
-        var cardType3: String = Constant.CARD_QUICK,
-        var cardType4: String = Constant.CARD_EX,
+        var chosenCards: ArrayList<CardBO> = arrayListOf(),
+        //选卡对应条件
+        var chosenSetting: ArrayList<GroupMemberSettingBO> = arrayListOf(),
+        //选卡对应从者
+        var chosenServants : ArrayList<ServantEntity> = arrayListOf(),
         //暴击
         var isCritical1: Boolean = false,
         var isCritical2: Boolean = false,

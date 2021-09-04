@@ -15,7 +15,7 @@ data class CardBO(
         var svtId: Int = 0,
         //属于某从者
         var svtPosition: Int = 0,
-        //第几张卡
+        //从者配卡中第几张卡
         var position: Int = 0,
         //野兽足迹
         var extraAtk: Double = 0.0,

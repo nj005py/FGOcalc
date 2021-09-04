@@ -9,12 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import org.phantancy.fgocalc.common.Constant.CARD_EX
+import org.phantancy.fgocalc.common.ParamsUtil
 import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.data.ServantAvatarData
 import org.phantancy.fgocalc.entity.*
 import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
+import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
 
 class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
@@ -26,7 +29,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
 
     val calcEntites = ArrayList<CalcEntity>()
 
-    val groupCalcEntity = GroupCalcBO()
+    val groupCalcBO = GroupCalcBO()
 
     private val _memberGroup = MutableLiveData<ArrayList<GroupMemberVO>>()
     val memberGroup: LiveData<ArrayList<GroupMemberVO>> = _memberGroup
@@ -240,11 +243,39 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(chosenCards: List<CardBO>, isBraveChain: Boolean) {
+    fun clickCalc(members: ArrayList<GroupMemberVO>,chosenCards: List<CardBO>, isBraveChain: Boolean) {
         /**
          * 选择的卡
          * 一些公共条件：三连增益、染色、宝具卡位置
          */
+        if (chosenCards.size == 3) {
+            //计算数据
+            val groupCalcBO = GroupCalcBO()
+            val card1 = chosenCards[0]
+            if (isBraveChain) {
+                val card4 = CardBO().apply {
+                    type = CARD_EX
+                    svtId = card1.svtId
+                    svtPosition = card1.svtPosition
+                }
+                groupCalcBO.chosenCards.add(card4)
+            }
+            //分析卡片
+            for (card in chosenCards){
+                groupCalcBO.chosenSetting.add(members[card.svtPosition].settingBO)
+                groupCalcBO.chosenServants.add(members[card.svtPosition].svtEntity)
+            }
+            //是否同色
+            groupCalcBO.isSameColor = ParamsUtil.isCardsSameColor(groupCalcBO.chosenCards[0].type,
+                    groupCalcBO.chosenCards[1].type, groupCalcBO.chosenCards[2].type)
+            //是否红链
+            groupCalcBO.isBusterChain = ParamsUtil.isCardsBusterChain(groupCalcBO.chosenCards[0].type,
+                    groupCalcBO.chosenCards[1].type, groupCalcBO.chosenCards[2].type)
+            //首卡颜色
+            groupCalcBO.firstCardType = ParamsUtil.getCardColor(card1.type)
+            val calcLogic = CalcLogic()
+//            calcLogic.fourCardsDmg()
+        }
 
 //        if (pickedCards.size == 3) {
 //            //设置卡片
@@ -269,39 +300,39 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
     //伤害计算
 
-    fun handleResult(min: ResultDmg, max: ResultDmg, pickedServants: List<ServantEntity>) {
-        val res1 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcEntity.cardType1, min.c1, max.c1, "np", "star",
-                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
-        val res2 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcEntity.cardType2, min.c2, max.c2, "np", "star",
-                "", ServantAvatarData.getServantAvatar(pickedServants[1].id))
-        val res3 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcEntity.cardType3, min.c3, max.c3, "np", "star",
-                "", ServantAvatarData.getServantAvatar(pickedServants[2].id))
-        val res4 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcEntity.cardType4, min.c4, max.c4, "np", "star",
-                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
-        val sumBuilder = StringBuilder()
-        sumBuilder.append("伤害总计：")
-                .append(min.sum)
-                .append("-")
-                .append(max.sum)
-                .append("\n")
-        sumBuilder.append("np总计：")
-                .append("np")
-                .append("\n")
-        sumBuilder.append("打星总计：")
-                .append("star.sum")
-                .append("\n")
-        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
-                "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(pickedServants[0].id));
-        val list: ArrayList<ResultEntity> = ArrayList()
-        list.add(res1)
-        list.add(res2)
-        list.add(res3)
-        list.add(res4)
-        list.add(resSum)
-        mResultList.value = list
-    }
+//    fun handleResult(min: ResultDmg, max: ResultDmg, pickedServants: List<ServantEntity>) {
+//        val res1 = ResultEntity(ResultEntity.TYPE_CARD,
+//                groupCalcBO.cardType1, min.c1, max.c1, "np", "star",
+//                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
+//        val res2 = ResultEntity(ResultEntity.TYPE_CARD,
+//                groupCalcBO.cardType2, min.c2, max.c2, "np", "star",
+//                "", ServantAvatarData.getServantAvatar(pickedServants[1].id))
+//        val res3 = ResultEntity(ResultEntity.TYPE_CARD,
+//                groupCalcBO.cardType3, min.c3, max.c3, "np", "star",
+//                "", ServantAvatarData.getServantAvatar(pickedServants[2].id))
+//        val res4 = ResultEntity(ResultEntity.TYPE_CARD,
+//                groupCalcBO.cardType4, min.c4, max.c4, "np", "star",
+//                "", ServantAvatarData.getServantAvatar(pickedServants[0].id))
+//        val sumBuilder = StringBuilder()
+//        sumBuilder.append("伤害总计：")
+//                .append(min.sum)
+//                .append("-")
+//                .append(max.sum)
+//                .append("\n")
+//        sumBuilder.append("np总计：")
+//                .append("np")
+//                .append("\n")
+//        sumBuilder.append("打星总计：")
+//                .append("star.sum")
+//                .append("\n")
+//        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
+//                "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(pickedServants[0].id));
+//        val list: ArrayList<ResultEntity> = ArrayList()
+//        list.add(res1)
+//        list.add(res2)
+//        list.add(res3)
+//        list.add(res4)
+//        list.add(resSum)
+//        mResultList.value = list
+//    }
 }

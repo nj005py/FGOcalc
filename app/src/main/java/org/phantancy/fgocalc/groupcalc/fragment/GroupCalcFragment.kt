@@ -38,6 +38,7 @@ class GroupCalcFragment : BaseFragment() {
     private lateinit var vm: GroupCalcViewModel
     private var isBraveChain = false
     private var memberVO = GroupMemberVO()
+    var groupEnemyVO: GroupEnemyVO = GroupEnemyVO()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupCalcBinding.inflate(layoutInflater)
@@ -89,16 +90,16 @@ class GroupCalcFragment : BaseFragment() {
             result ->
             if (result.resultCode == Activity.RESULT_OK){
                 result.data?.let {
-                    val groupEnemyVO = it.getParcelableExtra<GroupEnemyVO>("groupEnemyVO")
                     //todo 更新敌方信息
-                    memberVO.groupEnemyVO = groupEnemyVO
+                    groupEnemyVO = it.getParcelableExtra<GroupEnemyVO>("groupEnemyVO")
+
                 }
             }
         }
 
         binding.viewEnemy.setTitle("设置敌方")
         binding.viewEnemy.setOnClickListener {
-            enemyLauncher.launch(Intent(mActy,GroupEnemyActivity::class.java).apply { putExtra("groupEnemyVO",memberVO.groupEnemyVO) })
+            enemyLauncher.launch(Intent(mActy,GroupEnemyActivity::class.java).apply { putExtra("groupEnemyVO",groupEnemyVO) })
         }
         //成员
         binding.rvMembers.adapter = memberAdapter
@@ -170,14 +171,14 @@ class GroupCalcFragment : BaseFragment() {
                 val out = "${x.svtEntity.name} ${card.svtId} ${card.svtPosition} ${card.position}"
                 Log.i(TAG, out)
             }
-            memberVO.groupEnemyVO?.let {
+            groupEnemyVO?.let {
                 Log.i(TAG,"enemyCount: ${it.enemyCount}")
                 for (i in 0 until it.enemyCount){
                     Log.i(TAG,"${it.enemysNpMod[i]} ${it.enemysStarMod[i]} ${it.enemysClassPosition[i]}")
                 }
             }
 
-            vm.clickCalc(chosenCardAdapter.mList,isBraveChain)
+            vm.clickCalc(memberAdapter.mList,chosenCardAdapter.mList,isBraveChain)
         }
 
         //结果
@@ -204,12 +205,12 @@ class GroupCalcFragment : BaseFragment() {
 
     //监听过量伤害、暴击
     private fun setOverkillCritical() {
-        binding.cbOk1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill1 = isChecked }
-        binding.cbOk2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill2 = isChecked }
-        binding.cbOk3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill3 = isChecked }
-        binding.cbOk4.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isOverkill4 = isChecked }
-        binding.cbCr1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical1 = isChecked }
-        binding.cbCr2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical2 = isChecked }
-        binding.cbCr3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcEntity.isCritical3 = isChecked }
+        binding.cbOk1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill1 = isChecked }
+        binding.cbOk2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill2 = isChecked }
+        binding.cbOk3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill3 = isChecked }
+        binding.cbOk4.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill4 = isChecked }
+        binding.cbCr1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical1 = isChecked }
+        binding.cbCr2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical2 = isChecked }
+        binding.cbCr3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical3 = isChecked }
     }
 }

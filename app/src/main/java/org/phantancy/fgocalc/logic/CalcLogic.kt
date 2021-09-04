@@ -35,7 +35,7 @@ class CalcLogic {
     val TAG = "CalcLogic"
 
     //计算多张卡的伤害
-    fun cardsDmg(random: Double, groupCalcBO: GroupCalcBO, isBraveChain: Boolean) {
+    fun cardsDmg(random: Double, groupCalcBO: GroupCalcBO, isBraveChain: Boolean):ResultDmg {
         //每张卡伤害结果
         /**
          * 每张卡都有cardEntity与对应的servant
@@ -43,6 +43,7 @@ class CalcLogic {
         for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
             //todo 计算伤害
             var res: Double = dmgCalc(position, random, groupCalcBO)
+            res = Math.floor(res)
         }
 //        var res1: Double = dmgCalc(groupCalcBO.cardType1, 1, random, calcEntities[0], groupCalcBO, servants[0])
 //        var res2: Double = dmgCalc(groupCalcBO.cardType2, 2, random, calcEntities[1], groupCalcBO, servants[1])
@@ -65,14 +66,14 @@ class CalcLogic {
 //                ParamsUtil.dmgResFormat(res3),
 //                ParamsUtil.dmgResFormat(res4),
 //                ParamsUtil.dmgResFormat(sum))
-//        return ResultDmg(
-//                ParamsUtil.dmgResFormat(res1),
-//                ParamsUtil.dmgResFormat(res2),
-//                ParamsUtil.dmgResFormat(res3),
-//                ParamsUtil.dmgResFormat(res4),
-//                ParamsUtil.dmgResFormat(sum),
-//                des
-//        )
+        return ResultDmg(
+                ParamsUtil.dmgResFormat(res1),
+                ParamsUtil.dmgResFormat(res2),
+                ParamsUtil.dmgResFormat(res3),
+                ParamsUtil.dmgResFormat(res4),
+                ParamsUtil.dmgResFormat(sum),
+                des
+        )
     }
 
     /**
@@ -127,6 +128,7 @@ class CalcLogic {
         val specialBuff: Double = safeGetBuffMap(BuffData.SPECIAL_UP, setting)
         //特防
         val specialDefBuff = 0.0
+
         /**
          * 暴击buff
          */
@@ -189,41 +191,8 @@ class CalcLogic {
                 safeGetBuffMap(BuffData.NP_MULTIPLIER_UP_BE, setting), setting.hpLeft, setting.hp)
         //卡牌伤害倍率
         val cardDmgMultiplier = ParamsUtil.getCardDmgMultiplier(card.type)
-        /**
-         * 宝具buff:全buff+被动buff+伤害前buff
-         */
-        /**
-         * 卡牌buff(魔放)
-         */
-        var quickBuff = 0.0
-        var artsBuff = 0.0
-        var busterBuff = 0.0
-        var effectiveBuff = 0.0
-        quickBuff = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP, setting)
-        artsBuff = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP, setting)
-        busterBuff = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP, setting)
-        //todo 从位置0开始比对
-        for (index in 0 until position) {
-            if (ParamsUtil.isNp(groupCalcBO.chosenCards[index].type)) {
-                val indexSetting = groupCalcBO.chosenSetting[index]
-                //前面有宝具卡则加伤害后buff
-                quickBuff += safeGetBuffMap(BuffData.QUICK_UP_AF, indexSetting)
-                artsBuff += safeGetBuffMap(BuffData.ARTS_UP_AF, indexSetting)
-                busterBuff += safeGetBuffMap(BuffData.BUSTER_UP_AF, indexSetting)
-                if (groupCalcBO.chosenCards[index].svtPosition == card.svtPosition) {
-                    //与前面宝具卡是同个从者，则加伤害前buff
-                    quickBuff += safeGetBuffMap(BuffData.QUICK_UP_BE, indexSetting)
-                    artsBuff += safeGetBuffMap(BuffData.ARTS_UP_BE, indexSetting)
-                    busterBuff += safeGetBuffMap(BuffData.BUSTER_UP_BE, indexSetting)
-                }
-            }
-        }
-        //宝具卡多加个自身前置buff
-        quickBuff += safeGetBuffMap(BuffData.QUICK_UP_BE, setting)
-        artsBuff += safeGetBuffMap(BuffData.ARTS_UP_BE, setting)
-        busterBuff += safeGetBuffMap(BuffData.BUSTER_UP_BE, setting)
-        //最终用于计算的魔放结果
-        effectiveBuff = ParamsUtil.getEffectiveBuff(card.type, quickBuff, artsBuff, busterBuff)
+        // 卡牌buff(魔放)
+        var effectiveBuff = getEffectiveBuffForNp(position, groupCalcBO)
         //职阶系数
         val classAtkMod = ParamsUtil.getClassAtkMod(servant.classType)
         //职阶克制
@@ -278,12 +247,13 @@ class CalcLogic {
      * 伤害计算只计算打第一个敌人
      * np、打星，光炮需要计算打所有敌人
      */
-    //计算4张卡的np
+    //计算多张卡的np
     fun cardsNp(random: Double, groupCalcBO: GroupCalcBO, isBraveChain: Boolean): ResultDmg {
         for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
             //todo 计算np
-//            var res: Double = npGen(position, random, groupCalcBO)
+            var res: DoubleArray = npGenCalc(position,groupCalcBO)
         }
+
 //        val enemyNpMod: Double = calcEntity.getEnemysNpMod().get(0)
 //        val res1 = npGenCalc(groupCalcObject.cardType1, 1, calcEntities[0].enemysNpMod[0],calcEntities[0],groupCalcObject,servants[0])
 //        val res2 = npGenCalc(groupCalcObject.cardType2, 2, enemyNpMod)
@@ -342,10 +312,10 @@ class CalcLogic {
         }
     }
 
-    private fun npGenCalc(cardType: String, position: Int, enemyNpMod: Double, calcEntity: CalcEntity,
-                          groupCalcBO: GroupCalcBO, servant: ServantEntity): DoubleArray {
-        return if (ParamsUtil.isNp(cardType)) npNpGenDelegate(cardType, position, enemyNpMod, calcEntity,
-                groupCalcBO, servant) else npGen(position, groupCalcBO)
+    private fun npGenCalc(position: Int, groupCalcBO: GroupCalcBO): DoubleArray {
+        val curCardType = groupCalcBO.chosenCards[position].type
+        return if (ParamsUtil.isNp(curCardType)) npNpGenDelegate(position,groupCalcBO)
+        else npGen(position, groupCalcBO)
     }
 
     //普攻np 肯定只打1个敌人
@@ -357,10 +327,6 @@ class CalcLogic {
         val card = groupCalcBO.chosenCards[position]
         val servant = groupCalcBO.chosenServants[position]
         val setting = groupCalcBO.chosenSetting[position]
-
-        /**
-         * 单独卡计算的部分
-         */
         //np获取率
         val na = ParamsUtil.getNa(card.type, servant.quickNa, servant.artsNa, servant.busterNa, servant.exNa, servant.npHit.toDouble())
         //hit数
@@ -369,12 +335,6 @@ class CalcLogic {
         val cardNpMultiplier = ParamsUtil.getCardNpMultiplier(card.type)
         //位置加成
         val positionMod = ParamsUtil.getNpPositionMod(position)
-
-        /**
-         * 宝具前，平A需要考虑:全buff+被动buff
-         * 宝具，平A不考虑
-         * 宝具后，平A需要考虑:全buff+被动buff+伤害前buff+伤害后buff=宝具前+伤害前buff+伤害后buff
-         */
         //魔放
         var effectiveBuff = getEffectiveBuff(position, groupCalcBO)
         //首卡加成
@@ -400,9 +360,8 @@ class CalcLogic {
     }
 
     //宝具np 打多个敌人
-    private fun npNpGenDelegate(cardType: String, position: Int, enemyNpMod: Double, calcEntity: CalcEntity,
-                                groupCalcBO: GroupCalcBO, servant: ServantEntity): DoubleArray {
-        var enemyNpMod = enemyNpMod
+    private fun npNpGenDelegate(position: Int,groupCalcBO: GroupCalcBO): DoubleArray {
+        val servant = groupCalcBO.chosenServants[position]
         val res = DoubleArray(3)
         //辅助宝具不用算直接为0
         if (servant.npType == "support") {
@@ -411,15 +370,13 @@ class CalcLogic {
         }
         //单体宝具只算第一个敌人
         if (servant.npType == "one") {
-            res[0] = npNpGen(position, groupCalcBO, enemyNpMod)
+            res[0] = npNpGen(position, groupCalcBO, groupCalcBO.enemysNpMod[0])
         }
         //光炮宝具算整个敌人列表
         if (servant.npType == "all") {
-            for (i in 0 until calcEntity.getEnemyCount()) {
-                //判断是否设置敌人
-                enemyNpMod = calcEntity.getEnemysNpMod().get(i)
+            for (i in 0 until groupCalcBO.enemyCount) {
                 //计算
-                res[i] = npNpGen(position, groupCalcBO, enemyNpMod)
+                res[i] = npNpGen(position, groupCalcBO, groupCalcBO.enemysNpMod[i])
             }
             return res
         }
@@ -477,7 +434,7 @@ class CalcLogic {
      * ex：前面最多1个宝具
      */
     //魔放处理：平A
-    fun getEffectiveBuff(position: Int, groupCalcBO: GroupCalcBO): Double{
+    fun getEffectiveBuff(position: Int, groupCalcBO: GroupCalcBO): Double {
         val card = groupCalcBO.chosenCards[position]
         val servant = groupCalcBO.chosenServants[position]
         val setting = groupCalcBO.chosenSetting[position]
@@ -509,8 +466,9 @@ class CalcLogic {
         }
         return effectiveBuff
     }
+
     //魔放处理：宝具
-    fun getEffectiveBuffForNp(position: Int, groupCalcBO: GroupCalcBO): Double{
+    fun getEffectiveBuffForNp(position: Int, groupCalcBO: GroupCalcBO): Double {
         val card = groupCalcBO.chosenCards[position]
         val servant = groupCalcBO.chosenServants[position]
         val setting = groupCalcBO.chosenSetting[position]
@@ -548,7 +506,7 @@ class CalcLogic {
     }
 
     //攻击buff
-    fun getAtkBuff(position: Int, groupCalcBO: GroupCalcBO):Double{
+    fun getAtkBuff(position: Int, groupCalcBO: GroupCalcBO): Double {
         val card = groupCalcBO.chosenCards[position]
         val servant = groupCalcBO.chosenServants[position]
         val setting = groupCalcBO.chosenSetting[position]
@@ -566,8 +524,9 @@ class CalcLogic {
         }
         return atkBuff
     }
+
     //攻击buff：宝具
-    fun getAtkBuffForNp(position: Int, groupCalcBO: GroupCalcBO):Double{
+    fun getAtkBuffForNp(position: Int, groupCalcBO: GroupCalcBO): Double {
         val setting = groupCalcBO.chosenSetting[position]
         var atkBuff = getAtkBuff(position, groupCalcBO)
         atkBuff += safeGetBuffMap(BuffData.ATK_UP_BE, setting)
@@ -575,7 +534,7 @@ class CalcLogic {
     }
 
     //黄金率：平A
-    fun getNpcUp(position: Int, groupCalcBO: GroupCalcBO):Double{
+    fun getNpcUp(position: Int, groupCalcBO: GroupCalcBO): Double {
         val card = groupCalcBO.chosenCards[position]
         val servant = groupCalcBO.chosenServants[position]
         val setting = groupCalcBO.chosenSetting[position]
@@ -595,7 +554,7 @@ class CalcLogic {
     }
 
     //黄金率：宝具
-    fun getNpcUpForNp(position: Int, groupCalcBO: GroupCalcBO):Double{
+    fun getNpcUpForNp(position: Int, groupCalcBO: GroupCalcBO): Double {
         val setting = groupCalcBO.chosenSetting[position]
         var npBuff = getNpcUp(position, groupCalcBO)
         npBuff += safeGetBuffMap(BuffData.NPC_UP_BE, setting)

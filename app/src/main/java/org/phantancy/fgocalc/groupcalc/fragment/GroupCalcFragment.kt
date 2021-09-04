@@ -23,6 +23,7 @@ import org.phantancy.fgocalc.groupcalc.activity.GroupEnemyActivity
 import org.phantancy.fgocalc.groupcalc.adapter.GroupChosenCardAdapter
 import org.phantancy.fgocalc.groupcalc.adapter.GroupMemberAdapter
 import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupCalcVO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupEnemyVO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.item_decoration.LinearItemDecoration
@@ -37,8 +38,10 @@ class GroupCalcFragment : BaseFragment() {
     private lateinit var binding: FragmentGroupCalcBinding
     private lateinit var vm: GroupCalcViewModel
     private var isBraveChain = false
-    private var memberVO = GroupMemberVO()
+
+    //    private var memberVO = GroupMemberVO()
     var groupEnemyVO: GroupEnemyVO = GroupEnemyVO()
+    var groupCalcVO: GroupCalcVO = GroupCalcVO()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentGroupCalcBinding.inflate(layoutInflater)
@@ -60,6 +63,7 @@ class GroupCalcFragment : BaseFragment() {
                 result.data?.let {
                     val svt = it.getParcelableExtra<ServantEntity>("servant")
                     //新逻辑
+                    var memberVO = GroupMemberVO()
                     memberVO.svtEntity = svt
                     vm.addGroupMember(memberVO)
                 }
@@ -71,7 +75,7 @@ class GroupCalcFragment : BaseFragment() {
         ) { result ->
             if (result.resultCode == BaseActy.RESULT_OK) {
                 result.data?.let {
-                    memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
+                    var memberVO = it.getParcelableExtra<GroupMemberVO>("groupMemberVO")
                     val memberPosition = it.getIntExtra("memberPosition", 0)
                     memberVO?.let {
                         vm.updateMember(it, memberAdapter.mList, memberPosition)
@@ -86,9 +90,8 @@ class GroupCalcFragment : BaseFragment() {
         }
 
         //跳敌方设置页
-        val enemyLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            result ->
-            if (result.resultCode == Activity.RESULT_OK){
+        val enemyLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.let {
                     //todo 更新敌方信息
                     groupEnemyVO = it.getParcelableExtra<GroupEnemyVO>("groupEnemyVO")
@@ -99,7 +102,7 @@ class GroupCalcFragment : BaseFragment() {
 
         binding.viewEnemy.setTitle("设置敌方")
         binding.viewEnemy.setOnClickListener {
-            enemyLauncher.launch(Intent(mActy,GroupEnemyActivity::class.java).apply { putExtra("groupEnemyVO",groupEnemyVO) })
+            enemyLauncher.launch(Intent(mActy, GroupEnemyActivity::class.java).apply { putExtra("groupEnemyVO", groupEnemyVO) })
         }
         //成员
         binding.rvMembers.adapter = memberAdapter
@@ -172,13 +175,13 @@ class GroupCalcFragment : BaseFragment() {
                 Log.i(TAG, out)
             }
             groupEnemyVO?.let {
-                Log.i(TAG,"enemyCount: ${it.enemyCount}")
-                for (i in 0 until it.enemyCount){
-                    Log.i(TAG,"${it.enemysNpMod[i]} ${it.enemysStarMod[i]} ${it.enemysClassPosition[i]}")
+                Log.i(TAG, "enemyCount: ${it.enemyCount}")
+                for (i in 0 until it.enemyCount) {
+                    Log.i(TAG, "${it.enemysNpMod[i]} ${it.enemysStarMod[i]} ${it.enemysClassPosition[i]}")
                 }
             }
 
-            vm.clickCalc(memberAdapter.mList,chosenCardAdapter.mList,isBraveChain)
+            vm.clickCalc(memberAdapter.mList, groupCalcVO, chosenCardAdapter.mList, isBraveChain)
         }
 
         //结果
@@ -205,12 +208,12 @@ class GroupCalcFragment : BaseFragment() {
 
     //监听过量伤害、暴击
     private fun setOverkillCritical() {
-        binding.cbOk1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill1 = isChecked }
-        binding.cbOk2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill2 = isChecked }
-        binding.cbOk3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill3 = isChecked }
-        binding.cbOk4.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isOverkill4 = isChecked }
-        binding.cbCr1.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical1 = isChecked }
-        binding.cbCr2.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical2 = isChecked }
-        binding.cbCr3.setOnCheckedChangeListener { buttonView, isChecked -> vm.groupCalcBO.isCritical3 = isChecked }
+        binding.cbOk1.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isOverkill1 = isChecked }
+        binding.cbOk2.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isOverkill2 = isChecked }
+        binding.cbOk3.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isOverkill3 = isChecked }
+        binding.cbOk4.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isOverkill4 = isChecked }
+        binding.cbCr1.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isCritical1 = isChecked }
+        binding.cbCr2.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isCritical2 = isChecked }
+        binding.cbCr3.setOnCheckedChangeListener { buttonView, isChecked -> groupCalcVO.isCritical3 = isChecked }
     }
 }

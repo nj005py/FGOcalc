@@ -56,21 +56,25 @@ class CalcLogic {
         for ((index,res) in resList.withIndex()){
             des += "c${index + 1}: ${ParamsUtil.dmgResFormat(res)}\n"
         }
-        var resultDmg = ResultDmg()
+        var resultDmg = ResultDmg().apply {
+            c1 = ParamsUtil.dmgResFormat(resList[0])
+            c2 = ParamsUtil.dmgResFormat(resList[1])
+            c3 = ParamsUtil.dmgResFormat(resList[2])
+            if (isBraveChain) {
+                c4 = ParamsUtil.dmgResFormat(resList[3])
+            } else {
+                c4 = ""
+            }
+            this.sum = ParamsUtil.dmgResFormat(sum)
+            this.des = des
+        }
 //        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
 //                ParamsUtil.dmgResFormat(res1),
 //                ParamsUtil.dmgResFormat(res2),
 //                ParamsUtil.dmgResFormat(res3),
 //                ParamsUtil.dmgResFormat(res4),
 //                ParamsUtil.dmgResFormat(sum))
-        return ResultDmg(
-                ParamsUtil.dmgResFormat(res1),
-                ParamsUtil.dmgResFormat(res2),
-                ParamsUtil.dmgResFormat(res3),
-                ParamsUtil.dmgResFormat(res4),
-                ParamsUtil.dmgResFormat(sum),
-                des
-        )
+        return resultDmg
     }
 
     /**
@@ -106,7 +110,7 @@ class CalcLogic {
         //卡牌伤害倍率
         val cardDmgMultiplier = ParamsUtil.getCardDmgMultiplier(card.type)
         //位置补正
-        val positionMod = ParamsUtil.getDmgPositionMod(position)
+        val positionMod = ParamsUtil.getDmgPositionMod(position + 1)
         //判断宝具卡前还是后，按需取buff
         var effectiveBuff = getEffectiveBuff(position, groupCalcBO)
         //首卡加成
@@ -130,7 +134,7 @@ class CalcLogic {
          * 暴击buff
          */
         //判断暴击
-        val isCritical = ParamsUtil.isCritical(position, groupCalcBO.isCritical1,
+        val isCritical = ParamsUtil.isCritical(position + 1, groupCalcBO.isCritical1,
                 groupCalcBO.isCritical2,
                 groupCalcBO.isCritical3)
         var criticalBuff = ParamsUtil.getCriticalBuff(isCritical, card.type,

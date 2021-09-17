@@ -184,6 +184,10 @@ class GroupCalcFragment : BaseFragment() {
             vm.clickCalc(memberAdapter.mList, groupCalcVO, chosenCardAdapter.mList, isBraveChain)
         }
 
+        binding.btnClean.setOnClickListener {
+            //todo 清理结果
+        }
+
         //结果
         val resultAdapter = ResultAdapter()
         binding.rvCalcResult.adapter = resultAdapter

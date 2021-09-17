@@ -1,7 +1,6 @@
 package org.phantancy.fgocalc.groupcalc.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -287,13 +286,14 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val dmgRandomMin = 0.9
             val max = calcLogic.cardsDmg(dmgRandomMax,groupCalcBO, isBraveChain)
             val min = calcLogic.cardsDmg(dmgRandomMin,groupCalcBO, isBraveChain)
-            handleResult(min,max,groupCalcBO)
+            handleResult(min,max,groupCalcBO,isBraveChain)
         }
 
     }
     //伤害计算
 
-    fun handleResult(min: ResultDmg, max: ResultDmg, groupCalcBO: GroupCalcBO) {
+    fun handleResult(min: ResultDmg, max: ResultDmg, groupCalcBO: GroupCalcBO,isBraveChain: Boolean) {
+        val resList: ArrayList<ResultEntity> = ArrayList()
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcBO.chosenCards[0].type, min.c1, max.c1, "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[0].id))
@@ -303,15 +303,16 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         val res3 = ResultEntity(ResultEntity.TYPE_CARD,
                 groupCalcBO.chosenCards[2].type, min.c3, max.c3, "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[2].id))
-        var res4 = ResultEntity(ResultEntity.TYPE_CARD,
-                Constant.CARD_QUICK, "", "", "np", "star",
-                "", ServantAvatarData.getServantAvatar(4))
-        if (groupCalcBO.chosenCards.size == 4) {
-           res4  = ResultEntity(ResultEntity.TYPE_CARD,
-                    groupCalcBO.chosenCards[3].type, min.c4, max.c4, "np", "star",
+        resList.add(res1)
+        resList.add(res2)
+        resList.add(res3)
+        //有ex卡
+        if (isBraveChain){
+            val res4  = ResultEntity(ResultEntity.TYPE_CARD,
+                    Constant.CARD_EX, min.c4, max.c4, "np", "star",
                     "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[3].id))
+            resList.add(res4)
         }
-
         val sumBuilder = StringBuilder()
         sumBuilder.append("伤害总计：")
                 .append(min.sum)
@@ -326,12 +327,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                 .append("\n")
         val resSum = ResultEntity(ResultEntity.TYEP_SUM,
                 "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(2));
-        val list: ArrayList<ResultEntity> = ArrayList()
-        list.add(res1)
-        list.add(res2)
-        list.add(res3)
-        list.add(res4)
-        list.add(resSum)
-        mResultList.value = list
+        resList.add(resSum)
+        mResultList.value = resList
     }
 }

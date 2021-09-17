@@ -23,6 +23,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/image2"
+            app:layout_constraintBottom_toBottomOf="@id/iv_card"
+            app:layout_constraintRight_toRightOf="@id/iv_card"
+            />
+
         <TextView
             android:id="@+id/tv_res"
             android:layout_width="0dp"

@@ -17,7 +17,6 @@
             android:id="@+id/iv_card"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/quick"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +26,6 @@
             android:id="@+id/iv_avatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/image2"
             app:layout_constraintBottom_toBottomOf="@id/iv_card"
             app:layout_constraintRight_toRightOf="@id/iv_card"
             />
@@ -38,7 +36,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:text="adfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwoadfaljfljdflkajsfiowefjojfownfojwogfnwo\nadfaljfljdflkajsfiowefjojfownfojwogfnwo"
             app:layout_constraintLeft_toRightOf="@id/iv_card"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"

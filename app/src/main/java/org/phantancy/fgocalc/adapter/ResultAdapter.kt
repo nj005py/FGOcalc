@@ -74,9 +74,11 @@ class ResultAdapter() : RecyclerView.Adapter<ResultAdapter.CardViewHolder>() {
             var img = 0;
             var res = "";
             if (x.type == ResultEntity.TYPE_CARD) {
+                //选卡
                 img = Constant.getCardDrawable(x.cardType)
                 res = "伤害：${x.dmgMin} - ${x.dmgMax}\nNP：${x.np}\n打星：${x.star}"
             } else {
+                //总结
                 img = x.avatar!!
                 res = x.sum!!
             }

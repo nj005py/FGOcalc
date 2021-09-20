@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.phantancy.fgocalc.common.Constant.AVATAR_LATEST_ID;
+
 public class ServantAvatar {
     static String BASE_URL = "http://fgo-cdn.vgtime.com/media/fgo/servant/head/";
     public static String AVATAR_URL = "https://gitee.com/nj005py/fgocalc/raw/master/svt/";
@@ -28,7 +30,7 @@ public class ServantAvatar {
 
     public static Map<Integer, Integer> servantAvatar = new HashMap<Integer, Integer>();
     static {
-        for (int id = 1; id <= 316; id++){
+        for (int id = 1; id <= AVATAR_LATEST_ID; id++){
             int resId = getResIdByName("image" + id);
             servantAvatar.put(id,resId);
         }

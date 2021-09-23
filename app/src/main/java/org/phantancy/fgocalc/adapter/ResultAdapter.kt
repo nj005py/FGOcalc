@@ -71,21 +71,28 @@ class ResultAdapter() : RecyclerView.Adapter<ResultAdapter.CardViewHolder>() {
 
     inner class CardViewHolder(val binding: EntityResultCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindView(x: ResultEntity) {
-            var img = 0;
-            var res = "";
             if (x.type == ResultEntity.TYPE_CARD) {
                 //选卡
-                img = Constant.getCardDrawable(x.cardType)
-                res = "伤害：${x.dmgMin} - ${x.dmgMax}\nNP：${x.np}\n打星：${x.star}"
+                val img = Constant.getCardDrawable(x.cardType)
+                val res = "伤害：${x.dmgMin} - ${x.dmgMax}\nNP：${x.np}\n打星：${x.star}"
+                Glide.with(binding.ivCard)
+                        .load(img)
+                        .into(binding.ivCard)
+                Glide.with(binding.ivAvatar)
+                        .load(x.avatar)
+                        .into(binding.ivAvatar)
+                binding.tvRes.setText(res)
             } else {
                 //总结
-                img = x.avatar!!
-                res = x.sum!!
+                val img = x.avatar!!
+                val res = x.sum!!
+                Glide.with(binding.ivCard)
+                        .load(img)
+                        .into(binding.ivCard)
+                binding.ivAvatar.setBackgroundResource(0)//清除头像
+                binding.tvRes.setText(res)
             }
-            Glide.with(binding.ivCard)
-                    .load(img)
-                    .into(binding.ivCard)
-            binding.tvRes.setText(res)
+
         }
     }
 

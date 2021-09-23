@@ -156,7 +156,6 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
 
-
     //添加编队成员
     fun addGroupMember(vo: GroupMemberVO) {
         viewModelScope.launch {
@@ -184,10 +183,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             list.remove(vo)
             //从者位置重排列
             //遍历成员
-            for ((memberPosition, member) in list.withIndex()){
+            for ((memberPosition, member) in list.withIndex()) {
                 //遍历成员卡
                 member.cards?.let {
-                    for (card in it){
+                    for (card in it) {
                         card.svtPosition = memberPosition
                         card.isVisible = true
                     }
@@ -199,14 +198,14 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //更新编队成员
-    fun updateMember(vo: GroupMemberVO, list: ArrayList<GroupMemberVO>, memberPosition: Int){
+    fun updateMember(vo: GroupMemberVO, list: ArrayList<GroupMemberVO>, memberPosition: Int) {
         list?.let {
             //更新成员
             list[memberPosition] = vo
-            for ((index, member) in list.withIndex()){
+            for ((index, member) in list.withIndex()) {
                 //遍历成员卡
                 member.cards?.let {
-                    for (card in it){
+                    for (card in it) {
                         card.svtPosition = index
                         card.isVisible = true
                     }
@@ -217,7 +216,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //清理选卡
-    fun cleanChosenCards(){
+    fun cleanChosenCards() {
 
     }
 
@@ -231,7 +230,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(members: ArrayList<GroupMemberVO>, groupCalcVO:GroupCalcVO,
+    fun clickCalc(members: ArrayList<GroupMemberVO>, groupCalcVO: GroupCalcVO,
                   chosenCards: List<CardBO>, isBraveChain: Boolean) {
         /**
          * 选择的卡
@@ -260,12 +259,12 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                 groupCalcBO.chosenCards.add(card4)
             }
             //分析卡片
-            for (card in groupCalcBO.chosenCards){
+            for (card in groupCalcBO.chosenCards) {
                 groupCalcBO.chosenSetting.add(members[card.svtPosition].settingBO)
                 groupCalcBO.chosenServants.add(members[card.svtPosition].svtEntity)
             }
             //校验详细设置
-            for ((index,setting) in groupCalcBO.chosenSetting.withIndex()){
+            for ((index, setting) in groupCalcBO.chosenSetting.withIndex()) {
                 if (setting.atk == 0.0) {
                     ToastUtils.showToast("请设置${groupCalcBO.chosenServants[index].name}详细设置")
                     return
@@ -284,50 +283,74 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             //伤害随机
             val dmgRandomMax = 1.1
             val dmgRandomMin = 0.9
-            val max = calcLogic.cardsDmg(dmgRandomMax,groupCalcBO, isBraveChain)
-            val min = calcLogic.cardsDmg(dmgRandomMin,groupCalcBO, isBraveChain)
-            handleResult(min,max,groupCalcBO,isBraveChain)
+            val dmgRandomAvg = 1.0
+            val max = calcLogic.cardsDmg(dmgRandomMax, groupCalcBO, isBraveChain)
+            val min = calcLogic.cardsDmg(dmgRandomMin, groupCalcBO, isBraveChain)
+            val avg = calcLogic.cardsDmg(dmgRandomAvg, groupCalcBO, isBraveChain)
+            handleResult(members, min, max, groupCalcBO, isBraveChain)
         }
 
     }
     //伤害计算
 
-    fun handleResult(min: ResultDmg, max: ResultDmg, groupCalcBO: GroupCalcBO,isBraveChain: Boolean) {
+    fun handleResult(members: ArrayList<GroupMemberVO>, min: ResultDmg, max: ResultDmg,
+                     groupCalcBO: GroupCalcBO, isBraveChain: Boolean) {
         val resList: ArrayList<ResultEntity> = ArrayList()
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[0].type, min.c1, max.c1, "np", "star",
+                groupCalcBO.chosenCards[0].type, min.c1, max.c1, "avg", "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[0].id))
         val res2 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[1].type, min.c2, max.c2, "np", "star",
+                groupCalcBO.chosenCards[1].type, min.c2, max.c2, "avg", "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[1].id))
         val res3 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[2].type, min.c3, max.c3, "np", "star",
+                groupCalcBO.chosenCards[2].type, min.c3, max.c3, "avg", "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[2].id))
         resList.add(res1)
         resList.add(res2)
         resList.add(res3)
         //有ex卡
-        if (isBraveChain){
-            val res4  = ResultEntity(ResultEntity.TYPE_CARD,
-                    Constant.CARD_EX, min.c4, max.c4, "np", "star",
+        if (isBraveChain) {
+            val res4 = ResultEntity(ResultEntity.TYPE_CARD,
+                    Constant.CARD_EX, min.c4, max.c4, "avg", "np", "star",
                     "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[3].id))
             resList.add(res4)
         }
-        val sumBuilder = StringBuilder()
-        sumBuilder.append("伤害总计：")
-                .append(min.sum)
-                .append("-")
-                .append(max.sum)
-                .append("\n")
-        sumBuilder.append("np总计：")
-                .append("np")
-                .append("\n")
-        sumBuilder.append("打星总计：")
-                .append("star.sum")
-                .append("\n")
-        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
-                "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(2));
-        resList.add(resSum)
+//        val sumBuilder = StringBuilder()
+//        sumBuilder.append("伤害总计：")
+//                .append(min.sum)
+//                .append("-")
+//                .append(max.sum)
+//                .append("\n")
+//        sumBuilder.append("np总计：")
+//                .append("np")
+//                .append("\n")
+//        sumBuilder.append("打星总计：")
+//                .append("star.sum")
+//                .append("\n")
+//        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
+//                "", "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(2));
+//        resList.add(resSum)
+        //从者总结
+        members?.let {
+            for ((index, member) in it.withIndex()) {
+                member.svtEntity?.let {
+                    val sum = "${member.svtEntity.name}总结"
+                    resList.add(ResultEntity(type = ResultEntity.TYEP_SUM, sum = sum, avatar = ServantAvatarData.getServantAvatar(it.id)))
+                }
+            }
+        }
         mResultList.value = resList
     }
+    /**
+     * c1 c2 c3
+     * 1a 2a 1a
+     * 总结svt1:
+     * 1min = c1+c3
+     * 1max = c1+c3
+     * 1min-1max
+     * 总结svt2:
+     * 2min = c2
+     * 2max = c2
+     * 2min-2max
+     */
 }

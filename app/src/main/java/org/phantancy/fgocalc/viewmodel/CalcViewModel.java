@@ -546,14 +546,14 @@ public class CalcViewModel extends AndroidViewModel {
     private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
 
         ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType1(), min.getC1(), max.getC1(), np.getC1(), star.getC1(),
+                calcEntity.getCardType1(), min.getC1(), max.getC1(),"", np.getC1(), star.getC1(),
                 "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType2(), min.getC2(), max.getC2(), np.getC2(), star.getC2(), "", ServantAvatarData.getServantAvatar(servant.id));
+                calcEntity.getCardType2(), min.getC2(), max.getC2(),"", np.getC2(), star.getC2(), "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType3(), min.getC3(), max.getC3(), np.getC3(), star.getC3(), "", ServantAvatarData.getServantAvatar(servant.id));
+                calcEntity.getCardType3(), min.getC3(), max.getC3(),"", np.getC3(), star.getC3(), "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType4(), min.getC4(), max.getC4(), np.getC4(), star.getC4(), "", ServantAvatarData.getServantAvatar(servant.id));
+                calcEntity.getCardType4(), min.getC4(), max.getC4(), "",np.getC4(), star.getC4(), "", ServantAvatarData.getServantAvatar(servant.id));
 
         StringBuilder sumBuilder = new StringBuilder();
         sumBuilder.append("伤害总计：")
@@ -568,7 +568,7 @@ public class CalcViewModel extends AndroidViewModel {
                 .append(star.getSum())
                 .append("\n");
         ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
-                "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(servant.id));
+                "", "", "", "", "","", sumBuilder.toString(), ServantAvatarData.getServantAvatar(servant.id));
         List<ResultEntity> list = new ArrayList<>();
         list.add(res1);
         list.add(res2);

@@ -7,6 +7,7 @@ import org.phantancy.fgocalc.data.BuffData
 import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.entity.ResultDmg
+import org.phantancy.fgocalc.entity.ResultGroupDmg
 import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupMemberSettingBO
 import java.text.MessageFormat
@@ -40,6 +41,8 @@ class CalcLogic {
         /**
          * 每张卡都有cardEntity与对应的servant
          */
+        //todo 结果携带对应从者
+        val groupDmg = ResultGroupDmg()
         val resList = arrayListOf<Double>()
         for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
             //todo 计算伤害

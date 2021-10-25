@@ -15,4 +15,9 @@
         <attr name="itemHint" format="string"/>
     </declare-styleable>
 
+    <!--敌方选择器-->
+    <declare-styleable name="EnemySelectView">
+        <attr name="itemTitle"/>
+    </declare-styleable>
+
 </resources>

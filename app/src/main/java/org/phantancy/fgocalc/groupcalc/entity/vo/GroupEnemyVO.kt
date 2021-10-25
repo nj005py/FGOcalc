@@ -11,10 +11,10 @@ data class GroupEnemyVO(
         //敌人
         var enemyCount: Int = 1,
         //np敌补正，默认saber
-        var enemysNpMod: ArrayList<Double> = arrayListOf(1.0, 1.0, 1.0),
+        var enemysNpMod: ArrayList<Double> = arrayListOf(1.0, 1.0, 1.0, 1.0, 1.0, 1.0),
         //打星敌补正，默认saber
-        var enemysStarMod: ArrayList<Double> = arrayListOf(0.0, 0.0, 0.0),
-        var enemysClassPosition: ArrayList<Int> = arrayListOf(0, 0, 0)
+        var enemysStarMod: ArrayList<Double> = arrayListOf(0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+        var enemysClassPosition: ArrayList<Int> = arrayListOf(0, 0, 0, 0, 0, 0)
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

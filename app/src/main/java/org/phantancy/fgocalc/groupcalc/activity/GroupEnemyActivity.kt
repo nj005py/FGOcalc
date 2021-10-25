@@ -12,10 +12,12 @@ import org.phantancy.fgocalc.activity.BaseActy
 import org.phantancy.fgocalc.data.ConditionData
 import org.phantancy.fgocalc.databinding.ActivityGroupEnemyBinding
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupEnemyVO
+import org.phantancy.fgocalc.view.EnemySelectView
 
 //编队计算，敌人设置
 class GroupEnemyActivity : BaseActy() {
     private lateinit var binding: ActivityGroupEnemyBinding
+    private lateinit var viewEnemyList: List<EnemySelectView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,8 @@ class GroupEnemyActivity : BaseActy() {
         setContentView(binding.root)
         val groupEnemyVO = intent.getParcelableExtra<GroupEnemyVO>("groupEnemyVO")
 
+        viewEnemyList = arrayListOf(binding.viewEnemy1, binding.viewEnemy2, binding.viewEnemy3,
+                binding.viewEnemy4, binding.viewEnemy5, binding.viewEnemy6)
         //敌人数量
         setSpAdapter(binding.spEnemyCount, ConditionData.getEnemyCountKeys())
         binding.spEnemyCount.onItemSelectedListener = object : OnItemSelectedListener {
@@ -37,56 +41,86 @@ class GroupEnemyActivity : BaseActy() {
             }
         }
         //敌人职阶
-        setSpAdapter(binding.spEnemyClass1, ConditionData.getEnemyNpModsKeys())
-        setSpAdapter(binding.spEnemyClass2, ConditionData.getEnemyNpModsKeys())
-        setSpAdapter(binding.spEnemyClass3, ConditionData.getEnemyNpModsKeys())
 
         groupEnemyVO?.let {
             binding.spEnemyCount.setSelection(it.enemyCount - 1)
-            binding.spEnemyClass1.setSelection(it.enemysClassPosition[0])
-            if (binding.spEnemyClass2.visibility == View.VISIBLE) {
-                binding.spEnemyClass2.setSelection(it.enemysClassPosition[1])
+            binding.viewEnemy1.setSelection(it.enemysClassPosition[0])
+            if (binding.viewEnemy2.visibility == View.VISIBLE) {
+                binding.viewEnemy2.setSelection(it.enemysClassPosition[1])
             }
-            if (binding.spEnemyClass3.visibility == View.VISIBLE) {
-                binding.spEnemyClass3.setSelection(it.enemysClassPosition[2])
+            if (binding.viewEnemy3.visibility == View.VISIBLE) {
+                binding.viewEnemy3.setSelection(it.enemysClassPosition[2])
+            }
+            if (binding.viewEnemy4.visibility == View.VISIBLE) {
+                binding.viewEnemy4.setSelection(it.enemysClassPosition[3])
+            }
+            if (binding.viewEnemy5.visibility == View.VISIBLE) {
+                binding.viewEnemy5.setSelection(it.enemysClassPosition[4])
+            }
+            if (binding.viewEnemy6.visibility == View.VISIBLE) {
+                binding.viewEnemy6.setSelection(it.enemysClassPosition[5])
             }
         }
 
-        binding.spEnemyClass1.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+        binding.viewEnemy1.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
                 groupEnemyVO.enemysNpMod[0] = ConditionData.getEnemyNpModsValues()[position]
                 groupEnemyVO.enemysStarMod[0] = ConditionData.getEnemyStarModsValues()[position]
                 groupEnemyVO.enemysClassPosition[0] = position
             }
+        }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        binding.viewEnemy1.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
+                groupEnemyVO.enemysNpMod[0] = ConditionData.getEnemyNpModsValues()[position]
+                groupEnemyVO.enemysStarMod[0] = ConditionData.getEnemyStarModsValues()[position]
+                groupEnemyVO.enemysClassPosition[0] = position
             }
         }
 
-        binding.spEnemyClass2.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+        binding.viewEnemy2.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
                 groupEnemyVO.enemysNpMod[1] = ConditionData.getEnemyNpModsValues()[position]
                 groupEnemyVO.enemysStarMod[1] = ConditionData.getEnemyStarModsValues()[position]
                 groupEnemyVO.enemysClassPosition[1] = position
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
         }
 
-        binding.spEnemyClass3.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+        binding.viewEnemy3.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
                 groupEnemyVO.enemysNpMod[2] = ConditionData.getEnemyNpModsValues()[position]
                 groupEnemyVO.enemysStarMod[2] = ConditionData.getEnemyStarModsValues()[position]
                 groupEnemyVO.enemysClassPosition[2] = position
             }
+        }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+        binding.viewEnemy4.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
+                groupEnemyVO.enemysNpMod[3] = ConditionData.getEnemyNpModsValues()[position]
+                groupEnemyVO.enemysStarMod[3] = ConditionData.getEnemyStarModsValues()[position]
+                groupEnemyVO.enemysClassPosition[3] = position
             }
         }
 
+        binding.viewEnemy5.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
+                groupEnemyVO.enemysNpMod[4] = ConditionData.getEnemyNpModsValues()[position]
+                groupEnemyVO.enemysStarMod[4] = ConditionData.getEnemyStarModsValues()[position]
+                groupEnemyVO.enemysClassPosition[4] = position
+            }
+        }
+
+        binding.viewEnemy6.mListener = object : EnemySelectView.EnemySelectListener {
+            override fun onSelected(position: Int) {
+                groupEnemyVO.enemysNpMod[5] = ConditionData.getEnemyNpModsValues()[position]
+                groupEnemyVO.enemysStarMod[5] = ConditionData.getEnemyStarModsValues()[position]
+                groupEnemyVO.enemysClassPosition[5] = position
+            }
+        }
+
+
         binding.btnSave.setOnClickListener {
-            setResult(RESULT_OK,Intent().apply { putExtra("groupEnemyVO",groupEnemyVO) })
+            setResult(RESULT_OK, Intent().apply { putExtra("groupEnemyVO", groupEnemyVO) })
             finish()
         }
     }
@@ -100,17 +134,12 @@ class GroupEnemyActivity : BaseActy() {
     //控制显示敌方职阶设置
     private fun handleEnemyClassDisplay(position: Int) {
         val count = ConditionData.getEnemyCountValues()[position]
-        if (count == 1) {
-            binding.llEnemySetting2.visibility = View.GONE
-            binding.llEnemySetting3.visibility = View.GONE
-        }
-        if (count == 2) {
-            binding.llEnemySetting2.visibility = View.VISIBLE
-            binding.llEnemySetting3.visibility = View.GONE
-        }
-        if (count == 3) {
-            binding.llEnemySetting2.visibility = View.VISIBLE
-            binding.llEnemySetting3.visibility = View.VISIBLE
+        for ((index,view) in viewEnemyList.withIndex()){
+            if (index < count){
+                view.visibility = View.VISIBLE
+            } else {
+                view.visibility = View.GONE
+            }
         }
     }
 }

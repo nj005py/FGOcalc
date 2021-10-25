@@ -24,48 +24,44 @@
 
         </LinearLayout>
 
-        <!--敌人职阶-->
-        <LinearLayout style="@style/ConditionContainer">
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方1"
+            />
 
-            <TextView
-                style="@style/ConditionName"
-                android:text="敌方1" />
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方2"
+            />
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方3"
+            />
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方4"
+            />
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方5"
+            />
+        <org.phantancy.fgocalc.view.EnemySelectView
+            android:id="@+id/view_enemy6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:itemTitle="敌方6"
+            />
 
-            <Spinner
-                android:id="@+id/sp_enemy_class1"
-                style="@style/ConditionSpinner" />
-
-        </LinearLayout>
-
-        <!--敌人职阶2-->
-        <LinearLayout
-            android:id="@+id/ll_enemy_setting2"
-            style="@style/ConditionContainer">
-
-            <TextView
-                style="@style/ConditionName"
-                android:text="敌方2" />
-
-            <Spinner
-                android:id="@+id/sp_enemy_class2"
-                style="@style/ConditionSpinner" />
-
-        </LinearLayout>
-
-        <!--敌人职阶3-->
-        <LinearLayout
-            android:id="@+id/ll_enemy_setting3"
-            style="@style/ConditionContainer">
-
-            <TextView
-                style="@style/ConditionName"
-                android:text="敌方3" />
-
-            <Spinner
-                android:id="@+id/sp_enemy_class3"
-                style="@style/ConditionSpinner" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

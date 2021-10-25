@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ConditionContainer">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/ConditionName"
+            android:text="敌人数量" />
+
+        <Spinner
+            android:id="@+id/sp_enemy_class"
+            style="@style/ConditionSpinner" />
+
+</LinearLayout>

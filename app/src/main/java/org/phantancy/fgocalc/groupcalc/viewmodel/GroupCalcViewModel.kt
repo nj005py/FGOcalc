@@ -287,23 +287,23 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val max = calcLogic.cardsDmg(dmgRandomMax, groupCalcBO, isBraveChain)
             val min = calcLogic.cardsDmg(dmgRandomMin, groupCalcBO, isBraveChain)
             val avg = calcLogic.cardsDmg(dmgRandomAvg, groupCalcBO, isBraveChain)
-            handleResult(members, min, max, groupCalcBO, isBraveChain)
+            handleResult(members, min, max, avg, groupCalcBO, isBraveChain)
         }
 
     }
     //伤害计算
 
     fun handleResult(members: ArrayList<GroupMemberVO>, min: ResultDmg, max: ResultDmg,
-                     groupCalcBO: GroupCalcBO, isBraveChain: Boolean) {
+                     avg: ResultDmg, groupCalcBO: GroupCalcBO, isBraveChain: Boolean) {
         val resList: ArrayList<ResultEntity> = ArrayList()
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[0].type, min.c1, max.c1, "avg", "np", "star",
+                groupCalcBO.chosenCards[0].type, min.c1, max.c1, avg.c1, "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[0].id))
         val res2 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[1].type, min.c2, max.c2, "avg", "np", "star",
+                groupCalcBO.chosenCards[1].type, min.c2, max.c2, avg.c2, "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[1].id))
         val res3 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[2].type, min.c3, max.c3, "avg", "np", "star",
+                groupCalcBO.chosenCards[2].type, min.c3, max.c3, avg.c3, "np", "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[2].id))
         resList.add(res1)
         resList.add(res2)
@@ -311,35 +311,40 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         //有ex卡
         if (isBraveChain) {
             val res4 = ResultEntity(ResultEntity.TYPE_CARD,
-                    Constant.CARD_EX, min.c4, max.c4, "avg", "np", "star",
+                    Constant.CARD_EX, min.c4, max.c4, avg.c4, "np", "star",
                     "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[3].id))
             resList.add(res4)
         }
-//        val sumBuilder = StringBuilder()
-//        sumBuilder.append("伤害总计：")
-//                .append(min.sum)
-//                .append("-")
-//                .append(max.sum)
-//                .append("\n")
-//        sumBuilder.append("np总计：")
-//                .append("np")
-//                .append("\n")
-//        sumBuilder.append("打星总计：")
-//                .append("star.sum")
-//                .append("\n")
-//        val resSum = ResultEntity(ResultEntity.TYEP_SUM,
-//                "", "", "", "", "", "", sumBuilder.toString(), ServantAvatarData.getServantAvatar(2));
-//        resList.add(resSum)
         //从者总结
         members?.let {
             for ((index, member) in it.withIndex()) {
                 member.svtEntity?.let {
-                    val sum = "${member.svtEntity.name}总结"
+                    //todo 计算伤害
+
+                    val sumMax = statisticDmg(member.cards[0].svtPosition,max,groupCalcBO.chosenCards)
+                    val sum = "${member.svtEntity.name}总结 ${sumMax}"
                     resList.add(ResultEntity(type = ResultEntity.TYEP_SUM, sum = sum, avatar = ServantAvatarData.getServantAvatar(it.id)))
                 }
             }
         }
         mResultList.value = resList
+    }
+
+    fun statisticDmg(svtPosition: Int,res: ResultDmg,chosenCards: List<CardBO>):Int{
+        val list = ArrayList<Int>()
+        list.add(res.c1.toInt())
+        list.add(res.c2.toInt())
+        list.add(res.c3.toInt())
+        if (!res.c4.isNullOrEmpty()) {
+            list.add(res.c4.toInt())
+        }
+        var sum = 0
+        for ((index,card) in chosenCards.withIndex()){
+            if (card.svtPosition == svtPosition) {
+                sum += list[index]
+            }
+        }
+        return sum
     }
     /**
      * c1 c2 c3

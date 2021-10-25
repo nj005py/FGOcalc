@@ -74,7 +74,7 @@ class ResultAdapter() : RecyclerView.Adapter<ResultAdapter.CardViewHolder>() {
             if (x.type == ResultEntity.TYPE_CARD) {
                 //选卡
                 val img = Constant.getCardDrawable(x.cardType)
-                val res = "伤害：${x.dmgMin} - ${x.dmgMax}\nNP：${x.np}\n打星：${x.star}"
+                val res = "伤害：${x.dmgMin} - ${x.dmgMax} ${x.dmgAvg}\nNP：${x.np}\n打星：${x.star}"
                 Glide.with(binding.ivCard)
                         .load(img)
                         .into(binding.ivCard)

@@ -181,7 +181,7 @@ class GroupCalcFragment : BaseFragment() {
                 }
             }
 
-            vm.clickCalc(memberAdapter.mList, groupCalcVO, chosenCardAdapter.mList, isBraveChain)
+            vm.clickCalc(memberAdapter.mList, groupCalcVO,groupEnemyVO, chosenCardAdapter.mList, isBraveChain)
         }
 
         binding.btnClean.setOnClickListener {

@@ -4,12 +4,11 @@ import android.util.Log
 import org.phantancy.fgocalc.common.Formula
 import org.phantancy.fgocalc.common.ParamsUtil
 import org.phantancy.fgocalc.data.BuffData
-import org.phantancy.fgocalc.entity.CalcEntity
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.entity.ResultDmg
 import org.phantancy.fgocalc.entity.ResultGroupDmg
-import org.phantancy.fgocalc.entity.ServantEntity
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupMemberSettingBO
+import org.phantancy.fgocalc.groupcalc.entity.bo.GroupResultNp
 import java.text.MessageFormat
 
 /**
@@ -71,12 +70,6 @@ class CalcLogic {
             this.sum = ParamsUtil.dmgResFormat(sum)
             this.des = des
         }
-//        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4:{3}\nsum:{4}\n\n",
-//                ParamsUtil.dmgResFormat(res1),
-//                ParamsUtil.dmgResFormat(res2),
-//                ParamsUtil.dmgResFormat(res3),
-//                ParamsUtil.dmgResFormat(res4),
-//                ParamsUtil.dmgResFormat(sum))
         return resultDmg
     }
 
@@ -252,48 +245,46 @@ class CalcLogic {
      * np、打星，光炮需要计算打所有敌人
      */
     //计算多张卡的np
-    fun cardsNp(random: Double, groupCalcBO: GroupCalcBO, isBraveChain: Boolean): ResultDmg {
+    fun cardsNp(groupCalcBO: GroupCalcBO, isBraveChain: Boolean): GroupResultNp {
+        var resList = arrayListOf<DoubleArray>()
         for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
             //todo 计算np
+            //原始数据
             var res: DoubleArray = npGenCalc(position,groupCalcBO)
+            resList.add(res)
         }
-
-//        val enemyNpMod: Double = calcEntity.getEnemysNpMod().get(0)
-//        val res1 = npGenCalc(groupCalcObject.cardType1, 1, calcEntities[0].enemysNpMod[0],calcEntities[0],groupCalcObject,servants[0])
-//        val res2 = npGenCalc(groupCalcObject.cardType2, 2, enemyNpMod)
-//        val res3 = npGenCalc(groupCalcObject.cardType3, 3, enemyNpMod)
-//        var res4:Double = 0.0
-//        if (isBraveChain){
-//            res4 = npGenCalc(groupCalcObject.cardType4, 4, enemyNpMod)
-//        }
-//        val sum = (getNpRes(res1, calcEntity.getCardType1()) + getNpRes(res2, calcEntity.getCardType2())
-//                + getNpRes(res3, calcEntity.getCardType3()) + getNpRes(res4, calcEntity.getCardType4()))
-//        val des = MessageFormat.format("c1:{0}\nc2:{1}\nc3:{2}\nc4{3}\nsum:{4}",
-//                parseNpRes(res1, calcEntity.getCardType1()),
-//                parseNpRes(res2, calcEntity.getCardType2()),
-//                parseNpRes(res3, calcEntity.getCardType3()),
-//                parseNpRes(res4, calcEntity.getCardType4()),
-//                ParamsUtil.npGenResFormat(sum))
-//        return ResultDmg(
-//                parseNpRes(res1, calcEntity.getCardType1())!!,
-//                parseNpRes(res2, calcEntity.getCardType2())!!,
-//                parseNpRes(res3, calcEntity.getCardType3())!!,
-//                parseNpRes(res4, calcEntity.getCardType4())!!,
-//                ParamsUtil.npGenResFormat(sum),
-//                des
-//        )
-        return ResultDmg("", "", "", "", "", "")
+        var strRes = arrayListOf<String>()
+        for ((index,res) in resList.withIndex()){
+            //展示数据
+            strRes.add(parseNpRes(res, groupCalcBO.chosenCards[index].type,groupCalcBO.enemyCount))
+        }
+        var resultNp = GroupResultNp().apply {
+            c1 = strRes[0]
+            c2 = strRes[1]
+            c3 = strRes[2]
+            c1Data = oneCardTotalNpRes(resList[0],groupCalcBO.chosenCards[0].type,groupCalcBO.enemyCount)
+            c2Data = oneCardTotalNpRes(resList[1],groupCalcBO.chosenCards[1].type,groupCalcBO.enemyCount)
+            c3Data = oneCardTotalNpRes(resList[2],groupCalcBO.chosenCards[2].type,groupCalcBO.enemyCount)
+            if (isBraveChain) {
+                c4 = strRes[3]
+                c4Data = oneCardTotalNpRes(resList[3],groupCalcBO.chosenCards[3].type,groupCalcBO.enemyCount)
+            } else{
+                c4 = ""
+            }
+        }
+        return resultNp
     }
 
-    private fun parseNpRes(res: DoubleArray, cardType: String, calcEntity: CalcEntity): String {
+    //解析np计算结果
+    private fun parseNpRes(res: DoubleArray, cardType: String,enemyCount:Int): String {
         val builder = StringBuilder()
         if (ParamsUtil.isNp(cardType)) {
-            val sum = ParamsUtil.npGenResFormat(getNpRes(res, cardType, calcEntity))
+            val sum = ParamsUtil.npGenResFormat(oneCardTotalNpRes(res, cardType, enemyCount))
             builder.append(sum)
                     .append(" (")
-            for (i in 0 until calcEntity.getEnemyCount()) {
+            for (i in 0 until enemyCount) {
                 builder.append(ParamsUtil.npGenResFormat(res[i]))
-                if (i < calcEntity.getEnemyCount() - 1) {
+                if (i < enemyCount - 1) {
                     builder.append(", ")
                 }
             }
@@ -304,10 +295,11 @@ class CalcLogic {
         return builder.toString()
     }
 
-    private fun getNpRes(res: DoubleArray, cardType: String, calcEntity: CalcEntity): Double {
+    //单卡总共打出的np
+    private fun oneCardTotalNpRes(res: DoubleArray, cardType: String, enemyCount:Int): Double {
         return if (ParamsUtil.isNp(cardType)) {
             var sum = 0.0
-            for (i in 0 until calcEntity.getEnemyCount()) {
+            for (i in 0 until enemyCount) {
                 sum += res[i]
             }
             sum
@@ -366,7 +358,7 @@ class CalcLogic {
     //宝具np 打多个敌人
     private fun npNpGenDelegate(position: Int,groupCalcBO: GroupCalcBO): DoubleArray {
         val servant = groupCalcBO.chosenServants[position]
-        val res = DoubleArray(3)
+        val res = DoubleArray(6)
         //辅助宝具不用算直接为0
         if (servant.npType == "support") {
             res[0] = 0.0
@@ -404,7 +396,7 @@ class CalcLogic {
         //黄金率
         var npBuff = getNpcUpForNp(position, groupCalcBO)
         //overkill补正
-        val isOverkill = ParamsUtil.isOverkill(position, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
+        val isOverkill = ParamsUtil.isOverkill(position+1, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
                 groupCalcBO.isOverkill3, groupCalcBO.isOverkill4)
         val overkillMod = ParamsUtil.getNpOverkillMod(isOverkill)
         return Formula.npNpGenerationFormula(na, hits, cardNpMultiplier, effectiveBuff, npBuff, overkillMod, enemyNpMod)

@@ -17,7 +17,9 @@ import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository
 import org.phantancy.fgocalc.entity.*
 import org.phantancy.fgocalc.groupcalc.entity.bo.CardBO
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
+import org.phantancy.fgocalc.groupcalc.entity.bo.GroupResultNp
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupCalcVO
+import org.phantancy.fgocalc.groupcalc.entity.vo.GroupEnemyVO
 import org.phantancy.fgocalc.groupcalc.entity.vo.GroupMemberVO
 import org.phantancy.fgocalc.logic.CalcLogic
 import org.phantancy.fgocalc.logic.CardLogic
@@ -230,7 +232,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     //点击计算
-    fun clickCalc(members: ArrayList<GroupMemberVO>, groupCalcVO: GroupCalcVO,
+    fun clickCalc(members: ArrayList<GroupMemberVO>, groupCalcVO: GroupCalcVO,enemyVO: GroupEnemyVO,
                   chosenCards: List<CardBO>, isBraveChain: Boolean) {
         /**
          * 选择的卡
@@ -249,6 +251,10 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             groupCalcBO.isCritical2 = groupCalcVO.isCritical2
             groupCalcBO.isCritical3 = groupCalcVO.isCritical3
             groupCalcBO.chosenCards.addAll(chosenCards)
+            //敌方
+            groupCalcBO.enemyCount = enemyVO.enemyCount
+            groupCalcBO.enemysNpMod = enemyVO.enemysNpMod
+            groupCalcBO.enemysStarMod = enemyVO.enemysStarMod
             val card1 = chosenCards[0]
             if (isBraveChain) {
                 val card4 = CardBO().apply {
@@ -287,23 +293,26 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             val max = calcLogic.cardsDmg(dmgRandomMax, groupCalcBO, isBraveChain)
             val min = calcLogic.cardsDmg(dmgRandomMin, groupCalcBO, isBraveChain)
             val avg = calcLogic.cardsDmg(dmgRandomAvg, groupCalcBO, isBraveChain)
-            handleResult(members, min, max, avg, groupCalcBO, isBraveChain)
+            //np计算
+            val np = calcLogic.cardsNp(groupCalcBO, isBraveChain)
+            handleResult(members, min, max, avg, groupCalcBO, isBraveChain, np)
         }
 
     }
     //伤害计算
 
     fun handleResult(members: ArrayList<GroupMemberVO>, min: ResultDmg, max: ResultDmg,
-                     avg: ResultDmg, groupCalcBO: GroupCalcBO, isBraveChain: Boolean) {
+                     avg: ResultDmg, groupCalcBO: GroupCalcBO, isBraveChain: Boolean,
+                     np: GroupResultNp) {
         val resList: ArrayList<ResultEntity> = ArrayList()
         val res1 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[0].type, min.c1, max.c1, avg.c1, "np", "star",
+                groupCalcBO.chosenCards[0].type, min.c1, max.c1, avg.c1, np.c1, "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[0].id))
         val res2 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[1].type, min.c2, max.c2, avg.c2, "np", "star",
+                groupCalcBO.chosenCards[1].type, min.c2, max.c2, avg.c2, np.c2, "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[1].id))
         val res3 = ResultEntity(ResultEntity.TYPE_CARD,
-                groupCalcBO.chosenCards[2].type, min.c3, max.c3, avg.c3, "np", "star",
+                groupCalcBO.chosenCards[2].type, min.c3, max.c3, avg.c3, np.c3, "star",
                 "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[2].id))
         resList.add(res1)
         resList.add(res2)
@@ -311,7 +320,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         //有ex卡
         if (isBraveChain) {
             val res4 = ResultEntity(ResultEntity.TYPE_CARD,
-                    Constant.CARD_EX, min.c4, max.c4, avg.c4, "np", "star",
+                    Constant.CARD_EX, min.c4, max.c4, avg.c4, np.c4, "star",
                     "", ServantAvatarData.getServantAvatar(groupCalcBO.chosenServants[3].id))
             resList.add(res4)
         }
@@ -320,9 +329,11 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             for ((index, member) in it.withIndex()) {
                 member.svtEntity?.let {
                     //todo 计算伤害
-
-                    val sumMax = statisticDmg(member.cards[0].svtPosition,max,groupCalcBO.chosenCards)
-                    val sum = "${member.svtEntity.name}总结 ${sumMax}"
+                    val sumMax = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
+                    val sumMin = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
+                    val sumAvg = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
+                    val sumNp = statisticNp(member.cards[0].svtPosition,np,groupCalcBO.chosenCards)
+                    val sum = "${member.svtEntity.name}总结 \n${sumMin}-${sumMax} ${sumAvg} \nnp获取${ParamsUtil.npGenResFormat(sumNp)}"
                     resList.add(ResultEntity(type = ResultEntity.TYEP_SUM, sum = sum, avatar = ServantAvatarData.getServantAvatar(it.id)))
                 }
             }
@@ -330,7 +341,8 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         mResultList.value = resList
     }
 
-    fun statisticDmg(svtPosition: Int,res: ResultDmg,chosenCards: List<CardBO>):Int{
+    //总结伤害
+    fun statisticDmg(svtPosition: Int, res: ResultDmg, chosenCards: List<CardBO>): Int {
         val list = ArrayList<Int>()
         list.add(res.c1.toInt())
         list.add(res.c2.toInt())
@@ -339,7 +351,25 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             list.add(res.c4.toInt())
         }
         var sum = 0
-        for ((index,card) in chosenCards.withIndex()){
+        for ((index, card) in chosenCards.withIndex()) {
+            if (card.svtPosition == svtPosition) {
+                sum += list[index]
+            }
+        }
+        return sum
+    }
+
+    //总结np
+    fun statisticNp(svtPosition: Int, res: GroupResultNp, chosenCards: List<CardBO>): Double {
+        val list = ArrayList<Double>()
+        list.add(res.c1Data)
+        list.add(res.c2Data)
+        list.add(res.c3Data)
+        if (!res.c4.isNullOrEmpty()) {
+            list.add(res.c4Data)
+        }
+        var sum = 0.0
+        for ((index, card) in chosenCards.withIndex()) {
             if (card.svtPosition == svtPosition) {
                 sum += list[index]
             }

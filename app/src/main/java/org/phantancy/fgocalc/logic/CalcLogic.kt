@@ -9,6 +9,7 @@ import org.phantancy.fgocalc.entity.ResultGroupDmg
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupCalcBO
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupMemberSettingBO
 import org.phantancy.fgocalc.groupcalc.entity.bo.GroupResultNp
+import org.phantancy.fgocalc.groupcalc.entity.bo.GroupResultStar
 import java.text.MessageFormat
 
 /**
@@ -330,7 +331,7 @@ class CalcLogic {
         //卡牌np倍率
         val cardNpMultiplier = ParamsUtil.getCardNpMultiplier(card.type)
         //位置加成
-        val positionMod = ParamsUtil.getNpPositionMod(position)
+        val positionMod = ParamsUtil.getNpPositionMod(position+1)
         //魔放
         var effectiveBuff = getEffectiveBuff(position, groupCalcBO)
         //首卡加成
@@ -339,12 +340,12 @@ class CalcLogic {
         var npBuff = getNpcUp(position, groupCalcBO)
         //暴击补正
         //判断暴击
-        val isCritical = ParamsUtil.isCritical(position, groupCalcBO.isCritical1,
+        val isCritical = ParamsUtil.isCritical(position+1, groupCalcBO.isCritical1,
                 groupCalcBO.isCritical2,
                 groupCalcBO.isCritical3)
         val criticalMod = ParamsUtil.getNpCriticalMod(isCritical, card.type)
         //overkill补正
-        val isOverkill = ParamsUtil.isOverkill(position, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
+        val isOverkill = ParamsUtil.isOverkill(position+1, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
                 groupCalcBO.isOverkill3, groupCalcBO.isOverkill4)
         val overkillMod = ParamsUtil.getNpOverkillMod(isOverkill)
         val res = DoubleArray(3)
@@ -406,45 +407,100 @@ class CalcLogic {
      * 打星计算
      */
     //计算4张卡的暴击星
-    fun cardsStar(groupCalcBO: GroupCalcBO, isBraveChain: Boolean): ResultDmg {
-
-        var resultStar = ResultDmg().apply {
-
+    fun cardsStar(groupCalcBO: GroupCalcBO, isBraveChain: Boolean): GroupResultStar {
+        var resList = arrayListOf<DoubleArray>()
+        for ((position, card) in groupCalcBO.chosenCards.withIndex()) {
+            //原始数据
+            var res: DoubleArray = calcStarDropNumber(position, groupCalcBO)
+            resList.add(res)
+        }
+        var strRes = arrayListOf<String>()
+        for ((index, res) in resList.withIndex()){
+            //展示数据
+            strRes.add(parseStarRes(res, groupCalcBO.chosenCards[index].type, groupCalcBO.enemyCount))
+        }
+        var resultStar = GroupResultStar().apply {
+            c1 = strRes[0]
+            c2 = strRes[1]
+            c3 = strRes[2]
+            c1Data = oneCardTotalStarRes(resList[0], groupCalcBO.chosenCards[0].type, groupCalcBO.enemyCount)
+            c2Data = oneCardTotalStarRes(resList[1], groupCalcBO.chosenCards[1].type, groupCalcBO.enemyCount)
+            c3Data = oneCardTotalStarRes(resList[2], groupCalcBO.chosenCards[2].type, groupCalcBO.enemyCount)
+            if (isBraveChain) {
+                c4 = strRes[3]
+                c4Data = oneCardTotalStarRes(resList[3], groupCalcBO.chosenCards[3].type, groupCalcBO.enemyCount)
+            } else{
+                c4 = ""
+            }
         }
         return resultStar
     }
 
-    //判断卡牌类型，分开计算
-    private fun calcStarDropNumber(cardType: String, position: Int, enemyStarMod: Double): DoubleArray {
-        val hit = ParamsUtil.getHits(cardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit)
-        var res = DoubleArray(3)
+    private fun oneCardTotalStarRes(res: DoubleArray, cardType: String, enemyCount: Int): Double {
+        return if (ParamsUtil.isNp(cardType)) {
+            var sum = 0.0
+            for (i in 0 until enemyCount) {
+                sum += res[i]
+            }
+            sum
+        } else {
+            res[0]
+        }
+    }
+
+    private fun parseStarRes(res: DoubleArray, cardType: String, enemyCount: Int): String {
+        val builder = java.lang.StringBuilder()
         if (ParamsUtil.isNp(cardType)) {
+            val sum = ParamsUtil.starDropResFormat(oneCardTotalStarRes(res, cardType,enemyCount))
+            builder.append(sum)
+                    .append(" (")
+            for (i in 0 until enemyCount) {
+                builder.append(ParamsUtil.starDropResFormat(res[i]))
+                if (i < enemyCount - 1) {
+                    builder.append(", ")
+                }
+            }
+            builder.append(")")
+        } else {
+            builder.append(ParamsUtil.starDropResFormat(res[0]))
+        }
+        return builder.toString()
+    }
+
+    //判断卡牌类型，分开计算
+    private fun calcStarDropNumber(position: Int, groupCalcBO: GroupCalcBO): DoubleArray {
+        val curCardType = groupCalcBO.chosenCards[position].type
+        val servant = groupCalcBO.chosenServants[position]
+        val hit = ParamsUtil.getHits(curCardType, servant.quickHit, servant.artsHit, servant.busterHit, servant.exHit, servant.npHit)
+        var res = DoubleArray(3)
+        if (ParamsUtil.isNp(curCardType)) {
             //宝具卡
-            res = npStarDropNumberDelegate(cardType, position, hit)
+            res = npStarDropNumberDelegate(position, groupCalcBO, hit)
         } else {
             //普攻
-            res[0] = starDropNumber(starDropRatePerHit(cardType, position, enemyStarMod), hit)
+            res[0] = starDropNumber(starDropRatePerHit(position, groupCalcBO), hit)
         }
         return res
     }
 
     //宝具打星多情况计算
-    private fun npStarDropNumberDelegate(cardType: String, position: Int, hit: Int): DoubleArray {
-        val res = DoubleArray(3)
+    private fun npStarDropNumberDelegate(position: Int, groupCalcBO: GroupCalcBO, hit: Int): DoubleArray {
+        val servant = groupCalcBO.chosenServants[position]
+        val res = DoubleArray(6)
         //辅助宝具不用算直接为0
         if (servant.npType == "support") {
-            res[0] = 0
+            res[0] = 0.0
             return res
         }
         //单体宝具只算第一个敌人
         if (servant.npType == "one") {
-            res[0] = starDropNumber(npStarDropRatePerHit(cardType, position, calcEntity.getEnemysStarMod().get(0)), hit)
+            res[0] = starDropNumber(npStarDropRatePerHit(position, groupCalcBO, groupCalcBO.enemysStarMod[0]), hit)
         }
         //光炮宝具算整个敌人列表
         if (servant.npType == "all") {
-            for (i in 0 until calcEntity.getEnemyCount()) {
+            for (i in 0 until groupCalcBO.enemyCount) {
                 //计算
-                res[i] = starDropNumber(npStarDropRatePerHit(cardType, position, calcEntity.getEnemysStarMod().get(i)), hit)
+                res[i] = starDropNumber(npStarDropRatePerHit(position, groupCalcBO, groupCalcBO.enemysStarMod[i]), hit)
             }
             return res
         }
@@ -478,21 +534,16 @@ class CalcLogic {
         //出星率
         val starRate: Double = servant.starGeneration
         //卡牌补正，受卡色、位置影响
-        val cardStarMultiplier = ParamsUtil.getCardStarMultiplier(card.type, position)
+        val cardStarMultiplier = ParamsUtil.getCardStarMultiplier(card.type, position+1)
         //魔放
         var effectiveBuff = getEffectiveBuff(position, groupCalcBO)
         //首卡补正quick 20% 非quick 0，判断卡色，返回结果
         val firstCardMod = ParamsUtil.getStarFirstCardMod(groupCalcBO.firstCardType)
         //星星发生率Buff-星星发生率DeBuff
-        var starRateBuff: Double = servant.starGenerationN + safeGetBuffMap(BuffData.STAR_UP)
-        //todo 打星
-        if (position > npPosition) {
-            //宝具后
-            starRateBuff = starRateBuff + safeGetBuffMap(BuffData.STAR_UP_BE) + safeGetBuffMap(BuffData.STAR_UP_AF)
-        }
+        var starRateBuff: Double = getStarRateUp(position, groupCalcBO)
         //暴击补正：暴击时计算此项。为定值[20%]
         //判断暴击
-        val isCritical = ParamsUtil.isCritical(position, groupCalcBO.isCritical1,
+        val isCritical = ParamsUtil.isCritical(position+1, groupCalcBO.isCritical1,
                 groupCalcBO.isCritical2,
                 groupCalcBO.isCritical3)
         val criticalMod = ParamsUtil.getStarCtriticalMod(isCritical)
@@ -501,7 +552,7 @@ class CalcLogic {
         //常数1
         val overkillMultiplier = 1.0
         //触发时，定值30%
-        val isOverkill = ParamsUtil.isOverkill(position, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
+        val isOverkill = ParamsUtil.isOverkill(position+1, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
                 groupCalcBO.isOverkill3, groupCalcBO.isOverkill4)
         val overkillAdd = ParamsUtil.getOverkillAdd(isOverkill)
         val enemyStarMod = groupCalcBO.enemysStarMod[0]
@@ -510,22 +561,23 @@ class CalcLogic {
     }
 
     //宝具每hit掉星率
-    private fun npStarDropRatePerHit(cardType: String, position: Int, enemyStarMod: Double): Double {
+    private fun npStarDropRatePerHit(position: Int, groupCalcBO: GroupCalcBO, enemyStarMod: Double): Double {
+        val card = groupCalcBO.chosenCards[position]
+        val servant = groupCalcBO.chosenServants[position]
+        val setting = groupCalcBO.chosenSetting[position]
+
         val starRate: Double = servant.starGeneration
-        val cardStarRate = ParamsUtil.getCardStarRate(cardType)
+        val cardStarRate = ParamsUtil.getCardStarRate(card.type)
         //魔放
-        val quickBuff: Double = servant.quickBuffN + safeGetBuffMap(BuffData.QUICK_UP) + safeGetBuffMap(BuffData.QUICK_UP_BE)
-        val artsBuff: Double = servant.artsBuffN + safeGetBuffMap(BuffData.ARTS_UP) + safeGetBuffMap(BuffData.ARTS_UP_BE)
-        val busterBuff: Double = servant.busterBuffN + safeGetBuffMap(BuffData.BUSTER_UP) + safeGetBuffMap(BuffData.BUSTER_UP_BE)
-        val effectiveBuff = ParamsUtil.getEffectiveBuff(cardType, quickBuff, artsBuff, busterBuff)
-        val starRateBuff: Double = servant.starGenerationN + safeGetBuffMap(BuffData.STAR_UP) + safeGetBuffMap(BuffData.STAR_UP_BE)
+        var effectiveBuff = getEffectiveBuff(position, groupCalcBO)
+        var starRateBuff: Double = getStarRateUp(position, groupCalcBO)
         //敌方星星发生率Buff,此项基本不进行计算。
         val enemyStarBuff = 0.0
         //常数1
         val overkillMultiplier = 1.0
         //触发时，定值30%
-        val isOverkill = ParamsUtil.isOverkill(position, calcEntity.isOverkill1(), calcEntity.isOverkill2(),
-                calcEntity.isOverkill3(), calcEntity.isOverkill4())
+        val isOverkill = ParamsUtil.isOverkill(position+1, groupCalcBO.isOverkill1, groupCalcBO.isOverkill2,
+                groupCalcBO.isOverkill3, groupCalcBO.isOverkill4)
         val overkillAdd = ParamsUtil.getOverkillAdd(isOverkill)
         return Formula.npStarDropRatePerHitFormula(starRate, cardStarRate, effectiveBuff, starRateBuff,
                 enemyStarBuff, enemyStarMod, overkillMultiplier, overkillAdd)
@@ -683,5 +735,25 @@ class CalcLogic {
         var npBuff = getNpcUp(position, groupCalcBO)
         npBuff += safeGetBuffMap(BuffData.NPC_UP_BE, setting)
         return npBuff
+    }
+
+    //打星率
+    fun getStarRateUp(position: Int, groupCalcBO: GroupCalcBO): Double {
+        val card = groupCalcBO.chosenCards[position]
+        val servant = groupCalcBO.chosenServants[position]
+        val setting = groupCalcBO.chosenSetting[position]
+        var starBuff = safeGetBuffMap(BuffData.STAR_UP, setting)
+        for (index in 0 until position) {
+            if (ParamsUtil.isNp(groupCalcBO.chosenCards[index].type)) {
+                val indexSetting = groupCalcBO.chosenSetting[index]
+                starBuff += safeGetBuffMap(BuffData.STAR_UP_AF, indexSetting)
+                //前面有宝具卡则加伤害后buff
+                if (groupCalcBO.chosenCards[index].svtPosition == card.svtPosition) {
+                    //与前面宝具卡是同个从者，则加伤害前buff
+                    starBuff += safeGetBuffMap(BuffData.STAR_UP_BE, indexSetting)
+                }
+            }
+        }
+        return starBuff
     }
 }

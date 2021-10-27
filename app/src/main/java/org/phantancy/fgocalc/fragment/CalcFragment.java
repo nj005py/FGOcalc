@@ -48,6 +48,10 @@ public class CalcFragment extends BaseFragment {
         binding.rvPicked.addItemDecoration(new LinearItemDecoration((int) (60 * scale + 0.5f)));
         binding.rvCards.setAdapter(cardsAdapter);
 
+        binding.tvSetCondition.setOnClickListener(v -> {
+            vm.setConditionPage(0);
+        });
+
         //已选卡
         pickAdapter.setEntityListenr(new PickAdapter.IEntityListener() {
             @Override

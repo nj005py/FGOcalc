@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="克制" />
+
+            <!--阶职相性-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_affinity"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemContent="请选择"
+                app:itemTitle="阶职相性" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <!--阵营相性-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_attribute"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemContent="请选择"
+                app:itemTitle="阵营相性" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="宝具设置" />
+
+            <!--选择宝具-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_np_select"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemContent="请选择"
+                app:itemTitle="选择宝具" />
+
+            <View style="@style/line_x_left_15dp" />
+
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="允许直接输入指定atk" />
+            <!--等级-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="start|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="等级"
+                    android:textColor="@color/blueWordDark"
+                    android:textSize="14dp" />
+
+                <com.warkiz.widget.IndicatorSeekBar
+                    android:id="@+id/fam_sb_lv_svt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.0"
+                    app:isb_indicator_color="@color/blueWordPrimary"
+                    app:isb_indicator_text_color="@color/white"
+                    app:isb_indicator_text_size="18sp"
+                    app:isb_max="120"
+                    app:isb_min="1"
+                    app:isb_only_thumb_draggable="false"
+                    app:isb_progress="90"
+                    app:isb_seek_smoothly="true"
+                    app:isb_show_indicator="rounded_rectangle"
+                    app:isb_show_thumb_text="true"
+                    app:isb_show_tick_marks_type="oval"
+                    app:isb_show_tick_texts="true"
+                    app:isb_thumb_color="@color/blueWordPrimary"
+                    app:isb_thumb_size="15dp"
+                    app:isb_thumb_text_color="@color/blueWordPrimary"
+                    app:isb_tick_marks_color="@drawable/selector_tick_marks_color"
+                    app:isb_tick_marks_size="13dp"
+                    app:isb_tick_texts_color="@color/blueWordPrimary"
+                    app:isb_tick_texts_size="15sp"
+                    app:isb_track_progress_color="@color/blueWordAccent"
+                    app:isb_track_progress_size="4dp" />
+
+            </LinearLayout>
+
+            <View style="@style/line_x_left_15dp" />
+
+            <!--芙芙atk-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_fou_atk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemContent="请选择"
+                app:itemTitle="芙芙atk" />
+
+            <View style="@style/line_x_left_15dp" />
+
+
+            <!--礼装atk-->
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_essence_atk"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:itemContent="请选择"
+                app:itemTitle="礼装atk" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <!--总atk-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_atk_total"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="atk"
+                app:itemTitle="总atk" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <!--总hp-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_hp_total"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:hint="总hp"
+                app:itemTitle="hp" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <!--剩余hp-->
+            <org.phantancy.fgocalc.view.ListEditTextView
+                android:id="@+id/view_hp_left"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:hint="剩余hp"
+                app:itemTitle="剩余hp" />
+
+            <View style="@style/line_x_left_15dp" />
+
+            <TextView
+                style="@style/ConditionTips"
+                android:text="buff设置" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_set_buff"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/svt_buff"
+                    android:textColor="@color/blueWordDark" />
+
+
+                <Button
+                    android:id="@+id/btn_reset"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/reset"
+                    android:textColor="@color/blueWordDark" />
+
+                <Button
+                    android:id="@+id/btn_shortcut_support"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/shortcut_support"
+                    android:textColor="@color/blueWordDark" />
+
+
+                <Button
+                    android:id="@+id/btn_shortcut_mst_equipment"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.0"
+                    android:background="@drawable/btn_blue"
+                    android:text="@string/shortcut_essence"
+                    android:textColor="@color/blueWordDark" />
+
+            </LinearLayout>
+
+            <org.phantancy.fgocalc.view.RecyclerViewAtViewPager2
+                android:id="@+id/rv_buff_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

@@ -27,7 +27,13 @@
     <!--横线-->
     <style name="line_x">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/gray400</item>
+        <item name="background">@color/gray500</item>
+    </style>
+
+    <style name="line_x_left_15dp" parent="line_x">
+        <item name="android:layout_marginLeft">15dp</item>
     </style>
 
     <!--竖线-->
@@ -223,19 +229,21 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">3.0</item>
-        <item name="android:gravity">start</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/blueWordDark</item>
     </style>
 
     <style name="ConditionTips">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">20dp</item>
-        <item name="android:paddingLeft">10dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">start</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/blueWordDark</item>
-        <item name="android:background">@color/blueWordAccent</item>
+        <item name="android:background">@color/blue200</item>
     </style>
 
     <style name="ConditionSpinner">
@@ -285,6 +293,12 @@
         <item name="android:background">@drawable/btn_blue_white</item>
         <item name="android:textSize">14dp</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonWhite">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/btn_white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="CheckBoxCalc">

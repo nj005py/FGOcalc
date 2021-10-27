@@ -15,11 +15,13 @@
     <color name="gray400">#BDBDBD</color>
     <color name="gray500">#9E9E9E</color>
     <color name="grayWordTabbar">#E9E9E9</color>
-    <color name="grayWordBackground">#E6E6E6</color>
+    <color name="grayWordBackground">#F5F5F5</color>
     <color name="grayWordSelected">#BEBEBE</color>
 
     <!--blue-->
     <color name="blueWordPrimary">#2B579A</color>
     <color name="blueWordDark">#124078</color>
     <color name="blueWordAccent">#C2D5F2</color>
+    <color name="blue200">#BBDEFB</color>
+    <color name="lightBlue300">#4FC3F7</color>
 </resources>

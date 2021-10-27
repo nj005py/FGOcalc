@@ -54,7 +54,7 @@
     <string name="set_buff">设置Buff</string>
     <string name="svt_buff">从者buff</string>
     <string name="shortcut_support">拐快捷键</string>
-    <string name="shortcut_essence">御主礼装快捷键</string>
+    <string name="shortcut_essence">御主快捷键</string>
     <string name="reduce_buff">减buff</string>
 
     <!--CalcFrag-->
@@ -66,5 +66,7 @@
     <string name="overkill">overkill</string>
     <string name="critical">暴击</string>
     <string name="calc_result">计算结果</string>
+
+    <string name="save">保存</string>
 
 </resources>

@@ -21,6 +21,7 @@ import com.warkiz.widget.SeekParams;
 import org.phantancy.fgocalc.R;
 import org.phantancy.fgocalc.data.ConditionData;
 import org.phantancy.fgocalc.databinding.FragConditionBinding;
+import org.phantancy.fgocalc.entity.CalcConditionVO;
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.CalcViewModel;
@@ -28,11 +29,24 @@ import org.phantancy.fgocalc.viewmodel.CalcViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE;
+
 public class ConditionFragment extends BaseFragment {
     private FragConditionBinding binding;
     private CalcViewModel vm;
     private final double[] enemyNpMods = new double[3];
     private final double[] enemyStarMods = new double[3];
+    //等级变化
+    private boolean isRestoreServantLv = false;
+    private boolean isLockServantLv = false;
+    private boolean isRestoreAtk = false;
+    private boolean isRestoreNpSelect = false;
+    private boolean isRestoreNpLv = false;
+    //芙芙变化
+    private boolean isLockFou = false;
+    //礼装变化
+    private boolean isLockEssence = false;
+    private CalcConditionVO restoreVO;
 
 
     @Nullable
@@ -48,20 +62,74 @@ public class ConditionFragment extends BaseFragment {
         vm = new ViewModelProvider(mActy).get(CalcViewModel.class);
         initView();
         initNp();
+        if (vm.calcEntity.getSource() == 1 && vm.calcEntity.getCalcConditionVO() != null) {
+            isRestoreServantLv = true;
+            isRestoreAtk = true;
+            isRestoreNpSelect = true;
+            isRestoreNpLv = true;
+            restoreVO = vm.calcEntity.getCalcConditionVO();
+            initData(restoreVO);
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //保存UI数据
+        save();
+    }
+    //保存UI数据
+    public void save(){
         Log.d(TAG, "保存条件数据");
         if (check()) {
+            /**
+             * UI信息
+             */
+            //职阶相性
+            int affinityPosition = binding.spAffinity.getSelectedItemPosition();
+            //阵营相性
+            int attributePosition = binding.spAttribute.getSelectedItemPosition();
+            //宝具选择
+            int npSelectPosition = binding.spNpSelect.getSelectedItemPosition();
+            //宝具lv
+            int npLvPosition = binding.spNpLv.getSelectedItemPosition();
+            //芙芙atk
+            int fouAtkPosition = binding.spFouAtk.getSelectedItemPosition();
+            //礼装atk
+            int essenceAtkPosition = binding.spEssenceAtk.getSelectedItemPosition();
+            //等级
+            int servantLv = binding.famSbLvSvt.getProgress();
+            //atk
             String atk = binding.etAtkTotal.getText().toString();
+            //总hp
             String hp = binding.etHpTotal.getText().toString();
+            //剩余hp
             String hpLeft = binding.etHpLeft.getText().toString();
-            vm.saveCondition(atk, hp, hpLeft, enemyNpMods,enemyStarMods);
+            //敌人数量
+            int enemyCountPosition = binding.spEnemyCount.getSelectedItemPosition();
+            //敌方1
+            int enemyClass1Position = binding.spEnemyClass1.getSelectedItemPosition();
+            //敌方2
+            int enemyClass2Position = binding.spEnemyClass2.getSelectedItemPosition();
+            //敌方3
+            int enemyClass3Position = binding.spEnemyClass3.getSelectedItemPosition();
+            CalcConditionVO conditionVO = new CalcConditionVO(
+                    affinityPosition,
+                    attributePosition,
+                    npSelectPosition,
+                    npLvPosition,
+                    fouAtkPosition,
+                    essenceAtkPosition,
+                    servantLv,
+                    atk,
+                    hp,
+                    hpLeft,
+                    enemyCountPosition,
+                    enemyClass1Position,
+                    enemyClass2Position,
+                    enemyClass3Position
+            );
+            vm.saveCondition(atk, hp, hpLeft, enemyNpMods, enemyStarMods,conditionVO);
         }
-
     }
 
     private boolean check() {
@@ -81,6 +149,15 @@ public class ConditionFragment extends BaseFragment {
     }
 
     private void initView() {
+        if (vm.entry == ENTRY_SINGLE) {
+            binding.tvToCalc.setVisibility(View.VISIBLE);
+            binding.tvToCalc.setOnClickListener(v -> {
+                vm.setConditionPage(2);
+            });
+        } else {
+            binding.tvToCalc.setVisibility(View.GONE);
+        }
+
         //职阶相性
         setSpAdapter(binding.spAffinity, ConditionData.getAffinityKeys());
         binding.spAffinity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -117,6 +194,10 @@ public class ConditionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 binding.etAtkTotal.setText(vm.onFouAtkChanged(ConditionData.getFouAtkValues()[position]));
+                if (isRestoreAtk) {
+                    isLockFou = true;
+                    setSolidAtk();
+                }
             }
 
             @Override
@@ -130,6 +211,10 @@ public class ConditionFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 binding.etAtkTotal.setText(vm.onEssenceAtkChanged(ConditionData.getEssenceAtkValues()[position]));
+                if (isRestoreAtk) {
+                    isLockEssence = true;
+                    setSolidAtk();
+                }
             }
 
             @Override
@@ -177,6 +262,14 @@ public class ConditionFragment extends BaseFragment {
 //
 //                }
 //            });
+            if (isRestoreServantLv) {
+                binding.famSbLvSvt.setProgress(restoreVO.getServantLv());
+                isRestoreServantLv = false;
+            }
+            if (isRestoreAtk) {
+                isLockServantLv = true;
+                setSolidAtk();
+            }
         }));
 
         //atk
@@ -310,6 +403,14 @@ public class ConditionFragment extends BaseFragment {
                 }
             });
 
+            if (isRestoreNpSelect) {
+                binding.spNpSelect.setSelection(restoreVO.getNpSelectPosition());
+                isRestoreNpSelect = false;
+            }
+            if (isRestoreNpLv) {
+                binding.spNpLv.setSelection(restoreVO.getNpLvPosition());
+                isRestoreNpLv = false;
+            }
         });
 
     }
@@ -345,6 +446,50 @@ public class ConditionFragment extends BaseFragment {
         if (count == 3) {
             binding.llEnemySetting2.setVisibility(View.VISIBLE);
             binding.llEnemySetting3.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initData(CalcConditionVO x) {
+        //职阶相性
+        binding.spAffinity.setSelection(x.getAffinityPosition());
+        //阵营相性
+        binding.spAttribute.setSelection(x.getAttributePosition());
+        //芙芙atk
+        binding.spFouAtk.setSelection(x.getFouAtkPosition());
+        //礼装atk
+        binding.spEssenceAtk.setSelection(x.getEssenceAtkPosition());
+        //总hp
+        binding.etHpTotal.setText(x.getHp());
+        //剩余hp
+        binding.etHpLeft.setText(x.getHpLeft());
+        //敌人数量
+        binding.spEnemyCount.setSelection(x.getEnemyCountPosition());
+        //敌方1
+        binding.spEnemyClass1.setSelection(x.getEnemyClass1Position());
+        //敌方2
+        binding.spEnemyClass2.setSelection(x.getEnemyClass2Position());
+        //敌方3
+        binding.spEnemyClass3.setSelection(x.getEnemyClass3Position());
+    }
+
+    private int getSelectionPosition(double value, Double[] values) {
+        int position = 0;
+        for (double i : values) {
+            if (i == value) {
+                break;
+            }
+            position++;
+        }
+        return position;
+    }
+
+    private void setSolidAtk(){
+        if (isLockServantLv && isLockFou && isLockEssence) {
+            binding.etAtkTotal.setText(restoreVO.getAtk());
+            isLockServantLv = false;
+            isLockFou = false;
+            isLockEssence = false;
+            isRestoreAtk = false;
         }
     }
 

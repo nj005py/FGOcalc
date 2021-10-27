@@ -7,9 +7,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import org.phantancy.fgocalc.adapter.CalcViewPagerAdapter
 import org.phantancy.fgocalc.databinding.ActyMainBinding
 import org.phantancy.fgocalc.fragment.FilterFragment
-import org.phantancy.fgocalc.fragment.MainFragment
+import org.phantancy.fgocalc.fragment.ServantListFragment
 import org.phantancy.fgocalc.viewmodel.MainViewModel
 
+/**
+ * 从者搜索
+ */
 class SearchServantActy : BaseActy() {
     private lateinit var binding: ActyMainBinding
     private lateinit var vm: MainViewModel
@@ -20,7 +23,7 @@ class SearchServantActy : BaseActy() {
         setContentView(binding.root)
         vm = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        val fragments = listOf(MainFragment(MainFragment.ENTRY_SEARCH), FilterFragment())
+        val fragments = listOf(ServantListFragment(ServantListFragment.ENTRY_SEARCH), FilterFragment())
         val tabs = listOf("搜索", "筛选")
 
         val pagerAdapter = CalcViewPagerAdapter(this, fragments)

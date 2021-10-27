@@ -18,6 +18,7 @@
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/grayWordTabbar"
+        app:tabIndicatorColor="@color/orange300"
         />
 
     <androidx.viewpager2.widget.ViewPager2

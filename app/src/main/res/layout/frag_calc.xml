@@ -5,6 +5,17 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:id="@+id/tv_set_condition"
+        style="@style/tv_common"
+        android:layout_margin="5dp"
+        android:gravity="start|center_vertical"
+        android:text="跳到条件"
+        android:textColor="@color/black"
+        android:drawableRight="@drawable/ic_baseline_chevron_right"
+        android:background="@drawable/btn_white"
+        />
+
     <!--控制按钮-->
     <LinearLayout
         android:layout_width="match_parent"

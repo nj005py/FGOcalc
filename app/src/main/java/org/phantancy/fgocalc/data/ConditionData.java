@@ -94,6 +94,9 @@ public class ConditionData {
         enemyCountMap.put("1", 1);
         enemyCountMap.put("2", 2);
         enemyCountMap.put("3", 3);
+        enemyCountMap.put("4", 4);
+        enemyCountMap.put("5", 5);
+        enemyCountMap.put("6", 6);
     }
 
     public static String[] getEnemyCountKeys() {

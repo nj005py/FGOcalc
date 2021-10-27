@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="toolbarColor" format="reference"/>
+    <attr name="itemTitle" format="string"/>
+    <attr name="itemContent" format="string"/>
+    <!--条件录入-->
+    <declare-styleable name="ListItemView">
+        <attr name="itemTitle" />
+        <attr name="itemContent" />
+    </declare-styleable>
+
+    <declare-styleable name="ListEditTextView">
+        <attr name="itemTitle" />
+        <attr name="itemContent" />
+        <attr name="itemHint" format="string"/>
+    </declare-styleable>
+
+    <!--敌方选择器-->
+    <declare-styleable name="EnemySelectView">
+        <attr name="itemTitle"/>
+    </declare-styleable>
+
 </resources>

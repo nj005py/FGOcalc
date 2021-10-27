@@ -23,142 +23,130 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_svts"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cards"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="6"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        >
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_picked"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1.0"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
-
-        <ImageView
-            android:id="@+id/iv_card_ex"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_weight="3.0"
-            android:src="@drawable/extra"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
-
-
-    <!--OverKill-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/cb_ok1"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/overkill"/>
-
-        <CheckBox
-            android:id="@+id/cb_ok2"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/overkill"/>
-
-        <CheckBox
-            android:id="@+id/cb_ok3"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/overkill"/>
-
-        <CheckBox
-            android:id="@+id/cb_ok4"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/overkill"
-            android:visibility="invisible"
-            />
-
-    </LinearLayout>
-
-    <!--暴击-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/cb_cr1"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/critical"/>
-
-        <CheckBox
-            android:id="@+id/cb_cr2"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/critical"/>
-
-        <CheckBox
-            android:id="@+id/cb_cr3"
-            style="@style/CheckBoxCalc"
-            android:layout_weight="1.0"
-            android:text="@string/critical"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1.0"
-            />
-
-    </LinearLayout>
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:gravity="center"
-        android:background="@color/blueWordAccent"
-        android:text="@string/calc_result"
-        android:textColor="@color/blueWordDark"
-
-        />
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout style="@style/ll_match_width_vertical">
+
+            <org.phantancy.fgocalc.view.ListItemView
+                android:id="@+id/view_enemy"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                />
+
+            <View style="@style/line_x_left_15dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_chosen_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1.0"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_card_ex"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="3.0"
+                    android:src="@drawable/extra"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+
+
+            <!--OverKill-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_ok1"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/overkill"/>
+
+                <CheckBox
+                    android:id="@+id/cb_ok2"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/overkill"/>
+
+                <CheckBox
+                    android:id="@+id/cb_ok3"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/overkill"/>
+
+                <CheckBox
+                    android:id="@+id/cb_ok4"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/overkill"
+                    android:visibility="invisible"
+                    />
+
+            </LinearLayout>
+
+            <!--暴击-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_cr1"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/critical"/>
+
+                <CheckBox
+                    android:id="@+id/cb_cr2"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/critical"/>
+
+                <CheckBox
+                    android:id="@+id/cb_cr3"
+                    style="@style/CheckBoxCalc"
+                    android:layout_weight="1.0"
+                    android:text="@string/critical"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.0"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:background="@color/blueWordAccent"
+                android:text="@string/calc_result"
+                android:textColor="@color/blueWordDark"
+                />
 
             <TextView
                 android:id="@+id/tv_calc_result"
@@ -180,6 +168,6 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -1,8 +1,6 @@
-package org.phantancy.fgocalc.adapter
+package org.phantancy.fgocalc.groupcalc.adapter
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -33,14 +31,14 @@ class GroupServantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
                         .into(binding.ivAvatar)
             }
             binding.ivAvatar.setOnClickListener{
-                mListener?.removeSvt(svt)
+                mListener?.removeSvt(svt,position)
 //                mList.remove(svt)
 //                notifyDataSetChanged()
             }
-            binding.btnSetting.visibility = View.VISIBLE
-            binding.btnSetting.setOnClickListener {
-                mListener?.setSetting(position)
-            }
+//            binding.btnSetting.visibility = View.VISIBLE
+//            binding.btnSetting.setOnClickListener {
+//                mListener?.setSetting(position)
+//            }
         }
     }
 
@@ -52,7 +50,7 @@ class GroupServantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
             binding.ivAvatar.setOnClickListener {
                 mListener?.addSvt(position)
             }
-            binding.btnSetting.visibility = View.GONE
+//            binding.btnSetting.visibility = View.GONE
         }
     }
 
@@ -94,7 +92,7 @@ class GroupServantAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     interface GroupSvtListener {
         fun addSvt(position: Int)
-        fun removeSvt(svt: ServantEntity)
-        fun setSetting(position: Int)
+        fun removeSvt(svt: ServantEntity, position: Int)
+//        fun setSetting(position: Int)
     }
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.phantancy.fgocalc.util.UnitUtil
 import kotlin.properties.Delegates
 
-class VerticalItemDecoration(val context:Context,val space:Float): RecyclerView.ItemDecoration(){
+class VerticalItemDecoration(val context:Context, val space:Float): RecyclerView.ItemDecoration(){
     private var _space by Delegates.notNull<Int>()
 
     init {
@@ -15,8 +15,9 @@ class VerticalItemDecoration(val context:Context,val space:Float): RecyclerView.
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        if (parent.getChildAdapterPosition(view) > 5) {
-            outRect.top = _space
-        }
+//        if (parent.getChildAdapterPosition(view) > 0) {
+//            outRect.top = _space
+//        }
+        outRect.top = _space
     }
 }

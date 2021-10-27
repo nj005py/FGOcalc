@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+public class ServantAvatarData {
 import static org.phantancy.fgocalc.common.Constant.AVATAR_LATEST_ID;
 
 public class ServantAvatar {

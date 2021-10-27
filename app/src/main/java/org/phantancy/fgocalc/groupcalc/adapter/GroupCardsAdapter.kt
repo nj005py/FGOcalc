@@ -1,4 +1,4 @@
-package org.phantancy.fgocalc.adapter
+package org.phantancy.fgocalc.groupcalc.adapter
 
 import android.view.View
 import androidx.core.content.ContextCompat

@@ -33,6 +33,7 @@ public class BuffFragment extends BaseFragment {
     private FragBuffBinding binding;
     private CalcViewModel vm;
     private BuffInputAdapter adapter;
+    private boolean isRestoreBuff = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +63,11 @@ public class BuffFragment extends BaseFragment {
         binding.rvBuffInput.setAdapter(adapter);
         binding.rvBuffInput.setLayoutManager(layoutManager);
 
-        adapter.submitList(vm.getBuffInputList());
+        if (vm.calcEntity.getSource() == 1 && vm.calcEntity.getUiBuffs() != null) {
+            adapter.submitList(vm.calcEntity.getUiBuffs());
+        } else {
+            adapter.submitList(vm.getBuffInputList());
+        }
 
         //重置键
         binding.btnReset.setOnClickListener(new View.OnClickListener() {
@@ -154,9 +159,14 @@ public class BuffFragment extends BaseFragment {
     @Override
     public void onPause() {
         super.onPause();
+        save();
+    }
+
+    public void save() {
         //保存UI数据
         Log.d(TAG,"保存buff数据");
-        vm.saveBuff(adapter.getList());
-
+        if (adapter != null) {
+            vm.saveBuff(adapter.getList());
+        }
     }
 }

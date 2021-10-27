@@ -107,6 +107,7 @@ dependencies {
     def material = "1.2.1";
     def viewpager2 = "1.0.0"
     def constraintLayout = "2.0.4"
+    def wheelPicker = "3.1.0"
 
 
     // App's dependencies, including test
@@ -164,4 +165,8 @@ dependencies {
     //滑动刷新
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'io.github.jeremyliao:live-event-bus-x:1.8.0'
+    //选择器
+    implementation "com.github.gzu-liyujiang.AndroidPicker:Common:$wheelPicker"
+    implementation "com.github.gzu-liyujiang.AndroidPicker:WheelPicker:$wheelPicker"
+
 }

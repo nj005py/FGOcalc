@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--编队计算：编队成员-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_svt_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/loading"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_setting"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/btn_white"
+            app:layout_constraintLeft_toRightOf="@id/iv_svt_avatar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:text="设置详细"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_more" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_svt_avatar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

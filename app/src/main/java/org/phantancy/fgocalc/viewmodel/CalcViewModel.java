@@ -13,15 +13,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.phantancy.fgocalc.entity.CalcConditionVO;
 import org.phantancy.fgocalc.logic.CardLogic;
 import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.common.Formula;
 import org.phantancy.fgocalc.common.ParamsUtil;
 import org.phantancy.fgocalc.data.BuffData;
-import org.phantancy.fgocalc.data.CalcRepository;
+import org.phantancy.fgocalc.data.repository.CalcRepository;
 import org.phantancy.fgocalc.data.InfoBuilder;
-import org.phantancy.fgocalc.data.NoblePhantasmRepository;
-import org.phantancy.fgocalc.data.ServantAvatar;
+import org.phantancy.fgocalc.data.repository.NoblePhantasmRepository;
+import org.phantancy.fgocalc.data.ServantAvatarData;
 import org.phantancy.fgocalc.entity.BuffInputEntity;
 import org.phantancy.fgocalc.entity.CardPickEntity;
 import org.phantancy.fgocalc.entity.CalcEntity;
@@ -37,11 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.phantancy.fgocalc.common.Constant.ENTRY_SINGLE;
 import static org.phantancy.fgocalc.common.ParamsUtil.getCardDmgMultiplier;
 
 //计算Activity ViewModel
 public class CalcViewModel extends AndroidViewModel {
     final String TAG = "CalcViewModel";
+    public int entry = ENTRY_SINGLE;
     private ServantEntity servant;
     //经验列表
     List<SvtExpEntity> svtExpEntities;
@@ -77,11 +80,20 @@ public class CalcViewModel extends AndroidViewModel {
         return hpLeft + "";
     }
 
-    //当前页
+    //当前页(横向page)
     private MutableLiveData<Integer> mCurrentPage = new MutableLiveData<>();
+    public LiveData<Integer> currentPage = mCurrentPage;
 
-    public LiveData<Integer> getCurrentPage() {
-        return mCurrentPage;
+    public void setCurrentPage(int index) {
+        mCurrentPage.setValue(index);
+    }
+
+    //纵向page 计算条件
+    private MutableLiveData<Integer> mConditionPage = new MutableLiveData<>();
+    public LiveData<Integer> conditionPage = mConditionPage;
+
+    public void setConditionPage(int index) {
+        mConditionPage.setValue(index);
     }
 
     //数据源
@@ -162,10 +174,6 @@ public class CalcViewModel extends AndroidViewModel {
         list.add(CardLogic.parseCardPickNp(id, np.npColor));
         mCardPicks.setValue(list);
     }
-
-
-
-
 
     private List<CardPickEntity> pickedCards = new ArrayList<>();
 
@@ -301,7 +309,8 @@ public class CalcViewModel extends AndroidViewModel {
     }
 
     //todo 保存条件数据
-    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyNpMods, double[] enemyStarMods) {
+    public void saveCondition(String atk, String hp, String hpLeft, double[] enemyNpMods,
+                              double[] enemyStarMods, CalcConditionVO conditionVO) {
         calcEntity.setSavedCondition(true);
         //职阶相性
         Log.d(TAG, "职阶相性：" + calcEntity.getAffinityMod());
@@ -331,6 +340,10 @@ public class CalcViewModel extends AndroidViewModel {
         //敌人
         calcEntity.setEnemysNpMod(enemyNpMods);
         calcEntity.setEnemysStarMod(enemyStarMods);
+        /**
+         * 保存UI信息
+         */
+        calcEntity.setCalcConditionVO(conditionVO);
     }
 
     //保存职阶克制
@@ -461,6 +474,7 @@ public class CalcViewModel extends AndroidViewModel {
     //todo 保存buff信息
     public void saveBuff(List<BuffInputEntity> buffs) {
         calcEntity.setSavedBuff(true);
+        calcEntity.setUiBuffs(buffs);
         SimpleArrayMap<String, Double> buffMap = new SimpleArrayMap<String, Double>();
         for (BuffInputEntity x : buffs) {
 //            Log.d(TAG, MessageFormat.format("{0} {1} {2}",x.getKey(),x.getValue(),x.getType()));
@@ -532,14 +546,14 @@ public class CalcViewModel extends AndroidViewModel {
     private void handleResult(ResultDmg min, ResultDmg max, ResultDmg np, ResultDmg star) {
 
         ResultEntity res1 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType1(), min.getC1(), max.getC1(), np.getC1(), star.getC1(),
-                "", ServantAvatar.getServantAvatar(servant.id));
+                calcEntity.getCardType1(), min.getC1(), max.getC1(),"", np.getC1(), star.getC1(),
+                "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res2 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType2(), min.getC2(), max.getC2(), np.getC2(), star.getC2(), "", ServantAvatar.getServantAvatar(servant.id));
+                calcEntity.getCardType2(), min.getC2(), max.getC2(),"", np.getC2(), star.getC2(), "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res3 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType3(), min.getC3(), max.getC3(), np.getC3(), star.getC3(), "", ServantAvatar.getServantAvatar(servant.id));
+                calcEntity.getCardType3(), min.getC3(), max.getC3(),"", np.getC3(), star.getC3(), "", ServantAvatarData.getServantAvatar(servant.id));
         ResultEntity res4 = new ResultEntity(ResultEntity.Companion.getTYPE_CARD(),
-                calcEntity.getCardType4(), min.getC4(), max.getC4(), np.getC4(), star.getC4(), "", ServantAvatar.getServantAvatar(servant.id));
+                calcEntity.getCardType4(), min.getC4(), max.getC4(), "",np.getC4(), star.getC4(), "", ServantAvatarData.getServantAvatar(servant.id));
 
         StringBuilder sumBuilder = new StringBuilder();
         sumBuilder.append("伤害总计：")
@@ -554,7 +568,7 @@ public class CalcViewModel extends AndroidViewModel {
                 .append(star.getSum())
                 .append("\n");
         ResultEntity resSum = new ResultEntity(ResultEntity.Companion.getTYEP_SUM(),
-                "", "", "", "", "", sumBuilder.toString(), ServantAvatar.getServantAvatar(servant.id));
+                "", "", "", "", "","", sumBuilder.toString(), ServantAvatarData.getServantAvatar(servant.id));
         List<ResultEntity> list = new ArrayList<>();
         list.add(res1);
         list.add(res2);

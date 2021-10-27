@@ -4,7 +4,6 @@ import android.Manifest;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -30,15 +29,13 @@ import org.phantancy.fgocalc.common.App;
 import org.phantancy.fgocalc.databinding.ActyMainBinding;
 import org.phantancy.fgocalc.event.DatabaseEvent;
 import org.phantancy.fgocalc.fragment.FilterFragment;
-import org.phantancy.fgocalc.fragment.GroupCalcFragment;
-import org.phantancy.fgocalc.fragment.MainFragment;
+import org.phantancy.fgocalc.groupcalc.fragment.GroupCalcFragment;
+import org.phantancy.fgocalc.fragment.ServantListFragment;
 import org.phantancy.fgocalc.fragment.SettingFragment;
 import org.phantancy.fgocalc.util.DisplayUtil;
-import org.phantancy.fgocalc.util.SharedPreferencesUtils;
 import org.phantancy.fgocalc.util.ToastUtils;
 import org.phantancy.fgocalc.viewmodel.MainViewModel;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,16 +106,16 @@ public class MainActy extends BaseActy {
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
-        fragments.add(new MainFragment(MainFragment.ENTRY_MAIN));
+        fragments.add(new ServantListFragment(ServantListFragment.ENTRY_MAIN));
         fragments.add(new FilterFragment());
-//        fragments.add(new GroupCalcFragment());
+        fragments.add(new GroupCalcFragment());
         fragments.add(new SettingFragment());
 
         //set tabs
         List<String> tabs = new ArrayList<>();
         tabs.add("搜索");
         tabs.add("筛选");
-//        tabs.add("编队");
+        tabs.add("编队");
         tabs.add("设置");
         //set viewpager
         CalcViewPagerAdapter pagerAdapter = new CalcViewPagerAdapter(this, fragments);
@@ -136,6 +133,9 @@ public class MainActy extends BaseActy {
                 binding.vpPager.setCurrentItem(page);
             }
         });
+
+        //默认显示编队计算
+        binding.vpPager.setCurrentItem(2);
 
     }
 

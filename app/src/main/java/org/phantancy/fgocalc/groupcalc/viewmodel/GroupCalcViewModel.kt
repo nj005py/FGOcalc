@@ -218,6 +218,24 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
         _memberGroup.value = list
     }
 
+    //还原编队成员
+    fun resetMember() {
+        val list = _memberGroup.value
+        list?.let {
+            //更新成员
+            for ((index, member) in list.withIndex()) {
+                //遍历成员卡
+                member.cards?.let {
+                    for (card in it) {
+                        card.svtPosition = index
+                        card.isVisible = true
+                    }
+                }
+            }
+        }
+        _memberGroup.value = list
+    }
+
     //清理选卡
     fun cleanChosenCards() {
 
@@ -230,6 +248,7 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
     //清理结果
     fun cleanResult() {
 //        parseServantsCards(servants)
+        mResultList.value = ArrayList<ResultEntity>()
     }
 
     //点击计算

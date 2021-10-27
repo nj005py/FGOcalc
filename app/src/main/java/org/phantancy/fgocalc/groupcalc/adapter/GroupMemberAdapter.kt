@@ -107,6 +107,24 @@ class GroupMemberAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    //还原列表
+    fun resetList(){
+        mList?.let {
+            chosenCardsCount = 0
+            //更新成员
+            for ((index, member) in it.withIndex()) {
+                //遍历成员卡
+                member.cards?.let {
+                    for (card in it) {
+                        card.svtPosition = index
+                        card.isVisible = true
+                    }
+                }
+            }
+            notifyDataSetChanged()
+        }
+    }
+
     //退回已选的卡
     fun returnEntity(x: CardBO) {
         //成员表位置，卡片位置设置显示

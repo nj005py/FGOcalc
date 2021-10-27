@@ -69,7 +69,7 @@ class GroupCalcFragment : BaseFragment() {
                 }
             }
         }
-        //设置条件、buff
+        //设置条件、buff 详细设置
         val settingLauncher = registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -185,7 +185,9 @@ class GroupCalcFragment : BaseFragment() {
         }
 
         binding.btnClean.setOnClickListener {
-            //todo 清理结果
+            vm.cleanResult()
+            chosenCardAdapter.cleanList()
+            memberAdapter.resetList()
         }
 
         //结果

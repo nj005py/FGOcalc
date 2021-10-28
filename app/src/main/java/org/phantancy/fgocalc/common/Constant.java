@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class Constant {
     //数据库版本
-    public static final int DATABASE_VERSION= 74;
+    public static final int DATABASE_VERSION= 75;
 
     //handler
     public static final int CHECK_APP_VERSION = 666;
 
     //头像最新ID
-    public static final int AVATAR_LATEST_ID = 323;
+    public static final int AVATAR_LATEST_ID = 326;
 
     //默认头像下载地址
     public static final String AVATAR_BASE_URL = "https://gitee.com/nj005py/fgocalc/raw/master/svt/";

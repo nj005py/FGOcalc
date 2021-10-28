@@ -354,9 +354,9 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
                     val sumAvg = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
                     val sumNp = statisticNp(member.cards[0].svtPosition,np,groupCalcBO.chosenCards)
                     val sumStar = statisticStar(member.cards[0].svtPosition,star,groupCalcBO.chosenCards)
-                    val sum = "${member.svtEntity.name}总结 \n${sumMin}-${sumMax} ${sumAvg} \n" +
+                    val sum = "${member.svtEntity.name}总结 \n${sumMin}-${sumMax} 平均${sumAvg} \n" +
                             "np获取${ParamsUtil.npGenResFormat(sumNp)}\n" +
-                            "打星获取${ParamsUtil.starDropResFormat(sumStar)}"
+                            "暴击星获取${ParamsUtil.starDropResFormat(sumStar)}"
                     resList.add(ResultEntity(type = ResultEntity.TYEP_SUM, sum = sum, avatar = ServantAvatarData.getServantAvatar(it.id)))
                 }
             }

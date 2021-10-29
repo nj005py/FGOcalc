@@ -55,7 +55,7 @@ class GroupCalcFragment : BaseFragment() {
         val memberAdapter = GroupMemberAdapter();
         //选卡适配器
         val chosenCardAdapter = GroupChosenCardAdapter()
-        //搜索从者
+        //搜索从者 添加成员
         val searchServantLauncher = registerForActivityResult(
                 ActivityResultContracts.StartActivityForResult()
         ) { result ->

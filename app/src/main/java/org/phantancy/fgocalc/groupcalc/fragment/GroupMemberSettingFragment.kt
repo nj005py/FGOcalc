@@ -87,7 +87,7 @@ class GroupMemberSettingFragment : LazyFragment() {
                 binding.viewAttribute.setContent(it.settingVO.attribute)
             } else {
                 val key = ConditionData.getAttributeKeys()[0]
-                val value = ConditionData.getAffinityValues()[0]
+                val value = ConditionData.getAttributeValues()[0]
                 binding.viewAttribute.setContent(key)
                 it.settingVO.attribute = key
                 it.settingBO.attributeMod = value

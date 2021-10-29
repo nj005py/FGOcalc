@@ -2,6 +2,7 @@ package org.phantancy.fgocalc.groupcalc.entity.bo
 
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import androidx.collection.SimpleArrayMap
 import org.phantancy.fgocalc.entity.NoblePhantasmEntity
 import org.phantancy.fgocalc.util.readSimpleArrayMap
@@ -35,6 +36,7 @@ data class GroupMemberSettingBO(
             parcel.readDouble()
             ) {
         readSimpleArrayMap(parcel,buffMap)
+        Log.d("parcel","affinityMod:${affinityMod} attributeMod:${attributeMod}")
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

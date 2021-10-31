@@ -75,9 +75,9 @@ public class SettingFragment extends BaseFragment {
                     case JOIN_GROUP:
                         joinGroup();
                         break;
-                    case GROUP_CALC:
-                        groupCalc();
-                        break;
+//                    case GROUP_CALC:
+//                        groupCalc();
+//                        break;
                 }
             }
         });
@@ -90,7 +90,7 @@ public class SettingFragment extends BaseFragment {
         list.add(new SettingEntity(FOLLOW, "关注作者"));
         list.add(new SettingEntity(JOIN_GROUP, "加QQ群"));
         list.add(new SettingEntity(ABOUT, "关于"));
-        list.add(new SettingEntity(GROUP_CALC, "编队计算"));
+//        list.add(new SettingEntity(GROUP_CALC, "编队计算"));
         return list;
     }
 

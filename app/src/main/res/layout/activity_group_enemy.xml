@@ -11,6 +11,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="敌方设置"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@color/blueWordPrimary"
+            />
+
+
         <!--敌人数量-->
         <LinearLayout style="@style/ConditionContainer">
 

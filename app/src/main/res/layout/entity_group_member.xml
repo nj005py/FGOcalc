@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="15dp"
-                android:text="设置详细"
+                android:text="详细设置"
                 android:textColor="@color/black"
                 android:textSize="14dp" />
 

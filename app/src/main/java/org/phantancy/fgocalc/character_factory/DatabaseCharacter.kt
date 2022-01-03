@@ -27,4 +27,11 @@ class DatabaseCharacter(val ctx: Context) {
         cd.setEntity(charEntity)
         cd.show()
     }
+
+    fun onUpdated(){
+        val cd = CharacterDialog(ctx);
+        val charEntity = CharacterEntity<Int>("数据库已更新",R.drawable.altria_a)
+        cd.setEntity(charEntity)
+        cd.show()
+    }
 }

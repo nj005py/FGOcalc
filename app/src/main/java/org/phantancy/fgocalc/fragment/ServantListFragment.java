@@ -15,6 +15,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +44,7 @@ public class ServantListFragment extends BaseFragment {
     //搜索界面
     public final static int ENTRY_SEARCH = 0X1;
     private int entry = ENTRY_MAIN;
+    private boolean isNewList = false;
 
     public ServantListFragment() {
     }
@@ -57,8 +60,8 @@ public class ServantListFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         vm = new ViewModelProvider(mActy).get(MainViewModel.class);
         //列表绑定适配器
         ServantAdapter adapter = new ServantAdapter();
@@ -74,6 +77,7 @@ public class ServantListFragment extends BaseFragment {
             public void onChanged(List<ServantEntity> servantEntities) {
                 Log.d(TAG, "size:" + servantEntities.size());
                 adapter.submitList(servantEntities);
+                isNewList = true;
             }
         });
 
@@ -149,6 +153,16 @@ public class ServantListFragment extends BaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG,"onResume");
+        if (isNewList) {
+            isNewList = false;
+            binding.rvList.scrollToPosition(0);
+        }
     }
 
     private void navigateCalc(ServantEntity svt, ImageView imageView) {

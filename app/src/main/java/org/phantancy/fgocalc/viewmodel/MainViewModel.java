@@ -77,6 +77,8 @@ public class MainViewModel extends AndroidViewModel {
         if (isDatabaseUpdated()) {
             deleteDbfile();
         }
+        // 更新信号
+        Constant.IS_DATABASE_UPDATED = true;
         calcRepository = new CalcRepository(app);
     }
 
@@ -100,6 +102,7 @@ public class MainViewModel extends AndroidViewModel {
         int installVersion = Constant.DATABASE_VERSION;
         int cachedVersion = SharedPreferencesUtils.getDatabaseVersion();
         if (installVersion > cachedVersion) {
+            SharedPreferencesUtils.setDatabaseVersion(installVersion);
             return true;
         } else {
             return false;

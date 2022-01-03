@@ -101,6 +101,9 @@ public class MainActy extends BaseActy {
                             vm.reloadDatabase();
                         }
                     }
+                    if (x.getCode() == DatabaseEvent.UPDATED) {
+                        new DatabaseCharacter(MainActy.this).onUpdated();
+                    }
                 });
         vm = new ViewModelProvider(this).get(MainViewModel.class);
         //搜索 筛选fragment

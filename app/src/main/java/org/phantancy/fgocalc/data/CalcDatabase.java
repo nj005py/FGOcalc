@@ -9,6 +9,7 @@ import androidx.room.RoomDatabase;
 
 import com.jeremyliao.liveeventbus.LiveEventBus;
 
+import org.phantancy.fgocalc.common.Constant;
 import org.phantancy.fgocalc.data.dao.NoblePhantasmDao;
 import org.phantancy.fgocalc.data.dao.ServantDao;
 import org.phantancy.fgocalc.data.dao.SvtExpDao;
@@ -53,11 +54,18 @@ public abstract class CalcDatabase extends RoomDatabase {
                     fos.write(buffer, 0, count);
                 }
                 Log.d(TAG,"db copy success");
-                boolean isFirstLoad = SharedPreferencesUtils.isFirstLoad();
+                boolean isFirstLoad = SharedPreferencesUtils.isFirstLoad();//首次加载
                 if (isFirstLoad) {
                     LiveEventBus.get(DatabaseEvent.class)
                             .post(new DatabaseEvent(DatabaseEvent.SUCCESS));
                     SharedPreferencesUtils.setFirstLoad();
+                } else {
+                    //判断更新
+                    if (Constant.IS_DATABASE_UPDATED) {
+                        LiveEventBus.get(DatabaseEvent.class)
+                                .post(new DatabaseEvent(DatabaseEvent.UPDATED));
+                        Constant.IS_DATABASE_UPDATED = false;
+                    }
                 }
                 fos.close();//关闭输出流
                 is.close();//关闭输入流

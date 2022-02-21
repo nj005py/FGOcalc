@@ -13,13 +13,13 @@ import java.util.Map;
 
 public class Constant {
     //数据库版本
-    public static final int DATABASE_VERSION= 78;
+    public static final int DATABASE_VERSION= 79;
 
     //app检测更新
     public static final int CHECK_APP_VERSION = 666;
 
     //头像最新ID
-    public static final int AVATAR_LATEST_ID = 334;
+    public static final int AVATAR_LATEST_ID = 336;
     //数据库有更新
     public static boolean IS_DATABASE_UPDATED = false;
 

@@ -11,8 +11,8 @@ android {
         applicationId "org.phantancy.fgocalc"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 67
-        versionName "2.1.1"
+        versionCode 68
+        versionName "2.1.2"
         // Enabling multidex support.
         multiDexEnabled false
         resConfigs "zh"

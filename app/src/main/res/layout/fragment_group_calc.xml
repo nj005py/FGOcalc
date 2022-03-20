@@ -3,7 +3,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorBackground"
+    >
 
     <!--控制按钮-->
     <LinearLayout
@@ -143,9 +145,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:gravity="center"
-                android:background="@color/blueWordAccent"
+                android:background="@color/colorPrimary"
                 android:text="@string/calc_result"
-                android:textColor="@color/blueWordDark"
+                android:textColor="@color/colorTextLight"
                 />
 
             <TextView

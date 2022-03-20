@@ -3,7 +3,7 @@
     android:color="@color/blueWordAccent">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/blueWordPrimary"></solid>
+            <solid android:color="@color/colorPrimary"></solid>
         </shape>
     </item>
 

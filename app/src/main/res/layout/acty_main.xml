@@ -14,7 +14,7 @@
         android:id="@+id/tl_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/blueWordPrimary"
+        android:background="@color/colorPrimary"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/grayWordTabbar"

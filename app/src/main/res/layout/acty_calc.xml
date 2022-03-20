@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:tabMode="scrollable"
-        android:background="@color/blueWordPrimary"
-        app:tabSelectedTextColor="@color/white"
+        android:background="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorTextLight"
         app:tabTextColor="@color/grayWordTabbar"
         app:tabIndicatorColor="@color/orange300"
         />

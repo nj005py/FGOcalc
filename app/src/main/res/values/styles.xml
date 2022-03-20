@@ -13,6 +13,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -231,7 +232,7 @@
         <item name="android:layout_weight">3.0</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">@color/blueWordDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="ConditionTips">
@@ -242,7 +243,7 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">start</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">@color/blueWordDark</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">@color/blue200</item>
     </style>
 
@@ -292,7 +293,7 @@
         <item name="android:layout_weight">1.0</item>
         <item name="android:background">@drawable/btn_blue_white</item>
         <item name="android:textSize">14dp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/colorTextLight</item>
     </style>
 
     <style name="ButtonWhite">
@@ -310,7 +311,8 @@
         <item name="android:paddingBottom">5dp</item>
         <item name="android:gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@drawable/ckb_blue</item>
+        <item name="android:textColor">@color/ckb_text</item>
+        <item name="android:background">@drawable/ckb_gray</item>
     </style>
 
     <style name="RadioButtonCalcType">

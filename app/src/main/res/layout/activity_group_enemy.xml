@@ -19,7 +19,7 @@
             android:text="敌方设置"
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:background="@color/blueWordPrimary"
+            android:background="@color/colorPrimary"
             />
 
 

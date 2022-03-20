@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/blueWordPrimary</color>
-    <color name="colorPrimaryDark">@color/blueWordDark</color>
+    <color name="colorPrimary">@color/blue800</color>
+    <color name="colorPrimaryDark">@color/blue900</color>
     <color name="colorAccent">@color/blueWordAccent</color>
+    <color name="colorTextLight">@color/white</color>
+    <color name="colorTextDark">@color/black</color>
+    <color name="colorBackground">@color/white</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -14,6 +17,10 @@
     <color name="gray300">#E0E0E0</color>
     <color name="gray400">#BDBDBD</color>
     <color name="gray500">#9E9E9E</color>
+    <color name="gray600">#757575</color>
+    <color name="gray700">#616161</color>
+    <color name="gray800">#424242</color>
+    <color name="gray900">#212121</color>
     <color name="grayWordTabbar">#E9E9E9</color>
     <color name="grayWordBackground">#F5F5F5</color>
     <color name="grayWordSelected">#BEBEBE</color>
@@ -24,4 +31,16 @@
     <color name="blueWordAccent">#C2D5F2</color>
     <color name="blue200">#BBDEFB</color>
     <color name="lightBlue300">#4FC3F7</color>
+    <color name="blue400">#42A5F5</color>
+    <color name="blue500">#2196F3</color>
+    <color name="blue600">#1E88E5</color>
+    <color name="blue700">#1976D2</color>
+    <color name="blue800">#1565C0</color>
+    <color name="blue900">#0D47A1</color>
+
+    <color name="cyan400">#26C6DA</color>
+    <color name="cyan500">#00BCD4</color>
+    <color name="cyan600">#00ACC1</color>
+    <color name="cyan700">#0097A7</color>
+
 </resources>

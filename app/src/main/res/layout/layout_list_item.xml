@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.0"
         android:paddingLeft="15dp"
-        android:textColor="@color/blueWordPrimary"
+        android:textColor="@color/colorTextDark"
         android:textSize="14dp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.0"
         android:paddingLeft="15dp"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextDark"
         android:textSize="14dp"
         />
 

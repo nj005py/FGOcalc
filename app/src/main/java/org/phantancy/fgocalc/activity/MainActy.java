@@ -109,15 +109,15 @@ public class MainActy extends BaseActy {
         //搜索 筛选fragment
         List<Fragment> fragments = new ArrayList<>();
         //准备fragment
-        fragments.add(new ServantListFragment(ServantListFragment.ENTRY_MAIN));
-        fragments.add(new FilterFragment());
+//        fragments.add(new ServantListFragment(ServantListFragment.ENTRY_MAIN));
+//        fragments.add(new FilterFragment());
         fragments.add(new GroupCalcFragment());
         fragments.add(new SettingFragment());
 
         //set tabs
         List<String> tabs = new ArrayList<>();
-        tabs.add("搜索");
-        tabs.add("筛选");
+//        tabs.add("搜索");
+//        tabs.add("筛选");
         tabs.add("编队");
         tabs.add("设置");
         //set viewpager

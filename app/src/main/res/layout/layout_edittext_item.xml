@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@color/white"
+    android:background="@color/colorBackground"
     >
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1.0"
         android:paddingLeft="15dp"
-        android:textColor="@color/blueWordDark"
+        android:textColor="@color/colorTextDark"
         android:textSize="14dp"
         android:gravity="start|center_vertical"
         />
@@ -26,7 +26,7 @@
         android:background="@null"
         android:inputType="number"
         android:maxLength="5"
-        android:textColor="@color/black"
+        android:textColor="@color/colorTextDark"
         android:textSize="14dp"
         />
 

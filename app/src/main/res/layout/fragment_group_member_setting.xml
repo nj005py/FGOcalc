@@ -70,7 +70,7 @@
                     android:gravity="start|center_vertical"
                     android:paddingLeft="15dp"
                     android:text="等级"
-                    android:textColor="@color/blueWordDark"
+                    android:textColor="@color/colorTextDark"
                     android:textSize="14dp" />
 
                 <com.warkiz.widget.IndicatorSeekBar
@@ -90,12 +90,12 @@
                     app:isb_show_thumb_text="true"
                     app:isb_show_tick_marks_type="oval"
                     app:isb_show_tick_texts="true"
-                    app:isb_thumb_color="@color/blueWordPrimary"
+                    app:isb_thumb_color="@color/colorPrimary"
                     app:isb_thumb_size="15dp"
-                    app:isb_thumb_text_color="@color/blueWordPrimary"
+                    app:isb_thumb_text_color="@color/colorPrimary"
                     app:isb_tick_marks_color="@drawable/selector_tick_marks_color"
                     app:isb_tick_marks_size="13dp"
-                    app:isb_tick_texts_color="@color/blueWordPrimary"
+                    app:isb_tick_texts_color="@color/colorPrimary"
                     app:isb_tick_texts_size="15sp"
                     app:isb_track_progress_color="@color/blueWordAccent"
                     app:isb_track_progress_size="4dp" />
@@ -171,7 +171,7 @@
                     android:layout_weight="1.0"
                     android:background="@drawable/btn_blue"
                     android:text="@string/svt_buff"
-                    android:textColor="@color/blueWordDark" />
+                    android:textColor="@color/colorTextDark" />
 
 
                 <Button
@@ -181,7 +181,7 @@
                     android:layout_weight="1.0"
                     android:background="@drawable/btn_blue"
                     android:text="@string/reset"
-                    android:textColor="@color/blueWordDark" />
+                    android:textColor="@color/colorTextDark" />
 
                 <Button
                     android:id="@+id/btn_shortcut_support"
@@ -190,7 +190,7 @@
                     android:layout_weight="1.0"
                     android:background="@drawable/btn_blue"
                     android:text="@string/shortcut_support"
-                    android:textColor="@color/blueWordDark" />
+                    android:textColor="@color/colorTextDark" />
 
 
                 <Button
@@ -200,7 +200,7 @@
                     android:layout_weight="1.0"
                     android:background="@drawable/btn_blue"
                     android:text="@string/shortcut_essence"
-                    android:textColor="@color/blueWordDark" />
+                    android:textColor="@color/colorTextDark" />
 
             </LinearLayout>
 

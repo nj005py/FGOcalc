@@ -6,11 +6,12 @@ import org.phantancy.fgocalc.R
 import org.phantancy.fgocalc.dialog.CharacterDialog
 import org.phantancy.fgocalc.entity.CharacterEntity
 import org.phantancy.fgocalc.event.DatabaseEvent
+import org.phantancy.fgocalc.util.ResUtils
 
 class DatabaseCharacter(val ctx: Context) {
     fun onError(){
         val cd = CharacterDialog(ctx)
-        val charEntity = CharacterEntity<Int>("数据库加载出错", R.drawable.altria_alter_b)
+        val charEntity = CharacterEntity<Int>(ResUtils.getString(R.string.load_database_error), R.drawable.altria_alter_b)
         charEntity.options = listOf(
                 CharacterEntity.OptionEntity("重新加载数据库") {
                     LiveEventBus.get(DatabaseEvent::class.java)

@@ -69,4 +69,6 @@
 
     <string name="save">保存</string>
 
+    <string name="load_database_error">数据库加载出错</string>
+
 </resources>

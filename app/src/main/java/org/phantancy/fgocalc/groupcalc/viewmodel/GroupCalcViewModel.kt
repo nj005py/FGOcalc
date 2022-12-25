@@ -350,8 +350,8 @@ class GroupCalcViewModel(app: Application) : AndroidViewModel(app) {
             for ((index, member) in it.withIndex()) {
                 member.svtEntity?.let {
                     val sumMax = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
-                    val sumMin = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
-                    val sumAvg = statisticDmg(member.cards[0].svtPosition, max, groupCalcBO.chosenCards)
+                    val sumMin = statisticDmg(member.cards[0].svtPosition, min, groupCalcBO.chosenCards)
+                    val sumAvg = statisticDmg(member.cards[0].svtPosition, avg, groupCalcBO.chosenCards)
                     val sumNp = statisticNp(member.cards[0].svtPosition,np,groupCalcBO.chosenCards)
                     val sumStar = statisticStar(member.cards[0].svtPosition,star,groupCalcBO.chosenCards)
                     val sum = "${member.svtEntity.name}总结 \n${sumMin}-${sumMax} 平均${sumAvg} \n" +
